@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: HomeController', function () {
+describe('Controller: ActivityFeedController', function () {
 
   // load the controller's module
-  beforeEach(module('wr.home'));
+  beforeEach(module('wr.activityFeed'));
 
-  var HomeController,
+  var ActivityFeedController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    HomeController = $controller('HomeController', {
+    ActivityFeedController = $controller('ActivityFeedController', {
       $scope: scope
     });
   }));

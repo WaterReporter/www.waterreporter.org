@@ -1,17 +1,17 @@
 'use strict';
 
-describe('Controller: HomeController', function () {
+describe('Controller: SubmitReportController', function () {
 
   // load the controller's module
-  beforeEach(module('wr.home'));
+  beforeEach(module('wr.submitReport'));
 
-  var HomeController,
+  var SubmitReportController,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    HomeController = $controller('HomeController', {
+    SubmitReportController = $controller('SubmitReportController', {
       $scope: scope
     });
   }));

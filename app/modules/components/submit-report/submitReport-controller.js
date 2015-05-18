@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name wr.home.controller:HomeController
+ * @name wr.submitReport.controller:SubmitReportController
  * @description
- * # HomeController
+ * # SubmitReportController
  * Controller of the waterReporterApp
  */
-angular.module('wr.home')
-  .controller('HomeController', function ($scope) {
+angular.module('wr.submitReport')
+  .controller('SubmitReportController', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

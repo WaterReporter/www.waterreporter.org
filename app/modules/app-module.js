@@ -15,5 +15,11 @@ angular
     'ngSanitize',
     'ui.router',
     'leaflet-directive',
-    'wr.home'
+    'wr.home',
+    'wr.about',
+    'wr.activityFeed',
+    'wr.map',
+    'wr.profile',
+    'wr.singleReport',
+    'wr.submitReport'
   ]);

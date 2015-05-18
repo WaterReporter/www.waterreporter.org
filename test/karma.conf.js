@@ -31,6 +31,12 @@ module.exports = function(config) {
       // endbower
       'app/modules/*.js',
       'app/modules/components/home/home-module.js',
+      'app/modules/components/about/about-module.js',
+      'app/modules/components/activity-feed/activityFeed-module.js',
+      'app/modules/components/map/map-module.js',
+      'app/modules/components/profile/profile-module.js',
+      'app/modules/components/single-report/singleReport-module.js',
+      'app/modules/components/submit-report/submitReport-module.js',
       'app/modules/components/**/*.js',
       'app/modules/shared/**/*.js',
       'test/spec/modules/components/**/*.js',

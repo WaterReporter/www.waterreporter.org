@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name wr.home.controller:HomeController
+ * @name wr.map.controller:MapController
  * @description
- * # HomeController
+ * # MapController
  * Controller of the waterReporterApp
  */
-angular.module('wr.home')
-  .controller('HomeController', function ($scope) {
+angular.module('wr.map')
+  .controller('MapController', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
