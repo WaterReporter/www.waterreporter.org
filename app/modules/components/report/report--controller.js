@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('wr.singleReport')
-  .controller('SingleReportController', function ($rootScope, $scope) {
+  .controller('ReportController', function ($rootScope) {
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
@@ -32,6 +32,6 @@ angular.module('wr.singleReport')
       }
     };
 
-    
+
 
   });
