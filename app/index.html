@@ -1,17 +1,26 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" data-ng-app="waterReporterApp">
   <head>
     <meta charset="utf-8">
-    <title>Water Reporter</title>
+    <title data-ng-bind="$root.page.title">WaterReporter</title>
     <base href="/" />
+
     <meta name="description" content="Online hub for the Water Reporter app, available for iOS and Android.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="{{ $root.meta.og.title }}" />
+    <meta property="og:type" content="{{ $root.meta.og.type }}" />
+    <meta property="og:url" content="{{ $root.meta.og.url }}" />
+    <meta property="og:description" content="{{ $root.meta.og.description }}" />
+    <meta property="place:location:latitude" content="{{ $root.meta.place.location.latitude }}" />
+    <meta property="place:location:longitude" content="{{ $root.meta.place.location.longitude }}" />
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -19,9 +28,10 @@
     <link rel="stylesheet" href="assets/styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="waterReporterApp">
-    <ng-include src="'/modules/shared/partials/header.html'"></ng-include>
-    <div ui-view></div>
+  <body>
+
+    <div data-ui-view=""></div>
+
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
@@ -35,6 +45,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -43,6 +54,7 @@
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
     <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -50,33 +62,33 @@
     <script src="modules/app-module.js"></script>
     <script src="modules/app-routes.js"></script>
 
-    <script src="modules/components/about/about-module.js"></script>
-    <script src="modules/components/about/about-routes.js"></script>
-    <script src="modules/components/about/about-controller.js"></script>
+        <script src="modules/components/about/about-module.js"></script>
+        <script src="modules/components/about/about-routes.js"></script>
+        <script src="modules/components/about/about-controller.js"></script>
 
-    <script src="modules/components/activity-feed/activityFeed-module.js"></script>
-    <script src="modules/components/activity-feed/activityFeed-routes.js"></script>
-    <script src="modules/components/activity-feed/activityFeed-controller.js"></script>
+        <script src="modules/components/activity-feed/activityFeed-module.js"></script>
+        <script src="modules/components/activity-feed/activityFeed-routes.js"></script>
+        <script src="modules/components/activity-feed/activityFeed-controller.js"></script>
 
-    <script src="modules/components/home/home-module.js"></script>
-    <script src="modules/components/home/home-routes.js"></script>
-    <script src="modules/components/home/home-controller.js"></script>
+        <script src="modules/components/home/home-module.js"></script>
+        <script src="modules/components/home/home-routes.js"></script>
+        <script src="modules/components/home/home-controller.js"></script>
 
-    <script src="modules/components/map/map-module.js"></script>
-    <script src="modules/components/map/map-routes.js"></script>
-    <script src="modules/components/map/map-controller.js"></script>
+        <script src="modules/components/map/map-module.js"></script>
+        <script src="modules/components/map/map-routes.js"></script>
+        <script src="modules/components/map/map-controller.js"></script>
 
-    <script src="modules/components/profile/profile-module.js"></script>
-    <script src="modules/components/profile/profile-routes.js"></script>
-    <script src="modules/components/profile/profile-controller.js"></script>
+        <script src="modules/components/profile/profile-module.js"></script>
+        <script src="modules/components/profile/profile-routes.js"></script>
+        <script src="modules/components/profile/profile-controller.js"></script>
 
-    <script src="modules/components/single-report/singleReport-module.js"></script>
-    <script src="modules/components/single-report/singleReport-routes.js"></script>
-    <script src="modules/components/single-report/singleReport-controller.js"></script>
+        <script src="modules/components/single-report/singleReport-module.js"></script>
+        <script src="modules/components/single-report/singleReport-routes.js"></script>
+        <script src="modules/components/single-report/singleReport-controller.js"></script>
 
-    <script src="modules/components/submit-report/submitReport-module.js"></script>
-    <script src="modules/components/submit-report/submitReport-routes.js"></script>
-    <script src="modules/components/submit-report/submitReport-controller.js"></script>
+        <script src="modules/components/submit-report/submitReport-module.js"></script>
+        <script src="modules/components/submit-report/submitReport-routes.js"></script>
+        <script src="modules/components/submit-report/submitReport-controller.js"></script>
     <!-- endbuild -->
 </body>
 </html>
