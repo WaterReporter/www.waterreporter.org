@@ -1,0 +1,15 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 100%; /* 16px */
+
+  p, a {
+    font-size: 0.875em; /* 14px */
+  }
+}

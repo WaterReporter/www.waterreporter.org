@@ -11,13 +11,16 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="assets/styles/main.css">
     <!-- endbuild -->
   </head>
   <body ng-app="waterReporterApp">
+    <ng-include src="'/modules/shared/partials/header.html'"></ng-include>
     <div ui-view></div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
