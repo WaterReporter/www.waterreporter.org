@@ -1587,16 +1587,5 @@
     "total_features": 147, 
     "total_pages": 6
   }, 
-  "type": "FeatureCollection",
-  "schema": {
-        "collection_name": "Reports",
-        "fields": [
-            {
-                "name": "email",
-                "label": "Email Address",
-                "type": "email",
-                
-            }
-        ]
-    }
+  "type": "FeatureCollection"
 }
