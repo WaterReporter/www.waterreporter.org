@@ -1588,5 +1588,14 @@
     "total_pages": 6
   }, 
   "type": "FeatureCollection",
-  "schema": {}
+  "schema": {
+        "collection_name": "Reports",
+        "fields": [
+            {
+                "name": "email",
+                "label": "Email Address",
+                "type": "email"
+            }
+        ]
+    }
 }
