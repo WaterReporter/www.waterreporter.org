@@ -1,5 +1,6 @@
 {
     "type": "FeatureCollection",
+    "schema": {},
     "features": [
         {
             "type": "Feature",
