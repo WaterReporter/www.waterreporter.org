@@ -1,159 +1,1602 @@
 {
-    "type": "FeatureCollection",
-    "schema": {},
-    "features": [
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.87088507656375,
-                    35.21515162500578
-                ]
-            },
-            "properties": {
-                "name": "ABBOTT NEIGHBORHOOD PARK",
-                "address": "1300  SPRUCE ST"
+  "features": [
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.71647614, 
+              39.47896833
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 579, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/9/attachments/12", 
+            "id": 138, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/9/attachments/11", 
+            "id": 160, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/9/attachments/10", 
+            "id": 168, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/9/attachments/9", 
+            "id": 175, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Cows in the creek", 
+        "created": null, 
+        "date": "2013-07-27", 
+        "id": 579, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.22607132, 
+              39.62774292
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 580, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/10/attachments/18", 
+            "id": 139, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/10/attachments/14", 
+            "id": 161, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/10/attachments/17", 
+            "id": 169, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/10/attachments/19", 
+            "id": 176, 
+            "status": "public"
+          }
+        ], 
+        "comments": "This was worse Jul 18-24; was relatively clear at 9:15 am today but  water flow/level increased and water started to get murky again by 11:00 am.", 
+        "created": null, 
+        "date": "2013-07-30", 
+        "id": 580, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:06:28.853200", 
+            "geometry": null, 
+            "id": 1, 
+            "name": "Discolored water", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper Member"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -117.213769, 
+              32.75385549
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 581, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/19/attachments/26", 
+            "id": 140, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Overwatering ", 
+        "created": null, 
+        "date": "2013-08-13", 
+        "id": 581, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:33.639755", 
+            "geometry": null, 
+            "id": 11, 
+            "name": "Other", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.26175174, 
+              38.88671799
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 582, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/20/attachments/27", 
+            "id": 141, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Cattle damage to river banks and manure run off potential exists here", 
+        "created": null, 
+        "date": "2013-08-20", 
+        "id": 582, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.89715144, 
+              39.11784699
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 583, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/21/attachments/28", 
+            "id": 142, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Cattle loaf in the Shenandoah River", 
+        "created": null, 
+        "date": "2013-08-20", 
+        "id": 583, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.39614158, 
+              38.77932043
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 584, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/22/attachments/29", 
+            "id": 143, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Cattle wallow in the South Fork Shenandoah River", 
+        "created": null, 
+        "date": "2013-08-20", 
+        "id": 584, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -76.62289223, 
+              39.2734726
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 585, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/28/attachments/34", 
+            "id": 144, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Excessive amount of trash in the tidal area of the gwynns falls near trash burning facility - near stadiums ", 
+        "created": null, 
+        "date": "2013-09-06", 
+        "id": 585, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:12:10.605251", 
+            "geometry": null, 
+            "id": 3, 
+            "name": "Excessive trash", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.25627082, 
+              39.5649166
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 586, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "Logging operation involving crossing Warm Spring Run. Exposed soil, silt in run, etc g", 
+        "created": null, 
+        "date": "2013-09-26", 
+        "id": 586, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:33.639755", 
+            "geometry": null, 
+            "id": 11, 
+            "name": "Other", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper Member"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.79702745, 
+              39.28177368
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 587, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/42/attachments/40", 
+            "id": 145, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Sinkhole across from Millville quarry", 
+        "created": null, 
+        "date": "2013-10-02", 
+        "id": 587, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:33.639755", 
+            "geometry": null, 
+            "id": 11, 
+            "name": "Other", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.78237933, 
+              39.82991579
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 588, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/43/attachments/43", 
+            "id": 146, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/43/attachments/46", 
+            "id": 162, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/43/attachments/42", 
+            "id": 170, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/arcgis/rest/services/pollution_report/FeatureServer/0/43/attachments/41", 
+            "id": 177, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Large patch of filamentous algae", 
+        "created": null, 
+        "date": "2013-10-03", 
+        "id": 588, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": null, 
+            "geometry": null, 
+            "id": 17, 
+            "name": "Excessive algae", 
+            "status": "public", 
+            "updated": "2014-07-10T11:53:19.358779"
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.78237933, 
+              39.82991579
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 589, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/43/attachments/41", 
+            "id": 178, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Large patch of filamentous algae", 
+        "created": null, 
+        "date": "2013-10-03", 
+        "id": 589, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": null, 
+            "geometry": null, 
+            "id": 17, 
+            "name": "Excessive algae", 
+            "status": "public", 
+            "updated": "2014-07-10T11:53:19.358779"
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.78237933, 
+              39.82991579
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 590, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/43/attachments/41", 
+            "id": 179, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Large patch of filamentous algae", 
+        "created": null, 
+        "date": "2013-10-03", 
+        "id": 590, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": null, 
+            "geometry": null, 
+            "id": 17, 
+            "name": "Excessive algae", 
+            "status": "public", 
+            "updated": "2014-07-10T11:53:19.358779"
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -76.53353694, 
+              39.08762341
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 591, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/46/attachments/47", 
+            "id": 147, 
+            "status": "public"
+          }
+        ], 
+        "comments": "", 
+        "created": null, 
+        "date": "2013-10-03", 
+        "id": 591, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:50.937964", 
+            "geometry": null, 
+            "id": 14, 
+            "name": "Stormwater", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": ""
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.38108092, 
+              39.38623408
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 592, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/48/attachments/48", 
+            "id": 180, 
+            "status": "public"
+          }
+        ], 
+        "comments": "milky white water is flowing from a small stream into Monocacy. This has happened before and might be coming from LaFarge North America , A&C  ?", 
+        "created": null, 
+        "date": "2013-10-10", 
+        "id": 592, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:06:28.853200", 
+            "geometry": null, 
+            "id": 1, 
+            "name": "Discolored water", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -76.50912464, 
+              39.0620772
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 593, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/51/attachments/52", 
+            "id": 149, 
+            "status": "public"
+          }
+        ], 
+        "comments": "", 
+        "created": null, 
+        "date": "2013-10-20", 
+        "id": 593, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:12:22.313376", 
+            "geometry": null, 
+            "id": 4, 
+            "name": "Exposed soil", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.18129289, 
+              39.16551667
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 594, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "Withdrawal from Abrams creek?", 
+        "created": null, 
+        "date": "2013-10-21", 
+        "id": 594, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:33.639755", 
+            "geometry": null, 
+            "id": 11, 
+            "name": "Other", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.48351626, 
+              38.86099975
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 595, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/54/attachments/54", 
+            "id": 150, 
+            "status": "public"
+          }
+        ], 
+        "comments": "", 
+        "created": null, 
+        "date": "2013-09-09", 
+        "id": 595, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -78.62987618, 
+              38.53295206
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 596, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/55/attachments/55", 
+            "id": 151, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Cattle pollute the South Fork Shenandoah River", 
+        "created": null, 
+        "date": "2013-07-29", 
+        "id": 596, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:18.950790", 
+            "geometry": null, 
+            "id": 9, 
+            "name": "Livestock in stream", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.08577329, 
+              38.98244735
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 598, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "Dalecarlia dumping sediment", 
+        "created": null, 
+        "date": "2013-11-19", 
+        "id": 598, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:06:28.853200", 
+            "geometry": null, 
+            "id": 1, 
+            "name": "Discolored water", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper Member"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.00845204, 
+              38.99034086
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 599, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/60/attachments/58", 
+            "id": 152, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Excessive silt", 
+        "created": null, 
+        "date": "2013-11-29", 
+        "id": 599, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:06:28.853200", 
+            "geometry": null, 
+            "id": 1, 
+            "name": "Discolored water", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.09659416, 
+              38.91764644
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 600, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "Looks like. A sewage leak by c&o canal", 
+        "created": null, 
+        "date": "2013-12-17", 
+        "id": 600, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:45.489625", 
+            "geometry": null, 
+            "id": 13, 
+            "name": "Sewer overflow", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.08906854, 
+              38.98668443
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 601, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "This sewage leak is along the c&o canal by the river by where the capital crescent trail goes over the canal", 
+        "created": null, 
+        "date": "2013-12-18", 
+        "id": 601, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:45.489625", 
+            "geometry": null, 
+            "id": 13, 
+            "name": "Sewer overflow", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.40508402, 
+              39.41579602
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 602, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/64/attachments/60", 
+            "id": 153, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/64/attachments/59", 
+            "id": 164, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Sediment runoff from crushed rock (?) parking lot", 
+        "created": null, 
+        "date": "2014-01-10", 
+        "id": 602, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:06:28.853200", 
+            "geometry": null, 
+            "id": 1, 
+            "name": "Discolored water", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Resident"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -76.76217653, 
+              37.95711701
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 603, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/68/attachments/65", 
+            "id": 154, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/68/attachments/64", 
+            "id": 165, 
+            "status": "public"
+          }, 
+          {
+            "caption": null, 
+            "created": null, 
+            "credit": null, 
+            "credit_link": null, 
+            "filename": null, 
+            "filepath": "http://services.arcgis.com/I6k5a3a8EwvGOEs3/ArcGIS/rest/services/pollution_report/FeatureServer/0/68/attachments/63", 
+            "id": 172, 
+            "status": "public"
+          }
+        ], 
+        "comments": "Was speaking at nearby community college", 
+        "created": null, 
+        "date": "2014-02-17", 
+        "id": 603, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:13:50.937964", 
+            "geometry": null, 
+            "id": 14, 
+            "name": "Stormwater", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Non-profit Organization Member"
+      }, 
+      "type": "Feature"
+    }, 
+    {
+      "geometry": {
+        "geometries": [
+          {
+            "coordinates": [
+              -77.00451655, 
+              38.87837754
+            ], 
+            "type": "Point"
+          }
+        ], 
+        "type": "GeometryCollection"
+      }, 
+      "id": 604, 
+      "properties": {
+        "attachment_76fc17d6574c401d9a20d18187f8083e": [], 
+        "comments": "", 
+        "created": null, 
+        "date": "2014-03-10", 
+        "id": 604, 
+        "is_a_pollution_report?": true, 
+        "status": "public", 
+        "type_05a300e835024771a51a6d3114e82abc": [
+          {
+            "created": "2014-05-19T11:12:22.313376", 
+            "geometry": null, 
+            "id": 4, 
+            "name": "Exposed soil", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "type_0e9423a9a393481f82c4f22ff5954567": [], 
+        "type_8f432efc18c545ea9578b4bdea860b4c": [
+          {
+            "created": "2014-05-19T10:20:24.919366", 
+            "geometry": null, 
+            "id": 2, 
+            "name": "Pollution Report", 
+            "status": "public", 
+            "updated": null
+          }
+        ], 
+        "updated": null, 
+        "useremail_address": null, 
+        "username": null, 
+        "usertitle": "Waterkeeper"
+      }, 
+      "type": "Feature"
+    }
+  ], 
+  "properties": {
+    "current_page": 1, 
+    "features_per_page": 25, 
+    "statistics": [], 
+    "total_features": 147, 
+    "total_pages": 6
+  }, 
+  "type": "FeatureCollection",
+  "schema": {
+        "collection_name": "Reports",
+        "fields": [
+            {
+                "name": "email",
+                "label": "Email Address",
+                "type": "email",
+                
             }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.83775386582222,
-                    35.24980190252168
-                ]
-            },
-            "properties": {
-                "name": "DOUBLE OAKS CENTER",
-                "address": "1326 WOODWARD AV"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.83827000459532,
-                    35.25674709224663
-                ]
-            },
-            "properties": {
-                "name": "DOUBLE OAKS NEIGHBORHOOD PARK",
-                "address": "2605  DOUBLE OAKS RD"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.83697759172735,
-                    35.25751734669229
-                ]
-            },
-            "properties": {
-                "name": "DOUBLE OAKS POOL",
-                "address": "1200 NEWLAND RD"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.81647652154736,
-                    35.40148708491418
-                ]
-            },
-            "properties": {
-                "name": "DAVID B. WAYMER FLYING REGIONAL PARK",
-                "address": "15401 HOLBROOKS RD"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Point",
-                "coordinates": [
-                    -80.83556459443902,
-                    35.39917224760999
-                ]
-            },
-            "properties": {
-                "name": "DAVID B. WAYMER COMMUNITY PARK",
-                "address": "302 HOLBROOKS RD"
-            }
-        },
-        {
-            "type": "Feature",
-            "geometry": {
-                "type": "Polygon",
-                "coordinates": [
-                    [
-                        [
-                            -80.72487831115721,
-                            35.26545403190955
-                        ],
-                        [
-                            -80.72135925292969,
-                            35.26727607954368
-                        ],
-                        [
-                            -80.71517944335938,
-                            35.26769654625573
-                        ],
-                        [
-                            -80.7125186920166,
-                            35.27035945142482
-                        ],
-                        [
-                            -80.70857048034668,
-                            35.268257165144064
-                        ],
-                        [
-                            -80.70479393005371,
-                            35.268397319259996
-                        ],
-                        [
-                            -80.70324897766113,
-                            35.26503355355979
-                        ],
-                        [
-                            -80.71088790893555,
-                            35.2553619492954
-                        ],
-                        [
-                            -80.71681022644043,
-                            35.2553619492954
-                        ],
-                        [
-                            -80.7150936126709,
-                            35.26054831539319
-                        ],
-                        [
-                            -80.71869850158691,
-                            35.26026797976481
-                        ],
-                        [
-                            -80.72032928466797,
-                            35.26061839914875
-                        ],
-                        [
-                            -80.72264671325684,
-                            35.26033806376283
-                        ],
-                        [
-                            -80.72487831115721,
-                            35.26545403190955
-                        ]
-                    ]
-                ]
-            },
-            "properties": {
-                "name": "Plaza Road Park"
-            }
-        }
-    ]
+        ]
+    }
 }
