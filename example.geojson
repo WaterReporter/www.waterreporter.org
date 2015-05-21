@@ -1594,7 +1594,7 @@
             {
                 "name": "usertitle",
                 "label": "User Title",
-                "type": "text"
+                "type": "text",
                 "options": {}
             },
             {
@@ -1610,7 +1610,7 @@
             },            {
                 "name": "comments",
                 "label": "Comments",
-                "type": "text"
+                "type": "text",
                 "options": {}
             },            {
                 "name": "is_pollution_report",
