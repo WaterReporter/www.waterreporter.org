@@ -1592,10 +1592,53 @@
         "collection_name": "Reports",
         "fields": [
             {
-                "name": "email",
+                "name": "usertitle",
+                "label": "User Title",
+                "type": "text"
+                "options": {}
+            },
+            {
+                "name": "username",
+                "label": "User Name",
+                "type": "text",
+                "options": {}
+            },            {
+                "name": "useremail_address",
                 "label": "Email Address",
-                "type": "email"
-            }
+                "type": "email",
+                "options": {}
+            },            {
+                "name": "comments",
+                "label": "Comments",
+                "type": "text"
+                "options": {}
+            },            {
+                "name": "is_pollution_report",
+                "label": "Pollution Report?",
+                "type": "boolean",
+                "options": {}
+            },            {
+                "name": "date",
+                "label": "Date",
+                "type": "date",
+                "options": {}
+            },            {
+                "name": "image",
+                "label": "Image",
+                "type": "attachment",
+                "options": {
+                  "validate_extension": [
+                    'jpg',
+                    'JPG',
+                    'jpeg',
+                    'JPEG',
+                    'gif',
+                    'GIF',
+                    'png',
+                    'PNG'
+                  ]
+                }
+            },
         ]
     }
 }
