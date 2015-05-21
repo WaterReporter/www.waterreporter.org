@@ -1628,14 +1628,14 @@
                 "type": "attachment",
                 "options": {
                   "validate_extension": [
-                    'jpg',
-                    'JPG',
-                    'jpeg',
-                    'JPEG',
-                    'gif',
-                    'GIF',
-                    'png',
-                    'PNG'
+                    "jpg",
+                    "JPG",
+                    "jpeg",
+                    "JPEG",
+                    "gif",
+                    "GIF",
+                    "png",
+                    "PNG"
                   ]
                 }
             }
