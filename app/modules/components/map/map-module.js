@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc overview
- * @name wr.map
+ * @name WaterReporter.map
  * @description
  * # Water Reporter App
  *
@@ -10,6 +10,6 @@
  */
 
 angular
-  .module('wr.map', [
+  .module('WaterReporter.map', [
     'ui.router'
   ]);

@@ -2,16 +2,11 @@
 
 /**
  * @ngdoc function
- * @name wr.map.controller:MapController
+ * @name WaterReporter.map.controller:MapController
  * @description
  * # MapController
  * Controller of the waterReporterApp
  */
-angular.module('wr.map')
+angular.module('WaterReporter.map')
   .controller('MapController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
   });

@@ -9,8 +9,8 @@
  * Routes for the states applying to the map page of the application.
  */
 
-angular.module('wr.map')
-  .config(function wrMapRoutes ($stateProvider) {
+angular.module('WaterReporter.map')
+  .config(function ($stateProvider) {
     $stateProvider
       .state('map', {
         url: '/map',

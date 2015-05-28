@@ -2,15 +2,16 @@
 
 /**
  * @ngdoc overview
- * @name wr.submitReport.config:submitReport-routes
+ * @name WaterReporter.submitReport.config:submitReport-routes
  * @description
  * # Water Reporter App
  *
  * Routes for the states applying to the submit report page of the application.
  */
 
-angular.module('wr.submitReport')
-  .config(function wrSubmitReportRoutes ($stateProvider) {
+angular.module('WaterReporter.submitReport')
+  .config(function ($stateProvider) {
+    
     $stateProvider
       .state('submit-report', {
         url: '/submit-report',
@@ -18,4 +19,5 @@ angular.module('wr.submitReport')
         controller: 'SubmitReportController',
         controllerAs: 'submitReport'
       });
+      
   });

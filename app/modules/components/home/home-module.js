@@ -10,6 +10,6 @@
  */
 
 angular
-  .module('wr.home', [
+  .module('WaterReporter.home', [
     'ui.router'
   ]);

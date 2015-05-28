@@ -7,7 +7,7 @@
  *     Display a single report based on the current `id` provided in the URL
  * Controller of the waterReporterApp
  */
-angular.module('wr.singleReport')
+angular.module('WaterReporter.singleReport')
   .controller('ReportController', function ($rootScope) {
 
     /**

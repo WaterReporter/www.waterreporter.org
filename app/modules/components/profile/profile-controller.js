@@ -2,16 +2,12 @@
 
 /**
  * @ngdoc function
- * @name wr.profile.controller:ProfileController
+ * @name WaterReporter.profile.controller:ProfileController
  * @description
  * # ProfileController
  * Controller of the waterReporterApp
  */
-angular.module('wr.profile')
+angular.module('WaterReporter.profile')
   .controller('ProfileController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    
   });

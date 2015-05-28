@@ -9,8 +9,8 @@
  * Routes for the states applying to the home page of the application.
  */
 
-angular.module('wr.home')
-  .config(function wrHomeRoutes ($stateProvider) {
+angular.module('WaterReporter.home')
+  .config(function ($stateProvider) {
     $stateProvider
       .state('home', {
         url: '/',
