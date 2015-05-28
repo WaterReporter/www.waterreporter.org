@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name wr.singleReport.controller:SingleReportController
+ * @name WaterReporter.report.controller:SingleReportController
  * @description
  *     Display a single report based on the current `id` provided in the URL
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.singleReport')
+angular.module('WaterReporter.report')
   .controller('ReportController', function ($rootScope) {
 
     /**

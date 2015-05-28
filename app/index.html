@@ -30,7 +30,11 @@
   </head>
   <body>
 
-    <div data-ui-view=""></div>
+    <div data-ui-view="SiteHeader"></div>
+
+    <div data-ui-view="SiteContent"></div>
+
+    <div data-ui-view="SiteFooter"></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -59,36 +63,36 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="modules/app-module.js"></script>
-    <script src="modules/app-routes.js"></script>
+    <script src="modules/app--module.js"></script>
+    <script src="modules/app--routes.js"></script>
 
-        <script src="modules/components/about/about-module.js"></script>
-        <script src="modules/components/about/about-routes.js"></script>
-        <script src="modules/components/about/about-controller.js"></script>
+        <script src="modules/components/about/about--module.js"></script>
+        <script src="modules/components/about/about--routes.js"></script>
+        <script src="modules/components/about/about--controller.js"></script>
 
-        <script src="modules/components/activity-feed/activityFeed-module.js"></script>
-        <script src="modules/components/activity-feed/activityFeed-routes.js"></script>
-        <script src="modules/components/activity-feed/activityFeed-controller.js"></script>
+        <script src="modules/components/activity/activity--module.js"></script>
+        <script src="modules/components/activity/activity--routes.js"></script>
+        <script src="modules/components/activity/activity--controller.js"></script>
 
-        <script src="modules/components/home/home-module.js"></script>
-        <script src="modules/components/home/home-routes.js"></script>
-        <script src="modules/components/home/home-controller.js"></script>
+        <script src="modules/components/home/home--module.js"></script>
+        <script src="modules/components/home/home--routes.js"></script>
+        <script src="modules/components/home/home--controller.js"></script>
 
-        <script src="modules/components/map/map-module.js"></script>
-        <script src="modules/components/map/map-routes.js"></script>
-        <script src="modules/components/map/map-controller.js"></script>
+        <script src="modules/components/map/map--module.js"></script>
+        <script src="modules/components/map/map--routes.js"></script>
+        <script src="modules/components/map/map--controller.js"></script>
 
-        <script src="modules/components/profile/profile-module.js"></script>
-        <script src="modules/components/profile/profile-routes.js"></script>
-        <script src="modules/components/profile/profile-controller.js"></script>
+        <script src="modules/components/profile/profile--module.js"></script>
+        <script src="modules/components/profile/profile--routes.js"></script>
+        <script src="modules/components/profile/profile--controller.js"></script>
 
         <script src="modules/components/report/report--module.js"></script>
         <script src="modules/components/report/report--routes.js"></script>
         <script src="modules/components/report/report--controller.js"></script>
 
-        <script src="modules/components/submit-report/submitReport-module.js"></script>
-        <script src="modules/components/submit-report/submitReport-routes.js"></script>
-        <script src="modules/components/submit-report/submitReport-controller.js"></script>
+        <script src="modules/components/submit-report/submitReport--module.js"></script>
+        <script src="modules/components/submit-report/submitReport--routes.js"></script>
+        <script src="modules/components/submit-report/submitReport--controller.js"></script>
     <!-- endbuild -->
 </body>
 </html>

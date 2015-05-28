@@ -3,7 +3,7 @@
 describe('Controller: ProfileController', function () {
 
   // load the controller's module
-  beforeEach(module('wr.profile'));
+  beforeEach(module('WaterReporter.profile'));
 
   var ProfileController,
     scope;
@@ -16,7 +16,4 @@ describe('Controller: ProfileController', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
 });

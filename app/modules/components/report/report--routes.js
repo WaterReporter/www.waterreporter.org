@@ -16,15 +16,15 @@ angular.module('WaterReporter.report')
       .state('report', {
         url: '/reports/:reportId',
         views: {
-          'siteHeader@': {
+          'SiteHeader@': {
             templateUrl: '/modules/shared/views/header--view.html'
           },
-          'siteContent@': {
+          'SiteContent@': {
             templateUrl: '/modules/components/report/report--view.html',
             controller: 'ReportController',
             controllerAs: 'report'
           },
-          'siteFooter@': {
+          'SiteFooter@': {
             templateUrl: '/modules/shared/views/footer--view.html'
           }
         }
