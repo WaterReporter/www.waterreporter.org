@@ -14,8 +14,18 @@ angular.module('WaterReporter.about')
     $stateProvider
       .state('about', {
         url: '/about',
-        templateUrl: '/modules/components/about/about--view.html',
-        controller: 'AboutController',
-        controllerAs: 'about'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/about/about--view.html',
+            controller: 'AboutController',
+            controllerAs: 'about'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
   });
