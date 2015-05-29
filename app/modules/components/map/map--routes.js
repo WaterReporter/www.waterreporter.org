@@ -14,8 +14,18 @@ angular.module('WaterReporter.map')
     $stateProvider
       .state('map', {
         url: '/map',
-        templateUrl: '/modules/components/map/map--view.html',
-        controller: 'MapController',
-        controllerAs: 'map'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/map/map--view.html',
+            controller: 'MapController',
+            controllerAs: 'map'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
   });
