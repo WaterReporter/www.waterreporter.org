@@ -14,8 +14,18 @@ angular.module('WaterReporter.profile')
     $stateProvider
       .state('profile', {
         url: '/profile',
-        templateUrl: '/modules/components/profile/profile--view.html',
-        controller: 'ProfileController',
-        controllerAs: 'profile'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/profile/profile--view.html',
+            controller: 'ProfileController',
+            controllerAs: 'profile'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
   });
