@@ -14,8 +14,18 @@ angular.module('WaterReporter.activity')
     $stateProvider
       .state('activity', {
         url: '/activity',
-        templateUrl: '/modules/components/activity/activity--view.html',
-        controller: 'ActivityController',
-        controllerAs: 'activityFeed'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/activity/activity--view.html',
+            controller: 'ActivityController',
+            controllerAs: 'activity'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
   });
