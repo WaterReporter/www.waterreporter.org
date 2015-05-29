@@ -4,9 +4,7 @@
  * @ngdoc overview
  * @name WaterReporter.about.config:about-routes
  * @description
- * # Water Reporter App
- *
- * Routes for the states applying to the about page of the application.
+ *     Routes for the states applying to the about page of the application.
  */
 
 angular.module('WaterReporter.about')
