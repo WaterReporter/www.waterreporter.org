@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name WaterReporter.submit.controller:SubmitReportController
+ * @name WaterReporter.submit.controller:SubmitController
  * @description
  * # SubmitReportController
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter.submit')
-  .controller('SubmitReportController', function ($scope) {
+  .controller('SubmitController', function ($scope) {
 
   });

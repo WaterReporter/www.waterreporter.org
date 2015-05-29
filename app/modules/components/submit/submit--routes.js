@@ -15,9 +15,19 @@ angular.module('WaterReporter.submit')
     $stateProvider
       .state('submit', {
         url: '/submit',
-        templateUrl: '/modules/components/submit-report/submitReport-view.html',
-        controller: 'SubmitReportController',
-        controllerAs: 'submitReport'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/submit/submit--view.html',
+            controller: 'SubmitController',
+            controllerAs: 'submit'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
       
   });
