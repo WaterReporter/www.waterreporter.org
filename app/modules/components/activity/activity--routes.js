@@ -12,8 +12,8 @@
 angular.module('WaterReporter.activity')
   .config(function ($stateProvider) {
     $stateProvider
-      .state('activity-feed', {
-        url: '/activity-feed',
+      .state('activity', {
+        url: '/activity',
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
         controllerAs: 'activityFeed'

@@ -7,39 +7,18 @@
 // @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 //
 
-//
-// Global Navigation
-//
-nav {
-  margin-top: 24px;
+.navigation--primary {
 
-  ul {
-    padding: 0;
-    text-align: right;
+}
 
-    li {
-      display: inline-block;
-      font-family: $font-sans;
-      font-size: 0.875em;
-      font-weight: 600;
-      -webkit-font-smoothing: antialiased;
-      list-style: none;
-      margin: 0 32px 0 0;
+.navigation--secondary {
 
-      a,
-      a:active,
-      a:link,
-      a:visited {
-        color: $color-white-darker;
-        text-decoration: none;
+}
 
-        &.active,
-        &:hover {
-          border-bottom: 2px solid $color-white-darker;
-          color: $color-white-darker;
-          text-decoration: none;
-        }
-      }
-    }
-  }
+.navigation--utility {
+
+}
+
+.navigation--contextual {
+
 }
