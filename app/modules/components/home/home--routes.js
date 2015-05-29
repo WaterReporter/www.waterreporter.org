@@ -14,8 +14,18 @@ angular.module('WaterReporter.home')
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: '/modules/components/home/home--view.html',
-        controller: 'HomeController',
-        controllerAs: 'home'
+        views: {
+          'SiteHeader@': {
+            templateUrl: '/modules/shared/views/header--view.html',
+          },
+          'SiteContent@': {
+            templateUrl: '/modules/components/home/home--view.html',
+            controller: 'HomeController',
+            controllerAs: 'home'
+          },
+          'SiteFooter@': {
+            templateUrl: '/modules/shared/views/footer--view.html',
+          }
+        }
       });
   });
