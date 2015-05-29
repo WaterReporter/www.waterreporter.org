@@ -4,8 +4,7 @@
  * @ngdoc overview
  * @name waterReporterApp
  * @description
- * # waterReporterApp
- *
+ *     The WaterReporter Website and associated User/Manager Site
  * Main module of the application.
  */
 angular
