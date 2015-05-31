@@ -2,30 +2,26 @@
 
 /**
  * @ngdoc overview
- * @name wr.singleReport.config:report-routes
+ * @name WaterReporter.singleReport.config:report-routes
  * @description
  * # Water Reporter App
  *
  * Routes for the states applying to the single report page of the application.
  */
 
-angular.module('WaterReporter.report')
-  .config(function ($stateProvider) {
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
     
-    $stateProvider
-      .state('report', {
-        url: '/reports/:reportId',
-        views: {
-          'SiteHeader@': {
-            templateUrl: '/modules/shared/views/header--view.html'
-          },
-          'SiteContent@': {
-            templateUrl: '/modules/components/report/report--view.html',
-            controller: 'ReportController',
-            controllerAs: 'report'
-          },
-          'SiteFooter@': {
-            templateUrl: '/modules/shared/views/footer--view.html'
+    $routeProvider
+      .when('/reports/:reportId', {
+        templateUrl: '/modules/components/report/report--view.html',
+        controller: 'ReportController',
+        controllerAs: 'report',
+        resolve: {
+          report: function($route, Report) {
+            return Report.get({
+              id: $route.current.params.reportId
+            });
           }
         }
       });

@@ -7,7 +7,7 @@
  * # ProfileController
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.profile')
+angular.module('WaterReporter')
   .controller('ProfileController', function ($scope) {
     
   });

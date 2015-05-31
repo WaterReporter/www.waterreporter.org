@@ -8,24 +8,12 @@
  *
  * Routes for the states applying to the home page of the application.
  */
-
-angular.module('WaterReporter.home')
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('home', {
-        url: '/',
-        views: {
-          'SiteHeader@': {
-            templateUrl: '/modules/shared/views/header--view.html',
-          },
-          'SiteContent@': {
-            templateUrl: '/modules/components/home/home--view.html',
-            controller: 'HomeController',
-            controllerAs: 'home'
-          },
-          'SiteFooter@': {
-            templateUrl: '/modules/shared/views/footer--view.html',
-          }
-        }
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: '/modules/components/home/home--view.html',
+        controller: 'HomeController',
+        controllerAs: 'home'
       });
   });

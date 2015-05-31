@@ -7,6 +7,9 @@
  * # ActivityFeedController
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.activity')
-  .controller('ActivityController', function ($scope) {
+angular.module('WaterReporter')
+  .controller('ActivityController', function (reports) {
+
+    this.reports = reports;
+    
   });

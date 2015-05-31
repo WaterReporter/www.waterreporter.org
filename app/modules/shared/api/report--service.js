@@ -8,8 +8,10 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Report', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/report/:reportId', {}, {
+  .service('Report', function ($resource) {
+    return $resource('http://api.waterreporter.org/v1/report/:id', {
+      id: '@id'
+    }, {
       query: {
         isArray: false
       },
@@ -17,4 +19,4 @@ angular.module('WaterReporter')
         method: 'PATCH'
       }
     });
-  }]);
+  });

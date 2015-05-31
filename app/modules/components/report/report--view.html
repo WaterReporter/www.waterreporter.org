@@ -1,8 +1,23 @@
-<main class="site--content site--content--report">
+<main class="site--content site--content--activity">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <p>This is the report view.</p>
+        <p>{{ report.report.properties.status }}</p>
+        <p>
+          <a href="/reports/{{ report.report.properties.id }}">{{ report.report.properties.id }}</a>
+        </p>
+        <p>{{ report.report.properties.report_date | date:"MMM d, yyyy"}}</p>
+
+        <figure data-ng-if="report.report.properties.images && report.report.properties.images.length">
+          <img data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.report.properties.images" width="640" />
+        </figure>
+
+        <p>{{ report.report.properties.report_description }}</p>
+
+        <p>
+          {{ report.report.geometry.geometries[0].coordinates[0] }}<br />
+          {{ report.report.geometry.geometries[0].coordinates[1] }}
+        </p>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" data-ng-app="waterReporterApp">
+<html class="no-js" data-ng-app="WaterReporter">
   <head>
     <meta charset="utf-8">
     <title data-ng-bind="$root.page.title">WaterReporter</title>
@@ -19,6 +19,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -29,11 +30,7 @@
   </head>
   <body>
 
-    <div data-ui-view="SiteHeader"></div>
-
-    <div data-ui-view="SiteContent"></div>
-
-    <div data-ui-view="SiteFooter"></div>
+    <div data-ng-view=""></div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -48,6 +45,7 @@
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -55,7 +53,8 @@
     <script src="bower_components/leaflet/dist/leaflet.js"></script>
     <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
     <script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
-    <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -69,31 +68,24 @@
         <script src="modules/shared/api/report--service.js"></script>
         <script src="modules/shared/api/user--service.js"></script>
 
-        <script src="modules/components/about/about--module.js"></script>
         <script src="modules/components/about/about--routes.js"></script>
         <script src="modules/components/about/about--controller.js"></script>
 
-        <script src="modules/components/activity/activity--module.js"></script>
         <script src="modules/components/activity/activity--routes.js"></script>
         <script src="modules/components/activity/activity--controller.js"></script>
 
-        <script src="modules/components/home/home--module.js"></script>
         <script src="modules/components/home/home--routes.js"></script>
         <script src="modules/components/home/home--controller.js"></script>
 
-        <script src="modules/components/map/map--module.js"></script>
         <script src="modules/components/map/map--routes.js"></script>
         <script src="modules/components/map/map--controller.js"></script>
 
-        <script src="modules/components/profile/profile--module.js"></script>
         <script src="modules/components/profile/profile--routes.js"></script>
         <script src="modules/components/profile/profile--controller.js"></script>
 
-        <script src="modules/components/report/report--module.js"></script>
         <script src="modules/components/report/report--routes.js"></script>
         <script src="modules/components/report/report--controller.js"></script>
 
-        <script src="modules/components/submit/submit--module.js"></script>
         <script src="modules/components/submit/submit--routes.js"></script>
         <script src="modules/components/submit/submit--controller.js"></script>
     <!-- endbuild -->

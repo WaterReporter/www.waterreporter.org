@@ -7,7 +7,7 @@
  * # HomeController
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.home')
-  .controller('HomeController', function ($scope) {
+angular.module('WaterReporter')
+  .controller('HomeController', function () {
     
   });

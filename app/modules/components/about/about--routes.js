@@ -7,23 +7,12 @@
  *     Routes for the states applying to the about page of the application.
  */
 
-angular.module('WaterReporter.about')
-  .config(function ($stateProvider) {
-    $stateProvider
-      .state('about', {
-        url: '/about',
-        views: {
-          'SiteHeader@': {
-            templateUrl: '/modules/shared/views/header--view.html',
-          },
-          'SiteContent@': {
-            templateUrl: '/modules/components/about/about--view.html',
-            controller: 'AboutController',
-            controllerAs: 'about'
-          },
-          'SiteFooter@': {
-            templateUrl: '/modules/shared/views/footer--view.html',
-          }
-        }
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/about', {
+        templateUrl: '/modules/components/about/about--view.html',
+        controller: 'AboutController',
+        controllerAs: 'about'
       });
   });

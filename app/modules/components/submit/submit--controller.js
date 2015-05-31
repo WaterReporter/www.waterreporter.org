@@ -7,7 +7,7 @@
  * # SubmitReportController
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.submit')
+angular.module('WaterReporter')
   .controller('SubmitController', function ($scope) {
 
   });

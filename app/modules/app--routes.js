@@ -7,15 +7,20 @@
  *     The WaterReporter Website and associated User/Manager Site
  *     Main routes of the application.
  */
-angular.module('waterReporterApp')
-  .config(function ($locationProvider, $urlRouterProvider) {
+angular.module('WaterReporter')
+  .config(function ($locationProvider, $routeProvider) {
+
+    $routeProvider
+      .otherwise({
+        redirectTo: '/'
+      });
 
     //
     // For any unmatched url, redirect to home
     //
     // @see https://github.com/angular-ui/ui-router/wiki/URL-Routing
     //
-    $urlRouterProvider.otherwise('/');
+    // $urlRouterProvider.otherwise('/');
 
     //
     // Make sure that HTML mode is enabled

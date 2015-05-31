@@ -7,8 +7,14 @@
  *     Display a single report based on the current `id` provided in the URL
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.report')
-  .controller('ReportController', function ($rootScope) {
+angular.module('WaterReporter')
+  .controller('ReportController', function ($rootScope, report) {
+
+    var self = this;
+
+    self.report = report;
+
+    console.log('report', report)
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
@@ -31,7 +37,5 @@ angular.module('WaterReporter.report')
         }
       }
     };
-
-
 
   });

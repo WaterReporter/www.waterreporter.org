@@ -7,11 +7,7 @@
  * # AboutController
  * Controller of the waterReporterApp
  */
-angular.module('WaterReporter.about')
+angular.module('WaterReporter')
   .controller('AboutController', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+
   });

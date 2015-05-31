@@ -2,23 +2,16 @@
 
 /**
  * @ngdoc overview
- * @name waterReporterApp
+ * @name WaterReporter
  * @description
  *     The WaterReporter Website and associated User/Manager Site
  * Main module of the application.
  */
 angular
-  .module('waterReporterApp', [
+  .module('WaterReporter', [
     'ngAria',
     'ngResource',
     'ngSanitize',
-    'ui.router',
-    'leaflet-directive',
-    'WaterReporter.home',
-    'WaterReporter.about',
-    'WaterReporter.activity',
-    'WaterReporter.map',
-    'WaterReporter.profile',
-    'WaterReporter.report',
-    'WaterReporter.submit'
+    'ngRoute',
+    'leaflet-directive'
   ]);
