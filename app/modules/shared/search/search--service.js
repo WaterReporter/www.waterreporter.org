@@ -79,7 +79,11 @@ angular.module('WaterReporter')
           var service = this,
               params = service.params,
               q = {
-                filters: []
+                filters: [],
+                order_by: [{
+                  field: 'report_date',
+                  direction: 'desc'
+                }]
               };
 
           //
