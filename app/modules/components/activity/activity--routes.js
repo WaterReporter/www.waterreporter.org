@@ -15,8 +15,13 @@ angular.module('WaterReporter')
         controller: 'ActivityController',
         controllerAs: 'activity',
         resolve: {
-          reports: function($location, $route, Report) {            
-            return Report.query($location.search());
+          reports: function($location, $route, Report) { 
+          
+            var search_params = $location.search();
+
+            console.log('search_params', search_params);
+
+            return Report.query(search_params);
           }
         }            
       });

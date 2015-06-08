@@ -1,3 +1,12 @@
+<a href='/activity?q=%7B"filters":%5B%7B"name":"report_description","op":"ilike","val":"%25cow%25"%7D%5D%7D'>Filter to cow posts</a>
+
+<form class="site--search site--search--content" role="form" id="form--search--reports" name="form--search--reports" data-ng-change="search.execute()">
+  <div class="form-control">
+    <input type="text" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="search.report_description" />
+  </div>
+</form>
+
+
 <main class="site--content site--content--activity">
   <div class="container">
     <div class="row" data-ng-repeat="report in activity.reports.features">
