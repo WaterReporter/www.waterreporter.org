@@ -8,24 +8,27 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function ($location, Report, reports, Search) {
+  .controller('ActivityController', function (Report, reports, Search) {
 
-    //
-    // Tell the 
-    //
-    this.reports = reports;
-
-    //
-    // Let this controller know we are going to be adding a search to our
-    // public facing view
-    //
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
     this.search = Search;
 
     this.search.params = Search.defaults();
 
-    //
-    // Tell the Search service about the type of content we'll be search
-    //
     this.search.model = {
       report_description: {
         name: 'report_description',
@@ -34,14 +37,8 @@ angular.module('WaterReporter')
       }
     };
 
-    //
-    //
-    //
     this.search.resource = Report;
 
-    //
-    // Tell the Search about the data we'll be using
-    //
-    this.search.data = this.reports;
+    this.search.data = reports;
 
   });
