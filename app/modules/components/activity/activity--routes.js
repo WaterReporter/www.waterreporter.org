@@ -41,6 +41,9 @@ angular.module('WaterReporter')
               direction: 'desc'
             });
 
+            //
+            // Execute our query so that we can get the Reports back
+            //
             return Report.query(search_params);
           }
         }            
