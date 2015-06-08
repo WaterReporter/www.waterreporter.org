@@ -7,7 +7,18 @@
 
 <main class="site--content site--content--activity">
   <div class="container">
-    <div class="row" data-ng-repeat="report in activity.search.data.features">
+
+    <!-- Empty Result Set -->
+    <div class="row" data-ng-if="!activity.search.data.features.length">
+      <div class="col-sm-12">
+      <p>Your search didn’t return any reports</p>
+      </div>
+    </div>
+
+    <!-- Truthy Result Set -->
+    <div class="row"
+         data-ng-if="activity.search.data.features.length"
+         data-ng-repeat="report in activity.search.data.features">
       <div class="col-sm-12">
         <p>{{ report.properties.status }}</p>
         <p>

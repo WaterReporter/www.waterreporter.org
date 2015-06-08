@@ -18,7 +18,8 @@ angular.module('WaterReporter')
         build: function() {
 
         }
-       }
+       },
+       
      };
 
 
@@ -29,6 +30,50 @@ angular.module('WaterReporter')
         resource: {},
         model: {},
         data: {},
+        defaults: function() {
+
+          var q = ($location.search() && $location.search().q) ? angular.fromJson($location.search().q): [],
+              params = {};
+
+          //
+          // If no q.filters are present in the browser's address bar, then we
+          // need to exit now and simply return an empty array.
+          //
+          if (!q.filters || !q.filters.length) {
+            return params;
+          }
+
+          //
+          // However, if there are available q.filters, we need to process those
+          // and get those values autopopulated in the view so the user isn't
+          // confused by the empty fields with filtered results
+          //
+          angular.forEach(q.filters, function(filter, $index) {
+
+            //
+            // Build the value for the filter
+            //
+            if (filter.op === 'ilike') {
+              //
+              // With iLike we use a % at the beginning and end of the string
+              // so that the data base knows where to start and end looking
+              // for the user defined string.
+              //
+              // When the user reloads the page we need to make sure that those
+              // %'s are automatically removed from the string so as not to
+              // confuse the user.
+              //
+              params[filter.name] = filter.val.slice(1,-1);
+            }
+            else {
+              params[filter.name] = filter.val;
+            }
+
+          });
+
+          return params;
+       },
+       params: {}, // On initial page load, load in our defaults from the address bar
         execute: function() {
 
           var service = this,
@@ -73,11 +118,10 @@ angular.module('WaterReporter')
           });
 
           //
-          // Finally, 
+          // Finally, use the resource to load the new Features based on the
+          // user-defined query input.
           //
-          console.log('$resource', service.resource);
           service.resource.query($location.search()).$promise.then(function(response) {
-            console.log('response', response);
             service.data = response;
           });
         }

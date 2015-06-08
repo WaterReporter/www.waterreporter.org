@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (reports, Search, Report) {
+  .controller('ActivityController', function ($location, Report, reports, Search) {
 
     //
     // Tell the 
@@ -20,6 +20,8 @@ angular.module('WaterReporter')
     // public facing view
     //
     this.search = Search;
+
+    this.search.params = Search.defaults();
 
     //
     // Tell the Search service about the type of content we'll be search
@@ -41,5 +43,5 @@ angular.module('WaterReporter')
     // Tell the Search about the data we'll be using
     //
     this.search.data = this.reports;
-        
+
   });
