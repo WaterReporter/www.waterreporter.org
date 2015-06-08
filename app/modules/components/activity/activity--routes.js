@@ -14,6 +14,7 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
         controllerAs: 'activity',
+        reloadOnSearch: false,
         resolve: {
           reports: function($location, $route, Report) { 
             return Report.query($location.search());

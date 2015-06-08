@@ -13,19 +13,22 @@ angular.module('WaterReporter')
     /**
      * Private Functions and Variables for the Search Service
      */
+     var _Search = {
+       filter: {
+        build: function() {
+
+        }
+       }
+     };
 
 
     /**
      * Public Functions and Variables for the Search Service
      */
-     return {
-        model: {
-          report_description: {
-            name: 'report_description',
-            op: 'ilike',
-            val: ''
-          }
-        },
+     var Search = {
+        resource: {},
+        model: {},
+        data: {},
         execute: function() {
 
           var service = this,
@@ -69,6 +72,16 @@ angular.module('WaterReporter')
             'q': angular.toJson(q)
           });
 
+          //
+          // Finally, 
+          //
+          console.log('$resource', service.resource);
+          service.resource.query($location.search()).$promise.then(function(response) {
+            console.log('response', response);
+            service.data = response;
+          });
         }
      };
+
+     return Search;
   });
