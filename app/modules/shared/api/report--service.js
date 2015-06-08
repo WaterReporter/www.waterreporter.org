@@ -9,7 +9,7 @@
  */
 angular.module('WaterReporter')
   .service('Report', function ($resource) {
-    return $resource('http://api.waterreporter.org/v1/report/:id', {
+    return $resource('http://api.waterreporter.org/v1/data/report/:id', {
       id: '@id'
     }, {
       query: {

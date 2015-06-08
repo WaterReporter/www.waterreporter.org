@@ -9,7 +9,7 @@
  */
 angular.module('WaterReporter')
   .service('Image', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/image/:imageId', {}, {
+    return $resource('//api.waterreporter.org/v1/data/image/:imageId', {}, {
       query: {
         isArray: false
       },
