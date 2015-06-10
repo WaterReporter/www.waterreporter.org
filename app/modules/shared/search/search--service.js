@@ -74,7 +74,11 @@ angular.module('WaterReporter')
           return params;
        },
        params: {}, // On initial page load, load in our defaults from the address bar
-        execute: function() {
+       autoload: function() {
+        console.log('GRRRRRR')
+        this.execute(true);
+       },
+       execute: function(append) {
 
           var service = this,
               params = service.params,
@@ -126,7 +130,7 @@ angular.module('WaterReporter')
           // user-defined query input.
           //
           service.resource.query($location.search()).$promise.then(function(response) {
-            service.data = response;
+            service.data = (append) ? service.data.features+=response.features : response;
           });
         }
      };

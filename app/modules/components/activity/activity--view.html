@@ -6,16 +6,16 @@
 
 
 <main class="site--content site--content--activity">
-  <div class="container">
+  <div class="container" search-scroll-to-load="activity.search.autoload()">
 
-    <!-- Empty Result Set -->
+    <!-- Untruthy Result Set (0) -->
     <div class="row" data-ng-if="!activity.search.data.features.length">
       <div class="col-sm-12">
       <p>Your search didn’t return any reports</p>
       </div>
     </div>
 
-    <!-- Truthy Result Set -->
+    <!-- Truthy Result Set (1+) -->
     <div class="row"
          data-ng-if="activity.search.data.features.length"
          data-ng-repeat="report in activity.search.data.features">
