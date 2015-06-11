@@ -27,7 +27,7 @@
         <p>{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
 
         <figure data-ng-if="report.properties.images && report.properties.images.length">
-          <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" width="640" class="blah" />
+          <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" />
         </figure>
 
         <p>{{ report.properties.report_description }}</p>

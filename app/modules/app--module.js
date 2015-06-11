@@ -13,5 +13,6 @@ angular
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'leaflet-directive'
+    'leaflet-directive',
+    'angularPhotoio'
   ]);
