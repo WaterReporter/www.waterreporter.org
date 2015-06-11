@@ -70,6 +70,10 @@ angular.module('WaterReporter')
        autoload: function() {
         this.execute(true);
        },
+       hashtag: function(tag, field) {
+          this.params[field] = tag;
+          this.execute();
+       },
        execute: function(append) {
 
           var service = this,
