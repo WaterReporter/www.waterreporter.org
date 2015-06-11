@@ -41,7 +41,7 @@ angular.module('WaterReporter')
           // and get those values autopopulated in the view so the user isn't
           // confused by the empty fields with filtered results
           //
-          angular.forEach(q.filters, function(filter, $index) {
+          angular.forEach(q.filters, function(filter) {
 
             //
             // Build the value for the filter
@@ -68,7 +68,7 @@ angular.module('WaterReporter')
        },
        params: {}, // On initial page load, load in our defaults from the address bar
        autoload: function() {
-        console.log('GRRRRRR')
+        console.log('Search.autoload() fired')
         this.execute(true);
        },
        execute: function(append) {
