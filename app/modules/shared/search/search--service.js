@@ -68,7 +68,6 @@ angular.module('WaterReporter')
        },
        params: {}, // On initial page load, load in our defaults from the address bar
        autoload: function() {
-        console.log('Search.autoload() fired')
         this.execute(true);
        },
        execute: function(append) {
