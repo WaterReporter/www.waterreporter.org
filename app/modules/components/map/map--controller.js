@@ -8,5 +8,5 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('MapController', function ($scope) {
+  .controller('MapController', function () {
   });

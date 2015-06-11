@@ -8,6 +8,6 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('SubmitController', function ($scope) {
+  .controller('SubmitController', function () {
 
   });
