@@ -14,7 +14,7 @@ angular.module('WaterReporter')
 
     self.report = report;
 
-    console.log('report', report)
+    console.log('report', report);
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
