@@ -27,7 +27,15 @@
         </figure>
 
         <p>{{ report.properties.report_description }}</p>
-        
+
+        <ul data-ng-if="report.properties.tags.length">
+          <li data-ng-repeat="tag in report.properties.tags">
+            <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
+              #{{ tag.properties.tag }}
+            </a>
+          </li>
+        </ul>
+
         <p>
           {{ report.geometry.geometries[0].coordinates[0] }}<br />
           {{ report.geometry.geometries[0].coordinates[1] }}
