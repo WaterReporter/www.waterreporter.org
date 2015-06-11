@@ -13,14 +13,7 @@ angular.module('WaterReporter')
     /**
      * Private Functions and Variables for the Search Service
      */
-     var _Search = {
-       filter: {
-        build: function() {
-
-        }
-       },
-       
-     };
+     var _Search = {};
 
 
     /**
