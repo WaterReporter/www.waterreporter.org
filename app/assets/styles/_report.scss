@@ -1,0 +1,17 @@
+//
+// _report.scss
+//
+// This stylesheet is written in SASS(1) and contains site wide form
+// specifications.
+//
+// @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
+//
+
+
+.report--status--open {
+  border-top: 3px solid $color-red-base;
+}
+
+.report--status--closed {
+  border-top: 3px solid $color-green-base;
+}
