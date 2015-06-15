@@ -8,6 +8,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function () {
-    
+  .controller('ProfileController', function (organizations, profile) {
+    this.data = profile;
+    this.organizations = organizations;
   });

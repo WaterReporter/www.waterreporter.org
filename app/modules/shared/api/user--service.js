@@ -9,12 +9,19 @@
  */
 angular.module('WaterReporter')
   .service('User', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/user/:userId', {}, {
+    return $resource('//api.waterreporter.org/v1/data/user/:id', {
+      id: '@id'
+    }, {
       query: {
         isArray: false
       },
       update: {
         method: 'PATCH'
+      },
+      getOrganizations: {
+        method: 'GET',
+        isArray: false,
+        url: '//api.waterreporter.org/v1/data/user/:id/organization'
       }
     });
   }]);

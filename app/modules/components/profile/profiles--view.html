@@ -6,7 +6,9 @@
       <div class="panel-heading">
           <img class="pull-left img-circle" data-ng-if="profile.properties.email" gravatar-src="'{{ profile.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
           <p>
-            {{ profile.properties.first_name }} {{ profile.properties.last_name }}<br />
+            <a href="/profiles/{{ profile.id }}">
+              {{ profile.properties.first_name }} {{ profile.properties.last_name }}
+            </a><br />
             {{ profile.properties.title }} <span data-ng-if="profile.properties.title && profile.properties.organization_name">at</span><br data-ng-if="profile.properties.title && profile.properties.organization_name" />
             {{ profile.properties.organization_name }}
           </p>

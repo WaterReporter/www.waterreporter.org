@@ -1,10 +1,18 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
-<main class="site--content site--content-profile">
+<main class="site--content site--content--map">
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <p>This is the profile view.</p>
+    <div id="user--profile--{{ profile.data.id }}" class="panel panel-default">
+      <div class="panel-heading">
+          <img class="pull-left img-circle" data-ng-if="profile.data.properties.email" gravatar-src="'{{ profile.data.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+          <p>
+            {{ profile.data.properties.first_name }} {{ profile.data.properties.last_name }}<br />
+            {{ profile.data.properties.title }} <span data-ng-if="profile.data.properties.title && profile.data.properties.organization_name">at</span><br data-ng-if="profile.data.properties.title && profile.data.properties.organization_name" />
+            {{ profile.data.properties.organization_name }}
+          </p>
+      </div>
+      <div class="panel-body">
+         
       </div>
     </div>
   </div>

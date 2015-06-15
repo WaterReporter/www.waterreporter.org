@@ -44,6 +44,18 @@ angular.module('WaterReporter')
       .when('/profiles/:userId', {
         templateUrl: '/modules/components/profile/profile--view.html',
         controller: 'ProfileController',
-        controllerAs: 'profile'
+        controllerAs: 'profile',
+        resolve: {
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          },
+          organizations: function($route, User) {
+            return User.getOrganizations({
+              id: $route.current.params.userId
+            });
+          }
+        }
       });
   });
