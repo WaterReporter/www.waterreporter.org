@@ -19,6 +19,19 @@
 
     <div class="row">
       <div id="report--{{ report.data.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.data.properties.state === 'open'), 'report--state--closed': (report.data.properties.state === 'closed') }">
+        <span data-ng-if="report.data.properties.state === 'open'" class="label label-danger">OPEN REPORT</span>
+        <span data-ng-if="report.data.properties.state === 'closed'" class="label label-success">CLOSED REPORT</span>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+            <img class="pull-left" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+            <p class="pull-left">
+              {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}<br />
+              {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
+              {{ report.data.properties.owner.properties.organization_name }}
+            </p>
+          </div>
+        </div>
 
         <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
 <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.data.properties.images" /> -->

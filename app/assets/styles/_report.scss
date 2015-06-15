@@ -8,10 +8,10 @@
 //
 
 
-.report--status--open {
+.report--state--open {
   border-top: 3px solid $color-red-base;
 }
 
-.report--status--closed {
+.report--state--closed {
   border-top: 3px solid $color-green-base;
 }
