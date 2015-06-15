@@ -4,7 +4,9 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <leaflet class="map" geojson="activity.map.geojson.reports" geojson-nested="true"></leaflet>
+        <leaflet class="map" markers="activity.map.markers" defaults="activity.map.defaults" layers="activity.map.layers" center="activity.map.center" geojson="activity.map.geojson" geojson-nested="true"></leaflet>
+
+        <pre ng-bind="activity.map.geojson | json"></pre>
       </div>
     </div>
   </div>

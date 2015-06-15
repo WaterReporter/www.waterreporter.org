@@ -56,7 +56,10 @@ angular.module('WaterReporter')
      this.map = Map;
 
      reports.$promise.then(function(reports_) {
-        self.map.geojson.reports = reports_;
+        self.map.geojson.reports = {
+            data: reports_,
+            styles: self.map.styles.icon.parcel
+        };
      });
 
   });
