@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name WaterReporter.profile.controller:ProfileController
+ * @name WaterReporter.profile.controller:ProfilesController
  * @description
- * # ProfileController
+ * # ProfilesController
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function () {
+  .controller('ProfilesController', function () {
     
   });

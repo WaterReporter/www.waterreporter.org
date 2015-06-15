@@ -16,5 +16,10 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/profile/profile--view.html',
         controller: 'ProfileController',
         controllerAs: 'profile'
-      });
+      })
+      .when('/profile/:userId', {
+        templateUrl: '/modules/components/profile/profiles--view.html',
+        controller: 'ProfilesController',
+        controllerAs: 'profile'
+      });      
   });
