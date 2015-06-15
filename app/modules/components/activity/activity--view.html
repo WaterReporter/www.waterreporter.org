@@ -8,15 +8,15 @@
 
 <main class="site--content site--content--activity">
   <aside class="site--content--statistics">
-    <ul>
+    <ul data-ng-if="activity.search.data.properties.num_results !== undefined">
       <li>
-        <a href="/activity">{{ activity.search.data.properties.num_results | number:0 }} Reports</a>
+        <a href="/activity/">{{ activity.search.data.properties.num_results | number:0 }} Reports</a>
       </li>
       <li>
-        <a href='/activity?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
+        <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
       </li>
       <li>
-        <a href='/activity?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Open</a>
+        <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Open</a>
       </li>
     </ul>
   </aside>
