@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('MapController', function (leafletData, Map, mapbox, Report, reports, Search) {
+  .controller('MapController', function (mapboxGeometry, leafletData, Map, mapbox, Report, reports, Search) {
 
     var self = this;
 
@@ -61,7 +61,28 @@ angular.module('WaterReporter')
             styles: self.map.styles.icon.parcel
         };
 
-        self.map.bounds = self.map.getBounds();
+        //
+        // Define a layer to add geometries to later
+        //
+        // @see http://leafletjs.com/reference.html#featuregroup
+        //
+        var featureGroup = new L.FeatureGroup();
+
+        mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
+
+             //
+             // @hack
+             //    this is only a temporary solution until we get the new `bbox`
+             //    functionality within the WaterReporter API
+             //
+            leafletData.getMap().then(function(map) {
+            var bounds = featureGroup.getBounds();
+
+            if (bounds && bounds._southWest !== undefined) {
+                map.fitBounds(featureGroup.getBounds());
+            }
+        });
+        
      });
 
   });
