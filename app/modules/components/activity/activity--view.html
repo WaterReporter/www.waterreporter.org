@@ -22,6 +22,11 @@
          data-ng-if="activity.search.data.features.length"
          data-ng-repeat="report in activity.search.data.features">
       <div id="report--{{ report.properties.id }}" class="col-sm-12" data-ng-class="{'report--status--open': (report.properties.status === 'public'), 'report--status--closed': (report.properties.status === 'closed') }">
+        <p>{{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}</p>
+        <p>
+          {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+          {{ report.properties.owner.properties.organization_name }}
+        </p>
         <p>{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
 
         <figure data-ng-if="report.properties.images && report.properties.images.length">
