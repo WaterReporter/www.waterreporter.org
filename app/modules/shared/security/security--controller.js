@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', ['$http', '$location', 'Security', 'ipCookie', '$route', '$timeout', function ($http, $location, Security, ipCookie, $route, $timeout) {
+  .controller('SecurityController', function ($http, $location, Security, ipCookie, $route, $timeout) {
 
     var self = this;
 
@@ -70,17 +70,17 @@ angular.module('WaterReporter')
             self.login.processing = false;
             self.login.success = true;
 
-            ipCookie.remove('SNAPOLOGY_COMMERCE_SESSION');
-            ipCookie.remove('SNAPOLOGY_COMMERCE_LICENSEE');
+            ipCookie.remove('WATERREPORTER_COMMERCE_SESSION');
+            ipCookie.remove('WATERREPORTER_COMMERCE_LICENSEE');
 
-            ipCookie('SNAPOLOGY_COMMERCE_SESSION', response.access_token, self.cookieOptions);
-            ipCookie('SNAPOLOGY_COMMERCE_LICENSEE', $route.current.params.licensee, self.cookieOptions);
+            ipCookie('WATERREPORTER_COMMERCE_SESSION', response.access_token, self.cookieOptions);
+            ipCookie('WATERREPORTER_COMMERCE_LICENSEE', $route.current.params.licensee, self.cookieOptions);
 
             //
             // Direct the user to the next step in the registration process
             //
             $location.hash('');
-            $location.path('/licensee/' + ipCookie('SNAPOLOGY_COMMERCE_LICENSEE') + '/registration/');
+            $location.path('/licensee/' + ipCookie('WATERREPORTER_COMMERCE_LICENSEE') + '/registration/');
           }
         }, function(error){
           self.login.processing = false;
@@ -139,4 +139,4 @@ angular.module('WaterReporter')
       }
     };
 
-  }]);
+  });

@@ -9,6 +9,8 @@
  */
 angular
   .module('WaterReporter', [
+    'ngCookies',
+    'ipCookie',
     'ngAria',
     'ngResource',
     'ngSanitize',
@@ -16,7 +18,5 @@ angular
     'leaflet-directive',
     'angularPhotoio',
     'ui.gravatar',
-    'Mapbox',
-    'ipCookie',
-    'ngCookies'
+    'Mapbox'
   ]);

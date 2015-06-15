@@ -9,7 +9,7 @@
  * Main module of the application.
  */
 angular.module('WaterReporter')
-  .config(['$routeProvider', function ($routeProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/user', {
         redirectTo: '/user/login'
@@ -17,7 +17,6 @@ angular.module('WaterReporter')
       .when('/user/login', {
         templateUrl: '/modules/shared/security/securityLogin--view.html',
         controller: 'SecurityController',
-        controllerAs: 'security',
-        reloadOnSearch: false
+        controllerAs: 'security'
       });
-  }]);
+  });

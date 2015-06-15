@@ -10,29 +10,29 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Security', ['$cookies', '$http', '$resource', function($cookies, $http, $resource) {
+  .service('Security', function(ipCookie, $http, $resource) {
 
-    var Security = $resource('https://api.snapology.com/login', {}, {
+    var Security = $resource('//api.waterreporter.org/login', {}, {
       save: {
         method: 'POST',
-        url: 'https://api.snapology.com/oauth/remote',
+        url: '//api.waterreporter.org/v1/auth/remote',
         params: {
           response_type: 'token',
-          client_id: 'SbanCzYpm0fUW8md1cdSJjUoYI78zTbak2XhZ2hC',
-          redirect_uri: 'http://localhost:9000/authorize',
-          scope: 'user applications',
+          client_id: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku',
+          redirect_uri: 'http://127.0.0.1:9000/authorize',
+          scope: 'user',
           state: 'json'
         }
       },
       register: {
         method: 'POST',
-        url: 'https://api.snapology.com/account/create'
+        url: '//api.waterreporter.org/v1/user/register'
       }
     });
 
     Security.has_token = function() {
-      return ($cookies.SNAPOLOGY_COMMERCE_SESSION) ? true: false;
+      return (ipCookie('WATERREPORTER_COMMERCE_SESSION')) ? true: false;
     };
 
     return Security;
-  }]);
+  });
