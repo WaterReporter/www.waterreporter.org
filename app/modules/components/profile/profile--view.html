@@ -12,9 +12,116 @@
           </p>
       </div>
       <div class="panel-body">
-         
       </div>
+        {{ profile.data.properties.description }}
     </div>
+
+    <main class="site--content site--content--activity container">
+
+      <div class="container" search-scroll-to-load="activity.search.autoload()">
+
+        <aside class="site--content--statistics">
+          <ul data-ng-if="profile.reports.properties.num_results !== undefined">
+            <li>
+              <a href="/activity/">{{ profile.reports.properties.num_results | number:0 }} Reports</a>
+            </li>
+            <li>
+              <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
+            </li>
+            <li>
+              <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Closed</a>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Untruthy Result Set (0) -->
+        <div class="row" data-ng-if="!profile.reports.features.length">
+          <div class="col-sm-12">
+          <p>Your search didn’t return any reports</p>
+          </div>
+        </div>
+
+        <!-- Truthy Result Set (1+) -->
+        <div class="row"
+             data-ng-if="profile.reports.features.length"
+             data-ng-repeat="report in profile.reports.features">
+          <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
+            <div class="panel-heading">
+              <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
+              <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+              <p>
+                <a href="/profiles/{{ report.properties.owner.id }}">
+                  {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
+                </a><br />
+                {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+                {{ report.properties.owner.properties.organization_name }}
+              </p>
+            </div>
+            <div class="panel-body">
+
+              <figure data-ng-if="report.properties.images && report.properties.images.length">
+      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
+                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+              </figure>
+
+              <p>{{ report.properties.report_description }}</p>
+
+              <ul data-ng-if="report.properties.tags.length">
+                <li data-ng-repeat="tag in report.properties.tags">
+                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
+                    #{{ tag.properties.tag }}
+                  </a>
+                </li>
+              </ul>
+
+              <p>
+                {{ report.geometry.geometries[0].coordinates[0] }}<br />
+                {{ report.geometry.geometries[0].coordinates[1] }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Load More Results -->
+        <div class="row">
+          <div class="col-sm-12">
+            <!-- <a data-ng-click="activity.search.autoload()" class="button">Load More</a> -->
+          </div>
+        </div>
+
+        <footer class="features-footer">
+          <nav class="pager" data-ng-if="profile.reports.properties.page === 1 && profile.reports.properties.total_pages === 1">
+            <!-- If your on Page 1 and there's less than or equal to 10 results total -->
+            <span class="page">
+              Showing all {{ profile.reports.properties.num_results }} reports
+            </span>
+          </nav>
+          <nav class="pager" data-ng-if="profile.reports.properties.total_pages > 1">
+            <a data-ng-show="profile.reports.properties.total_pages >= profile.reports.properties.page && profile.reports.properties.page !== 1" href="javascript:void(0);" data-ng-click="activity.search.paginate(profile.reports.properties.page-1)" class="previous">
+              Previous
+            </a>
+            <span data-ng-show="!activity.paginationLabel" data-ng-click="activity.paginationLabel =! activity.paginationLabel" class="page">Page {{ profile.reports.properties.page }} of {{ profile.reports.properties.total_pages }}</span>
+            <span data-ng-show="activity.paginationLabel" data-ng-click="activity.paginationLabel =! activity.paginationLabel" class="page">
+              <span data-ng-if="profile.reports.properties.page === 1 && profile.reports.properties.total_pages > 1">
+                Showing 1 - 10 of {{ profile.reports.properties.num_results | number:0 }} reports
+              </span>
+
+              <span data-ng-if="profile.reports.properties.page > 1 && profile.reports.properties.page !== profile.reports.properties.total_pages">
+                Showing <span data-ng-bind="((profile.reports.properties.page-1)*10+1)"></span> - <span data-ng-bind="profile.reports.properties.page*10"></span> of {{ profile.reports.properties.num_results | number:0 }} reports
+              </span>
+
+              <span data-ng-if="profile.reports.properties.page > 1 && profile.reports.properties.page === profile.reports.properties.total_pages">
+                Showing <span data-ng-bind="((profile.reports.properties.page-1)*10+1)"></span> - {{ profile.reports.properties.num_results }} of {{ profile.reports.properties.num_results | number:0 }} reports
+              </span>
+            </span>
+            <a data-ng-show="profile.reports.properties.total_pages !== profile.reports.properties.page" href="javascript:void(0);" data-ng-click="activity.search.paginate(profile.reports.properties.page+1)" class="next">
+              Next
+            </a>
+          </nav>
+        </footer>
+
+      </div>
+    </main>
   </div>
 </main>
 

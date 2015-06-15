@@ -45,7 +45,9 @@
           <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
           <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
           <p>
-            {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}<br />
+            <a href="/profiles/{{ report.properties.owner.id }}">
+              {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
+            </a><br />
             {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
             {{ report.properties.owner.properties.organization_name }}
           </p>
