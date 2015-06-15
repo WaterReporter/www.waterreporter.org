@@ -26,16 +26,12 @@ angular.module('Mapbox')
           }
         }
       },
-      center: {
-        lng: -76.534, 
-        lat: 39.134,
-        zoom: 11
-      },
+      center: {},
       styles: {
         icon: {
           parcel: {
-            iconUrl: '/images/pin-l+cc0000.png?access_token=' + mapbox.access_token,
-            iconRetinaUrl: '/images/pin-l+cc0000@2x.png?access_token=' + mapbox.access_token,
+            iconUrl: 'https://api.tiles.mapbox.com/v4/marker/pin-l-cc0000.png?access_token=' + mapbox.access_token,
+            iconRetinaUrl: 'https://api.tiles.mapbox.com/v4/marker/pin-l-cc0000@2x.png?access_token=' + mapbox.access_token,
             iconSize: [35, 90],
             iconAnchor: [18, 44],
             popupAnchor: [0, 0]

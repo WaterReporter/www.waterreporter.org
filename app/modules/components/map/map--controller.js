@@ -10,6 +10,8 @@
 angular.module('WaterReporter')
   .controller('MapController', function (leafletData, Map, mapbox, Report, reports, Search) {
 
+    var self = this;
+
     /**
      * Setup search capabilities for the Report Activity Feed
      *
@@ -41,12 +43,20 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
+
     /**
      * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
      *
      */
      this.map = Map;
 
-     this.map.reports = reports;
+     reports.$promise.then(function(reports_) {
+        self.map.geojson.reports = reports_;
+     });
 
   });
