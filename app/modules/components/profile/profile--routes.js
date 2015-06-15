@@ -21,5 +21,5 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/profile/profiles--view.html',
         controller: 'ProfilesController',
         controllerAs: 'profile'
-      });      
+      });
   });
