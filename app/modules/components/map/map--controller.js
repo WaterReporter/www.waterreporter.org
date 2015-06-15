@@ -60,6 +60,8 @@ angular.module('WaterReporter')
             data: reports_,
             styles: self.map.styles.icon.parcel
         };
+
+        self.map.bounds = self.map.getBounds();
      });
 
   });
