@@ -24,9 +24,13 @@
         <div class="row">
           <div class="col-sm-12">
             <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-            <img class="pull-left" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+            <a href="/profiles/{{ report.data.properties.owner.id }}">
+              <img class="pull-left" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+            </a>
             <p class="pull-left">
-              {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}<br />
+              <a href="/profiles/{{ report.data.properties.owner.id }}">
+                {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
+              </a><br />
               {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
               {{ report.data.properties.owner.properties.organization_name }}
             </p>

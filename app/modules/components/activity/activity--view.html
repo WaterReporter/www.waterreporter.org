@@ -43,7 +43,9 @@
       <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
         <div class="panel-heading">
           <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
-          <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+          <a href="/profiles/{{ report.properties.owner.id }}">
+            <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+          </a>
           <p>
             <a href="/profiles/{{ report.properties.owner.id }}">
               {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
@@ -56,7 +58,9 @@
 
           <figure data-ng-if="report.properties.images && report.properties.images.length">
   <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-            <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+            <a href="/reports/{{ report.id }}">
+              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+            </a>
           </figure>
 
           <p>{{ report.properties.report_description }}</p>
