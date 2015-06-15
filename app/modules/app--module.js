@@ -16,5 +16,7 @@ angular
     'leaflet-directive',
     'angularPhotoio',
     'ui.gravatar',
-    'Mapbox'
+    'Mapbox',
+    'ipCookie',
+    'ngCookies'
   ]);
