@@ -11,6 +11,9 @@ angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/activity', {
+        redirectTo: '/activity/list'
+      })
+      .when('/activity/list', {
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
         controllerAs: 'activity',
