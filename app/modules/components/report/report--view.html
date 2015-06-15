@@ -19,17 +19,6 @@
 
     <div class="row">
       <div id="report--{{ report.data.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.data.properties.state === 'open'), 'report--state--closed': (report.data.properties.state === 'closed') }">
-        <div class="row">
-          <div class="col-sm-12">
-            <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-            <img class="pull-left" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
-            <p class="pull-left">
-              {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}<br />
-              {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
-              {{ report.data.properties.owner.properties.organization_name }}
-            </p>
-          </div>
-        </div>
 
         <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
 <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.data.properties.images" /> -->
@@ -54,12 +43,27 @@
       <hr />
     </div>
 
-    <h2>Comments</h2>
+    <div class="row" data-ng-if="!report.data.properties.comments.length">
+      <div class="col-sm-12">
+        No response from water keeper
+      </div>
+    </div>
+
+    <div id="report--comment--{{ $index }}" class="row" data-ng-if="report.data.properties.comments.length" data-ng-repeat="comment in report.data.properties.comments track by $index">
+      <div class="col-sm-4 text-center">
+        <img data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+        <p>
+          {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
+        </p>
+        <p>{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+      </div>
+      <div class="col-sm-8">
+        {{ comment.properties.body }}
+      </div>
+    </div>
 
     <div class="row">
-      <div class="col-sm-12">
-        
-      </div>
+      <!-- Once a user is logged in, they'll be able to leave a comment -->
     </div>
 
   </div>
