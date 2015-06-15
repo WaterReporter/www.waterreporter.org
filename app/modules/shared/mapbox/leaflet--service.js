@@ -9,8 +9,6 @@
 angular.module('Mapbox')
   .service('Map', ['mapbox', function (mapbox) {
 
-    var self = this;
-
     var Map = {
       defaults: {
         scrollWheelZoom: false,

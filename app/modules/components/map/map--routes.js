@@ -18,7 +18,7 @@ angular.module('WaterReporter')
       .when('/activity/map', {
         templateUrl: '/modules/components/map/map--view.html',
         controller: 'MapController',
-        controllerAs: 'map',
+        controllerAs: 'activity',
         resolve: {
           reports: function($location, $route, Report) {
 

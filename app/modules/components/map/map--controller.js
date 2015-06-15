@@ -45,6 +45,8 @@ angular.module('WaterReporter')
      * Setup the Mapbox map for this page with the results we got from the API
      *
      */
+     this.map = Map;
 
+     this.map.reports = reports;
 
   });
