@@ -8,7 +8,7 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Search', function ($location) {
+  .service('Search', function ($location, $route) {
     
     /**
      * Private Functions and Variables for the Search Service
@@ -67,7 +67,17 @@ angular.module('WaterReporter')
           return params;
        },
        params: {}, // On initial page load, load in our defaults from the address bar
-       autoload: function() {
+       paginate: function(pageNumber) {
+        var params = $location.search();
+
+        if (angular.isObject(params.q)) {
+          $location.search('q', JSON.stringify(params.q));
+        }
+
+        $location.search('page', pageNumber);
+        $route.reload();
+      },
+      autoload: function() {
         this.execute(true);
        },
        hashtag: function(tag, field) {
