@@ -35,16 +35,21 @@
          data-ng-if="activity.search.data.features.length"
          data-ng-repeat="report in activity.search.data.features">
       <div id="report--{{ report.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
-        <p>{{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}</p>
-        <p>
-          {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
-          {{ report.properties.owner.properties.organization_name }}
-        </p>
-        <p>{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
+            <img class="pull-left" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" />
+            <p class="pull-left">
+              {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}<br />
+              {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+              {{ report.properties.owner.properties.organization_name }}
+            </p>
+          </div>
+        </div>
 
         <figure data-ng-if="report.properties.images && report.properties.images.length">
 <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-          <img data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+          <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
         </figure>
 
         <p>{{ report.properties.report_description }}</p>
@@ -62,6 +67,7 @@
           {{ report.geometry.geometries[0].coordinates[1] }}
         </p>
       </div>
+      <hr />
     </div>
 
     <!-- Load More Results -->

@@ -14,5 +14,6 @@ angular
     'ngSanitize',
     'ngRoute',
     'leaflet-directive',
-    'angularPhotoio'
+    'angularPhotoio',
+    'ui.gravatar'
   ]);
