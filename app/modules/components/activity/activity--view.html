@@ -13,10 +13,10 @@
         <a href="/activity">{{ activity.search.data.properties.num_results | number:0 }} Reports</a>
       </li>
       <li>
-        <a href='/activity?q={"filters":[{"name":"status","op":"eq","val":"open"}]}'>--- Open</a>
+        <a href='/activity?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
       </li>
       <li>
-        <a href='/activity?q={"filters":[{"name":"status","op":"eq","val":"closed"}]}'>--- Open</a>
+        <a href='/activity?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Open</a>
       </li>
     </ul>
   </aside>
@@ -34,7 +34,7 @@
     <div class="row"
          data-ng-if="activity.search.data.features.length"
          data-ng-repeat="report in activity.search.data.features">
-      <div id="report--{{ report.properties.id }}" class="col-sm-12" data-ng-class="{'report--status--open': (report.properties.status === 'open'), 'report--status--closed': (report.properties.status === 'closed') }">
+      <div id="report--{{ report.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
         <p>{{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}</p>
         <p>
           {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
