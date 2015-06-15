@@ -68,6 +68,9 @@ angular.module('WaterReporter')
        },
        params: {}, // On initial page load, load in our defaults from the address bar
        paginate: function(pageNumber) {
+
+        console.log(pageNumber)
+
         var params = $location.search();
 
         if (angular.isObject(params.q)) {
