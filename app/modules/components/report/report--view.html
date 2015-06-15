@@ -1,27 +1,67 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content site--content--activity">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <p>{{ report.report.properties.status }}</p>
-        <p>
-          <a href="/reports/{{ report.report.properties.id }}">{{ report.report.properties.id }}</a>
-        </p>
-        <p>{{ report.report.properties.report_date | date:"MMM d, yyyy"}}</p>
+  <aside class="site--content--statistics">
+    <ul data-ng-if="activity.search.data.properties.num_results !== undefined">
+      <li>
+        <a href="/activity/">{{ activity.search.data.properties.num_results | number:0 }} Reports</a>
+      </li>
+      <li>
+        <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
+      </li>
+      <li>
+        <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Closed</a>
+      </li>
+    </ul>
+  </aside>
 
-        <figure data-ng-if="report.report.properties.images && report.report.properties.images.length">
-          <img data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.report.properties.images" width="640" />
+  <div class="container" search-scroll-to-load="activity.search.autoload()">
+
+    <div class="row">
+      <div id="report--{{ report.data.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.data.properties.state === 'open'), 'report--state--closed': (report.data.properties.state === 'closed') }">
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+            <img class="pull-left" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+            <p class="pull-left">
+              {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}<br />
+              {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
+              {{ report.data.properties.owner.properties.organization_name }}
+            </p>
+          </div>
+        </div>
+
+        <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
+<!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.data.properties.images" /> -->
+          <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.data.properties.images" />
         </figure>
 
-        <p>{{ report.report.properties.report_description }}</p>
+        <p>{{ report.data.properties.report_description }}</p>
+
+        <ul data-ng-if="report.data.properties.tags.length">
+          <li data-ng-repeat="tag in report.data.properties.tags">
+            <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
+              #{{ tag.properties.tag }}
+            </a>
+          </li>
+        </ul>
 
         <p>
-          {{ report.report.geometry.geometries[0].coordinates[0] }}<br />
-          {{ report.report.geometry.geometries[0].coordinates[1] }}
+          {{ report.data.geometry.geometries[0].coordinates[0] }}<br />
+          {{ report.data.geometry.geometries[0].coordinates[1] }}
         </p>
       </div>
+      <hr />
     </div>
+
+    <h2>Comments</h2>
+
+    <div class="row">
+      <div class="col-sm-12">
+        
+      </div>
+    </div>
+
   </div>
 </main>
 

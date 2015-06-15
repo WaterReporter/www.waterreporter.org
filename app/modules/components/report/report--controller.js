@@ -12,9 +12,7 @@ angular.module('WaterReporter')
 
     var self = this;
 
-    self.report = report;
-
-    console.log('report', report);
+    self.data = report;
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
