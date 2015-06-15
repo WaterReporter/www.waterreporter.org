@@ -19,6 +19,7 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/map/map--view.html',
         controller: 'MapController',
         controllerAs: 'activity',
+        reloadOnSearch: false,
         resolve: {
           reports: function($location, $route, Report) {
 
