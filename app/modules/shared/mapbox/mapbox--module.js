@@ -8,13 +8,6 @@
  * Main module of the application.
  */
 angular
-  .module('WaterReporter', [
-    'ngAria',
-    'ngResource',
-    'ngSanitize',
-    'ngRoute',
-    'leaflet-directive',
-    'angularPhotoio',
-    'ui.gravatar',
-    'Mapbox'
+  .module('Mapbox', [
+    'leaflet-directive'
   ]);
