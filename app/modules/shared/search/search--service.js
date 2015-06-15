@@ -87,6 +87,10 @@ angular.module('WaterReporter')
           this.params[field] = tag;
           this.execute();
        },
+       clear: function() {
+        $location.search('');
+        $route.reload();
+       },
        execute: function(append) {
 
           var service = this,
