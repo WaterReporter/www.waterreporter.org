@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('MapController', function (mapboxGeometry, leafletData, Map, mapbox, Report, reports, Search) {
+  .controller('MapController', function (mapboxGeometry, leafletData, Map, mapbox, Report, reports, $scope, Search) {
 
     var self = this;
 
@@ -55,34 +55,44 @@ angular.module('WaterReporter')
      */
      this.map = Map;
 
-     reports.$promise.then(function(reports_) {
-        self.map.geojson.reports = {
-            data: reports_,
-            styles: self.map.styles.icon.parcel
-        };
 
-        //
-        // Define a layer to add geometries to later
-        //
-        // @see http://leafletjs.com/reference.html#featuregroup
-        //
-        var featureGroup = new L.FeatureGroup();
+    $scope.$watch(angular.bind(this, function (name) {
+      return this.search;
+    }), function (newVal) {
 
-        mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
+        if (self.search && self.search.data) {
 
-             //
-             // @hack
-             //    this is only a temporary solution until we get the new `bbox`
-             //    functionality within the WaterReporter API
-             //
-            leafletData.getMap().then(function(map) {
-            var bounds = featureGroup.getBounds();
+             self.search.data.$promise.then(function(reports_) {
+                self.map.geojson.reports = {
+                    data: reports_,
+                    styles: self.map.styles.icon.parcel
+                };
 
-            if (bounds && bounds._southWest !== undefined) {
-                map.fitBounds(featureGroup.getBounds());
-            }
-        });
-        
-     });
+                //
+                // Define a layer to add geometries to later
+                //
+                // @see http://leafletjs.com/reference.html#featuregroup
+                //
+                var featureGroup = new L.FeatureGroup();
+
+                mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
+
+                     //
+                     // @hack
+                     //    this is only a temporary solution until we get the new `bbox`
+                     //    functionality within the WaterReporter API
+                     //
+                    leafletData.getMap().then(function(map) {
+                    var bounds = featureGroup.getBounds();
+
+                    if (bounds && bounds._southWest !== undefined) {
+                        map.fitBounds(featureGroup.getBounds());
+                    }
+                });
+             });
+
+         }
+
+    }, true);
 
   });
