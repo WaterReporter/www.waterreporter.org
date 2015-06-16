@@ -17,7 +17,7 @@
 
   <div class="container">
 
-    <div class="row" data-ng-if="report.data.state === 'open'">
+    <div class="row" data-ng-if="report.data.properties.state === 'open'">
       <div class="col-sm-12">
         <button class="btn btn-success" data-ng-click="report.close(report.data.id)">Close Report</button>
       </div>
