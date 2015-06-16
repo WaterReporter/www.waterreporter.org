@@ -69,6 +69,9 @@
               View report
             </a>
           </p>
+          <p>
+            {{ report.properties.comments.length }} comments
+          </p>
 
           <ul data-ng-if="report.properties.tags.length">
             <li data-ng-repeat="tag in report.properties.tags">
