@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function ($rootScope, report, Report, $route) {
+  .controller('ReportController', function ($location, $rootScope, report, Report, $route) {
 
     var self = this;
 
@@ -52,9 +52,10 @@ angular.module('WaterReporter')
 
      self.delete = function(reportId) {
        Report.delete({
-        id: reportId        
+         id: reportId        
        }).$promise.then(function(response) {
          console.log('response', response);
+         $location.path('/activity/list');
        });
      };
 
