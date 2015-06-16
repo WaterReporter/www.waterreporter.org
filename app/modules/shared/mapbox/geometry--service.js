@@ -9,7 +9,7 @@
 angular.module('Mapbox')
   .service('mapboxGeometry', ['$http', 'leafletData', function Navigation($http, leafletData) {
     return {
-      drawGeoJSON: function(geojson, featureGroup) {
+      drawGeoJSON: function(geojson, featureGroup, layerStyle, appendToLayer) {
 
         var self = this;
 
@@ -92,7 +92,9 @@ angular.module('Mapbox')
         L.geoJson(geojsonObject, {
           style: layerStyle
         }).eachLayer(function(newLayer) {
+          console.log('newLayer', newLayer)
           newLayer.addTo(targetLayer);
+          newLayer.bindPopup('<strong>' + newLayer.feature.properties.owner.properties.first_name + '</strong> reported on ' + newLayer.feature.properties.report_date + '<br /><small><a href="/reports/' + newLayer.feature.id + '">View Report</a></small>');
         });
 
       },
