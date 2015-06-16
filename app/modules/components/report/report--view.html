@@ -15,7 +15,13 @@
     </ul>
   </aside>
 
-  <div class="container" search-scroll-to-load="activity.search.autoload()">
+  <div class="container">
+
+    <div class="row" data-ng-if="report.data.state === 'open'">
+      <div class="col-sm-12">
+        <button class="btn btn-success" data-ng-click="report.close(report.data.id)">Close Report</button>
+      </div>
+    </div>
 
     <div class="row">
       <div id="report--{{ report.data.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.data.properties.state === 'open'), 'report--state--closed': (report.data.properties.state === 'closed') }">
