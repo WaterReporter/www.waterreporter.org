@@ -967,8 +967,6 @@ angular.module('WaterReporter')
       visible: true,
       submit: function() {
 
-        console.log('Login submitted');
-
         self.login.processing = true;
 
         var credentials = new Security({
@@ -1649,6 +1647,7 @@ angular.module('WaterReporter')
                 // @see http://leafletjs.com/reference.html#featuregroup
                 //
                 var featureGroup = new L.FeatureGroup();
+                L.Icon.Default.imagePath = '/images';
 
                 mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
 
