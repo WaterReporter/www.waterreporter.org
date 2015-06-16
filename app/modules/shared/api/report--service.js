@@ -17,6 +17,9 @@ angular.module('WaterReporter')
       },
       update: {
         method: 'PATCH'
+      },
+      close: {
+        method: 'PATCH'
       }
     });
   });

@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function ($rootScope, report) {
+  .controller('ReportController', function ($rootScope, report, Report, $route) {
 
     var self = this;
 
@@ -35,5 +35,19 @@ angular.module('WaterReporter')
         }
       }
     };
+
+
+    /**
+     * Open Report functionality to the Cotnroller
+     */
+     self.close = function(reportId) {
+       Report.close({
+        id: reportId,
+        state: 'closed'
+       }).$promise.then(function(response) {
+         console.log('response', response);
+         $route.reload();
+       });
+     };
 
   });
