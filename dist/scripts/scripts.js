@@ -454,7 +454,7 @@ angular.module('Mapbox')
 angular.module('Mapbox')
   .service('mapboxGeometry', ['$http', 'leafletData', function Navigation($http, leafletData) {
     return {
-      drawGeoJSON: function(geojson, featureGroup) {
+      drawGeoJSON: function(geojson, featureGroup, layerStyle, appendToLayer) {
 
         var self = this;
 
@@ -537,7 +537,9 @@ angular.module('Mapbox')
         L.geoJson(geojsonObject, {
           style: layerStyle
         }).eachLayer(function(newLayer) {
+          console.log('newLayer', newLayer)
           newLayer.addTo(targetLayer);
+          newLayer.bindPopup('<strong>' + newLayer.feature.properties.owner.properties.first_name + '</strong> reported on ' + newLayer.feature.properties.report_date + '<br /><small><a href="/reports/' + newLayer.feature.id + '">View Report</a></small>');
         });
 
       },
@@ -1581,7 +1583,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('MapController', function (mapboxGeometry, leafletData, Map, mapbox, Report, reports, $scope, Search) {
+  .controller('MapController', function ($location, mapboxGeometry, leafletData, Map, mapbox, Report, reports, $scope, Search) {
 
     var self = this;
 
@@ -1617,6 +1619,60 @@ angular.module('WaterReporter')
     this.search.data = reports;
 
 
+    //
+    // 
+    //
+    leafletData.getMap().then(function(map) {
+
+      $scope.$on('leafletDirectiveMarker.mouseover', function(event, args) {
+        args.leafletEvent.target.openPopup();
+      });
+
+      $scope.$on('leafletDirectiveMarker.mouseout', function(event, args) {
+        args.leafletEvent.target.closePopup();
+      });
+
+      $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+        console.log('args', args);
+        // $location.path($scope.markers[args.markerName].permalink);
+      });
+    });
+
+
+
+    this.loadMap = function() {
+      self.search.data.$promise.then(function(reports_) {
+          self.map.geojson.reports = {
+              data: reports_
+          };
+
+          //
+          // Define a layer to add geometries to later
+          //
+          // @see http://leafletjs.com/reference.html#featuregroup
+          //
+          var featureGroup = new L.FeatureGroup();
+
+          var layerStyle = self.map.styles.icon.parcel;
+
+          mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup, layerStyle);
+
+           //
+           // @hack
+           //    this is only a temporary solution until we get the new `bbox`
+           //    functionality within the WaterReporter API
+           //
+          leafletData.getMap().then(function(map) {
+              var bounds = featureGroup.getBounds();
+
+              if (bounds && bounds._southWest !== undefined) {
+                  map.fitBounds(featureGroup.getBounds());
+              }
+          });
+       });
+    };
+
+
     /**
      * Setup the Mapbox map for this page with the results we got from the API
      *
@@ -1626,46 +1682,16 @@ angular.module('WaterReporter')
      *    loads the request report information into the map
      *
      */
-     this.map = Map;
+    this.map = Map;
 
     L.Icon.Default.imagePath = '/images';
 
     $scope.$watch(angular.bind(this, function () {
       return this.search;
     }), function () {
-
         if (self.search && self.search.data) {
-
-             self.search.data.$promise.then(function(reports_) {
-                self.map.geojson.reports = {
-                    data: reports_
-                };
-
-                //
-                // Define a layer to add geometries to later
-                //
-                // @see http://leafletjs.com/reference.html#featuregroup
-                //
-                var featureGroup = new L.FeatureGroup();
-
-                mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
-
-                     //
-                     // @hack
-                     //    this is only a temporary solution until we get the new `bbox`
-                     //    functionality within the WaterReporter API
-                     //
-                    leafletData.getMap().then(function(map) {
-                    var bounds = featureGroup.getBounds();
-
-                    if (bounds && bounds._southWest !== undefined) {
-                        map.fitBounds(featureGroup.getBounds());
-                    }
-                });
-             });
-
+            self.loadMap();
          }
-
     }, true);
 
   });
