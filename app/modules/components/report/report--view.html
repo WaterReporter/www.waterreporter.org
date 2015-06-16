@@ -73,13 +73,13 @@
       </div>
     </div>
 
-    <div id="report--comment--{{ $index }}" class="row" data-ng-if="report.data.properties.comments.length" data-ng-repeat="comment in report.data.properties.comments track by $index">
+    <div id="report--comment--{{ $index }}" class="row" data-ng-if="report.data.properties.comments.length" data-ng-repeat="comment in report.comments track by $index">
       <div class="col-sm-4 text-center">
-        <img data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+        <img data-ng-if="comment.data.properties.owner.properties.email" gravatar-src="'{{ comment.data.properties.owner.properties.email }}'" gravatar-size="64" />
         <p>
-          {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
+          {{ comment.data.properties.owner.properties.first_name }} {{ comment.data.properties.owner.properties.last_name }}
         </p>
-        <p>{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+        <p>{{ comment.data.properties.report_date | date:"MMM d, yyyy"}}</p>
       </div>
       <div class="col-sm-8">
         {{ comment.properties.body }}

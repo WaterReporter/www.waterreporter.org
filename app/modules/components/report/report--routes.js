@@ -22,6 +22,11 @@ angular.module('WaterReporter')
             return Report.get({
               id: $route.current.params.reportId
             });
+          },
+          comments: function($route, Report) {
+            return Report.comments({
+              id: $route.current.params.reportId
+            });
           }
         }
       });

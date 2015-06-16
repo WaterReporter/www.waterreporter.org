@@ -8,11 +8,13 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Comment, $location, $rootScope, report, Report, $route) {
+  .controller('ReportController', function (comments, Comment, $location, $rootScope, report, Report, $route) {
 
     var self = this;
 
     self.data = report;
+    
+    self.comments = comments;
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
