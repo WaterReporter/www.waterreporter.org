@@ -79,7 +79,7 @@
         <p>
           {{ comment.properties.owner.properties.first_name }} {{ comment.properties.owner.properties.last_name }}
         </p>
-        <p>{{ comment.properties.report_date | date:"MMM d, yyyy"}}</p>
+        <p>{{ comment.properties.created | date:"MMM d, yyyy"}}</p>
       </div>
       <div class="col-sm-8">
         {{ comment.properties.body }}
