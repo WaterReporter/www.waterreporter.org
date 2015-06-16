@@ -15,8 +15,8 @@ angular.module('WaterReporter')
     return {
       request: function(config) {
 
-        var sessionCookie = ipCookie('SNAPOLOGY_COMMERCE_SESSION'),
-            licenseeCookie = ipCookie('SNAPOLOGY_COMMERCE_LICENSEE');
+        var sessionCookie = ipCookie('WATERREPORTER_COMMERCE_SESSION'),
+            licenseeCookie = ipCookie('WATERREPORTER_COMMERCE_LICENSEE');
 
         //
         // Configure our headers to contain the appropriate tags
