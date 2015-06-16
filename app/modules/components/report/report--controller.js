@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function ($location, $rootScope, report, Report, $route) {
+  .controller('ReportController', function (Comment, $location, $rootScope, report, Report, $route) {
 
     var self = this;
 
@@ -40,15 +40,36 @@ angular.module('WaterReporter')
     /**
      * Open Report functionality to the Cotnroller
      */
-     self.close = function(reportId) {
-       Report.close({
-        id: reportId,
-        state: 'closed'
-       }).$promise.then(function(response) {
-         console.log('response', response);
-         $route.reload();
-       });
-     };
+     self.comment = {
+       data: {},
+       close: function(reportId) {
+
+        // Save the Comment
+        self.comment.save();
+
+        // Close the Reprot
+         Report.close({
+          id: reportId,
+          state: 'closed'
+         }).$promise.then(function(response) {
+           console.log('response', response);
+           $route.reload();
+         });
+       },
+       save: function(reportId) {
+
+        var comment = new Comment({
+          body: self.comment.data.body,
+          status: 'public',
+          report_id: reportId
+        });
+
+        comment.$save(function() {
+          console.log('comment saved!!!');
+          $route.reload();
+        });
+       }
+      };
 
      self.delete = function(reportId) {
        Report.delete({
