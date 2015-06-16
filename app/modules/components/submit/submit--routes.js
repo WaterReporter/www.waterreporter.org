@@ -14,6 +14,9 @@ angular.module('WaterReporter')
     
     $routeProvider
       .when('/submit', {
+        redirectTo: '/reports/submit'
+      })
+      .when('/reports/submit', {
         templateUrl: '/modules/components/submit/submit--view.html',
         controller: 'SubmitController',
         controllerAs: 'submit'
