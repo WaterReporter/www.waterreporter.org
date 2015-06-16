@@ -21,7 +21,7 @@ angular.module('WaterReporter')
 
       self.new.$save(function(response) {
         console.log('response', response);
-        $location.path('/reports/');
+        $location.path('/activity/list');
       });
     };
 
