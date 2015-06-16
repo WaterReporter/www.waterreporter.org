@@ -55,17 +55,17 @@ angular.module('WaterReporter')
      */
      this.map = Map;
 
+    L.Icon.Default.imagePath = '/images';
 
-    $scope.$watch(angular.bind(this, function (name) {
+    $scope.$watch(angular.bind(this, function () {
       return this.search;
-    }), function (newVal) {
+    }), function () {
 
         if (self.search && self.search.data) {
 
              self.search.data.$promise.then(function(reports_) {
                 self.map.geojson.reports = {
-                    data: reports_,
-                    styles: self.map.styles.icon.parcel
+                    data: reports_
                 };
 
                 //
@@ -74,7 +74,6 @@ angular.module('WaterReporter')
                 // @see http://leafletjs.com/reference.html#featuregroup
                 //
                 var featureGroup = new L.FeatureGroup();
-                L.Icon.Default.imagePath = '/images';
 
                 mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup);
 
