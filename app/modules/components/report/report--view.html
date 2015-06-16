@@ -20,6 +20,8 @@
     <div class="row" data-ng-if="report.data.properties.state === 'open'">
       <div class="col-sm-12">
         <button class="btn btn-success" data-ng-click="report.close(report.data.id)">Close Report</button>
+        <button class="btn btn-danger" data-ng-click="report.delete(report.data.id)">Delete Report</button>
+        <button class="btn btn-info" data-ng-click="report.share(report.data)">Share Report</button>
       </div>
     </div>
 
