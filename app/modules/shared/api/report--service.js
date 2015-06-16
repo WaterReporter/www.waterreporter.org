@@ -15,9 +15,6 @@ angular.module('WaterReporter')
       query: {
         isArray: false
       },
-      update: {
-        method: 'PATCH'
-      },
       close: {
         method: 'PATCH'
       }
