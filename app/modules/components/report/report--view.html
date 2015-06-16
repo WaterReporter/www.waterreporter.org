@@ -94,6 +94,9 @@
       <button data-ng-if="report.data.properties.state !== 'closed'" class="btn btn-default" data-ng-click="report.comment.close(report.data.id)">
         Close Report
       </button>
+      <button data-ng-if="report.data.properties.state === 'closed'" class="btn btn-default" data-ng-click="report.comment.open(report.data.id)">
+        Reopen Report
+      </button>
       <button id="report--comment--submit" name="report--comment--submit" class="btn btn-success">
         Comment
       </button>

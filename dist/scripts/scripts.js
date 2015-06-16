@@ -1943,6 +1943,20 @@ angular.module('WaterReporter')
            $route.reload();
          });
        },
+       open: function(reportId) {
+
+        // Save the Comment
+        self.comment.save();
+
+        // Close the Reprot
+         Report.close({
+          id: reportId,
+          state: 'open'
+         }).$promise.then(function(response) {
+           console.log('response', response);
+           $route.reload();
+         });
+       },
        save: function(reportId) {
 
         var comment = new Comment({
