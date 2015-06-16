@@ -64,6 +64,11 @@
           </figure>
 
           <p>{{ report.properties.report_description }}</p>
+          <p>
+            <a href="/reports/{{ report.id }}">
+              View report
+            </a>
+          </p>
 
           <ul data-ng-if="report.properties.tags.length">
             <li data-ng-repeat="tag in report.properties.tags">
