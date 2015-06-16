@@ -50,4 +50,12 @@ angular.module('WaterReporter')
        });
      };
 
+     self.delete = function(reportId) {
+       Report.delete({
+        id: reportId        
+       }).$promise.then(function(response) {
+         console.log('response', response);
+       });
+     };
+
   });

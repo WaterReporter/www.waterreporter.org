@@ -21,7 +21,7 @@
       <div class="col-sm-12">
         <button class="btn btn-success" data-ng-click="report.close(report.data.id)">Close Report</button>
         <button class="btn btn-danger" data-ng-click="report.delete(report.data.id)">Delete Report</button>
-        <button class="btn btn-info" data-ng-click="report.share(report.data)">Share Report</button>
+        <a class="btn btn-info" href="mailto:example@waterreporter.org&amp;subject=Check out this Report on www.waterreporter.org&amp;message=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ report.data.id }}">Share Report</a>
       </div>
     </div>
 
