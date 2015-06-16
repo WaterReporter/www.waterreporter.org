@@ -40,8 +40,6 @@ angular.module('WaterReporter')
       visible: true,
       submit: function() {
 
-        console.log('Login submitted');
-
         self.login.processing = true;
 
         var credentials = new Security({
