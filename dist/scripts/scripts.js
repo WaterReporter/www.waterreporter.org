@@ -135,6 +135,10 @@ angular.module('WaterReporter')
       },
       close: {
         method: 'PATCH'
+      },
+      comments: {
+        method: 'GET',
+        url: 'http://api.waterreporter.org/v1/data/report/:id/comments'
       }
     });
   });
@@ -1391,6 +1395,45 @@ angular.module('WaterReporter')
 
 /**
  * @ngdoc overview
+ * @name WaterReporter.singleReport.config:report-routes
+ * @description
+ * # Water Reporter App
+ *
+ * Routes for the states applying to the single report page of the application.
+ */
+
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
+    
+    $routeProvider
+      .when('/dashboard', {
+        templateUrl: '/modules/components/dashboard/dashboard--view.html',
+        controller: 'DashboardController',
+        controllerAs: 'dashbaord',
+        resolve: {
+        }
+      });
+
+  });
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name WaterReporter.report.controller:SingleReportController
+ * @description
+ *     Display a single report based on the current `id` provided in the URL
+ * Controller of the waterReporterApp
+ */
+angular.module('WaterReporter')
+  .controller('DashboardController', function () {
+
+    var self = this;
+
+  });
+'use strict';
+
+/**
+ * @ngdoc overview
  * @name WaterReporter.activity.config:activity-routes
  * @description
  *     Routes for the states applying to the activity feed page of the application.
@@ -1880,6 +1923,11 @@ angular.module('WaterReporter')
             return Report.get({
               id: $route.current.params.reportId
             });
+          },
+          comments: function($route, Report) {
+            return Report.comments({
+              id: $route.current.params.reportId
+            });
           }
         }
       });
@@ -1895,11 +1943,13 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Comment, $location, $rootScope, report, Report, $route) {
+  .controller('ReportController', function (comments, Comment, $location, $rootScope, report, Report, $route) {
 
     var self = this;
 
     self.data = report;
+    
+    self.comments = comments;
 
     /**
      * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
