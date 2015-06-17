@@ -68,19 +68,17 @@ angular.module('WaterReporter')
             self.login.processing = false;
             self.login.success = true;
 
-            ipCookie.remove('WATERREPORTER_COMMERCE_SESSION');
-            ipCookie.remove('WATERREPORTER_COMMERCE_LICENSEE');
+            ipCookie.remove('WATERREPORTER_SESSION');
 
-            ipCookie('WATERREPORTER_COMMERCE_SESSION', response.access_token, self.cookieOptions);
-            ipCookie('WATERREPORTER_COMMERCE_LICENSEE', $route.current.params.licensee, self.cookieOptions);
+            ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
             // Direct the user to the next step in the registration process
             //
             $location.hash('');
-            $location.path('/licensee/' + ipCookie('WATERREPORTER_COMMERCE_LICENSEE') + '/registration/');
+            $location.path('/dashboard');
           }
-        }, function(error){
+        }, function(){
           self.login.processing = false;
           self.login.errors = {
             email: ['The email or password you provided was incorrect']

@@ -31,7 +31,7 @@ angular.module('WaterReporter')
     });
 
     Security.has_token = function() {
-      return (ipCookie('WATERREPORTER_COMMERCE_SESSION')) ? true: false;
+      return (ipCookie('WATERREPORTER_SESSION')) ? true: false;
     };
 
     return Security;

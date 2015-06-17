@@ -1014,17 +1014,15 @@ angular.module('WaterReporter')
             self.login.processing = false;
             self.login.success = true;
 
-            ipCookie.remove('WATERREPORTER_COMMERCE_SESSION');
-            ipCookie.remove('WATERREPORTER_COMMERCE_LICENSEE');
+            ipCookie.remove('WATERREPORTER_SESSION');
 
-            ipCookie('WATERREPORTER_COMMERCE_SESSION', response.access_token, self.cookieOptions);
-            ipCookie('WATERREPORTER_COMMERCE_LICENSEE', $route.current.params.licensee, self.cookieOptions);
+            ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
             // Direct the user to the next step in the registration process
             //
             $location.hash('');
-            $location.path('/licensee/' + ipCookie('WATERREPORTER_COMMERCE_LICENSEE') + '/registration/');
+            $location.path('/dashboard');
           }
         }, function(error){
           self.login.processing = false;
@@ -1118,7 +1116,7 @@ angular.module('WaterReporter')
     });
 
     Security.has_token = function() {
-      return (ipCookie('WATERREPORTER_COMMERCE_SESSION')) ? true: false;
+      return (ipCookie('WATERREPORTER_SESSION')) ? true: false;
     };
 
     return Security;
@@ -1141,7 +1139,7 @@ angular.module('WaterReporter')
     return {
       request: function(config) {
 
-        var sessionCookie = ipCookie('WATERREPORTER_COMMERCE_SESSION'),
+        var sessionCookie = ipCookie('WATERREPORTER_SESSION'),
             licenseeCookie = ipCookie('WATERREPORTER_COMMERCE_LICENSEE');
 
         //
