@@ -14,5 +14,7 @@ angular.module('WaterReporter')
 
     this.reports = reports;
 
-    console.log('profile', profile, organizations, reports);
+    this.closures = closures;
+
+        console.log('profile', profile, organizations, reports, closures);
   });

@@ -63,7 +63,7 @@ angular.module('WaterReporter')
                 filters: [
                   {
                     name: 'owner__id',
-                    op: 'any',
+                    op: 'has',
                     val: $route.current.params.userId
                   }
                 ]
