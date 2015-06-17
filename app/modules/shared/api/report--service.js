@@ -20,7 +20,18 @@ angular.module('WaterReporter')
       },
       comments: {
         method: 'GET',
-        url: 'http://api.waterreporter.org/v1/data/report/:id/comments'
+        url: 'http://api.waterreporter.org/v1/data/report/:id/comments',
+        params: {
+          q: {
+            order_by: [
+              {
+                field: 'created',
+                direction: 'asc'
+              }
+            ]
+          },
+          results_per_page: 1000
+        }
       }
     });
   });
