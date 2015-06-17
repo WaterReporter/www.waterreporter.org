@@ -1809,6 +1809,22 @@ angular.module('WaterReporter')
               id: $route.current.params.userId
             });
           },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          },
           reports: function($location, $route, Report) {
 
             //
@@ -1904,13 +1920,15 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (organizations, profile, reports) {
+  .controller('ProfileController', function (closures, organizations, profile, reports) {
     this.data = profile;
     this.organizations = organizations;
 
     this.reports = reports;
 
-    console.log('profile', profile, organizations, reports);
+    this.closures = closures;
+
+        console.log('profile', profile, organizations, reports, closures);
   });
 'use strict';
 
