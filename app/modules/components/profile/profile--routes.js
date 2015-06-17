@@ -56,6 +56,22 @@ angular.module('WaterReporter')
               id: $route.current.params.userId
             });
           },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'owner__id',
+                    op: 'any',
+                    val: $route.current.params.userId
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          },
           reports: function($location, $route, Report) {
 
             //
