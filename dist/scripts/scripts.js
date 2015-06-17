@@ -1928,7 +1928,12 @@ angular.module('WaterReporter')
 
     this.closures = closures;
 
-        console.log('profile', profile, organizations, reports, closures);
+    this.visible = {
+      reports: true,
+      closures: false
+    };
+
+    console.log('profile', profile, organizations, reports, closures);
   });
 'use strict';
 
