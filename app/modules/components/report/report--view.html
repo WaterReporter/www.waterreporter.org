@@ -111,9 +111,15 @@
       <div class="row" data-ng-if="comment.properties.report_state">
         <div class="col-sm-offset-4 col-sm-8">
           <hr data-ng-if="comment.properties.body" />
-          <span data-ng-if="comment.properties.report_state === 'open'" class="label label-success">!</span>
-          <span data-ng-if="comment.properties.report_state === 'closed'" class="label label-danger">√</span>
-          Reopened by {{ comment.properties.owner.properties.email }} on {{ comment.properties.created | date:"MMM d, 'at' yyyy h:mma"}}
+          <span data-ng-if="comment.properties.report_state === 'open'">
+            <span class="label label-success">!</span>
+            Reopened by {{ comment.properties.owner.properties.email }} on {{ comment.properties.created | date:"MMM d, 'at' yyyy h:mma"}}
+          </span>
+
+          <span data-ng-if="comment.properties.report_state === 'closed'">
+            <span class="label label-danger">√</span>
+            Closed by {{ comment.properties.owner.properties.email }} on {{ comment.properties.created | date:"MMM d, 'at' yyyy h:mma"}}
+          </span>
         </div>
       </div>
       <hr />
