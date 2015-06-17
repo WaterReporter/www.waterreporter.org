@@ -140,7 +140,18 @@ angular.module('WaterReporter')
       },
       comments: {
         method: 'GET',
-        url: 'http://api.waterreporter.org/v1/data/report/:id/comments'
+        url: 'http://api.waterreporter.org/v1/data/report/:id/comments',
+        params: {
+          q: {
+            order_by: [
+              {
+                field: 'created',
+                direction: 'asc'
+              }
+            ]
+          },
+          results_per_page: 1000
+        }
       }
     });
   });
@@ -1981,9 +1992,10 @@ angular.module('WaterReporter')
      */
      self.comment = {
        data: {},
-       update: function(comment) {
+       update: function(comment, state) {
           var comment_ = new Comment({
-            body: comment.properties.body
+            body: comment.properties.body,
+            report_state: state
           });
 
           comment_.$update({
@@ -2004,7 +2016,7 @@ angular.module('WaterReporter')
        close: function(reportId) {
 
         // Save the Comment
-        self.comment.save();
+        self.comment.save(reportId, 'closed');
 
         // Close the Reprot
          Report.close({
@@ -2015,10 +2027,10 @@ angular.module('WaterReporter')
            $route.reload();
          });
        },
-       open: function(reportId) {
+       open: function(reportId, state) {
 
         // Save the Comment
-        self.comment.save();
+        self.comment.save(reportId, 'open');
 
         // Close the Reprot
          Report.close({
@@ -2029,12 +2041,13 @@ angular.module('WaterReporter')
            $route.reload();
          });
        },
-       save: function(reportId) {
+       save: function(reportId, state) {
 
         var comment = new Comment({
           body: self.comment.data.body,
           status: 'public',
-          report_id: reportId
+          report_id: reportId,
+          report_state: state
         });
 
         comment.$save(function() {
