@@ -87,7 +87,7 @@
         <form data-ng-if="comment.edit" class="site--report--comment--edit form" role="form" id="form--reports--comment--edit" name="form--reports--comment--edit" data-ng-submit="report.comment.update(comment)">
           <div class="form-group">
             <label for="report--commentBody">Comment</label>
-            <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="report.comment.data.body"></textarea>
+            <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="comment.properties.body">{{ comment.properties.body }}</textarea>
           </div>
           <button id="report--comment--submit" name="report--comment--submit" class="btn btn-success">
             Update Comment
@@ -96,7 +96,7 @@
 
           </div>
       <div class="col-sm-2">
-        <a data-ng-click="report.comment.edit =! report.comment.edit">
+        <a data-ng-click="comment.edit =! comment.edit">
           edit
         </a>
         <a data-ng-click="report.comment.delete(comment.id)">
