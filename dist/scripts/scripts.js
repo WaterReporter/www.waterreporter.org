@@ -67,7 +67,9 @@ angular.module('WaterReporter')
  */
 angular.module('WaterReporter')
   .service('Comment', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/comment/:commentId', {}, {
+    return $resource('//api.waterreporter.org/v1/data/comment/:id', {
+      id: '@id'
+    }, {
       query: {
         isArray: false
       },
@@ -1979,6 +1981,26 @@ angular.module('WaterReporter')
      */
      self.comment = {
        data: {},
+       update: function(comment) {
+          var comment_ = new Comment({
+            body: comment.properties.body
+          });
+
+          comment_.$update({
+            id: comment.id
+          }).then(function() {
+            console.log('comment saved!!!');
+            $route.reload();
+          });
+       },
+       delete: function(commentId) {
+        Comment.delete({
+          id: commentId
+        }).$promise.then(function(response) {
+          console.log('response', response);
+          $route.reload();
+        });
+       },
        close: function(reportId) {
 
         // Save the Comment
