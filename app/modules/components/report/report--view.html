@@ -81,8 +81,13 @@
         </p>
         <p>{{ comment.properties.created | date:"MMM d, yyyy"}}</p>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         {{ comment.properties.body }}
+      </div>
+      <div class="col-sm-1">
+        <a data-ng-click="report.comment.delete(comment.id)">
+          X
+        </a>
       </div>
     </div>
 

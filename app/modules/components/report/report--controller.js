@@ -44,6 +44,14 @@ angular.module('WaterReporter')
      */
      self.comment = {
        data: {},
+       delete: function(commentId) {
+        Comment.delete({
+          id: commentId
+        }).$promise.then(function(response) {
+          console.log('response', response);
+          $route.reload();
+        });
+       },
        close: function(reportId) {
 
         // Save the Comment
