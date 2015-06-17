@@ -5,8 +5,18 @@
     <div id="user--profile--{{ profile.data.id }}" class="panel panel-default">
       <div class="panel-heading">
           <h1 class="pull-right">
-            {{ profile.reports.properties.num_results | number:0 }} Submitted Reports<br />
-            {{ profile.closures.properties.num_results | number:0 }} Reports Closed
+            <a data-ng-if="!profile.visible.reports" href="javascript:void();" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
+              {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
+            </a>
+            <span data-ng-if="profile.visible.reports">
+              {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
+            </span><br />
+            <a data-ng-if="!profile.visible.closures" href="javascript:void();" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
+              {{ profile.closures.properties.num_results | number:0 }} Reports Closed
+            </a>
+            <span data-ng-if="profile.visible.closures">
+              {{ profile.closures.properties.num_results | number:0 }} Reports Closed
+            </span>
           </h1>
           <img class="pull-left img-circle" data-ng-if="profile.data.properties.email" gravatar-src="'{{ profile.data.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
           <p>
@@ -22,7 +32,7 @@
 
     <main class="site--content site--content--activity container">
 
-      <div class="container" search-scroll-to-load="activity.search.autoload()">
+      <div class="container">
 
         <!-- Untruthy Result Set (0) -->
         <div class="row" data-ng-if="!profile.reports.features.length">
@@ -32,9 +42,53 @@
         </div>
 
         <!-- Truthy Result Set (1+) -->
-        <div class="row"
+        <div data-ng-show="profile.visible.reports && !profile.visible.closures" class="row"
              data-ng-if="profile.reports.features.length"
              data-ng-repeat="report in profile.reports.features">
+          <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
+            <div class="panel-heading">
+              <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
+              <a href="/profiles/{{ report.properties.owner.id }}">
+                <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+              </a>
+              <p>
+                <a href="/profiles/{{ report.properties.owner.id }}">
+                  {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
+                </a><br />
+                {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+                {{ report.properties.owner.properties.organization_name }}
+              </p>
+            </div>
+            <div class="panel-body">
+
+              <figure data-ng-if="report.properties.images && report.properties.images.length">
+      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
+                <a href="/reports/{{ report.id }}">
+                  <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+                </a>
+              </figure>
+
+              <p>{{ report.properties.report_description }}</p>
+
+              <ul data-ng-if="report.properties.tags.length">
+                <li data-ng-repeat="tag in report.properties.tags">
+                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
+                    #{{ tag.properties.tag }}
+                  </a>
+                </li>
+              </ul>
+
+              <p>
+                {{ report.geometry.geometries[0].coordinates[0] }}<br />
+                {{ report.geometry.geometries[0].coordinates[1] }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div data-ng-show="!profile.visible.reports && profile.visible.closures" class="row"
+             data-ng-if="profile.closures.features.length"
+             data-ng-repeat="report in profile.closures.features">
           <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
             <div class="panel-heading">
               <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
