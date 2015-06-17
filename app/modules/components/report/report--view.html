@@ -81,12 +81,26 @@
         </p>
         <p>{{ comment.properties.created | date:"MMM d, yyyy"}}</p>
       </div>
-      <div class="col-sm-7">
-        {{ comment.properties.body }}
-      </div>
-      <div class="col-sm-1">
+      <div class="col-sm-6">
+        <span data-ng-if="!comment.edit">{{ comment.properties.body }}</span>
+
+        <form data-ng-if="comment.edit" class="site--report--comment--edit form" role="form" id="form--reports--comment--edit" name="form--reports--comment--edit" data-ng-submit="report.comment.update(comment)">
+          <div class="form-group">
+            <label for="report--commentBody">Comment</label>
+            <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="report.comment.data.body"></textarea>
+          </div>
+          <button id="report--comment--submit" name="report--comment--submit" class="btn btn-success">
+            Update Comment
+          </button>
+        </form>
+
+          </div>
+      <div class="col-sm-2">
+        <a data-ng-click="report.comment.edit =! report.comment.edit">
+          edit
+        </a>
         <a data-ng-click="report.comment.delete(comment.id)">
-          X
+          delete
         </a>
       </div>
     </div>
