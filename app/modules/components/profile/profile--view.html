@@ -5,13 +5,13 @@
     <div id="user--profile--{{ profile.data.id }}" class="panel panel-default">
       <div class="panel-heading">
           <h1 class="pull-right">
-            <a data-ng-if="!profile.visible.reports" href="javascript:void();" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
+            <a data-ng-if="!profile.visible.reports" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
               {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
             </a>
             <span data-ng-if="profile.visible.reports">
               {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
             </span><br />
-            <a data-ng-if="!profile.visible.closures" href="javascript:void();" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
+            <a data-ng-if="!profile.visible.closures" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
               {{ profile.closures.properties.num_results | number:0 }} Reports Closed
             </a>
             <span data-ng-if="profile.visible.closures">
