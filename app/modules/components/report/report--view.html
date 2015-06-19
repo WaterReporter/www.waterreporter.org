@@ -39,7 +39,6 @@
               {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
               {{ report.data.properties.owner.properties.organization_name }}
             </p>
-            <span data-ng-if="report.data.properties.state === 'open'" class="label label-success">OPEN REPORT</span>
             <span data-ng-if="report.data.properties.state === 'closed'" class="label label-danger">CLOSED REPORT</span>
           </div>
 

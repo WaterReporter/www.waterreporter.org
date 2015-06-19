@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('DashboardController', function (Account, $location, Report, Search, user) {
+  .controller('DashboardController', function (Account, $location, Report, $rootScope, Search, user) {
 
     var self = this;
 
@@ -108,6 +108,7 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       user.$promise.then(function(userResponse) {
         Account.userObject = userResponse;
+          $rootScope.user = Account.userObject;
           self.loadDashboard();
       });
     }

@@ -48,6 +48,9 @@ angular.module('WaterReporter')
             // Execute our query so that we can get the Reports back
             //
             return Report.query(search_params);
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }            
       });

@@ -8,7 +8,9 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Report, reports, Search) {
+  .controller('ActivityController', function (Account, Report, reports, $rootScope, Search, user) {
+
+    $rootScope.user = Account.userObject;
 
     /**
      * Setup search capabilities for the Report Activity Feed

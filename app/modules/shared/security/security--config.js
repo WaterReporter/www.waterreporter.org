@@ -19,4 +19,11 @@ angular.module('WaterReporter')
         controller: 'SecurityController',
         controllerAs: 'security'
       });
+      .when('/logout', {
+        redirectTo: '/user/logout'
+      })
+      .when('/user/logout', {
+        controller: 'SecurityLogoutController',
+        controllerAs: 'security'
+      });
   });

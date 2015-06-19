@@ -10,11 +10,14 @@
 
     <section class="col-sm-8">
       <nav class="navigation">
-        <ul class="navigation--contextual nav navbar-nav pull-right">
-          <li>
+        <ul class="navigation--utility nav navbar-nav pull-right">
+          <li data-ng-if="$root.user.id">
             <a href="/dashboard">Dashboard</a>        
           </li>
-          <li>
+          <li data-ng-if="$root.user.id">
+            <a href="/user/logout">Log out</a>        
+          </li>
+          <li data-ng-if="!$root.user.id">
             <a href="/user/login">Log in</a>        
           </li>
         </ul>
