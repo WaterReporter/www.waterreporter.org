@@ -1,11 +1,16 @@
-<header class="site--header">
+<header class="site--header container">
 
-    <nav class="navigation navbar navbar-inverse">
-      <div class="container">
-        <ul class="navigation--primary nav navbar-nav">
-          <li>
-            <a href="/">Home</a>
-          </li>
+  <div class="row">
+
+    <section class="col-sm-4 text-center">
+      <a href="/">
+        <img src="/images/logo-WaterReporter.png" alt="" title="" width="164" />
+      </a>
+    </section>
+
+    <section class="col-sm-8">
+      <nav class="navigation">
+        <ul class="navigation--primary nav navbar-nav pull-right">
           <li>
             <a href="/activity/list">Activity Feed</a>
           </li>
@@ -15,12 +20,13 @@
           <li>
             <a href="/about">About</a>
           </li>
-          <li>
-            <a href="/submit">Submit Report</a>        
-          </li>
-          <li>
-            <a href="/profiles">Profiles</a>        
-          </li>
+        </ul>
+      </nav>
+
+      <br style="clear:both;" />
+
+      <nav class="navigation">
+        <ul class="navigation--contextual nav navbar-nav pull-right">
           <li>
             <a href="/dashboard">Dashboard</a>        
           </li>
@@ -28,7 +34,9 @@
             <a href="/user/login">Log in</a>        
           </li>
         </ul>
-      </div>
-    </nav>
+      </nav>
+    </section>
+
+  </div>
 
 </header>

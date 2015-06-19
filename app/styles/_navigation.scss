@@ -22,3 +22,29 @@
 .navigation--contextual {
 
 }
+
+
+
+/**
+ * Bootstrap .navbar Overrides
+ */
+.navbar {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+
+/**
+ * Bootstrap .label Overrides
+ */
+ .label.label--brand a {
+  background-color: $color-blue-dark;
+  color: white;
+  font-weight: 300;
+  padding: 4px 8px;
+  text-decoration: none;
+ }
+   .label.label--brand a:hover {
+    background-color: $color-blue-base;
+   }
