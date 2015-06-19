@@ -25,7 +25,7 @@ angular.module('WaterReporter')
       },
       me: {
         method: 'GET',
-        url: '//api.waterreporter.org/v1/data/user/me'
+        url: '//api.waterreporter.org/v1/data/me'
       }
     });
   }]);

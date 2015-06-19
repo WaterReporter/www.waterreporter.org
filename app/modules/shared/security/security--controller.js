@@ -73,14 +73,6 @@ angular.module('WaterReporter')
             ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
-            // Make sure we take all of the 'User' information and save it to
-            // the Account object so that we can reuse it throughout the system
-            //
-            User.me(function(user_response) {
-              Account = user_response;
-            });
-
-            //
             // Direct the user to the next step in the registration process
             //
             $location.hash('');
