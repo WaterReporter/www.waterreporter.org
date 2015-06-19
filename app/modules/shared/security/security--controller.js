@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function ($http, $location, Security, ipCookie, $route, $timeout) {
+  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $timeout, User) {
 
     var self = this;
 
@@ -76,6 +76,9 @@ angular.module('WaterReporter')
             // Make sure we take all of the 'User' information and save it to
             // the Account object so that we can reuse it throughout the system
             //
+            User.me(function(user_response) {
+              Account = user_response;
+            });
 
             //
             // Direct the user to the next step in the registration process
