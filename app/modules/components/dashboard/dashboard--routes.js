@@ -18,7 +18,7 @@ angular.module('WaterReporter')
         controller: 'DashboardController',
         controllerAs: 'dashboard',
         resolve: {
-          reports: function($location, $route, Report) {
+          reports: function($location, $route, Report, Account) {
 
             //
             // Get all of our existing URL Parameters so that we can
@@ -38,6 +38,13 @@ angular.module('WaterReporter')
             //
             // We need to add the current user's territory to this 
             //
+            // search_params.q.order_by.push({
+            //   field: 'report_date',
+            //   direction: 'desc'
+            // });
+
+            console.log('Account', Account);
+
 
             //
             // Ensure that returned Report features are sorted newest first
