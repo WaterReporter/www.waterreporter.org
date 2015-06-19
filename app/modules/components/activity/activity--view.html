@@ -60,19 +60,16 @@
           </figure>
           <div class="panel-body">
 
-            <p>{{ report.properties.report_description }}</p>
             <p>
-              <a href="/reports/{{ report.id }}">
+              <strong>User Submitted Content:</strong>
+              {{ report.properties.report_description }}</p>
+            <p>
+              <strong>Permalink: </strong> <a href="/reports/{{ report.id }}">
                 View report
               </a>
             </p>
             <p>
-              <span data-ng-if="report.properties.comments.length !== 1">
-                {{ report.properties.comments.length }} comments
-              </span>
-              <span data-ng-if="report.properties.comments.length === 1">
-                {{ report.properties.comments.length }} comment
-              </span>
+              <strong>Comments: </strong>  {{ report.properties.comments.length }}
             </p>
             <p>
               <strong>Watersheds: </strong> 
