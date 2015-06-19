@@ -22,6 +22,10 @@ angular.module('WaterReporter')
         method: 'GET',
         isArray: false,
         url: '//api.waterreporter.org/v1/data/user/:id/organization'
+      },
+      me: {
+        method: 'GET',
+        url: '//api.waterreporter.org/v1/data/user/me'
       }
     });
   }]);
