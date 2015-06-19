@@ -76,13 +76,21 @@ angular.module('WaterReporter')
 
       angular.forEach(Account.userObject.properties.classifications, function(value, key) {
         var classification = value.properties,
-            fieldName = 'territory__huc_' + classification.digits + '_name';
+            fieldName = 'territory__huc_' + classification.digits + '_name',
+            filter = {
+              name: fieldName,
+              op: 'has',
+              val: classification.name
+            };
 
-        search_params.q.filters.push({
-          name: fieldName,
-          op: 'has',
-          val: classification.name
-        });
+        search_params.q.filters.push(filter);
+
+        // We need to dyamically define the model for this since the fieldName
+        // is variable
+        self.search.model[fieldName] = filter;
+
+        // We need to manually add the param to the classifications
+        self.search.params[fieldName] = classification.name;
       });
 
       //

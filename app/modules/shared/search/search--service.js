@@ -65,9 +65,9 @@ angular.module('WaterReporter')
           });
 
           return params;
-       },
-       params: {}, // On initial page load, load in our defaults from the address bar
-       paginate: function(pageNumber) {
+      },
+      params: {}, // On initial page load, load in our defaults from the address bar
+      paginate: function(pageNumber) {
         var params = $location.search();
 
         if (angular.isObject(params.q)) {
@@ -112,6 +112,8 @@ angular.module('WaterReporter')
             //
             var filter = service.model[field_name];
 
+            console.log('filter', filter)
+
             //
             // Build the value for the filter
             //
@@ -126,6 +128,9 @@ angular.module('WaterReporter')
             q.filters.push(filter);
 
           });
+
+          console.log('service.params', service.params);
+
 
           //
           // With a completed `q` parameter, we can now pass it back to the
