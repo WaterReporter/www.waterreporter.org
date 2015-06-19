@@ -11,13 +11,13 @@
     <section class="col-sm-8">
       <nav class="navigation">
         <ul class="navigation--utility nav navbar-nav pull-right">
-          <li data-ng-if="$root.user.id">
+          <li>
             <a href="/dashboard">Dashboard</a>        
           </li>
-          <li data-ng-if="$root.user.id">
+          <li>
             <a href="/user/logout">Log out</a>        
           </li>
-          <li data-ng-if="!$root.user.id">
+          <li>
             <a href="/user/login">Log in</a>        
           </li>
         </ul>

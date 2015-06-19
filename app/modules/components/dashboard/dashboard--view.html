@@ -1,138 +1,124 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
-
-{{ $root.user }}
-
-
-<div class="container">
-  <form class="site--search site--search--content form" role="form" id="form--search--reports" name="form--search--reports" data-ng-submit="dashboard.search.execute()">
-    <div class="form-group">
-      <label for="form--search--reportDescription">Search</label>
-      <input type="text" class="form-control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="dashboard.search.params.report_description" data-ng-change="dashboard.search.execute()" autofocus="autofocus" />
+<main class="site--content site--content--dashboard container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div data-ng-include="'/modules/shared/views/navigation--view.html'"></div>
     </div>
-    <button data-ng-click="dashboard.search.clear()" class="btn btn-default">Clear Search</button>
-  </form>
-</div>
 
-<main class="site--content site--content--activity container">
-
-  <div class="container" search-scroll-to-load="dashboard.search.autoload()">
-
-    <aside class="site--content--statistics">
-      <ul data-ng-if="dashboard.search.data.properties.num_results !== undefined">
-        <li>
-          <a href="/activity/">{{ dashboard.search.data.properties.num_results | number:0 }} Reports</a>
-        </li>
-        <li>
-          <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"open"}]}'>--- Open</a>
-        </li>
-        <li>
-          <a href='/activity/?q={"filters":[{"name":"state","op":"eq","val":"closed"}]}'>--- Closed</a>
-        </li>
-      </ul>
-    </aside>
-
-    <!-- Untruthy Result Set (0) -->
-    <div class="row" data-ng-if="!dashboard.search.data.features.length">
-      <div class="col-sm-12">
-      <p>Your search didn’t return any reports</p>
+    <div class="col-sm-8">
+      <div class="row">
+        <form class="site--search site--search--content form" role="form" id="form--search--reports" name="form--search--reports" data-ng-submit="dashboard.search.execute()">
+          <div class="form-group">
+            <label for="form--search--reportDescription">Search</label>
+            <input type="text" class="form-control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="dashboard.search.params.report_description" data-ng-change="dashboard.search.execute()" autofocus="autofocus" />
+          </div>
+          <button data-ng-click="dashboard.search.clear()" class="btn btn-default">Clear Search</button>
+        </form>
       </div>
-    </div>
 
-    <!-- Truthy Result Set (1+) -->
-    <div class="row"
-         data-ng-if="dashboard.search.data.features.length"
-         data-ng-repeat="report in dashboard.search.data.features">
-      <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
-        <div class="panel-heading">
-          <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
-          <a href="/profiles/{{ report.properties.owner.id }}">
-            <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
-          </a>
-          <p>
+      <br />
+
+      <div class="row" data-ng-if="!dashboard.search.data.features.length">
+        <div class="col-sm-12">
+          <span class="throbber"></span>
+        </div>
+      </div>
+
+      <!-- Untruthy Result Set (0) -->
+      <div class="row" data-ng-if="dashboard.search.data.features.length === 0">
+        <div class="col-sm-12">
+        <p>Your search didn’t return any reports</p>
+        </div>
+      </div>
+
+      <!-- Truthy Result Set (1+) -->
+      <div class="row"
+           data-ng-if="dashboard.search.data.features.length"
+           data-ng-repeat="report in dashboard.search.data.features">
+        <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
+          <div class="panel-heading">
+            <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
             <a href="/profiles/{{ report.properties.owner.id }}">
-              {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
-            </a><br />
-            {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
-            {{ report.properties.owner.properties.organization_name }}
-          </p>
-        </div>
-        <div class="panel-body">
-
-          <figure data-ng-if="report.properties.images && report.properties.images.length">
-  <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-            <a href="/reports/{{ report.id }}">
-              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
+              <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
             </a>
-          </figure>
+            <p>
+              <a href="/profiles/{{ report.properties.owner.id }}">
+                {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
+              </a><br />
+              {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+              {{ report.properties.owner.properties.organization_name }}
+            </p>
+          </div>
+          <div class="panel-body">
 
-          <p>{{ report.properties.report_description }}</p>
-          <p>
-            <a href="/reports/{{ report.id }}">
-              View report
-            </a>
-          </p>
-          <p>
-            {{ report.properties.comments.length }} comments
-          </p>
-
-          <p>
-            Submitted in the {{ report.properties.territory.properties.huc_6_name }}, {{ report.properties.territory.properties.huc_8_name }}, {{ report.properties.territory.properties.huc_10_name }}, {{ report.properties.territory.properties.huc_12_name }} watersheds
-          </p>
-
-          <ul data-ng-if="report.properties.tags.length">
-            <li data-ng-repeat="tag in report.properties.tags">
-              <a href="" data-ng-click="dashboard.search.hashtag(tag.properties.tag, 'report_description')">
-                #{{ tag.properties.tag }}
+            <figure data-ng-if="report.properties.images && report.properties.images.length">
+    <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
+              <a href="/reports/{{ report.id }}">
+                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
               </a>
-            </li>
-          </ul>
+            </figure>
 
-          <p>
-            {{ report.geometry.geometries[0].coordinates[0] }}<br />
-            {{ report.geometry.geometries[0].coordinates[1] }}
-          </p>
+            <p>{{ report.properties.report_description }}</p>
+            <p>
+              <a href="/reports/{{ report.id }}">
+                View report
+              </a>
+            </p>
+            <p>
+              {{ report.properties.comments.length }} comments
+            </p>
+
+            <p>
+              Submitted in the {{ report.properties.territory.properties.huc_6_name }}, {{ report.properties.territory.properties.huc_8_name }}, {{ report.properties.territory.properties.huc_10_name }}, {{ report.properties.territory.properties.huc_12_name }} watersheds
+            </p>
+
+            <ul data-ng-if="report.properties.tags.length">
+              <li data-ng-repeat="tag in report.properties.tags">
+                <a href="" data-ng-click="dashboard.search.hashtag(tag.properties.tag, 'report_description')">
+                  #{{ tag.properties.tag }}
+                </a>
+              </li>
+            </ul>
+
+            <p>
+              {{ report.geometry.geometries[0].coordinates[0] }}<br />
+              {{ report.geometry.geometries[0].coordinates[1] }}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Load More Results -->
-    <div class="row">
-      <div class="col-sm-12">
-        <!-- <a data-ng-click="dashboard.search.autoload()" class="button">Load More</a> -->
-      </div>
-    </div>
-
-    <footer class="features-footer">
-      <nav class="pager" data-ng-if="dashboard.search.data.properties.page === 1 && dashboard.search.data.properties.total_pages === 1">
-        <!-- If your on Page 1 and there's less than or equal to 10 results total -->
-        <span class="page">
-          Showing all {{ dashboard.search.data.properties.num_results }} reports
-        </span>
-      </nav>
-      <nav class="pager" data-ng-if="dashboard.search.data.properties.total_pages > 1">
-        <a data-ng-show="dashboard.search.data.properties.total_pages >= dashboard.search.data.properties.page && dashboard.search.data.properties.page !== 1" href="javascript:void(0);" data-ng-click="dashboard.search.paginate(dashboard.search.data.properties.page-1)" class="previous">
-          Previous
-        </a>
-        <span data-ng-show="!dashboard.paginationLabel" data-ng-click="dashboard.paginationLabel =! dashboard.paginationLabel" class="page">Page {{ dashboard.search.data.properties.page }} of {{ dashboard.search.data.properties.total_pages }}</span>
-        <span data-ng-show="dashboard.paginationLabel" data-ng-click="dashboard.paginationLabel =! dashboard.paginationLabel" class="page">
-          <span data-ng-if="dashboard.search.data.properties.page === 1 && dashboard.search.data.properties.total_pages > 1">
-            Showing 1 - 10 of {{ dashboard.search.data.properties.num_results | number:0 }} reports
+      <footer class="features-footer">
+        <nav class="pager" data-ng-if="dashboard.search.data.properties.page === 1 && dashboard.search.data.properties.total_pages === 1">
+          <!-- If your on Page 1 and there's less than or equal to 10 results total -->
+          <span class="page">
+            Showing all {{ dashboard.search.data.properties.num_results }} reports
           </span>
+        </nav>
+        <nav class="pager" data-ng-if="dashboard.search.data.properties.total_pages > 1">
+          <a data-ng-show="dashboard.search.data.properties.total_pages >= dashboard.search.data.properties.page && dashboard.search.data.properties.page !== 1" href="javascript:void(0);" data-ng-click="dashboard.search.paginate(dashboard.search.data.properties.page-1)" class="previous">
+            Previous
+          </a>
+          <span data-ng-show="!dashboard.paginationLabel" data-ng-click="dashboard.paginationLabel =! dashboard.paginationLabel" class="page">Page {{ dashboard.search.data.properties.page }} of {{ dashboard.search.data.properties.total_pages }}</span>
+          <span data-ng-show="dashboard.paginationLabel" data-ng-click="dashboard.paginationLabel =! dashboard.paginationLabel" class="page">
+            <span data-ng-if="dashboard.search.data.properties.page === 1 && dashboard.search.data.properties.total_pages > 1">
+              Showing 1 - 10 of {{ dashboard.search.data.properties.num_results | number:0 }} reports
+            </span>
 
-          <span data-ng-if="dashboard.search.data.properties.page > 1 && dashboard.search.data.properties.page !== dashboard.search.data.properties.total_pages">
-            Showing <span data-ng-bind="((dashboard.search.data.properties.page-1)*10+1)"></span> - <span data-ng-bind="dashboard.search.data.properties.page*10"></span> of {{ dashboard.search.data.properties.num_results | number:0 }} reports
-          </span>
+            <span data-ng-if="dashboard.search.data.properties.page > 1 && dashboard.search.data.properties.page !== dashboard.search.data.properties.total_pages">
+              Showing <span data-ng-bind="((dashboard.search.data.properties.page-1)*10+1)"></span> - <span data-ng-bind="dashboard.search.data.properties.page*10"></span> of {{ dashboard.search.data.properties.num_results | number:0 }} reports
+            </span>
 
-          <span data-ng-if="dashboard.search.data.properties.page > 1 && dashboard.search.data.properties.page === dashboard.search.data.properties.total_pages">
-            Showing <span data-ng-bind="((dashboard.search.data.properties.page-1)*10+1)"></span> - {{ dashboard.search.data.properties.num_results }} of {{ dashboard.search.data.properties.num_results | number:0 }} reports
+            <span data-ng-if="dashboard.search.data.properties.page > 1 && dashboard.search.data.properties.page === dashboard.search.data.properties.total_pages">
+              Showing <span data-ng-bind="((dashboard.search.data.properties.page-1)*10+1)"></span> - {{ dashboard.search.data.properties.num_results }} of {{ dashboard.search.data.properties.num_results | number:0 }} reports
+            </span>
           </span>
-        </span>
-        <a data-ng-show="dashboard.search.data.properties.total_pages !== dashboard.search.data.properties.page" href="javascript:void(0);" data-ng-click="dashboard.search.paginate(dashboard.search.data.properties.page+1)" class="next">
-          Next
-        </a>
-      </nav>
-    </footer>
+          <a data-ng-show="dashboard.search.data.properties.total_pages !== dashboard.search.data.properties.page" href="javascript:void(0);" data-ng-click="dashboard.search.paginate(dashboard.search.data.properties.page+1)" class="next">
+            Next
+          </a>
+        </nav>
+      </footer>
 
   </div>
 </main>
