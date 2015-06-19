@@ -16,7 +16,13 @@ angular.module('WaterReporter')
       .when('/dashboard', {
         templateUrl: '/modules/components/dashboard/dashboard--view.html',
         controller: 'DashboardController',
-        controllerAs: 'dashboard'
+        controllerAs: 'dashboard',
+        reloadOnSearch: false,
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
 
   });

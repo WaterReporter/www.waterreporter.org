@@ -15,22 +15,10 @@ angular.module('WaterReporter')
       
         var raw = element[0];
 
-        console.log('searchScrollToLoad');
-
         element.bind('scroll', function() {
-          console.log('in scroll');
-          console.log(raw.scrollTop + raw.offsetHeight);
-          console.log(raw.scrollHeight);
-
           if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-            console.log('APPLY');
             scope.$apply(attrs.searchScrollToLoad);
           }
-          else {
-            console.log('NOPE');
-          }
-
-          console.log('event');
         });
 
       }

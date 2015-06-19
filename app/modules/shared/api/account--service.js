@@ -10,28 +10,33 @@
 angular.module('WaterReporter')
   .service('Account', function (ipCookie, User) {
 
-    /**
-     * PRVIATE
-     *
-     */
-    var _getUser = function() {
-      //
-      // Make sure we take all of the 'User' information and save it to
-      // the Account object so that we can reuse it throughout the system
-      //
-      User.me(function(user_response) {
-        return user_response;
-      }, function(error_response) {
-        console.error('Account._getUser()', error_response);
-      });
+    var Account = {
+      userObject: {}
     };
 
+    Account.getUser = function( ) {
 
-    /**
-     * PUBLIC
-     *
-     */
-    var Account = _getUser();
+      var userId = ipCookie('WATERREPORTER_CURRENTUSER'),
+          $promise = User.get({
+            id: userId
+          });
+
+      return $promise;
+    };
+
+    Account.setUserId = function() {
+      var $promise = User.me(function(accountResponse) {
+
+        ipCookie('WATERREPORTER_CURRENTUSER', accountResponse.id, {
+          path: '/',
+          expires: 2
+        });
+        
+        return accountResponse.id;
+      });
+
+      return $promise;
+    };
     
     return Account;
   });

@@ -73,10 +73,14 @@ angular.module('WaterReporter')
             ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
-            // Direct the user to the next step in the registration process
+            // Make sure we also set the User ID Cookie, so we need to wait to
+            // redirect until we're really sure the cookie is set
             //
-            $location.hash('');
-            $location.path('/dashboard');
+            Account.setUserId().$promise.then(function() {
+              $location.hash('');
+              $location.path('/dashboard');
+            });
+
           }
         }, function(){
           self.login.processing = false;
