@@ -66,12 +66,36 @@ angular.module('WaterReporter')
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Account', function (ipCookie) {
-    
-    var Account = {
+  .service('Account', function (ipCookie, User) {
 
+    var Account = {
+      userObject: {}
     };
 
+    Account.getUser = function( ) {
+
+      var userId = ipCookie('WATERREPORTER_CURRENTUSER'),
+          $promise = User.get({
+            id: userId
+          });
+
+      return $promise;
+    };
+
+    Account.setUserId = function() {
+      var $promise = User.me(function(accountResponse) {
+
+        ipCookie('WATERREPORTER_CURRENTUSER', accountResponse.id, {
+          path: '/',
+          expires: 2
+        });
+        
+        return accountResponse.id;
+      });
+
+      return $promise;
+    };
+    
     return Account;
   });
 'use strict';
@@ -197,6 +221,15 @@ angular.module('WaterReporter')
         method: 'GET',
         isArray: false,
         url: '//api.waterreporter.org/v1/data/user/:id/organization'
+      },
+      me: {
+        method: 'GET',
+        url: '//api.waterreporter.org/v1/data/me'
+      },
+      classifications: {
+        method: 'GET',
+        isArray: false,
+        url: '//api.waterreporter.org/v1/data/user/:id/classifications'
       }
     });
   }]);
@@ -974,7 +1007,7 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function ($http, $location, Security, ipCookie, $route, $timeout) {
+  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $timeout, User) {
 
     var self = this;
 
@@ -1037,10 +1070,14 @@ angular.module('WaterReporter')
             ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
-            // Direct the user to the next step in the registration process
+            // Make sure we also set the User ID Cookie, so we need to wait to
+            // redirect until we're really sure the cookie is set
             //
-            $location.hash('');
-            $location.path('/dashboard');
+            Account.setUserId().$promise.then(function() {
+              $location.hash('');
+              $location.path('/dashboard');
+            });
+
           }
         }, function(){
           self.login.processing = false;
@@ -1363,22 +1400,10 @@ angular.module('WaterReporter')
       
         var raw = element[0];
 
-        console.log('searchScrollToLoad');
-
         element.bind('scroll', function() {
-          console.log('in scroll');
-          console.log(raw.scrollTop + raw.offsetHeight);
-          console.log(raw.scrollHeight);
-
           if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-            console.log('APPLY');
             scope.$apply(attrs.searchScrollToLoad);
           }
-          else {
-            console.log('NOPE');
-          }
-
-          console.log('event');
         });
 
       }
@@ -1434,40 +1459,10 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/dashboard/dashboard--view.html',
         controller: 'DashboardController',
         controllerAs: 'dashboard',
+        reloadOnSearch: false,
         resolve: {
-          reports: function($location, $route, Report) {
-
-            //
-            // Get all of our existing URL Parameters so that we can
-            // modify them to meet our goals
-            //
-            var search_params = $location.search();
-
-            //
-            // Prepare any pre-filters to append to any of our user-defined
-            // filters in the browser address bar
-            //
-            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
-
-            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
-            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-
-            //
-            // We need to add the current user's territory to this 
-            //
-
-            //
-            // Ensure that returned Report features are sorted newest first
-            //
-            search_params.q.order_by.push({
-              field: 'report_date',
-              direction: 'desc'
-            });
-
-            //
-            // Execute our query so that we can get the Reports back
-            //
-            return Report.query(search_params);
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }
       });
@@ -1483,9 +1478,104 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('DashboardController', function () {
+  .controller('DashboardController', function (Account, $location, Report, Search, user) {
 
     var self = this;
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    this.search = Search;
+
+    this.search.params = Search.defaults();
+
+    this.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    this.search.resource = Report;
+
+
+    /**
+     * Load the dashboard with the appropriate User-specific reports
+     */
+    self.loadDashboard = function () {
+
+      //
+      // Get all of our existing URL Parameters so that we can
+      // modify them to meet our goals
+      //
+      var search_params = $location.search();
+
+      //
+      // Prepare any pre-filters to append to any of our user-defined
+      // filters in the browser address bar
+      //
+      search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+      search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+      search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+      //
+      // We need to add the current user's territory to this 
+      //
+
+      //
+      // Ensure that returned Report features are sorted newest first
+      //
+      search_params.q.order_by.push({
+        field: 'report_date',
+        direction: 'desc'
+      });
+
+      angular.forEach(Account.userObject.properties.classifications, function(value, key) {
+        var classification = value.properties,
+            fieldName = 'territory__huc_' + classification.digits + '_name';
+
+        search_params.q.filters.push({
+          name: fieldName,
+          op: 'has',
+          val: classification.name
+        });
+      });
+
+      //
+      // Execute our query so that we can get the Reports back
+      //
+      self.search.data = Report.query(search_params);
+    };
+
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && !Account.userObject.id) {
+      user.$promise.then(function(userResponse) {
+        Account.userObject = userResponse;
+          self.loadDashboard();
+      });
+    }
+    else {
+      self.loadDashboard();
+    }
 
   });
 'use strict';
