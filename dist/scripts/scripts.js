@@ -993,6 +993,13 @@ angular.module('WaterReporter')
         templateUrl: '/modules/shared/security/securityLogin--view.html',
         controller: 'SecurityController',
         controllerAs: 'security'
+      })
+      .when('/logout', {
+        redirectTo: '/user/logout'
+      })
+      .when('/user/logout', {
+        controller: 'SecurityLogoutController',
+        controllerAs: 'security'
       });
   });
 'use strict';
@@ -1135,6 +1142,27 @@ angular.module('WaterReporter')
         });
       }
     };
+
+  });
+
+'use strict';
+
+/*jshint camelcase:false*/
+
+/**
+ * @ngdoc function
+ * @name WaterReporter.controller:SecurityController
+ * @description
+ * # SecurityController
+ * Controller of the WaterReporter
+ */
+angular.module('WaterReporter')
+  .controller('SecurityLogoutController', function (ipCookie, $location) {
+
+    ipCookie.remove('WATERREPORTER_SESSION', {path: '/'});
+    ipCookie.remove('WATERREPORTER_CURRENTUSER', {path: '/'});
+
+    $location.path('/activity/list');
 
   });
 
@@ -1483,7 +1511,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('DashboardController', function (Account, $location, Report, Search, user) {
+  .controller('DashboardController', function (Account, $location, Report, $rootScope, Search, user) {
 
     var self = this;
 
@@ -1583,6 +1611,7 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       user.$promise.then(function(userResponse) {
         Account.userObject = userResponse;
+          $rootScope.user = Account.userObject;
           self.loadDashboard();
       });
     }
@@ -1641,6 +1670,9 @@ angular.module('WaterReporter')
             // Execute our query so that we can get the Reports back
             //
             return Report.query(search_params);
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }            
       });
@@ -1655,7 +1687,9 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Report, reports, Search) {
+  .controller('ActivityController', function (Account, Report, reports, $rootScope, Search, user) {
+
+    $rootScope.user = Account.userObject;
 
     /**
      * Setup search capabilities for the Report Activity Feed
