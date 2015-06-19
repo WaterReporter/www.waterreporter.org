@@ -71,7 +71,9 @@
           <p>
             {{ report.properties.comments.length }} comments
           </p>
-
+          <p>
+            Submitted in the {{ report.properties.territory.properties.huc_6_name }}, {{ report.properties.territory.properties.huc_8_name }}, {{ report.properties.territory.properties.huc_10_name }}, {{ report.properties.territory.properties.huc_12_name }} watersheds
+          </p>
           <ul data-ng-if="report.properties.tags.length">
             <li data-ng-repeat="tag in report.properties.tags">
               <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
