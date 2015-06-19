@@ -38,10 +38,6 @@ angular.module('WaterReporter')
         //
         config.params = (config.params === undefined) ? {} : config.params;
 
-        if (licenseeCookie) {
-          config.params.licensee = licenseeCookie;
-        }
-
         console.debug('SecurityInterceptor::Request', config || $q.when(config));
 
         return config || $q.when(config);
