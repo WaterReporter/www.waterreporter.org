@@ -3,6 +3,7 @@
 <main class="site--content site--content--activity container">
   <div class="row">
     <div class="col-sm-4">
+      <div data-ng-include="'/modules/shared/views/navigation--view.html'"></div>
     </div>
 
     <div class="col-sm-8">
@@ -21,8 +22,14 @@
 
       <br />
 
-      <!-- Untruthy Result Set (0) -->
       <div class="row" data-ng-if="!activity.search.data.features.length">
+        <div class="col-sm-12">
+          <span class="throbber"></span>
+        </div>
+      </div>
+
+      <!-- Untruthy Result Set (0) -->
+      <div class="row" data-ng-if="activity.search.data.features.length === 0">
         <div class="col-sm-12">
         <p>Your search didn’t return any reports</p>
         </div>
