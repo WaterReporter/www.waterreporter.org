@@ -62,6 +62,24 @@ angular.module('WaterReporter')
  * @ngdoc service
  * @name WaterReporter
  * @description
+ * Provides access to the User endpoint of the WaterReporter API
+ * Service in the WaterReporter.
+ */
+angular.module('WaterReporter')
+  .service('Account', function (ipCookie) {
+    
+    var Account = {
+
+    };
+
+    return Account;
+  });
+'use strict';
+
+/**
+ * @ngdoc service
+ * @name WaterReporter
+ * @description
  * Provides access to the Comment endpoint of the WaterReporter API
  * Service in the WaterReporter.
  */
@@ -1024,7 +1042,7 @@ angular.module('WaterReporter')
             $location.hash('');
             $location.path('/dashboard');
           }
-        }, function(error){
+        }, function(){
           self.login.processing = false;
           self.login.errors = {
             email: ['The email or password you provided was incorrect']
@@ -1139,8 +1157,7 @@ angular.module('WaterReporter')
     return {
       request: function(config) {
 
-        var sessionCookie = ipCookie('WATERREPORTER_SESSION'),
-            licenseeCookie = ipCookie('WATERREPORTER_COMMERCE_LICENSEE');
+        var sessionCookie = ipCookie('WATERREPORTER_SESSION');
 
         //
         // Configure our headers to contain the appropriate tags
