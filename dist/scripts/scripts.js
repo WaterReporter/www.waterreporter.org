@@ -1301,9 +1301,9 @@ angular.module('WaterReporter')
           });
 
           return params;
-       },
-       params: {}, // On initial page load, load in our defaults from the address bar
-       paginate: function(pageNumber) {
+      },
+      params: {}, // On initial page load, load in our defaults from the address bar
+      paginate: function(pageNumber) {
         var params = $location.search();
 
         if (angular.isObject(params.q)) {
@@ -1348,6 +1348,8 @@ angular.module('WaterReporter')
             //
             var filter = service.model[field_name];
 
+            console.log('filter', filter)
+
             //
             // Build the value for the filter
             //
@@ -1362,6 +1364,9 @@ angular.module('WaterReporter')
             q.filters.push(filter);
 
           });
+
+          console.log('service.params', service.params);
+
 
           //
           // With a completed `q` parameter, we can now pass it back to the
@@ -1546,13 +1551,21 @@ angular.module('WaterReporter')
 
       angular.forEach(Account.userObject.properties.classifications, function(value, key) {
         var classification = value.properties,
-            fieldName = 'territory__huc_' + classification.digits + '_name';
+            fieldName = 'territory__huc_' + classification.digits + '_name',
+            filter = {
+              name: fieldName,
+              op: 'has',
+              val: classification.name
+            };
 
-        search_params.q.filters.push({
-          name: fieldName,
-          op: 'has',
-          val: classification.name
-        });
+        search_params.q.filters.push(filter);
+
+        // We need to dyamically define the model for this since the fieldName
+        // is variable
+        self.search.model[fieldName] = filter;
+
+        // We need to manually add the param to the classifications
+        self.search.params[fieldName] = classification.name;
       });
 
       //
