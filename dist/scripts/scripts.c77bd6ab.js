@@ -1660,7 +1660,12 @@ angular.module('WaterReporter')
             $rootScope.isLoggedIn = Account.hasToken();
             $rootScope.isAdmin = Account.hasRole('admin');
 
-            self.loadDashboard();
+            if ($rootScope.isAdmin) {
+              self.loadDashboard();
+            }
+            else {
+              $location.path('/activity/list');
+            }
         });
       }
     }
