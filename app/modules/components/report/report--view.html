@@ -13,53 +13,75 @@
         </div>
       </div>
 
+      <!-- Truthy Result Set (1+) -->
       <div class="row">
-        <div id="report--{{ report.data.properties.id }}" class="col-sm-12" data-ng-class="{'report--state--open': (report.data.properties.state === 'open'), 'report--state--closed': (report.data.properties.state === 'closed') }">
-          <div class="row">
-            <div class="col-sm-2 text-center">
+        <div id="report--{{ report.data.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (report.data.properties.state === 'closed') }">
+          <div class="panel-heading">
+            <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+            <a href="/profiles/{{ report.data.properties.owner.id }}">
+              <img class="pull-left img-circle" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+            </a>
+            <p>
               <a href="/profiles/{{ report.data.properties.owner.id }}">
-                <img data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" />
+                {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
+              </a><br />
+              {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
+              {{ report.data.properties.owner.properties.organization_name }}
+            </p>
+          </div>
+          <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
+            <a href="/reports/{{ report.id }}">
+              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.data.properties.images" width="100%" />
+            </a>
+          </figure>
+          <div class="panel-body">
+
+            <p>
+              <strong>User Submitted Content:</strong>
+              {{ report.data.properties.report_description }}</p>
+            <p>
+              <strong>Permalink: </strong> <a href="/reports/{{ report.id }}">
+                View report
               </a>
-              <p>{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-              <p>
-                <a href="/profiles/{{ report.data.properties.owner.id }}">
-                  {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
-                </a><br />
-                {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
-                {{ report.data.properties.owner.properties.organization_name }}
-              </p>
-              <span data-ng-if="report.data.properties.state === 'closed'" class="label label-danger">CLOSED REPORT</span>
-            </div>
-
-            <div class="col-sm-10">
-              <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
-      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.data.properties.images" /> -->
-                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.data.properties.images" />
-              </figure>
-
-              <p>{{ report.data.properties.report_description }}</p>
-
-              <ul data-ng-if="report.data.properties.tags.length">
-                <li data-ng-repeat="tag in report.data.properties.tags">
+            </p>
+            <p>
+              <strong>Comments: </strong>  {{ report.data.properties.comments.length }}
+            </p>
+            <p>
+              <strong>Watersheds: </strong> 
+              <span data-ng-if="report.data.properties.territory">
+                {{ report.data.properties.territory.properties.huc_6_name }}, {{ report.data.properties.territory.properties.huc_8_name }}, {{ report.data.properties.territory.properties.huc_10_name }}, {{ report.data.properties.territory.properties.huc_12_name }}
+              </span>
+              <span data-ng-if="!report.data.properties.territory">
+                <em>None</em>
+              </span>
+            </p>
+            <p>
+              <strong>Tags: </strong>
+              <span data-ng-if="report.data.properties.tags.length">
+                <span class="label label--brand" data-ng-repeat="tag in report.data.properties.tags">
                   <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
                     #{{ tag.properties.tag }}
                   </a>
-                </li>
-              </ul>
+                </span>
+              </span>
+              <span data-ng-if="!report.data.properties.tags.length">
+                <em>None</em>
+              </span>
+            </p>
 
-              <p>
-                {{ report.data.geometry.geometries[0].coordinates[0] }}<br />
-                {{ report.data.geometry.geometries[0].coordinates[1] }}
-              </p>
-            </div>
+            <p>
+              <strong>Longitude/Latitude: </strong> <em>
+                <span data-ng-if="report.geometry">
+                  {{ report.geometry.geometries[0].coordinates[0] }}, 
+                  {{ report.geometry.geometries[0].coordinates[1] }}
+                </span>
+                <span data-ng-if="!report.geometry">
+                  None
+                </span>
+              </em>
+            </p>
           </div>
-        </div>
-        <hr />
-      </div>
-
-      <div class="row" data-ng-if="!report.data.properties.comments.length">
-        <div class="col-sm-12">
-          No response from water keeper
         </div>
       </div>
 
@@ -115,7 +137,7 @@
 
       <br />
 
-      <form data-ng-if="$root.isAdmin" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
+      <form data-ng-if="$root.isLoggedIn" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
         <div class="form-group">
           <label for="report--commentBody">Comment</label>
           <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="report.comment.data.body"></textarea>

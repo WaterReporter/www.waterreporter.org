@@ -39,7 +39,7 @@ angular.module('WaterReporter')
     };
 
     Account.hasToken = function() {
-      if (Account.hasRole('admin') || Account.hasRole('citizen')) {
+      if (ipCookie('WATERREPORTER_CURRENTUSER') && ipCookie('WATERREPORTER_SESSION')) {
         return true;
       }
 

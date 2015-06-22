@@ -117,6 +117,10 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         Account.userObject = userResponse;
           $rootScope.user = Account.userObject;
+
+          $rootScope.isLoggedIn = Account.hasToken();
+          $rootScope.isAdmin = Account.hasRole('admin');
+
           self.loadDashboard();
       });
     }
