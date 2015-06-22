@@ -40,39 +40,23 @@ angular.module('WaterReporter')
           },
           reports: function($location, $route, Report, ipCookie) {
 
-            //
-            // Get all of our existing URL Parameters so that we can
-            // modify them to meet our goals
-            //
-            var search_params = $location.search();
-
-            //
-            // Prepare any pre-filters to append to any of our user-defined
-            // filters in the browser address bar
-            //
-            search_params.q = {};
-
-            search_params.q.filters = [];
-            search_params.q.order_by = [];
-
-            //
-            // Ensure that returned Report features are sorted newest first
-            //
-            search_params.q.filters.push({
-              name: 'owner_id',
-              op: 'eq',
-              val: ipCookie('WATERREPORTER_CURRENTUSER')
-            });
-
-            search_params.q.order_by.push({
-              field: 'report_date',
-              direction: 'desc'
-            });
 
             //
             // Execute our query so that we can get the Reports back
             //
-            return Report.query(search_params);
+            return Report.query({
+              q: {
+                filters: [{
+                  name: 'owner_id',
+                  op: 'eq',
+                  val: ipCookie('WATERREPORTER_CURRENTUSER')
+                }],
+                order_by: [{
+                  field: 'report_date',
+                  direction: 'desc'
+                }]
+              }
+            });
           }          
         }
       });
