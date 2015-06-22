@@ -12,9 +12,17 @@
 angular.module('WaterReporter')
   .controller('SecurityLogoutController', function (ipCookie, $location) {
 
-    ipCookie.remove('WATERREPORTER_SESSION', {path: '/'});
-    ipCookie.remove('WATERREPORTER_CURRENTUSER', {path: '/'});
+    /**
+     * Remove all cookies present for authentication
+     */
+    ipCookie.remove('WATERREPORTER_SESSION');
+    ipCookie.remove('WATERREPORTER_SESSION', { path: '/' });
 
+    ipCookie.remove('WATERREPORTER_CURRENTUSER');
+    ipCookie.remove('WATERREPORTER_CURRENTUSER', { path: '/' });
+
+    /**
+     * Redirect individuals back to the activity list
+     */
     $location.path('/activity/list');
-
   });

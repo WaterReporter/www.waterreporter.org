@@ -12,7 +12,7 @@ angular.module('WaterReporter')
 
     $routeProvider
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/activity/list'
       });
 
     //

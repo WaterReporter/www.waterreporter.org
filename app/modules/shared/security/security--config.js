@@ -23,6 +23,7 @@ angular.module('WaterReporter')
         redirectTo: '/user/logout'
       })
       .when('/user/logout', {
+        template: 'Logging out ...',
         controller: 'SecurityLogoutController',
         controllerAs: 'security'
       });
