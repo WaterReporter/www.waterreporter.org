@@ -13,6 +13,14 @@ angular.module('WaterReporter')
     var self = this;
 
     /**
+     * Check to make sure that the user is currently logged in. If they are not
+     * we need to redirect them to the log in page.
+     */
+    if (user && !user.id) {
+      $location.path('/user/login');
+    }
+
+    /**
      * Setup search capabilities for the Report Activity Feed
      *
      * @data this.search
@@ -74,7 +82,7 @@ angular.module('WaterReporter')
         direction: 'desc'
       });
 
-      angular.forEach(Account.userObject.properties.classifications, function(value, key) {
+      angular.forEach(Account.userObject.properties.classifications, function(value) {
         var classification = value.properties,
             fieldName = 'territory__huc_' + classification.digits + '_name',
             filter = {
