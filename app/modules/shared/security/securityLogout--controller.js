@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityLogoutController', function (ipCookie, $location) {
+  .controller('SecurityLogoutController', function (Account, ipCookie, $location, $rootScope) {
 
     /**
      * Remove all cookies present for authentication
@@ -20,6 +20,13 @@ angular.module('WaterReporter')
 
     ipCookie.remove('WATERREPORTER_CURRENTUSER');
     ipCookie.remove('WATERREPORTER_CURRENTUSER', { path: '/' });
+
+    /**
+     * 
+     */
+    $rootScope.user = null;
+
+    Account.userObject = null;
 
     /**
      * Redirect individuals back to the activity list

@@ -37,6 +37,32 @@ angular.module('WaterReporter')
 
       return $promise;
     };
+
+    Account.hasToken = function() {
+      if (Account.hasRole('admin') || Account.hasRole('citizen')) {
+        return true;
+      }
+
+      return false;
+    };
+
+    Account.hasRole = function(roleNeeded) {
+
+      var roles = this.userObject.properties.roles;
+
+      if (!roles) {
+        return false;
+      }
+
+      for (var index = 0; index < roles.length; index++) {
+        console.log(roleNeeded, '===', roles[index].properties.name, '?');
+        if (roleNeeded === roles[index].name) {
+          return true;
+        }
+      }
+
+      return false;
+    };
     
     return Account;
   });

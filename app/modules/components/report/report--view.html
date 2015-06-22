@@ -8,7 +8,7 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-12">
-          <button data-ng-if="report.data.properties.state !== 'closed'" class="btn btn-danger" data-ng-click="report.delete(report.data.id)">Delete Report</button>
+          <button data-ng-if="report.data.properties.state !== 'closed' && $root.isAdmin" class="btn btn-danger" data-ng-click="report.delete(report.data.id)">Delete Report</button>
           <a class="btn btn-info" href="mailto:example@waterreporter.org?subject=Check out this Report on www.waterreporter.org&body=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ report.data.id }}" target="_blank">Share Report</a>
         </div>
       </div>
@@ -115,7 +115,7 @@
 
       <br />
 
-      <form class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
+      <form data-ng-if="$root.isAdmin" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
         <div class="form-group">
           <label for="report--commentBody">Comment</label>
           <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="report.comment.data.body"></textarea>

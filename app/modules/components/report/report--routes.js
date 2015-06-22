@@ -27,6 +27,9 @@ angular.module('WaterReporter')
             return Report.comments({
               id: $route.current.params.reportId
             });
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }
       });

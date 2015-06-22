@@ -17,7 +17,7 @@
           <li data-ng-if="$root.user && $root.user.id">
             <a href="/user/logout">Log out</a>        
           </li>
-          <li data-ng-if="$root.user && !$root.user.id">
+          <li data-ng-if="!$root.user.id">
             <a href="/user/login">Log in</a>        
           </li>
         </ul>
