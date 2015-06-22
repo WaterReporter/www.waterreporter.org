@@ -1260,7 +1260,7 @@ angular.module('WaterReporter')
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .factory('SecurityInterceptor', ['$q', 'ipCookie', function ($q, ipCookie) {
+  .factory('SecurityInterceptor', function ($q, ipCookie, $location) {
 
     return {
       request: function(config) {
@@ -1298,10 +1298,15 @@ angular.module('WaterReporter')
       },
       responseError: function (response) {
         console.debug('AuthorizationInterceptor::ResponseError', response || $q.when(response));
+
+        if (response.status === 403) {
+          $location.path('/user/logout');
+        }
+
         return $q.reject(response);
       }
     };
-  }]).config(function ($httpProvider) {
+  }).config(function ($httpProvider) {
     $httpProvider.interceptors.push('SecurityInterceptor');
   });
 
