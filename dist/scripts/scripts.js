@@ -33,17 +33,13 @@ angular
 angular.module('WaterReporter')
   .config(function ($locationProvider, $routeProvider) {
 
-    $routeProvider
-      .otherwise({
-        redirectTo: '/'
-      });
-
     //
     // For any unmatched url, redirect to home
     //
-    // @see https://github.com/angular-ui/ui-router/wiki/URL-Routing
-    //
-    // $urlRouterProvider.otherwise('/');
+    $routeProvider
+      .otherwise({
+        redirectTo: '/activity/list'
+      });
 
     //
     // Make sure that HTML mode is enabled
@@ -94,6 +90,32 @@ angular.module('WaterReporter')
       });
 
       return $promise;
+    };
+
+    Account.hasToken = function() {
+      if (Account.hasRole('admin') || Account.hasRole('citizen')) {
+        return true;
+      }
+
+      return false;
+    };
+
+    Account.hasRole = function(roleNeeded) {
+
+      var roles = this.userObject.properties.roles;
+
+      if (!roles) {
+        return false;
+      }
+
+      for (var index = 0; index < roles.length; index++) {
+        console.log(roleNeeded, '===', roles[index].properties.name, '?');
+        if (roleNeeded === roles[index].name) {
+          return true;
+        }
+      }
+
+      return false;
     };
     
     return Account;
@@ -998,6 +1020,7 @@ angular.module('WaterReporter')
         redirectTo: '/user/logout'
       })
       .when('/user/logout', {
+        template: 'Logging out ...',
         controller: 'SecurityLogoutController',
         controllerAs: 'security'
       });
@@ -1157,13 +1180,28 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityLogoutController', function (ipCookie, $location) {
+  .controller('SecurityLogoutController', function (Account, ipCookie, $location, $rootScope) {
 
-    ipCookie.remove('WATERREPORTER_SESSION', {path: '/'});
-    ipCookie.remove('WATERREPORTER_CURRENTUSER', {path: '/'});
+    /**
+     * Remove all cookies present for authentication
+     */
+    ipCookie.remove('WATERREPORTER_SESSION');
+    ipCookie.remove('WATERREPORTER_SESSION', { path: '/' });
 
+    ipCookie.remove('WATERREPORTER_CURRENTUSER');
+    ipCookie.remove('WATERREPORTER_CURRENTUSER', { path: '/' });
+
+    /**
+     * 
+     */
+    $rootScope.user = null;
+
+    Account.userObject = null;
+
+    /**
+     * Redirect individuals back to the activity list
+     */
     $location.path('/activity/list');
-
   });
 
 'use strict';
@@ -1516,6 +1554,14 @@ angular.module('WaterReporter')
     var self = this;
 
     /**
+     * Check to make sure that the user is currently logged in. If they are not
+     * we need to redirect them to the log in page.
+     */
+    if (user && !user.id) {
+      $location.path('/user/login');
+    }
+
+    /**
      * Setup search capabilities for the Report Activity Feed
      *
      * @data this.search
@@ -1577,7 +1623,7 @@ angular.module('WaterReporter')
         direction: 'desc'
       });
 
-      angular.forEach(Account.userObject.properties.classifications, function(value, key) {
+      angular.forEach(Account.userObject.properties.classifications, function(value) {
         var classification = value.properties,
             fieldName = 'territory__huc_' + classification.digits + '_name',
             filter = {
@@ -1721,6 +1767,19 @@ angular.module('WaterReporter')
     this.search.resource = Report;
 
     this.search.data = reports;
+
+
+    /**
+     * This is the first page the authneticated user will see. We need to make
+     * sure that their user information is ready to use. Make sure the
+     * Account.userObject contains the appropriate information.
+     */
+    if (Account.userObject && !Account.userObject.id) {
+      user.$promise.then(function(userResponse) {
+        Account.userObject = userResponse;
+          $rootScope.user = Account.userObject;
+      });
+    }
 
   });
 'use strict';
@@ -2146,6 +2205,9 @@ angular.module('WaterReporter')
             return Report.comments({
               id: $route.current.params.reportId
             });
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }
       });
@@ -2161,7 +2223,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (comments, Comment, $location, $rootScope, report, Report, $route) {
+  .controller('ReportController', function (Account, comments, Comment, $location, $rootScope, report, Report, $route, user) {
 
     var self = this;
 
@@ -2191,6 +2253,19 @@ angular.module('WaterReporter')
       }
     };
 
+    /**
+     * This is the first page the authneticated user will see. We need to make
+     * sure that their user information is ready to use. Make sure the
+     * Account.userObject contains the appropriate information.
+     */
+    if (Account.userObject && !Account.userObject.id) {
+      user.$promise.then(function(userResponse) {
+        Account.userObject = userResponse;
+          $rootScope.user = Account.userObject;
+          $rootScope.isLoggedIn = Account.hasToken();
+          $rootScope.isAdmin = Account.hasRole('admin');
+      });
+    }
 
     /**
      * Open Report functionality to the Cotnroller
