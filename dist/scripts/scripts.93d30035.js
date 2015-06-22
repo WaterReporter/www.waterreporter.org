@@ -70,10 +70,15 @@ angular.module('WaterReporter')
 
     Account.getUser = function( ) {
 
-      var userId = ipCookie('WATERREPORTER_CURRENTUSER'),
-          $promise = User.get({
-            id: userId
-          });
+      var userId = ipCookie('WATERREPORTER_CURRENTUSER');
+
+      if (!userId) {
+        return false;
+      }
+
+      var $promise = User.get({
+        id: userId
+      });
 
       return $promise;
     };
@@ -110,7 +115,7 @@ angular.module('WaterReporter')
 
       for (var index = 0; index < roles.length; index++) {
         console.log(roleNeeded, '===', roles[index].properties.name, '?');
-        if (roleNeeded === roles[index].name) {
+        if (roleNeeded === roles[index].properties.name) {
           return true;
         }
       }
@@ -1554,14 +1559,6 @@ angular.module('WaterReporter')
     var self = this;
 
     /**
-     * Check to make sure that the user is currently logged in. If they are not
-     * we need to redirect them to the log in page.
-     */
-    if (user && !user.id) {
-      $location.path('/user/login');
-    }
-
-    /**
      * Setup search capabilities for the Report Activity Feed
      *
      * @data this.search
@@ -1655,15 +1652,17 @@ angular.module('WaterReporter')
     // Account.userObject contains the appropriate information.
     //
     if (Account.userObject && !Account.userObject.id) {
-      user.$promise.then(function(userResponse) {
-        Account.userObject = userResponse;
-          $rootScope.user = Account.userObject;
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
 
-          $rootScope.isLoggedIn = Account.hasToken();
-          $rootScope.isAdmin = Account.hasRole('admin');
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
 
-          self.loadDashboard();
-      });
+            self.loadDashboard();
+        });
+      }
     }
     else {
       self.loadDashboard();
@@ -1779,13 +1778,15 @@ angular.module('WaterReporter')
      * Account.userObject contains the appropriate information.
      */
     if (Account.userObject && !Account.userObject.id) {
-      user.$promise.then(function(userResponse) {
-        Account.userObject = userResponse;
-          $rootScope.user = Account.userObject;
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
 
-          $rootScope.isLoggedIn = Account.hasToken();
-          $rootScope.isAdmin = Account.hasRole('admin');
-      });
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+        });
+      }
     }
 
   });
@@ -2266,13 +2267,15 @@ angular.module('WaterReporter')
      * Account.userObject contains the appropriate information.
      */
     if (Account.userObject && !Account.userObject.id) {
-      user.$promise.then(function(userResponse) {
-        Account.userObject = userResponse;
-          $rootScope.user = Account.userObject;
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
 
-          $rootScope.isLoggedIn = Account.hasToken();
-          $rootScope.isAdmin = Account.hasRole('admin');
-      });
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+        });
+      }
     }
 
     /**
@@ -2335,7 +2338,7 @@ angular.module('WaterReporter')
           body: self.comment.data.body,
           status: 'public',
           report_id: reportId,
-          report_state: state
+          report_state: (state) ? state : null
         });
 
         comment.$save(function() {
