@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $timeout, User) {
+  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout, User) {
 
     var self = this;
 
@@ -77,8 +77,22 @@ angular.module('WaterReporter')
             // redirect until we're really sure the cookie is set
             //
             Account.setUserId().$promise.then(function() {
-              $location.hash('');
-              $location.path('/dashboard');
+              Account.getUser().$promise.then(function(userResponse) {
+                console.log('userResponse', userResponse);
+
+                Account.userObject = userResponse;
+                
+                $rootScope.user = Account.userObject;
+                $rootScope.isLoggedIn = Account.hasToken();
+                $rootScope.isAdmin = Account.hasRole('admin');
+
+                if ($rootScope.isAdmin) {
+                  $location.path('/dashboard');
+                }
+                else {
+                  $location.path('/activity/list');
+                }
+              });
             });
 
           }
