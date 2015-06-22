@@ -7,12 +7,20 @@
         <div class="panel-body">
           <!-- <div data-ng-include="'/modules/shared/views/navigation--view.html'"></div> -->
           <a href="/profiles/{{ $root.user.id }}">
-            <img class="pull-left img-circle" data-ng-if="$root.user.properties.email" gravatar-src="'{{ $root.user.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+            <img class="pull-left img-circle" data-ng-if="$root.user.properties.email" gravatar-src="'{{ $root.user.properties.email }}'" gravatar-size="64" />
           </a>
           <p>
             <a href="/profiles/{{ $root.user.id }}">
               {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}
             </a>
+          </p>
+          <p style="clear:both;">
+            <span>
+              <strong>{{ dashboard.reports.properties.num_results | number:0 }}</strong> Submitted Reports
+            </span>
+            <span>
+              <strong>{{ dashboard.closures.properties.num_results | number:0 }}</strong> Reports Closed
+            </span>
           </p>
         </div>
       </div>

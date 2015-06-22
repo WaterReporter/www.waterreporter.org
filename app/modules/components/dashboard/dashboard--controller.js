@@ -8,9 +8,12 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('DashboardController', function (Account, $location, Report, $rootScope, Search, user) {
+  .controller('DashboardController', function (Account, closures, $location, Report, $rootScope, reports, Search, user) {
 
     var self = this;
+
+    self.reports = reports;
+    self.closures = closures;
 
     /**
      * Setup search capabilities for the Report Activity Feed
