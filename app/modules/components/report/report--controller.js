@@ -44,13 +44,15 @@ angular.module('WaterReporter')
      * Account.userObject contains the appropriate information.
      */
     if (Account.userObject && !Account.userObject.id) {
-      user.$promise.then(function(userResponse) {
-        Account.userObject = userResponse;
-          $rootScope.user = Account.userObject;
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
 
-          $rootScope.isLoggedIn = Account.hasToken();
-          $rootScope.isAdmin = Account.hasRole('admin');
-      });
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+        });
+      }
     }
 
     /**
@@ -113,7 +115,7 @@ angular.module('WaterReporter')
           body: self.comment.data.body,
           status: 'public',
           report_id: reportId,
-          report_state: state
+          report_state: (state) ? state : null
         });
 
         comment.$save(function() {

@@ -13,14 +13,6 @@ angular.module('WaterReporter')
     var self = this;
 
     /**
-     * Check to make sure that the user is currently logged in. If they are not
-     * we need to redirect them to the log in page.
-     */
-    if (user && !user.id) {
-      $location.path('/user/login');
-    }
-
-    /**
      * Setup search capabilities for the Report Activity Feed
      *
      * @data this.search
@@ -114,15 +106,17 @@ angular.module('WaterReporter')
     // Account.userObject contains the appropriate information.
     //
     if (Account.userObject && !Account.userObject.id) {
-      user.$promise.then(function(userResponse) {
-        Account.userObject = userResponse;
-          $rootScope.user = Account.userObject;
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
 
-          $rootScope.isLoggedIn = Account.hasToken();
-          $rootScope.isAdmin = Account.hasRole('admin');
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
 
-          self.loadDashboard();
-      });
+            self.loadDashboard();
+        });
+      }
     }
     else {
       self.loadDashboard();

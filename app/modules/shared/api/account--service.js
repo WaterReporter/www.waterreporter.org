@@ -16,10 +16,15 @@ angular.module('WaterReporter')
 
     Account.getUser = function( ) {
 
-      var userId = ipCookie('WATERREPORTER_CURRENTUSER'),
-          $promise = User.get({
-            id: userId
-          });
+      var userId = ipCookie('WATERREPORTER_CURRENTUSER');
+
+      if (!userId) {
+        return false;
+      }
+
+      var $promise = User.get({
+        id: userId
+      });
 
       return $promise;
     };
@@ -56,7 +61,7 @@ angular.module('WaterReporter')
 
       for (var index = 0; index < roles.length; index++) {
         console.log(roleNeeded, '===', roles[index].properties.name, '?');
-        if (roleNeeded === roles[index].name) {
+        if (roleNeeded === roles[index].properties.name) {
           return true;
         }
       }
