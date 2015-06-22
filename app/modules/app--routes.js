@@ -10,17 +10,13 @@
 angular.module('WaterReporter')
   .config(function ($locationProvider, $routeProvider) {
 
+    //
+    // For any unmatched url, redirect to home
+    //
     $routeProvider
       .otherwise({
         redirectTo: '/activity/list'
       });
-
-    //
-    // For any unmatched url, redirect to home
-    //
-    // @see https://github.com/angular-ui/ui-router/wiki/URL-Routing
-    //
-    // $urlRouterProvider.otherwise('/');
 
     //
     // Make sure that HTML mode is enabled
