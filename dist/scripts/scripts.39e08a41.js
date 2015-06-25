@@ -2298,31 +2298,35 @@ angular.module('WaterReporter')
 
     var self = this;
 
-    self.data = report;
+    report.$promise.then(function(reportResponse) {
+      
+      self.data = reportResponse;
+
+      /**
+       * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
+       * will their own Pinterest Rich Pins page
+       *
+       * @see https://developers.pinterest.com/rich_pins_place/
+       */
+      $rootScope.meta = {
+        og: {
+          site_name: 'WaterReporter',
+          title: 'Citizen Water Report in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed',
+          type: 'place',
+          description: (self.data.properties.report_description) ? self.data.properties.report_description: 'A report in the ' + self.data.properties.territory.properties.huc_8_name + ' watershed',
+          url: 'https://www.waterreporter.org/reports/' + self.data.id
+        },
+        place: {
+          location: {
+            longitude: self.data.geometry.geometries[0].coordinates[1],
+            latitude: self.data.geometry.geometries[0].coordinates[0]
+          }
+        }
+      };
+
+    });
     
     self.comments = comments;
-
-    /**
-     * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
-     * will their own Pinterest Rich Pins page
-     *
-     * @see https://developers.pinterest.com/rich_pins_place/
-     */
-    $rootScope.meta = {
-      og: {
-        site_name: 'WaterReporter',
-        title: 'Name of place',
-        type: 'place',
-        description: 'Description of the place',
-        url: 'https://www.waterreporter.org/reports/1'
-      },
-      place: {
-        location: {
-          longitude: null,
-          latitude: null
-        }
-      }
-    };
 
     /**
      * This is the first page the authneticated user will see. We need to make
