@@ -11,12 +11,6 @@ angular.module('WaterReporter')
   .service('Search', function ($location, $route) {
 
     /**
-     * Private Functions and Variables for the Search Service
-     */
-     var _Search = {};
-
-
-    /**
      * Public Functions and Variables for the Search Service
      */
      var Search = {
