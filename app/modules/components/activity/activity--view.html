@@ -35,6 +35,8 @@
         </div>
       </div>
 
+      <leaflet class="map" markers="activity.map.markers" defaults="activity.map.defaults" layers="activity.map.layers" center="activity.map.center" geojson="activity.map.geojson" bounds="activity.map.bounds" geojson-nested="true"></leaflet>
+
       <!-- Truthy Result Set (1+) -->
       <div class="row"
            data-ng-if="activity.search.data.features.length"
@@ -72,7 +74,7 @@
               <strong>Comments: </strong>  {{ report.properties.comments.length }}
             </p>
             <p>
-              <strong>Watersheds: </strong> 
+              <strong>Watersheds: </strong>
               <span data-ng-if="report.properties.territory">
                 {{ report.properties.territory.properties.huc_6_name }}, {{ report.properties.territory.properties.huc_8_name }}, {{ report.properties.territory.properties.huc_10_name }}, {{ report.properties.territory.properties.huc_12_name }}
               </span>
@@ -97,7 +99,7 @@
             <p>
               <strong>Longitude/Latitude: </strong> <em>
                 <span data-ng-if="report.geometry">
-                  {{ report.geometry.geometries[0].coordinates[0] }}, 
+                  {{ report.geometry.geometries[0].coordinates[0] }},
                   {{ report.geometry.geometries[0].coordinates[1] }}
                 </span>
                 <span data-ng-if="!report.geometry">

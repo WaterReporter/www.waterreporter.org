@@ -45,22 +45,22 @@ angular.module('WaterReporter')
 
 
     //
-    // 
+    //
     //
     leafletData.getMap().then(function(map) {
 
-      $scope.$on('leafletDirectiveMarker.mouseover', function(event, args) {
-        args.leafletEvent.target.openPopup();
-      });
-
-      $scope.$on('leafletDirectiveMarker.mouseout', function(event, args) {
-        args.leafletEvent.target.closePopup();
-      });
-
-      $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-        console.log('args', args);
-        // $location.path($scope.markers[args.markerName].permalink);
-      });
+      // $scope.$on('leafletDirectiveMarker.mouseover', function(event, args) {
+      //   args.leafletEvent.target.openPopup();
+      // });
+      //
+      // $scope.$on('leafletDirectiveMarker.mouseout', function(event, args) {
+      //   args.leafletEvent.target.closePopup();
+      // });
+      //
+      // $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      //   console.log('args', args);
+      //   // $location.path($scope.markers[args.markerName].permalink);
+      // });
     });
 
 
