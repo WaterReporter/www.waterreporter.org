@@ -10,10 +10,7 @@
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
-      .when('/activity', {
-        redirectTo: '/activity/list'
-      })
-      .when('/activity/list', {
+      .when('/community', {
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
         controllerAs: 'activity',
@@ -52,6 +49,6 @@ angular.module('WaterReporter')
           user: function(Account) {
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
-        }            
+        }
       });
   });
