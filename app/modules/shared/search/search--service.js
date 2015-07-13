@@ -9,7 +9,7 @@
  */
 angular.module('WaterReporter')
   .service('Search', function ($location, $route) {
-    
+
     /**
      * Private Functions and Variables for the Search Service
      */
@@ -111,8 +111,6 @@ angular.module('WaterReporter')
             // Get the information for the model
             //
             var filter = service.model[field_name];
-
-            console.log('filter', filter)
 
             //
             // Build the value for the filter
