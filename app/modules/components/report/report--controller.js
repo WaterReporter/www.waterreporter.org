@@ -13,7 +13,7 @@ angular.module('WaterReporter')
     var self = this;
 
     report.$promise.then(function(reportResponse) {
-      
+
       self.data = reportResponse;
 
       /**
@@ -39,7 +39,7 @@ angular.module('WaterReporter')
       };
 
     });
-    
+
     self.comments = comments;
 
     /**
@@ -99,7 +99,7 @@ angular.module('WaterReporter')
            $route.reload();
          });
        },
-       open: function(reportId, state) {
+       open: function(reportId) {
 
         // Save the Comment
         self.comment.save(reportId, 'open');
@@ -109,7 +109,6 @@ angular.module('WaterReporter')
           id: reportId,
           state: 'open'
          }).$promise.then(function(response) {
-           console.log('response', response);
            $route.reload();
          });
        },
@@ -123,7 +122,6 @@ angular.module('WaterReporter')
         });
 
         comment.$save(function() {
-          console.log('comment saved!!!');
           $route.reload();
         });
        }
@@ -131,9 +129,8 @@ angular.module('WaterReporter')
 
      self.delete = function(reportId) {
        Report.delete({
-         id: reportId        
+         id: reportId
        }).$promise.then(function(response) {
-         console.log('response', response);
          $location.path('/activity/list');
        });
      };

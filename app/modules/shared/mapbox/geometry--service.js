@@ -4,12 +4,12 @@
  * @ngdoc service
  * @name cleanWaterCommunitiesApp.GeometryService
  * @description
- *   
+ *
  */
 angular.module('Mapbox')
   .service('mapboxGeometry', ['$http', 'leafletData', function Navigation($http, leafletData) {
     return {
-      drawGeoJSON: function(geojson, featureGroup, layerStyle, appendToLayer) {
+      drawGeoJSON: function(geojson, featureGroup) {
 
         var self = this;
 
@@ -92,7 +92,6 @@ angular.module('Mapbox')
         L.geoJson(geojsonObject, {
           style: layerStyle
         }).eachLayer(function(newLayer) {
-          console.log('newLayer', newLayer)
           newLayer.addTo(targetLayer);
           newLayer.bindPopup('<strong>' + newLayer.feature.properties.owner.properties.first_name + '</strong> reported on ' + newLayer.feature.properties.report_date + '<br /><small><a href="/reports/' + newLayer.feature.id + '">View Report</a></small>');
         });
@@ -112,42 +111,43 @@ angular.module('Mapbox')
        *    addresses and their associated geographic information
        *
        */
-      intersects: function(requestedLocation, collection) {
+      intersects: function(requestedLocation) {
 
-        // //
-        // // Check to make sure that the string is not empty prior to submitting
-        // // it to the Mapbox Geocoding API
-        // //
-        // if (!requestedLocation) {
-        //   return;
-        // }
+        //
+        // Check to make sure that the string is not empty prior to submitting
+        // it to the Mapbox Geocoding API
+        //
+        if (!requestedLocation) {
+          return;
+        }
 
-        // //
-        // // Created a valid Mapbox Geocoding API compatible URL
-        // //
+        //
+        // Created a valid Mapbox Geocoding API compatible URL
+        //
         // var ccGeometryAPI = commonscloud.baseurl.concat(collection, '/', 'intersects', '.geojson');
+        var ccGeometryAPI = null;
 
-        // //
-        // // Send a GET request to the Mapbox Geocoding API containing valid user
-        // // input
-        // //
-        // var promise = $http.get(ccGeometryAPI, {
-        //   params: {
-        //     'callback': 'JSON_CALLBACK',
-        //     'geometry': requestedLocation.lng + ' ' + requestedLocation.lat
-        //   }
-        // })
-        //   .success(function(featureCollection) {
-        //     return featureCollection;
-        //   })
-        //   .error(function(data) {
-        //     console.error('CommonsCloud Geospatial API could not return any results based on your input', data, requestedLocation);
-        //   });
+        //
+        // Send a GET request to the Mapbox Geocoding API containing valid user
+        // input
+        //
+        var promise = $http.get(ccGeometryAPI, {
+          params: {
+            'callback': 'JSON_CALLBACK',
+            'geometry': requestedLocation.lng + ' ' + requestedLocation.lat
+          }
+        })
+          .success(function(featureCollection) {
+            return featureCollection;
+          })
+          .error(function(data) {
+            console.error('CommonsCloud Geospatial API could not return any results based on your input', data, requestedLocation);
+          });
 
-        // //
-        // // Always return Requests in angular.services as a `promise`
-        // //
-        // return promise;
+        //
+        // Always return Requests in angular.services as a `promise`
+        //
+        return promise;
       },
     };
   }]);
