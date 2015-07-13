@@ -8,8 +8,8 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfilesController', function (profiles, Search, User) {
-    
+  .controller('ProfilesController', function (profiles, Search) {
+
     this.data = profiles;
 
     /**
@@ -30,16 +30,6 @@ angular.module('WaterReporter')
     this.search = Search;
 
     this.search.params = Search.defaults();
-
-    // this.search.model = {
-    //   report_description: {
-    //     name: 'report_description',
-    //     op: 'ilike',
-    //     val: ''
-    //   }
-    // };
-
-    // this.search.resource = User;
 
     this.search.data = profiles;
 

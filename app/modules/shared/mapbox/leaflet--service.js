@@ -17,11 +17,22 @@ angular.module('Mapbox')
       layers: {
         baselayers: {
           basemap: {
-            name: 'Satellite Imagery',
-            url: 'https://{s}.tiles.mapbox.com/v3/' + mapbox.map_id + '/{z}/{x}/{y}.png',
+            name: 'Run, Bike, and Hike',
+            url: 'https://{s}.tiles.mapbox.com/v3/{mapid}/{z}/{x}/{y}.png',
             type: 'xyz',
             layerOptions: {
-              attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
+              mapid: 'developedsimple.mf7anga9'
+            }
+          },
+          satellite: {
+            name: 'Satellite',
+            url: 'https://{s}.tiles.mapbox.com/v3/{mapid}/{z}/{x}/{y}.png',
+            type: 'xyz',
+            layerOptions: {
+              mapid: 'developedsimple.mn44k8he'
+            // },
+            // layerOptions: {
+            //   attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
             }
           }
         }
@@ -68,6 +79,6 @@ angular.module('Mapbox')
       },
       geojson: {}
     };
-    
+
     return Map;
   }]);
