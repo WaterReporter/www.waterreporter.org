@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout, User) {
+  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout) {
 
     var self = this;
 
@@ -81,7 +81,7 @@ angular.module('WaterReporter')
                 console.log('userResponse', userResponse);
 
                 Account.userObject = userResponse;
-                
+
                 $rootScope.user = Account.userObject;
                 $rootScope.isLoggedIn = Account.hasToken();
                 $rootScope.isAdmin = Account.hasRole('admin');
@@ -145,6 +145,8 @@ angular.module('WaterReporter')
           }
         }, function(error){
           self.login.processing = false;
+
+          console.error('Couldn\'t save registration', error);
 
           $timeout(function() {
             self.login.errors = null;
