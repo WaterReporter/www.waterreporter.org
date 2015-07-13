@@ -1,0 +1,20 @@
+          <div class="row">
+            <form class="site--search site--search--content form" role="form" id="form--search--reports" name="form--search--reports" data-ng-submit="community.search.execute()">
+              <div class="form-group">
+                <label for="form--search--reportDescription">Search</label>
+                <input type="text" class="form-control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="community.search.params.report_description" data-ng-change="community.search.execute()" autofocus="autofocus" />
+              </div>
+              <button data-ng-click="community.search.clear()" class="btn btn-default">Clear Search</button>
+              <span data-ng-if="community.search.data.properties.num_results" class="pull-right">
+                Showing {{ community.search.data.properties.num_results || 0 | number:0 }} Reports
+              </span>
+            </form>
+          </div>
+
+          <br />
+
+          <div class="row" data-ng-if="!community.search.data.features.length">
+            <div class="col-sm-12">
+              <span class="throbber"></span>
+            </div>
+          </div>
