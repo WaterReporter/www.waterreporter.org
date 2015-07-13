@@ -1,29 +1,27 @@
 <header class="site--header container">
 
-  <div class="row">
+  <a class="site--header--brand" href="/">
+    <img src="/images/logo-WaterReporter.png" alt="" title="" width="164" />
+  </a>
 
-    <section class="col-sm-4 text-center">
-      <a href="/">
-        <img src="/images/logo-WaterReporter.png" alt="" title="" width="164" />
-      </a>
-    </section>
-
-    <section class="col-sm-8">
-      <nav class="navigation">
-        <ul class="navigation--utility nav navbar-nav pull-right">
-          <li data-ng-if="$root.isAdmin">
-            <a href="/dashboard">Dashboard</a>        
-          </li>
-          <li data-ng-if="$root.user && $root.user.id">
-            <a href="/user/logout">Log out</a>        
-          </li>
-          <li data-ng-if="!$root.user.id">
-            <a href="/user/login">Log in</a>        
-          </li>
-        </ul>
-      </nav>
-    </section>
-
-  </div>
+  <nav class="navigation">
+    <ul class="navigation--utility nav navbar-nav pull-right">
+      <li>
+        <a href="/community">Community</a>
+      </li>
+      <li>
+        <a href="/about">About</a>
+      </li>
+      <li data-ng-if="$root.isAdmin">
+        <a href="/dashboard">Dashboard</a>
+      </li>
+      <li data-ng-if="$root.user && $root.user.id">
+        <a href="/user/logout">Log out</a>
+      </li>
+      <li data-ng-if="!$root.user.id">
+        <a href="/user/login">Log in</a>
+      </li>
+    </ul>
+  </nav>
 
 </header>
