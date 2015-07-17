@@ -1,7 +1,23 @@
 .features {
-  width: 50%;
+  width: 70%;
   margin-top: -160px;
   z-index: 1;
   position: relative;
   margin-left: 32px;
+}
+
+.features--container {
+  width: 100%;
+}
+
+.features--slider--previous,
+.features--slider--next {
+  display: inline-block;
+  vertical-align: top;
+  width: 8%;
+}
+
+.features--report {
+  display: inline-block;
+  width: 80%;
 }
