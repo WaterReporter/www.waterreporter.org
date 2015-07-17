@@ -6,11 +6,17 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, leafletData, $location, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  .controller('ActivityController', function (Account, features, leafletData, $location, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
     var self = this;
 
     $rootScope.user = Account.userObject;
+
+    /**
+     * Setup our Features so that they appear on the home page in the
+     * appropriate position
+     */
+    this.features = features;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -88,7 +94,7 @@ angular.module('WaterReporter')
     }, true);
 
     this.loadMap = function() {
-      self.search.data.$promise.then(function(reports_) {
+      self.features.$promise.then(function(reports_) {
           self.map.geojson.reports = {
               data: reports_
           };
