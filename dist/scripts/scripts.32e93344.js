@@ -38,7 +38,7 @@ angular.module('WaterReporter')
     //
     $routeProvider
       .otherwise({
-        redirectTo: '/activity/list'
+        redirectTo: '/activity'
       });
 
     //
@@ -52,6 +52,7 @@ angular.module('WaterReporter')
     //
     $locationProvider.html5Mode(true);
   });
+
 'use strict';
 
 /**
@@ -287,7 +288,7 @@ angular
  */
 angular.module('Mapbox')
   .directive('mapboxGeocoder', ['$compile', '$http', '$templateCache', '$timeout', 'mapbox', 'geocoding', 'TemplateLoader', function ($compile, $http, $templateCache, $timeout, mapbox, geocoding, TemplateLoader) {
-     
+
     return {
         restrict: 'A',
         scope: {
@@ -297,13 +298,13 @@ angular.module('Mapbox')
           mapboxGeocoderResults: '=?',
           mapboxGeocoderAppend: '=?'
         },
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
 
           //
           // Setup up our timeout and the Template we will use for display the
           // results from the Mapbox Geocoding API back to the user making the
           // Request
-          // 
+          //
           var timeout;
 
           //
@@ -348,7 +349,7 @@ angular.module('Mapbox')
               // need to.
               //
               if (query && !scope.mapboxGeocoderResponse) {
-                var results = geocoding[scope.mapboxGeocoderDirection](query_).success(function(results) {
+                geocoding[scope.mapboxGeocoderDirection](query_).success(function(results) {
                   scope.mapboxGeocoderResults = results;
                 });
               }
@@ -367,7 +368,7 @@ angular.module('Mapbox')
               // Assign the selected value to back to our scope. The developer
               // should be able to use the results however they like. For
               // instance they may need to use the `Response` from this request
-              // to perform a query against another database for geolookup or 
+              // to perform a query against another database for geolookup or
               // save this value to the database.
               //
               scope.mapboxGeocoderQuery = selectedValue.place_name;
@@ -384,6 +385,7 @@ angular.module('Mapbox')
         }
     };
   }]);
+
 'use strict';
 
 /**
@@ -459,7 +461,7 @@ angular.module('Mapbox')
        *
        * @param (array) requestedCoordinates
        *    A two value array containing the longitude and latitude respectively
-       *    
+       *
        *    Example:
        *    [
        *       '<LONGITUDE>',
@@ -531,7 +533,7 @@ angular.module('Mapbox')
        * @see https://www.mapbox.com/developers/api/geocoding/
        *
        */
-      batch: function(requestedQueries) {
+      batch: function() {
         console.warning('Mapbox Geocoding Batch Geocoding not implemented, see https://www.mapbox.com/developers/api/geocoding/ for more information.');
       }
     };
@@ -544,12 +546,12 @@ angular.module('Mapbox')
  * @ngdoc service
  * @name cleanWaterCommunitiesApp.GeometryService
  * @description
- *   
+ *
  */
 angular.module('Mapbox')
   .service('mapboxGeometry', ['$http', 'leafletData', function Navigation($http, leafletData) {
     return {
-      drawGeoJSON: function(geojson, featureGroup, layerStyle, appendToLayer) {
+      drawGeoJSON: function(geojson, featureGroup) {
 
         var self = this;
 
@@ -570,6 +572,54 @@ angular.module('Mapbox')
           //
           map.addLayer(featureGroup);
         });
+      },
+      drawMarker: function(marker) {
+        console.log('marker', marker)
+        var image = (marker.properties.images.length) ? marker.properties.images[0].properties.original : '';
+
+        return {
+          lat: marker.geometry.geometries[0].coordinates[1],
+          lng: marker.geometry.geometries[0].coordinates[0],
+          focus: false,
+          draggable: false,
+          permalink: '/reports/' + marker.id,
+          icon: {
+            type: 'div',
+            html: '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
+            className: 'marker--icon',
+            iconSize: [96, 96],
+            popupAnchor: [0, -16]
+          }
+        };
+      },
+      /**
+       *
+       *
+       */
+      drawMarkers: function(geojson, featureGroup, appendToLayer) {
+
+        var self = this;
+
+        //
+        // Should this GeoJSON object be appended to all existing Features or
+        // should it replace all other objects?
+        //
+        // Defaults to clearing the layer and adding only the new geojsonObject
+        // defined in the function arguments
+        //
+        if (!appendToLayer) {
+          featureGroup.clearLayers();
+        }
+
+        var markers = [];
+
+        angular.forEach(geojson.features, function(marker, $index) {
+
+          markers[$index] = self.drawMarker(marker);
+
+        });
+
+        return markers;
       },
       /**
        * Convert a valid GeoJSON object to a valid Leaflet/Mapbox layer so that
@@ -632,7 +682,6 @@ angular.module('Mapbox')
         L.geoJson(geojsonObject, {
           style: layerStyle
         }).eachLayer(function(newLayer) {
-          console.log('newLayer', newLayer)
           newLayer.addTo(targetLayer);
           newLayer.bindPopup('<strong>' + newLayer.feature.properties.owner.properties.first_name + '</strong> reported on ' + newLayer.feature.properties.report_date + '<br /><small><a href="/reports/' + newLayer.feature.id + '">View Report</a></small>');
         });
@@ -652,42 +701,43 @@ angular.module('Mapbox')
        *    addresses and their associated geographic information
        *
        */
-      intersects: function(requestedLocation, collection) {
+      intersects: function(requestedLocation) {
 
-        // //
-        // // Check to make sure that the string is not empty prior to submitting
-        // // it to the Mapbox Geocoding API
-        // //
-        // if (!requestedLocation) {
-        //   return;
-        // }
+        //
+        // Check to make sure that the string is not empty prior to submitting
+        // it to the Mapbox Geocoding API
+        //
+        if (!requestedLocation) {
+          return;
+        }
 
-        // //
-        // // Created a valid Mapbox Geocoding API compatible URL
-        // //
+        //
+        // Created a valid Mapbox Geocoding API compatible URL
+        //
         // var ccGeometryAPI = commonscloud.baseurl.concat(collection, '/', 'intersects', '.geojson');
+        var ccGeometryAPI = null;
 
-        // //
-        // // Send a GET request to the Mapbox Geocoding API containing valid user
-        // // input
-        // //
-        // var promise = $http.get(ccGeometryAPI, {
-        //   params: {
-        //     'callback': 'JSON_CALLBACK',
-        //     'geometry': requestedLocation.lng + ' ' + requestedLocation.lat
-        //   }
-        // })
-        //   .success(function(featureCollection) {
-        //     return featureCollection;
-        //   })
-        //   .error(function(data) {
-        //     console.error('CommonsCloud Geospatial API could not return any results based on your input', data, requestedLocation);
-        //   });
+        //
+        // Send a GET request to the Mapbox Geocoding API containing valid user
+        // input
+        //
+        var promise = $http.get(ccGeometryAPI, {
+          params: {
+            'callback': 'JSON_CALLBACK',
+            'geometry': requestedLocation.lng + ' ' + requestedLocation.lat
+          }
+        })
+          .success(function(featureCollection) {
+            return featureCollection;
+          })
+          .error(function(data) {
+            console.error('CommonsCloud Geospatial API could not return any results based on your input', data, requestedLocation);
+          });
 
-        // //
-        // // Always return Requests in angular.services as a `promise`
-        // //
-        // return promise;
+        //
+        // Always return Requests in angular.services as a `promise`
+        //
+        return promise;
       },
     };
   }]);
@@ -711,11 +761,22 @@ angular.module('Mapbox')
       layers: {
         baselayers: {
           basemap: {
-            name: 'Satellite Imagery',
-            url: 'https://{s}.tiles.mapbox.com/v3/' + mapbox.map_id + '/{z}/{x}/{y}.png',
+            name: 'Run, Bike, and Hike',
+            url: 'https://{s}.tiles.mapbox.com/v3/{mapid}/{z}/{x}/{y}.png',
             type: 'xyz',
             layerOptions: {
-              attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
+              mapid: 'developedsimple.mf7anga9'
+            }
+          },
+          satellite: {
+            name: 'Satellite',
+            url: 'https://{s}.tiles.mapbox.com/v3/{mapid}/{z}/{x}/{y}.png',
+            type: 'xyz',
+            layerOptions: {
+              mapid: 'developedsimple.mn44k8he'
+            // },
+            // layerOptions: {
+            //   attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
             }
           }
         }
@@ -762,9 +823,10 @@ angular.module('Mapbox')
       },
       geojson: {}
     };
-    
+
     return Map;
   }]);
+
 'use strict';
 
 /**
@@ -1042,7 +1104,7 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout, User) {
+  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout) {
 
     var self = this;
 
@@ -1113,7 +1175,7 @@ angular.module('WaterReporter')
                 console.log('userResponse', userResponse);
 
                 Account.userObject = userResponse;
-                
+
                 $rootScope.user = Account.userObject;
                 $rootScope.isLoggedIn = Account.hasToken();
                 $rootScope.isAdmin = Account.hasRole('admin');
@@ -1177,6 +1239,8 @@ angular.module('WaterReporter')
           }
         }, function(error){
           self.login.processing = false;
+
+          console.error('Couldn\'t save registration', error);
 
           $timeout(function() {
             self.login.errors = null;
@@ -1327,6 +1391,126 @@ angular.module('WaterReporter')
 'use strict';
 
 /**
+ * @ngdoc overview
+ * @name
+ * @description
+ */
+
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/search', {
+        templateUrl: '/modules/components/search/search--view.html',
+        controller: 'SearchController',
+        controllerAs: 'page',
+        reloadOnSearch: false,
+        resolve: {
+          reports: function($location, $route, Report) {
+
+            //
+            // Get all of our existing URL Parameters so that we can
+            // modify them to meet our goals
+            //
+            var search_params = $location.search();
+
+            //
+            // Prepare any pre-filters to append to any of our user-defined
+            // filters in the browser address bar
+            //
+            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+            //
+            // Ensure that returned Report features are sorted newest first
+            //
+            search_params.q.order_by.push({
+              field: 'report_date',
+              direction: 'desc'
+            });
+
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query(search_params);
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      });
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name
+ * @description
+ */
+angular.module('WaterReporter')
+  .controller('SearchController', function (Account, Report, reports, $rootScope, Search, user) {
+
+    var self = this;
+
+    $rootScope.user = Account.userObject;
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    this.search = Search;
+
+    this.search.hidden = true;
+
+    this.search.params = Search.defaults();
+
+    this.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    this.search.resource = Report;
+
+    this.search.data = reports;
+
+    /**
+     * This is the first page the authneticated user will see. We need to make
+     * sure that their user information is ready to use. Make sure the
+     * Account.userObject contains the appropriate information.
+     */
+    if (Account.userObject && !Account.userObject.id) {
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
+
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+        });
+      }
+    }
+
+  });
+
+'use strict';
+
+/**
  * @ngdoc service
  * @name WaterReporter
  * @description
@@ -1335,16 +1519,12 @@ angular.module('WaterReporter')
  */
 angular.module('WaterReporter')
   .service('Search', function ($location, $route) {
-    
-    /**
-     * Private Functions and Variables for the Search Service
-     */
-     var _Search = {};
-
 
     /**
      * Public Functions and Variables for the Search Service
      */
+     var service;
+
      var Search = {
         resource: {},
         model: {},
@@ -1410,61 +1590,70 @@ angular.module('WaterReporter')
           this.params[field] = tag;
           this.execute();
        },
+       filters: function() {
+         service = this;
+
+         var params = service.params,
+             q = {
+               filters: [],
+               order_by: [{
+                 field: 'report_date',
+                 direction: 'desc'
+               }]
+             };
+
+         //
+         // Loop over each of the parameters that the search allows the user
+         // to fill in and for each one, use the provided model to build out
+         // a proper Filters array
+         //
+         angular.forEach(params, function(field_value, field_name) {
+
+           //
+           // Get the information for the model
+           //
+           var filter = service.model[field_name];
+
+           //
+           // Build the value for the filter
+           //
+           if (filter.op === 'ilike') {
+             filter.val = '%' + field_value + '%';
+           }
+
+           //
+           // Pass off the completed filter to the `q` parameter for
+           // processing
+           //
+           q.filters.push(filter);
+
+         });
+
+         console.log('service.params', service.params);
+
+
+         //
+         // With a completed `q` parameter, we can now pass it back to the
+         // browser's address bar
+         //
+         $location.search({
+           'q': angular.toJson(q)
+         });
+       },
        clear: function() {
         $location.search('');
         $route.reload();
        },
+       redirect: function() {
+         this.filters();
+         $location.path('/search');
+       },
        execute: function(append) {
 
-          var service = this,
-              params = service.params,
-              q = {
-                filters: [],
-                order_by: [{
-                  field: 'report_date',
-                  direction: 'desc'
-                }]
-              };
-
           //
-          // Loop over each of the parameters that the search allows the user
-          // to fill in and for each one, use the provided model to build out
-          // a proper Filters array
+          // Load our filters
           //
-          angular.forEach(params, function(field_value, field_name) {
-
-            //
-            // Get the information for the model
-            //
-            var filter = service.model[field_name];
-
-            console.log('filter', filter)
-
-            //
-            // Build the value for the filter
-            //
-            if (filter.op === 'ilike') {
-              filter.val = '%' + field_value + '%';
-            }
-
-            //
-            // Pass off the completed filter to the `q` parameter for
-            // processing
-            //
-            q.filters.push(filter);
-
-          });
-
-          console.log('service.params', service.params);
-
-
-          //
-          // With a completed `q` parameter, we can now pass it back to the
-          // browser's address bar
-          //
-          $location.search({
-            'q': angular.toJson(q)
-          });
+          this.filters();
 
           //
           // Finally, use the resource to load the new Features based on the
@@ -1478,6 +1667,7 @@ angular.module('WaterReporter')
 
      return Search;
   });
+
 'use strict';
 
 /**
@@ -1548,12 +1738,12 @@ angular.module('WaterReporter')
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/dashboard', {
         templateUrl: '/modules/components/dashboard/dashboard--view.html',
         controller: 'DashboardController',
-        controllerAs: 'dashboard',
+        controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
           user: function(Account) {
@@ -1594,11 +1784,12 @@ angular.module('WaterReporter')
                 }]
               }
             });
-          }          
+          }
         }
       });
 
   });
+
 'use strict';
 
 /**
@@ -1745,63 +1936,75 @@ angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/activity', {
-        redirectTo: '/activity/list'
-      })
-      .when('/activity/list', {
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
-        controllerAs: 'activity',
+        controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
-          reports: function($location, $route, Report) {
-
-            //
-            // Get all of our existing URL Parameters so that we can
-            // modify them to meet our goals
-            //
-            var search_params = $location.search();
-
-            //
-            // Prepare any pre-filters to append to any of our user-defined
-            // filters in the browser address bar
-            //
-            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
-
-            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
-            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-
-            //
-            // Ensure that returned Report features are sorted newest first
-            //
-            search_params.q.order_by.push({
-              field: 'report_date',
-              direction: 'desc'
-            });
-
+          features: function(Report) {
             //
             // Execute our query so that we can get the Reports back
             //
-            return Report.query(search_params);
+            return Report.query({
+              q: {
+                filters: [
+                  {
+                    name: 'is_featured',
+                    op: 'eq',
+                    val: 'true'
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            });
+          },
+          reports: function($location, Report) {
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query({
+              q: {
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  }
+                ]
+              },
+              page: $location.search().page ? $location.search().page : 1
+            });
           },
           user: function(Account) {
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
-        }            
+        }
       });
   });
+
 'use strict';
 
 /**
  * @ngdoc function
- * @name WaterReporter.activity.controller:ActivityFeedController
+ * @name
  * @description
- * # ActivityFeedController
- * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, Report, reports, $rootScope, Search, user) {
+  .controller('ActivityController', function (Account, features, $location, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+
+    var self = this;
 
     $rootScope.user = Account.userObject;
+
+    /**
+     * Setup our Features so that they appear on the home page in the
+     * appropriate position
+     */
+    this.features = features;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -1834,6 +2037,147 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
+    /**
+     * This is the first page the authneticated user will see. We need to make
+     * sure that their user information is ready to use. Make sure the
+     * Account.userObject contains the appropriate information.
+     */
+    if (Account.userObject && !Account.userObject.id) {
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
+
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+        });
+      }
+    }
+
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
+
+    self.features.$promise.then(function(reports_) {
+        self.map.geojson.reports = {
+            data: reports_
+        };
+
+        //
+        // Define a layer to add geometries to later
+        //
+        // @see http://leafletjs.com/reference.html#featuregroup
+        //
+        var featureGroup = new L.FeatureGroup();
+
+        self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+
+        //
+        // Define the first/newest Feature and center the map on it
+        //
+        self.changeFeature(self.map.geojson.reports.data.features[0], 0);
+
+        leafletData.getMap().then(function() {
+          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+            $location.path(self.map.markers[args.modelName].permalink);
+          });
+        });
+
+     });
+
+    this.changeFeature = function(feature, index) {
+
+      self.features.visible = index;
+
+      var center = {
+        lat: feature.geometry.geometries[0].coordinates[1],
+        lng: feature.geometry.geometries[0].coordinates[0]
+      };
+
+      self.map.center = {
+        lat: center.lat,
+        lng: center.lng-0.0065,
+        zoom: 16
+      };
+
+    };
+
+  });
+
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name wr.home.config:home-routes
+ * @description
+ * # Water Reporter App
+ *
+ * Routes for the states applying to the home page of the application.
+ */
+angular.module('WaterReporter')
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: '/modules/components/home/home--view.html',
+        controller: 'HomeController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      });
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name WaterReporter.home.controller:HomeController
+ * @description
+ * # HomeController
+ * Controller of the waterReporterApp
+ */
+angular.module('WaterReporter')
+  .controller('HomeController', function (Account, Report, Search, user) {
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    this.search = Search;
+
+    this.search.params = Search.defaults();
+
+    this.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    this.search.resource = Report;
 
     /**
      * This is the first page the authneticated user will see. We need to make
@@ -1853,216 +2197,7 @@ angular.module('WaterReporter')
     }
 
   });
-'use strict';
 
-/**
- * @ngdoc overview
- * @name wr.home.config:home-routes
- * @description
- * # Water Reporter App
- *
- * Routes for the states applying to the home page of the application.
- */
-angular.module('WaterReporter')
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: '/modules/components/home/home--view.html',
-        controller: 'HomeController',
-        controllerAs: 'home'
-      });
-  });
-'use strict';
-
-/**
- * @ngdoc function
- * @name WaterReporter.home.controller:HomeController
- * @description
- * # HomeController
- * Controller of the waterReporterApp
- */
-angular.module('WaterReporter')
-  .controller('HomeController', function () {
-    
-  });
-'use strict';
-
-/**
- * @ngdoc overview
- * @name wr.map.config:map-routes
- * @description
- * # Water Reporter App
- *
- * Routes for the states applying to the map page of the application.
- */
-
-angular.module('WaterReporter')
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/map', {
-        redirectTo: '/activity/map'
-      })
-      .when('/activity/map', {
-        templateUrl: '/modules/components/map/map--view.html',
-        controller: 'MapController',
-        controllerAs: 'activity',
-        reloadOnSearch: false,
-        resolve: {
-          reports: function($location, $route, Report) {
-
-            //
-            // Get all of our existing URL Parameters so that we can
-            // modify them to meet our goals
-            //
-            var search_params = $location.search();
-
-            //
-            // Prepare any pre-filters to append to any of our user-defined
-            // filters in the browser address bar
-            //
-            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
-
-            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
-            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-
-            //
-            // Ensure that returned Report features are sorted newest first
-            //
-            search_params.q.order_by.push({
-              field: 'report_date',
-              direction: 'desc'
-            });
-
-            //
-            // Execute our query so that we can get the Reports back
-            //
-            return Report.query(search_params);
-          }
-        }
-      });
-  });
-'use strict';
-
-/**
- * @ngdoc function
- * @name WaterReporter.map.controller:MapController
- * @description
- * # MapController
- * Controller of the waterReporterApp
- */
-angular.module('WaterReporter')
-  .controller('MapController', function ($location, mapboxGeometry, leafletData, Map, mapbox, Report, reports, $scope, Search) {
-
-    var self = this;
-
-    /**
-     * Setup search capabilities for the Report Activity Feed
-     *
-     * @data this.search
-     *    loads the Search Service into our page scope
-     * @data this.search.params
-     *    loads the default url parameters into the page fields
-     * @data this.search.model
-     *    tells the Search Service what the data model for this particular search looks like
-     * @data this.search.resource
-     *    tells the Search Service what resource to perform the search with
-     * @data this.search.data
-     *    retains and updates based on the features returned from the user-defined query
-     *
-     */
-    this.search = Search;
-
-    this.search.params = Search.defaults();
-
-    this.search.model = {
-      report_description: {
-        name: 'report_description',
-        op: 'ilike',
-        val: ''
-      }
-    };
-
-    this.search.resource = Report;
-
-    this.search.data = reports;
-
-
-    //
-    // 
-    //
-    leafletData.getMap().then(function(map) {
-
-      $scope.$on('leafletDirectiveMarker.mouseover', function(event, args) {
-        args.leafletEvent.target.openPopup();
-      });
-
-      $scope.$on('leafletDirectiveMarker.mouseout', function(event, args) {
-        args.leafletEvent.target.closePopup();
-      });
-
-      $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-        console.log('args', args);
-        // $location.path($scope.markers[args.markerName].permalink);
-      });
-    });
-
-
-
-    this.loadMap = function() {
-      self.search.data.$promise.then(function(reports_) {
-          self.map.geojson.reports = {
-              data: reports_
-          };
-
-          //
-          // Define a layer to add geometries to later
-          //
-          // @see http://leafletjs.com/reference.html#featuregroup
-          //
-          var featureGroup = new L.FeatureGroup();
-
-          var layerStyle = self.map.styles.icon.parcel;
-
-          mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup, layerStyle);
-
-           //
-           // @hack
-           //    this is only a temporary solution until we get the new `bbox`
-           //    functionality within the WaterReporter API
-           //
-          leafletData.getMap().then(function(map) {
-              var bounds = featureGroup.getBounds();
-
-              if (bounds && bounds._southWest !== undefined) {
-                  map.fitBounds(featureGroup.getBounds());
-              }
-          });
-       });
-    };
-
-
-    /**
-     * Setup the Mapbox map for this page with the results we got from the API
-     *
-     * @data this.map
-     *    loads the Map Service into our page scope
-     * @data this.map.geojson.reports
-     *    loads the request report information into the map
-     *
-     */
-    this.map = Map;
-
-    L.Icon.Default.imagePath = '/images';
-
-    $scope.$watch(angular.bind(this, function () {
-      return this.search;
-    }), function () {
-        if (self.search && self.search.data) {
-            self.loadMap();
-         }
-    }, true);
-
-  });
 'use strict';
 
 /**
@@ -2080,7 +2215,7 @@ angular.module('WaterReporter')
       .when('/profiles', {
         templateUrl: '/modules/components/profile/profiles--view.html',
         controller: 'ProfilesController',
-        controllerAs: 'profiles',
+        controllerAs: 'page',
         resolve: {
           profiles: function($location, User) {
 
@@ -2109,7 +2244,7 @@ angular.module('WaterReporter')
       .when('/profiles/:userId', {
         templateUrl: '/modules/components/profile/profile--view.html',
         controller: 'ProfileController',
-        controllerAs: 'profile',
+        controllerAs: 'page',
         resolve: {
           profile: function($route, User) {
             return User.get({
@@ -2176,6 +2311,7 @@ angular.module('WaterReporter')
         }
       });
   });
+
 'use strict';
 
 /**
@@ -2186,8 +2322,8 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfilesController', function (profiles, Search, User) {
-    
+  .controller('ProfilesController', function (profiles, Search) {
+
     this.data = profiles;
 
     /**
@@ -2209,19 +2345,10 @@ angular.module('WaterReporter')
 
     this.search.params = Search.defaults();
 
-    // this.search.model = {
-    //   report_description: {
-    //     name: 'report_description',
-    //     op: 'ilike',
-    //     val: ''
-    //   }
-    // };
-
-    // this.search.resource = User;
-
     this.search.data = profiles;
 
   });
+
 'use strict';
 
 /**
@@ -2232,7 +2359,10 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (closures, organizations, profile, reports) {
+  .controller('ProfileController', function (closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, reports, $scope) {
+
+    var self = this;
+
     this.data = profile;
     this.organizations = organizations;
 
@@ -2245,8 +2375,63 @@ angular.module('WaterReporter')
       closures: false
     };
 
-    console.log('profile', profile, organizations, reports, closures);
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
+
+    self.reports.$promise.then(function(reports_) {
+        self.map.geojson.reports = {
+            data: reports_
+        };
+
+        //
+        // Define a layer to add geometries to later
+        //
+        // @see http://leafletjs.com/reference.html#featuregroup
+        //
+        var featureGroup = new L.FeatureGroup();
+
+        self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+
+        //
+        // Define the first/newest Feature and center the map on it
+        //
+        self.changeFeature(self.map.geojson.reports.data.features[0], 0);
+
+        leafletData.getMap().then(function() {
+          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+            $location.path(self.map.markers[args.modelName].permalink);
+          });
+        });
+
+     });
+
+    this.changeFeature = function(feature, index) {
+
+      var center = {
+        lat: feature.geometry.geometries[0].coordinates[1],
+        lng: feature.geometry.geometries[0].coordinates[0]
+      };
+
+      self.map.center = {
+        lat: center.lat,
+        lng: center.lng-0.0065,
+        zoom: 16
+      };
+
+    };
+
   });
+
 'use strict';
 
 /**
@@ -2260,12 +2445,12 @@ angular.module('WaterReporter')
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/reports/:reportId', {
         templateUrl: '/modules/components/report/report--view.html',
         controller: 'ReportController',
-        controllerAs: 'report',
+        controllerAs: 'page',
         resolve: {
           report: function($route, Report) {
             return Report.get({
@@ -2284,6 +2469,7 @@ angular.module('WaterReporter')
       });
 
   });
+
 'use strict';
 
 /**
@@ -2294,12 +2480,25 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, $location, $rootScope, report, Report, $route, user) {
+  .controller('ReportController', function (Account, comments, Comment, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, user) {
 
     var self = this;
 
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
+
     report.$promise.then(function(reportResponse) {
-      
+
       self.data = reportResponse;
 
       /**
@@ -2308,10 +2507,11 @@ angular.module('WaterReporter')
        *
        * @see https://developers.pinterest.com/rich_pins_place/
        */
+      var watershed = self.data.properties.territory.properties.huc_8_name ? ' in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed': '';
       $rootScope.meta = {
         og: {
           site_name: 'WaterReporter',
-          title: 'Citizen Water Report in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed',
+          title: 'Citizen Water Report' + watershed,
           type: 'place',
           description: (self.data.properties.report_description) ? self.data.properties.report_description: 'A report in the ' + self.data.properties.territory.properties.huc_8_name + ' watershed',
           url: 'https://www.waterreporter.org/reports/' + self.data.id
@@ -2324,8 +2524,28 @@ angular.module('WaterReporter')
         }
       };
 
+      //
+      // Define a layer to add geometries to later
+      //
+      // @see http://leafletjs.com/reference.html#featuregroup
+      //
+      var featureGroup = new L.FeatureGroup();
+
+      self.map.markers = [mapboxGeometry.drawMarker(self.data, featureGroup)];
+
+      //
+      // Define the first/newest Feature and center the map on it
+      //
+      self.changeFeature(reportResponse, 0);
+
+      // leafletData.getMap().then(function() {
+      //   $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      //     $location.path(self.map.markers[args.modelName].permalink);
+      //   });
+      // });
+
     });
-    
+
     self.comments = comments;
 
     /**
@@ -2385,7 +2605,7 @@ angular.module('WaterReporter')
            $route.reload();
          });
        },
-       open: function(reportId, state) {
+       open: function(reportId) {
 
         // Save the Comment
         self.comment.save(reportId, 'open');
@@ -2395,7 +2615,6 @@ angular.module('WaterReporter')
           id: reportId,
           state: 'open'
          }).$promise.then(function(response) {
-           console.log('response', response);
            $route.reload();
          });
        },
@@ -2409,7 +2628,6 @@ angular.module('WaterReporter')
         });
 
         comment.$save(function() {
-          console.log('comment saved!!!');
           $route.reload();
         });
        }
@@ -2417,14 +2635,29 @@ angular.module('WaterReporter')
 
      self.delete = function(reportId) {
        Report.delete({
-         id: reportId        
+         id: reportId
        }).$promise.then(function(response) {
-         console.log('response', response);
          $location.path('/activity/list');
        });
      };
 
-  });
+     this.changeFeature = function(feature, index) {
+
+       var center = {
+         lat: feature.geometry.geometries[0].coordinates[1],
+         lng: feature.geometry.geometries[0].coordinates[0]
+       };
+
+       self.map.center = {
+         lat: center.lat,
+         lng: center.lng-0.0065,
+         zoom: 16
+       };
+
+     };
+
+   });
+
 'use strict';
 
 /**
