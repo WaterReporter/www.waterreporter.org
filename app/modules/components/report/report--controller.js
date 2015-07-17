@@ -8,9 +8,22 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, $location, $rootScope, report, Report, $route, user) {
+  .controller('ReportController', function (Account, comments, Comment, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, user) {
 
     var self = this;
+
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
 
     report.$promise.then(function(reportResponse) {
 
@@ -38,6 +51,26 @@ angular.module('WaterReporter')
           }
         }
       };
+
+      //
+      // Define a layer to add geometries to later
+      //
+      // @see http://leafletjs.com/reference.html#featuregroup
+      //
+      var featureGroup = new L.FeatureGroup();
+
+      self.map.markers = [mapboxGeometry.drawMarker(self.data, featureGroup)];
+
+      //
+      // Define the first/newest Feature and center the map on it
+      //
+      self.changeFeature(reportResponse, 0);
+
+      // leafletData.getMap().then(function() {
+      //   $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      //     $location.path(self.map.markers[args.modelName].permalink);
+      //   });
+      // });
 
     });
 
@@ -136,4 +169,19 @@ angular.module('WaterReporter')
        });
      };
 
-  });
+     this.changeFeature = function(feature, index) {
+
+       var center = {
+         lat: feature.geometry.geometries[0].coordinates[1],
+         lng: feature.geometry.geometries[0].coordinates[0]
+       };
+
+       self.map.center = {
+         lat: center.lat,
+         lng: center.lng-0.0065,
+         zoom: 16
+       };
+
+     };
+
+   });

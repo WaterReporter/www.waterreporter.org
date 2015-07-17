@@ -1,6 +1,6 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
-<main class="site--content site--content--about container">
+<main class="site--content">
   <div class="row">
     <div class="col-sm-12">
       <div class="row">
@@ -10,77 +10,7 @@
         </div>
       </div>
 
-      <!-- Truthy Result Set (1+) -->
-      <div class="row">
-        <div id="report--{{ page.data.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (page.data.properties.state === 'closed') }">
-          <div class="panel-heading">
-            <p class="pull-right">{{ page.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-            <a href="/profiles/{{ page.data.properties.owner.id }}">
-              <img class="pull-left img-circle" data-ng-if="page.data.properties.owner.properties.email" gravatar-src="'{{ page.data.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
-            </a>
-            <p>
-              <a href="/profiles/{{ page.data.properties.owner.id }}">
-                {{ page.data.properties.owner.properties.first_name }} {{ page.data.properties.owner.properties.last_name }}
-              </a><br />
-              {{ page.data.properties.owner.properties.title }} <span data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name">at</span><br data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name" />
-              {{ page.data.properties.owner.properties.organization_name }}
-            </p>
-          </div>
-          <figure data-ng-if="page.data.properties.images && page.data.properties.images.length">
-            <a href="/reports/{{ page.id }}">
-              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in page.data.properties.images" width="100%" />
-            </a>
-          </figure>
-          <div class="panel-body">
-
-            <p>
-              <strong>User Submitted Content:</strong>
-              {{ page.data.properties.report_description }}</p>
-            <p>
-              <strong>Permalink: </strong> <a href="/reports/{{ page.data.id }}">
-                View report
-              </a>
-            </p>
-            <p>
-              <strong>Comments: </strong>  {{ page.data.properties.comments.length }}
-            </p>
-            <p>
-              <strong>Watersheds: </strong>
-              <span data-ng-if="page.data.properties.territory">
-                {{ page.data.properties.territory.properties.huc_6_name }}, {{ page.data.properties.territory.properties.huc_8_name }}, {{ page.data.properties.territory.properties.huc_10_name }}, {{ page.data.properties.territory.properties.huc_12_name }}
-              </span>
-              <span data-ng-if="!page.data.properties.territory">
-                <em>None</em>
-              </span>
-            </p>
-            <p>
-              <strong>Tags: </strong>
-              <span data-ng-if="page.data.properties.tags.length">
-                <span class="label label--brand" data-ng-repeat="tag in page.data.properties.tags">
-                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
-                    #{{ tag.properties.tag }}
-                  </a>
-                </span>
-              </span>
-              <span data-ng-if="!page.data.properties.tags.length">
-                <em>None</em>
-              </span>
-            </p>
-
-            <p>
-              <strong>Longitude/Latitude: </strong> <em>
-                <span data-ng-if="page.geometry">
-                  {{ page.geometry.geometries[0].coordinates[0] }},
-                  {{ page.geometry.geometries[0].coordinates[1] }}
-                </span>
-                <span data-ng-if="!page.geometry">
-                  None
-                </span>
-              </em>
-            </p>
-          </div>
-        </div>
-      </div>
+      <div data-ng-include="'/modules/components/report/reportContent--view.html'"></div>
 
       <div id="report--comment--{{ $index }}" data-ng-if="page.data.properties.comments.length" data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
         <div class="row" data-ng-if="comment.properties.body">

@@ -79,42 +79,32 @@ angular.module('WaterReporter')
 
     L.Icon.Default.imagePath = '/images';
 
-    $scope.$watch(angular.bind(this, function () {
-      return this.search;
-    }), function () {
-        if (self.search && self.search.data) {
-            self.loadMap();
-         }
-    }, true);
+    self.features.$promise.then(function(reports_) {
+        self.map.geojson.reports = {
+            data: reports_
+        };
 
-    this.loadMap = function() {
-      self.features.$promise.then(function(reports_) {
-          self.map.geojson.reports = {
-              data: reports_
-          };
+        //
+        // Define a layer to add geometries to later
+        //
+        // @see http://leafletjs.com/reference.html#featuregroup
+        //
+        var featureGroup = new L.FeatureGroup();
 
-          //
-          // Define a layer to add geometries to later
-          //
-          // @see http://leafletjs.com/reference.html#featuregroup
-          //
-          var featureGroup = new L.FeatureGroup();
+        self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
 
-          self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+        //
+        // Define the first/newest Feature and center the map on it
+        //
+        self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          //
-          // Define the first/newest Feature and center the map on it
-          //
-          self.changeFeature(self.map.geojson.reports.data.features[0], 0);
-
-          leafletData.getMap().then(function() {
-            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-              $location.path(self.map.markers[args.modelName].permalink);
-            });
+        leafletData.getMap().then(function() {
+          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+            $location.path(self.map.markers[args.modelName].permalink);
           });
+        });
 
-       });
-    };
+     });
 
     this.changeFeature = function(feature, index) {
 

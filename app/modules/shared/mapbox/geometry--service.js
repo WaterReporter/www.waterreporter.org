@@ -31,11 +31,32 @@ angular.module('Mapbox')
           map.addLayer(featureGroup);
         });
       },
+      drawMarker: function(marker) {
+        console.log('marker', marker)
+        var image = (marker.properties.images.length) ? marker.properties.images[0].properties.original : '';
+
+        return {
+          lat: marker.geometry.geometries[0].coordinates[1],
+          lng: marker.geometry.geometries[0].coordinates[0],
+          focus: false,
+          draggable: false,
+          permalink: '/reports/' + marker.id,
+          icon: {
+            type: 'div',
+            html: '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
+            className: 'marker--icon',
+            iconSize: [96, 96],
+            popupAnchor: [0, -16]
+          }
+        };
+      },
       /**
        *
        *
        */
       drawMarkers: function(geojson, featureGroup, appendToLayer) {
+
+        var self = this;
 
         //
         // Should this GeoJSON object be appended to all existing Features or
@@ -52,22 +73,7 @@ angular.module('Mapbox')
 
         angular.forEach(geojson.features, function(marker, $index) {
 
-          var image = (marker.properties.images.length) ? marker.properties.images[0].properties.original : '';
-
-          markers[$index] = {
-            lat: marker.geometry.geometries[0].coordinates[1],
-            lng: marker.geometry.geometries[0].coordinates[0],
-            focus: false,
-            draggable: false,
-            permalink: '/reports/' + marker.id,
-            icon: {
-              type: 'div',
-              html: '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
-              className: 'marker--icon',
-              iconSize: [96, 96],
-              popupAnchor: [0, -16]
-            }
-          };
+          markers[$index] = self.drawMarker(marker);
 
         });
 

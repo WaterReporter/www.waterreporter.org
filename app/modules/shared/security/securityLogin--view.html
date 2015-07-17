@@ -2,11 +2,7 @@
 
 <main class="site--content site--content--activity container">
   <div class="row">
-    <div class="col-sm-4">
-      <div data-ng-include="'/modules/shared/views/navigation--view.html'"></div>
-    </div>
-
-    <div class="col-sm-8">
+    <div class="col-sm-12">
 
       <div class="row">
         <div class="column-16 align-center">
@@ -34,7 +30,7 @@
         <div class="column-5"></div>
 
         <div class="column-6 block" data-ng-show="security.login.visible && !security.register.visible">
-        
+
           <form role="form" class="form" method="POST" data-ng-submit="security.login.submit()">
             <div class="form-group">
               <label for="email" class="control-label">Email Address</label>
