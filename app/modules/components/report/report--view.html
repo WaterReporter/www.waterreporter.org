@@ -15,9 +15,13 @@
       <div id="report--comment--{{ $index }}" data-ng-if="page.data.properties.comments.length" data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
         <div class="row" data-ng-if="comment.properties.body">
           <div class="col-sm-4 text-center">
-            <img data-ng-if="comment.properties.owner.properties.email" gravatar-src="'{{ comment.properties.owner.properties.email }}'" gravatar-size="64" />
+            <a href="/profiles/{{ comment.properties.owner.id }}">
+              <img data-ng-if="comment.properties.owner.properties.email" gravatar-src="'{{ comment.properties.owner.properties.email }}'" gravatar-size="64" />
+            </a>
             <p>
-              {{ comment.properties.owner.properties.first_name }} {{ comment.properties.owner.properties.last_name }}
+              <a href="/profiles/{{ comment.properties.owner.id }}">
+                {{ comment.properties.owner.properties.first_name }} {{ comment.properties.owner.properties.last_name }}
+              </a>
             </p>
             <p>{{ comment.properties.created | date:"MMM d, yyyy h:mma"}}</p>
           </div>
