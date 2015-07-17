@@ -6,45 +6,45 @@
       <div data-ng-include="'/modules/shared/views/navigation--view.html'"></div>
     </div>
     <div class="col-sm-8">
-      <div id="user--profile--{{ profile.data.id }}" class="panel panel-default">
+      <div id="user--profile--{{ page.data.id }}" class="panel panel-default">
         <div class="panel-heading">
             <h1 class="pull-right">
-              <a data-ng-if="!profile.visible.reports" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
-                {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
+              <a data-ng-if="!page.visible.reports" data-ng-click="page.visible.reports =! page.visible.reports; page.visible.closures =! page.visible.closures">
+                {{ page.reports.properties.num_results | number:0 }} Submitted Reports
               </a>
-              <span data-ng-if="profile.visible.reports">
-                {{ profile.reports.properties.num_results | number:0 }} Submitted Reports
+              <span data-ng-if="page.visible.reports">
+                {{ page.reports.properties.num_results | number:0 }} Submitted Reports
               </span><br />
-              <a data-ng-if="!profile.visible.closures" data-ng-click="profile.visible.reports =! profile.visible.reports; profile.visible.closures =! profile.visible.closures">
-                {{ profile.closures.properties.num_results | number:0 }} Reports Closed
+              <a data-ng-if="!page.visible.closures" data-ng-click="page.visible.reports =! page.visible.reports; page.visible.closures =! page.visible.closures">
+                {{ page.closures.properties.num_results | number:0 }} Reports Closed
               </a>
-              <span data-ng-if="profile.visible.closures">
-                {{ profile.closures.properties.num_results | number:0 }} Reports Closed
+              <span data-ng-if="page.visible.closures">
+                {{ page.closures.properties.num_results | number:0 }} Reports Closed
               </span>
             </h1>
-            <img class="pull-left img-circle" data-ng-if="profile.data.properties.email" gravatar-src="'{{ profile.data.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+            <img class="pull-left img-circle" data-ng-if="page.data.properties.email" gravatar-src="'{{ page.data.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
             <p>
-              {{ profile.data.properties.first_name }} {{ profile.data.properties.last_name }}<br />
-              {{ profile.data.properties.title }} <span data-ng-if="profile.data.properties.title && profile.data.properties.organization_name">at</span><br data-ng-if="profile.data.properties.title && profile.data.properties.organization_name" />
-              {{ profile.data.properties.organization_name }}
+              {{ page.data.properties.first_name }} {{ page.data.properties.last_name }}<br />
+              {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization_name">at</span><br data-ng-if="page.data.properties.title && page.data.properties.organization_name" />
+              {{ page.data.properties.organization_name }}
             </p>
         </div>
         <div class="panel-body">
         </div>
-          {{ profile.data.properties.description }}
+          {{ page.data.properties.description }}
       </div>
 
       <!-- Untruthy Result Set (0) -->
-      <div class="row" data-ng-if="!profile.reports.features.length">
+      <div class="row" data-ng-if="!page.reports.features.length">
         <div class="col-sm-12">
         <p>Your search didn’t return any reports</p>
         </div>
       </div>
 
           <!-- Truthy Result Set (1+) -->
-      <div data-ng-show="profile.visible.reports && !profile.visible.closures" class="row"
-           data-ng-if="profile.reports.features.length"
-           data-ng-repeat="report in profile.reports.features">
+      <div data-ng-show="page.visible.reports && !page.visible.closures" class="row"
+           data-ng-if="page.reports.features.length"
+           data-ng-repeat="report in page.reports.features">
         <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
           <div class="panel-heading">
             <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
@@ -86,9 +86,9 @@
         </div>
       </div>
 
-      <div data-ng-show="!profile.visible.reports && profile.visible.closures" class="row"
-           data-ng-if="profile.closures.features.length"
-           data-ng-repeat="report in profile.closures.features">
+      <div data-ng-show="!page.visible.reports && page.visible.closures" class="row"
+           data-ng-if="page.closures.features.length"
+           data-ng-repeat="report in page.closures.features">
         <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--open': (report.properties.state === 'open'), 'report--state--closed': (report.properties.state === 'closed') }">
           <div class="panel-heading">
             <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
@@ -131,31 +131,31 @@
       </div>
 
       <footer class="features-footer">
-        <nav class="pager" data-ng-if="profile.reports.properties.page === 1 && profile.reports.properties.total_pages === 1">
+        <nav class="pager" data-ng-if="page.reports.properties.page === 1 && page.reports.properties.total_pages === 1">
           <!-- If your on Page 1 and there's less than or equal to 10 results total -->
           <span class="page">
-            Showing all {{ profile.reports.properties.num_results }} reports
+            Showing all {{ page.reports.properties.num_results }} reports
           </span>
         </nav>
-        <nav class="pager" data-ng-if="profile.reports.properties.total_pages > 1">
-          <a data-ng-show="profile.reports.properties.total_pages >= profile.reports.properties.page && profile.reports.properties.page !== 1" href="javascript:void(0);" data-ng-click="activity.search.paginate(profile.reports.properties.page-1)" class="previous">
+        <nav class="pager" data-ng-if="page.reports.properties.total_pages > 1">
+          <a data-ng-show="page.reports.properties.total_pages >= page.reports.properties.page && page.reports.properties.page !== 1" href="javascript:void(0);" data-ng-click="activity.search.paginate(page.reports.properties.page-1)" class="previous">
             Previous
           </a>
-          <span data-ng-show="!activity.paginationLabel" data-ng-click="activity.paginationLabel =! activity.paginationLabel" class="page">Page {{ profile.reports.properties.page }} of {{ profile.reports.properties.total_pages }}</span>
+          <span data-ng-show="!activity.paginationLabel" data-ng-click="activity.paginationLabel =! activity.paginationLabel" class="page">Page {{ page.reports.properties.page }} of {{ page.reports.properties.total_pages }}</span>
           <span data-ng-show="activity.paginationLabel" data-ng-click="activity.paginationLabel =! activity.paginationLabel" class="page">
-            <span data-ng-if="profile.reports.properties.page === 1 && profile.reports.properties.total_pages > 1">
-              Showing 1 - 10 of {{ profile.reports.properties.num_results | number:0 }} reports
+            <span data-ng-if="page.reports.properties.page === 1 && page.reports.properties.total_pages > 1">
+              Showing 1 - 10 of {{ page.reports.properties.num_results | number:0 }} reports
             </span>
 
-            <span data-ng-if="profile.reports.properties.page > 1 && profile.reports.properties.page !== profile.reports.properties.total_pages">
-              Showing <span data-ng-bind="((profile.reports.properties.page-1)*10+1)"></span> - <span data-ng-bind="profile.reports.properties.page*10"></span> of {{ profile.reports.properties.num_results | number:0 }} reports
+            <span data-ng-if="page.reports.properties.page > 1 && page.reports.properties.page !== page.reports.properties.total_pages">
+              Showing <span data-ng-bind="((page.reports.properties.page-1)*10+1)"></span> - <span data-ng-bind="page.reports.properties.page*10"></span> of {{ page.reports.properties.num_results | number:0 }} reports
             </span>
 
-            <span data-ng-if="profile.reports.properties.page > 1 && profile.reports.properties.page === profile.reports.properties.total_pages">
-              Showing <span data-ng-bind="((profile.reports.properties.page-1)*10+1)"></span> - {{ profile.reports.properties.num_results }} of {{ profile.reports.properties.num_results | number:0 }} reports
+            <span data-ng-if="page.reports.properties.page > 1 && page.reports.properties.page === page.reports.properties.total_pages">
+              Showing <span data-ng-bind="((page.reports.properties.page-1)*10+1)"></span> - {{ page.reports.properties.num_results }} of {{ page.reports.properties.num_results | number:0 }} reports
             </span>
           </span>
-          <a data-ng-show="profile.reports.properties.total_pages !== profile.reports.properties.page" href="javascript:void(0);" data-ng-click="activity.search.paginate(profile.reports.properties.page+1)" class="next">
+          <a data-ng-show="page.reports.properties.total_pages !== page.reports.properties.page" href="javascript:void(0);" data-ng-click="activity.search.paginate(page.reports.properties.page+1)" class="next">
             Next
           </a>
         </nav>

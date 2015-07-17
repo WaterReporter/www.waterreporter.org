@@ -11,12 +11,12 @@
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/dashboard', {
         templateUrl: '/modules/components/dashboard/dashboard--view.html',
         controller: 'DashboardController',
-        controllerAs: 'dashboard',
+        controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
           user: function(Account) {
@@ -57,7 +57,7 @@ angular.module('WaterReporter')
                 }]
               }
             });
-          }          
+          }
         }
       });
 

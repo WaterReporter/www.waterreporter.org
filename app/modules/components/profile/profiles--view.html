@@ -4,17 +4,17 @@
   <div class="container">
     <div id="user--profile--{{ $index }}" class="panel panel-default" data-ng-repeat="profile in profiles.data.features track by $index">
       <div class="panel-heading">
-          <img class="pull-left img-circle" data-ng-if="profile.properties.email" gravatar-src="'{{ profile.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+          <img class="pull-left img-circle" data-ng-if="page.properties.email" gravatar-src="'{{ page.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
           <p>
-            <a href="/profiles/{{ profile.id }}">
-              {{ profile.properties.first_name }} {{ profile.properties.last_name }}
+            <a href="/profiles/{{ page.id }}">
+              {{ page.properties.first_name }} {{ page.properties.last_name }}
             </a><br />
-            {{ profile.properties.title }} <span data-ng-if="profile.properties.title && profile.properties.organization_name">at</span><br data-ng-if="profile.properties.title && profile.properties.organization_name" />
-            {{ profile.properties.organization_name }}
+            {{ page.properties.title }} <span data-ng-if="page.properties.title && page.properties.organization_name">at</span><br data-ng-if="page.properties.title && page.properties.organization_name" />
+            {{ page.properties.organization_name }}
           </p>
       </div>
       <div class="panel-body">
-         
+
       </div>
     </div>
 

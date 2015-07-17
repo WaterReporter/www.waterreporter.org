@@ -3,12 +3,12 @@
 <main class="site--content site--content--activity container">
 
   <div class="row">
-    <h1 data-ng-if="search.search.data.properties.num_results && search.search.params.report_description">
-      {{ search.search.data.properties.num_results || 0 | number:0 }} reports
-      found for ‘<em>{{ search.search.params.report_description }}</em>’
+    <h1 data-ng-if="page.search.data.properties.num_results && page.search.params.report_description">
+      {{ page.search.data.properties.num_results || 0 | number:0 }} reports
+      found for ‘<em>{{ page.search.params.report_description }}</em>’
     </h1>
-    <h1 data-ng-if="search.search.data.properties.num_results && !search.search.params.report_description">
-      {{ search.search.data.properties.num_results || 0 | number:0 }} reports
+    <h1 data-ng-if="page.search.data.properties.num_results && !page.search.params.report_description">
+      {{ page.search.data.properties.num_results || 0 | number:0 }} reports
       found
     </h1>
   </div>
@@ -21,10 +21,10 @@
         <input type="text" class="form-control"
                id="form--search--reportDescription"
                name="form--search--reportDescription"
-               data-ng-model="search.search.params.report_description"
-               data-ng-change="search.search.execute()" autofocus="autofocus" />
+               data-ng-model="page.search.params.report_description"
+               data-ng-change="page.search.execute()" autofocus="autofocus" />
       </div>
-      <button data-ng-click="search.search.clear()" class="btn btn-default">
+      <button data-ng-click="page.search.clear()" class="btn btn-default">
         Clear Search
       </button>
     </form>
@@ -32,7 +32,7 @@
 
   <br />
 
-  <div class="row" data-ng-if="!search.search.data.features.length">
+  <div class="row" data-ng-if="!page.search.data.features.length">
     <div class="col-sm-12">
       <span class="throbber"></span>
     </div>

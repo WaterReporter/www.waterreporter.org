@@ -13,7 +13,7 @@ angular.module('WaterReporter')
       .when('/activity', {
         templateUrl: '/modules/components/activity/activity--view.html',
         controller: 'ActivityController',
-        controllerAs: 'activity',
+        controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
           features: function(Report) {

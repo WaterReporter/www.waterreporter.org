@@ -15,7 +15,7 @@ angular.module('WaterReporter')
       .when('/profiles', {
         templateUrl: '/modules/components/profile/profiles--view.html',
         controller: 'ProfilesController',
-        controllerAs: 'profiles',
+        controllerAs: 'page',
         resolve: {
           profiles: function($location, User) {
 
@@ -44,7 +44,7 @@ angular.module('WaterReporter')
       .when('/profiles/:userId', {
         templateUrl: '/modules/components/profile/profile--view.html',
         controller: 'ProfileController',
-        controllerAs: 'profile',
+        controllerAs: 'page',
         resolve: {
           profile: function($route, User) {
             return User.get({

@@ -11,12 +11,12 @@
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/reports/:reportId', {
         templateUrl: '/modules/components/report/report--view.html',
         controller: 'ReportController',
-        controllerAs: 'report',
+        controllerAs: 'page',
         resolve: {
           report: function($route, Report) {
             return Report.get({

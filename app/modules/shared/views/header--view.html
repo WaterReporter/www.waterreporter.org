@@ -4,16 +4,16 @@
     <img src="/images/logo-WaterReporter.png" alt="" title="" width="164" />
   </a>
 
-  <div class="row">
+  <div class="row" data-ng-if="!page.search.hidden">
     <form class="site--search site--search--content form" role="form"
           id="form--search--reports" name="form--search--reports"
-          data-ng-submit="activity.search.redirect()">
+          data-ng-submit="page.search.redirect()">
       <div class="form-group">
         <label for="form--search--reportDescription">Search</label>
         <input type="text" class="form-control"
                id="form--search--reportDescription"
                name="form--search--reportDescription" autofocus="autofocus"
-               data-ng-model="activity.search.params.report_description" />
+               data-ng-model="page.search.params.report_description" />
       </div>
     </form>
   </div>

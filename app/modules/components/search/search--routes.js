@@ -12,7 +12,7 @@ angular.module('WaterReporter')
       .when('/search', {
         templateUrl: '/modules/components/search/search--view.html',
         controller: 'SearchController',
-        controllerAs: 'search',
+        controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
           reports: function($location, $route, Report) {

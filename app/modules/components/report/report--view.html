@@ -8,75 +8,75 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-12">
-          <button data-ng-if="$root.isAdmin" class="btn btn-danger" data-ng-click="report.delete(report.data.id)">Delete Report</button>
-          <a class="btn btn-info" href="mailto:example@waterreporter.org?subject=Check out this Report on www.waterreporter.org&body=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ report.data.id }}" target="_blank">Share Report</a>
+          <button data-ng-if="$root.isAdmin" class="btn btn-danger" data-ng-click="page.delete(page.data.id)">Delete Report</button>
+          <a class="btn btn-info" href="mailto:example@waterreporter.org?subject=Check out this Report on www.waterreporter.org&body=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ page.data.id }}" target="_blank">Share Report</a>
         </div>
       </div>
 
       <!-- Truthy Result Set (1+) -->
       <div class="row">
-        <div id="report--{{ report.data.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (report.data.properties.state === 'closed') }">
+        <div id="report--{{ page.data.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (page.data.properties.state === 'closed') }">
           <div class="panel-heading">
-            <p class="pull-right">{{ report.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-            <a href="/profiles/{{ report.data.properties.owner.id }}">
-              <img class="pull-left img-circle" data-ng-if="report.data.properties.owner.properties.email" gravatar-src="'{{ report.data.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+            <p class="pull-right">{{ page.data.properties.report_date | date:"MMM d, yyyy"}}</p>
+            <a href="/profiles/{{ page.data.properties.owner.id }}">
+              <img class="pull-left img-circle" data-ng-if="page.data.properties.owner.properties.email" gravatar-src="'{{ page.data.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
             </a>
             <p>
-              <a href="/profiles/{{ report.data.properties.owner.id }}">
-                {{ report.data.properties.owner.properties.first_name }} {{ report.data.properties.owner.properties.last_name }}
+              <a href="/profiles/{{ page.data.properties.owner.id }}">
+                {{ page.data.properties.owner.properties.first_name }} {{ page.data.properties.owner.properties.last_name }}
               </a><br />
-              {{ report.data.properties.owner.properties.title }} <span data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name">at</span><br data-ng-if="report.data.properties.owner.properties.title && report.data.properties.owner.properties.organization_name" />
-              {{ report.data.properties.owner.properties.organization_name }}
+              {{ page.data.properties.owner.properties.title }} <span data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name">at</span><br data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name" />
+              {{ page.data.properties.owner.properties.organization_name }}
             </p>
           </div>
-          <figure data-ng-if="report.data.properties.images && report.data.properties.images.length">
-            <a href="/reports/{{ report.id }}">
-              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.data.properties.images" width="100%" />
+          <figure data-ng-if="page.data.properties.images && page.data.properties.images.length">
+            <a href="/reports/{{ page.id }}">
+              <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in page.data.properties.images" width="100%" />
             </a>
           </figure>
           <div class="panel-body">
 
             <p>
               <strong>User Submitted Content:</strong>
-              {{ report.data.properties.report_description }}</p>
+              {{ page.data.properties.report_description }}</p>
             <p>
-              <strong>Permalink: </strong> <a href="/reports/{{ report.data.id }}">
+              <strong>Permalink: </strong> <a href="/reports/{{ page.data.id }}">
                 View report
               </a>
             </p>
             <p>
-              <strong>Comments: </strong>  {{ report.data.properties.comments.length }}
+              <strong>Comments: </strong>  {{ page.data.properties.comments.length }}
             </p>
             <p>
-              <strong>Watersheds: </strong> 
-              <span data-ng-if="report.data.properties.territory">
-                {{ report.data.properties.territory.properties.huc_6_name }}, {{ report.data.properties.territory.properties.huc_8_name }}, {{ report.data.properties.territory.properties.huc_10_name }}, {{ report.data.properties.territory.properties.huc_12_name }}
+              <strong>Watersheds: </strong>
+              <span data-ng-if="page.data.properties.territory">
+                {{ page.data.properties.territory.properties.huc_6_name }}, {{ page.data.properties.territory.properties.huc_8_name }}, {{ page.data.properties.territory.properties.huc_10_name }}, {{ page.data.properties.territory.properties.huc_12_name }}
               </span>
-              <span data-ng-if="!report.data.properties.territory">
+              <span data-ng-if="!page.data.properties.territory">
                 <em>None</em>
               </span>
             </p>
             <p>
               <strong>Tags: </strong>
-              <span data-ng-if="report.data.properties.tags.length">
-                <span class="label label--brand" data-ng-repeat="tag in report.data.properties.tags">
+              <span data-ng-if="page.data.properties.tags.length">
+                <span class="label label--brand" data-ng-repeat="tag in page.data.properties.tags">
                   <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
                     #{{ tag.properties.tag }}
                   </a>
                 </span>
               </span>
-              <span data-ng-if="!report.data.properties.tags.length">
+              <span data-ng-if="!page.data.properties.tags.length">
                 <em>None</em>
               </span>
             </p>
 
             <p>
               <strong>Longitude/Latitude: </strong> <em>
-                <span data-ng-if="report.geometry">
-                  {{ report.geometry.geometries[0].coordinates[0] }}, 
-                  {{ report.geometry.geometries[0].coordinates[1] }}
+                <span data-ng-if="page.geometry">
+                  {{ page.geometry.geometries[0].coordinates[0] }},
+                  {{ page.geometry.geometries[0].coordinates[1] }}
                 </span>
-                <span data-ng-if="!report.geometry">
+                <span data-ng-if="!page.geometry">
                   None
                 </span>
               </em>
@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <div id="report--comment--{{ $index }}" data-ng-if="report.data.properties.comments.length" data-ng-repeat="comment in report.comments.features | orderBy:'id':false track by $index">
+      <div id="report--comment--{{ $index }}" data-ng-if="page.data.properties.comments.length" data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
         <div class="row" data-ng-if="comment.properties.body">
           <div class="col-sm-4 text-center">
             <img data-ng-if="comment.properties.owner.properties.email" gravatar-src="'{{ comment.properties.owner.properties.email }}'" gravatar-size="64" />
@@ -97,7 +97,7 @@
           <div class="col-sm-6">
             <span data-ng-if="!comment.edit">{{ comment.properties.body }}</span>
 
-            <form data-ng-if="comment.edit" class="site--report--comment--edit form" role="form" id="form--reports--comment--edit" name="form--reports--comment--edit" data-ng-submit="report.comment.update(comment)">
+            <form data-ng-if="comment.edit" class="site--report--comment--edit form" role="form" id="form--reports--comment--edit" name="form--reports--comment--edit" data-ng-submit="page.comment.update(comment)">
               <div class="form-group">
                 <label for="report--commentBody">Comment</label>
                 <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="comment.properties.body">{{ comment.properties.body }}</textarea>
@@ -112,7 +112,7 @@
             <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="comment.edit =! comment.edit">
               edit
             </a>
-            <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="report.comment.delete(comment.id)">
+            <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="page.comment.delete(comment.id)">
               delete
             </a>
           </div>
@@ -140,15 +140,15 @@
       <form data-ng-if="$root.isLoggedIn" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
         <div class="form-group">
           <label for="report--commentBody">Comment</label>
-          <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="report.comment.data.body"></textarea>
+          <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="page.comment.data.body"></textarea>
         </div>
-        <button data-ng-if="$root.isAdmin && report.data.properties.state !== 'closed'" data-ng-if="report.data.properties.state !== 'closed'" class="btn btn-default" data-ng-click="report.comment.close(report.data.id)">
+        <button data-ng-if="$root.isAdmin && page.data.properties.state !== 'closed'" data-ng-if="page.data.properties.state !== 'closed'" class="btn btn-default" data-ng-click="page.comment.close(page.data.id)">
           Close Report
         </button>
-        <button data-ng-if="$root.isAdmin && report.data.properties.state === 'closed'" data-ng-if="report.data.properties.state === 'closed'" class="btn btn-default" data-ng-click="report.comment.open(report.data.id)">
+        <button data-ng-if="$root.isAdmin && page.data.properties.state === 'closed'" data-ng-if="page.data.properties.state === 'closed'" class="btn btn-default" data-ng-click="page.comment.open(page.data.id)">
           Reopen Report
         </button>
-        <button id="report--comment--submit" name="report--comment--submit" class="btn btn-success" data-ng-click="report.comment.save(report.data.id)">
+        <button id="report--comment--submit" name="report--comment--submit" class="btn btn-success" data-ng-click="page.comment.save(page.data.id)">
           Comment
         </button>
       </form>
