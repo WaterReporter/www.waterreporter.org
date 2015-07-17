@@ -120,11 +120,17 @@ angular.module('WaterReporter')
 
       self.features.visible = index;
 
-      self.map.center = {
+      var center = {
         lat: feature.geometry.geometries[0].coordinates[1],
-        lng: feature.geometry.geometries[0].coordinates[0],
+        lng: feature.geometry.geometries[0].coordinates[0]
+      };
+
+      self.map.center = {
+        lat: center.lat,
+        lng: center.lng-0.0065,
         zoom: 16
       };
+
     };
 
   });
