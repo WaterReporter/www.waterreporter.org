@@ -107,11 +107,14 @@ angular.module('WaterReporter')
           //
           // Define the first/newest Feature and center the map on it
           //
-          self.changeFeature(self.map.geojson.reports.data.features[0]);
+          self.changeFeature(self.map.geojson.reports.data.features[0], 0);
        });
     };
 
-    this.changeFeature = function(feature) {
+    this.changeFeature = function(feature, index) {
+
+      self.features.visible = index;
+
       self.map.center = {
         lat: feature.geometry.geometries[0].coordinates[1],
         lng: feature.geometry.geometries[0].coordinates[0],
