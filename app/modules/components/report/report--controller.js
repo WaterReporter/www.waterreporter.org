@@ -22,10 +22,11 @@ angular.module('WaterReporter')
        *
        * @see https://developers.pinterest.com/rich_pins_place/
        */
+      var watershed = self.data.properties.territory.properties.huc_8_name ? ' in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed': '';
       $rootScope.meta = {
         og: {
           site_name: 'WaterReporter',
-          title: 'Citizen Water Report in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed',
+          title: 'Citizen Water Report' + watershed,
           type: 'place',
           description: (self.data.properties.report_description) ? self.data.properties.report_description: 'A report in the ' + self.data.properties.territory.properties.huc_8_name + ' watershed',
           url: 'https://www.waterreporter.org/reports/' + self.data.id

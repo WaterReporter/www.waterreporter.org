@@ -104,19 +104,19 @@ angular.module('WaterReporter')
 
           mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup, layerStyle);
 
-           //
-           // @hack
-           //    this is only a temporary solution until we get the new `bbox`
-           //    functionality within the WaterReporter API
-           //
-          leafletData.getMap().then(function(map) {
-              var bounds = featureGroup.getBounds();
-
-              if (bounds && bounds._southWest !== undefined) {
-                  map.fitBounds(featureGroup.getBounds());
-              }
-          });
+          //
+          // Define the first/newest Feature and center the map on it
+          //
+          self.changeFeature(self.map.geojson.reports.data.features[0]);
        });
+    };
+
+    this.changeFeature = function(feature) {
+      self.map.center = {
+        lat: feature.geometry.geometries[0].coordinates[1],
+        lng: feature.geometry.geometries[0].coordinates[0],
+        zoom: 16
+      };
     };
 
   });
