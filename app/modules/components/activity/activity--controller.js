@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, features, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  .controller('ActivityController', function (Account, features, $location, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
     var self = this;
 
@@ -106,6 +106,13 @@ angular.module('WaterReporter')
           // Define the first/newest Feature and center the map on it
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
+
+          leafletData.getMap().then(function() {
+            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+              $location.path(self.map.markers[args.modelName].permalink);
+            });
+          });
+
        });
     };
 

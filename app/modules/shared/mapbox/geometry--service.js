@@ -59,6 +59,7 @@ angular.module('Mapbox')
             lng: marker.geometry.geometries[0].coordinates[0],
             focus: false,
             draggable: false,
+            permalink: '/reports/1614',
             icon: {
               type: 'div',
               html: '<div class="marker--icon--image"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
