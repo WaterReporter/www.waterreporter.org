@@ -43,7 +43,6 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-
     /**
      * This is the first page the authneticated user will see. We need to make
      * sure that their user information is ready to use. Make sure the

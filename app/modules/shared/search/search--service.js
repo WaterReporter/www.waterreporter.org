@@ -134,6 +134,10 @@ angular.module('WaterReporter')
         $location.search('');
         $route.reload();
        },
+       redirect: function() {
+         this.filters();
+         $location.path('/search');
+       },
        execute: function(append) {
 
           //

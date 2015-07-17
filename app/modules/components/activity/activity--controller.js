@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, features, leafletData, $location, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  .controller('ActivityController', function (Account, features, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
     var self = this;
 
@@ -48,12 +48,6 @@ angular.module('WaterReporter')
     this.search.resource = Report;
 
     this.search.data = reports;
-
-    this.searchReports = function() {
-      self.search.filters();
-      $location.path('/search');
-    };
-
 
     /**
      * This is the first page the authneticated user will see. We need to make
