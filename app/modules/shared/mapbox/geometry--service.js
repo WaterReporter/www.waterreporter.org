@@ -62,9 +62,9 @@ angular.module('Mapbox')
             permalink: '/reports/' + marker.id,
             icon: {
               type: 'div',
-              html: '<div class="marker--icon--image"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
+              html: '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
               className: 'marker--icon',
-              iconSize: [64, 64],
+              iconSize: [96, 96],
               popupAnchor: [0, -16]
             }
           };

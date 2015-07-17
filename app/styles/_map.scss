@@ -1,7 +1,6 @@
 .map {
   display: inline-block;
-  height: 40em;
-  min-height: 40em;
+  min-height: 32em;
   width: 100%;
 }
 
@@ -69,12 +68,23 @@
     width: 64px;
   }
 
+  .marker--icon--image.marker--icon--large {
+    border-radius: 64px;
+    height: 96px;
+    width: 96px;
+  }
+
   .marker--icon--image img {
     min-height: 64px;
     min-width: 64px;
     height: auto;
     width: 100%;
   }
+
+    .marker--icon--image.marker--icon--large img {
+      min-height: 96px;
+      min-width: 96px;
+    }
 
   .marker--icon--point {
     display: inline-block;
@@ -87,3 +97,7 @@
     border-right: 12px solid transparent;
     border-left: 12px solid transparent;
   }
+
+    .marker--icon--image.marker--icon--large + .marker--icon--point {
+      margin-left: 37px;
+    }
