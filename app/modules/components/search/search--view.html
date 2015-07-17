@@ -1,0 +1,30 @@
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+<main class="site--content site--content--activity container">
+
+  <div class="row">
+    <form class="site--search site--search--content form" role="form" id="form--search--reports" name="form--search--reports" data-ng-submit="search.search.execute()">
+      <div class="form-group">
+        <label for="form--search--reportDescription">Search</label>
+        <input type="text" class="form-control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="search.search.params.report_description" data-ng-change="search.search.execute()" autofocus="autofocus" />
+      </div>
+      <button data-ng-click="search.search.clear()" class="btn btn-default">Clear Search</button>
+      <span data-ng-if="search.search.data.properties.num_results" class="pull-right">
+        Showing {{ search.search.data.properties.num_results || 0 | number:0 }} Reports
+      </span>
+    </form>
+  </div>
+
+  <br />
+
+  <div class="row" data-ng-if="!search.search.data.features.length">
+    <div class="col-sm-12">
+      <span class="throbber"></span>
+    </div>
+  </div>
+
+  <div data-ng-include="'/modules/components/search/results--view.html'"></div>
+
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>
