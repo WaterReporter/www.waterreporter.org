@@ -4,14 +4,28 @@
     <img src="/images/logo-WaterReporter.png" alt="" title="" width="164" />
   </a>
 
+  <div class="row">
+    <form class="site--search site--search--content form" role="form"
+          id="form--search--reports" name="form--search--reports"
+          data-ng-submit="activity.searchReports()">
+      <div class="form-group">
+        <label for="form--search--reportDescription">Search</label>
+        <input type="text" class="form-control"
+               id="form--search--reportDescription"
+               name="form--search--reportDescription" autofocus="autofocus"
+               data-ng-model="activity.search.params.report_description" />
+      </div>
+    </form>
+  </div>
+
   <nav class="navigation">
     <ul class="navigation--utility nav navbar-nav pull-right">
       <li>
-        <a href="/community">Community</a>
+        <a href="/activity">Activity</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="/about">About</a>
-      </li>
+      </li> -->
       <li data-ng-if="$root.isAdmin">
         <a href="/dashboard">Dashboard</a>
       </li>

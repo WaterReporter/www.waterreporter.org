@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  .controller('ActivityController', function (Account, leafletData, $location, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
     var self = this;
 
@@ -42,6 +42,11 @@ angular.module('WaterReporter')
     this.search.resource = Report;
 
     this.search.data = reports;
+
+    this.searchReports = function() {
+      self.search.filters();
+      $location.path('/search');
+    };
 
 
     /**

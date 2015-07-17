@@ -13,6 +13,8 @@ angular.module('WaterReporter')
     /**
      * Public Functions and Variables for the Search Service
      */
+     var service;
+
      var Search = {
         resource: {},
         model: {},
@@ -78,59 +80,66 @@ angular.module('WaterReporter')
           this.params[field] = tag;
           this.execute();
        },
+       filters: function() {
+         service = this;
+
+         var params = service.params,
+             q = {
+               filters: [],
+               order_by: [{
+                 field: 'report_date',
+                 direction: 'desc'
+               }]
+             };
+
+         //
+         // Loop over each of the parameters that the search allows the user
+         // to fill in and for each one, use the provided model to build out
+         // a proper Filters array
+         //
+         angular.forEach(params, function(field_value, field_name) {
+
+           //
+           // Get the information for the model
+           //
+           var filter = service.model[field_name];
+
+           //
+           // Build the value for the filter
+           //
+           if (filter.op === 'ilike') {
+             filter.val = '%' + field_value + '%';
+           }
+
+           //
+           // Pass off the completed filter to the `q` parameter for
+           // processing
+           //
+           q.filters.push(filter);
+
+         });
+
+         console.log('service.params', service.params);
+
+
+         //
+         // With a completed `q` parameter, we can now pass it back to the
+         // browser's address bar
+         //
+         $location.search({
+           'q': angular.toJson(q)
+         });
+       },
        clear: function() {
         $location.search('');
         $route.reload();
        },
        execute: function(append) {
 
-          var service = this,
-              params = service.params,
-              q = {
-                filters: [],
-                order_by: [{
-                  field: 'report_date',
-                  direction: 'desc'
-                }]
-              };
-
           //
-          // Loop over each of the parameters that the search allows the user
-          // to fill in and for each one, use the provided model to build out
-          // a proper Filters array
+          // Load our filters
           //
-          angular.forEach(params, function(field_value, field_name) {
-
-            //
-            // Get the information for the model
-            //
-            var filter = service.model[field_name];
-
-            //
-            // Build the value for the filter
-            //
-            if (filter.op === 'ilike') {
-              filter.val = '%' + field_value + '%';
-            }
-
-            //
-            // Pass off the completed filter to the `q` parameter for
-            // processing
-            //
-            q.filters.push(filter);
-
-          });
-
-          console.log('service.params', service.params);
-
-
-          //
-          // With a completed `q` parameter, we can now pass it back to the
-          // browser's address bar
-          //
-          $location.search({
-            'q': angular.toJson(q)
-          });
+          this.filters();
 
           //
           // Finally, use the resource to load the new Features based on the
