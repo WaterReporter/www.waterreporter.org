@@ -100,9 +100,7 @@ angular.module('WaterReporter')
           //
           var featureGroup = new L.FeatureGroup();
 
-          var layerStyle = self.map.styles.icon.parcel;
-
-          mapboxGeometry.drawGeoJSON(self.map.geojson.reports.data, featureGroup, layerStyle);
+          self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
 
           //
           // Define the first/newest Feature and center the map on it

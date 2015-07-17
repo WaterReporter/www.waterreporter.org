@@ -32,6 +32,47 @@ angular.module('Mapbox')
         });
       },
       /**
+       *
+       *
+       */
+      drawMarkers: function(geojson, featureGroup, appendToLayer) {
+
+        //
+        // Should this GeoJSON object be appended to all existing Features or
+        // should it replace all other objects?
+        //
+        // Defaults to clearing the layer and adding only the new geojsonObject
+        // defined in the function arguments
+        //
+        if (!appendToLayer) {
+          featureGroup.clearLayers();
+        }
+
+        var markers = [];
+
+        angular.forEach(geojson.features, function(marker, $index) {
+
+          var image = (marker.properties.images.length) ? marker.properties.images[0].properties.original : '';
+
+          markers[$index] = {
+            lat: marker.geometry.geometries[0].coordinates[1],
+            lng: marker.geometry.geometries[0].coordinates[0],
+            focus: false,
+            draggable: false,
+            icon: {
+              type: 'div',
+              html: '<div class="marker--icon--image"><img src="' + image + '" class="" alt="Museum Garden" width="100%" /></div><span class="marker--icon--point"></span>',
+              className: 'marker--icon',
+              iconSize: [64, 64],
+              popupAnchor: [0, -16]
+            }
+          };
+
+        });
+
+        return markers;
+      },
+      /**
        * Convert a valid GeoJSON object to a valid Leaflet/Mapbox layer so that
        * it can be displayed on a Leaflet Map
        *

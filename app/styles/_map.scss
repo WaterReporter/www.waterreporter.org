@@ -53,3 +53,37 @@
      }
   }
 }
+
+
+//
+// Markers
+//
+.marker--icon {}
+
+  .marker--icon--image {
+    border: 5px solid rgb(255, 255, 255);
+    border-radius: 32px;
+    box-shadow: 1px 1px 24px rgba(0, 0, 0, 0.5);
+    height: 64px;
+    overflow: hidden;
+    width: 64px;
+  }
+
+  .marker--icon--image img {
+    min-height: 64px;
+    min-width: 64px;
+    height: auto;
+    width: 100%;
+  }
+
+  .marker--icon--point {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-top: -9px;
+    margin-left: 21px;
+    vertical-align: middle;
+    border-top: 19px solid rgb(255,255,255);
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+  }

@@ -38,7 +38,7 @@ angular.module('WaterReporter')
               }
             });
           },
-          reports: function(Report) {
+          reports: function($location, Report) {
             //
             // Execute our query so that we can get the Reports back
             //
@@ -50,7 +50,8 @@ angular.module('WaterReporter')
                     direction: 'desc'
                   }
                 ]
-              }
+              },
+              page: $location.search().page ? $location.search().page : 1
             });
           },
           user: function(Account) {
