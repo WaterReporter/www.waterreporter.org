@@ -15,10 +15,10 @@
             {{ page.data.properties.organization_name }}
           </p>
           <p class="text-center">
-            <a data-ng-if="!page.visible.reports && $root.isCurrentUser" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
+            <a data-ng-if="!page.visible.reports && $root.isCurrentUser && $root.isAdmin" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
               {{ page.reports.properties.num_results | number:0 }} Reports
             </a>
-            <span data-ng-if="page.visible.reports && $root.isCurrentUser">
+            <span data-ng-if="page.visible.reports && $root.isCurrentUser && $root.isAdmin">
               {{ page.reports.properties.num_results | number:0 }} Reports
             </span><br data-ng-if="$root.isCurrentUser" />
             <a data-ng-if="!page.visible.submissions" data-ng-click="page.visible.submissions = true; page.visible.closures = false; page.visible.reports = false;">
@@ -27,10 +27,10 @@
             <span data-ng-if="page.visible.submissions">
               {{ page.submissions.properties.num_results | number:0 }} Submissions
             </span><br />
-            <a data-ng-if="!page.visible.closures" data-ng-click="page.visible.closures = true; page.visible.reports = false; page.visible.submissions = false;">
+            <a data-ng-if="!page.visible.closures && $root.isAdmin" data-ng-click="page.visible.closures = true; page.visible.reports = false; page.visible.submissions = false;">
               {{ page.closures.properties.num_results | number:0 }} Actions
             </a>
-            <span data-ng-if="page.visible.closures">
+            <span data-ng-if="page.visible.closures && $root.isAdmin">
               {{ page.closures.properties.num_results | number:0 }} Actions
             </span>
           </p>
