@@ -22,7 +22,7 @@ angular.module('WaterReporter')
     ipCookie.remove('WATERREPORTER_CURRENTUSER', { path: '/' });
 
     /**
-     * 
+     *
      */
     $rootScope.user = null;
 

@@ -17,7 +17,7 @@ angular.module('WaterReporter')
       .when('/user/login', {
         templateUrl: '/modules/shared/security/securityLogin--view.html',
         controller: 'SecurityController',
-        controllerAs: 'security'
+        controllerAs: 'page'
       })
       .when('/logout', {
         redirectTo: '/user/logout'
@@ -25,6 +25,6 @@ angular.module('WaterReporter')
       .when('/user/logout', {
         template: 'Logging out ...',
         controller: 'SecurityLogoutController',
-        controllerAs: 'security'
+        controllerAs: 'page'
       });
   });

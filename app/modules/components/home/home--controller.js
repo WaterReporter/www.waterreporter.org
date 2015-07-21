@@ -27,8 +27,6 @@ angular.module('WaterReporter')
      */
     this.search = Search;
 
-    this.search.params = Search.defaults();
-
     this.search.model = {
       report_description: {
         name: 'report_description',
