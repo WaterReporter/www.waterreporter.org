@@ -7,6 +7,7 @@
         <div class="col-sm-12">
           <button data-ng-if="$root.isAdmin" class="btn btn-danger" data-ng-click="page.delete(page.data.id)">Delete Report</button>
           <a class="btn btn-info" href="mailto:example@waterreporter.org?subject=Check out this Report on www.waterreporter.org&body=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ page.data.id }}" target="_blank">Share Report</a>
+          <a class="btn btn-info" href="https://www.google.com/maps/dir//{{ page.data.geometry.geometries[0].coordinates[1] }},{{ page.data.geometry.geometries[0].coordinates[0] }}" target="_blank">Directions</a>
         </div>
       </div>
 
