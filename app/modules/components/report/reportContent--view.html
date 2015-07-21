@@ -21,6 +21,7 @@
         <figure data-ng-if="page.data.properties.images && page.data.properties.images.length">
           <a href="/reports/{{ page.data.id }}">
             <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in page.data.properties.images" width="100%" />
+            <!-- <img image-loader data="image.properties.original" data-ng-repeat="image in page.data.properties.images" width="100%" /> -->
           </a>
         </figure>
         <div class="panel-body">
