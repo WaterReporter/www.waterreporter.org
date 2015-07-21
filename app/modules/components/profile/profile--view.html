@@ -58,30 +58,36 @@
                 {{ report.properties.owner.properties.organization_name }}
               </p>
             </div>
+            <figure data-ng-if="report.properties.images && report.properties.images.length">
+              <a href="/reports/{{ report.id }}">
+                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.properties.images" width="100%" />
+              </a>
+            </figure>
             <div class="panel-body">
 
-              <figure data-ng-if="report.properties.images && report.properties.images.length">
-      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-                <a href="/reports/{{ report.id }}">
-                  <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
-                </a>
-              </figure>
-
-              <p>{{ report.properties.report_description }}</p>
-
-              <ul data-ng-if="report.properties.tags.length">
-                <li data-ng-repeat="tag in report.properties.tags">
-                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
-                    #{{ tag.properties.tag }}
-                  </a>
-                </li>
-              </ul>
-
               <p>
-                {{ report.geometry.geometries[0].coordinates[0] }}<br />
-                {{ report.geometry.geometries[0].coordinates[1] }}
+                {{ report.properties.report_description }} <a href="/reports/{{ report.id }}">
+                  View report
+                </a>
+
+              </p>
+              <p>
+                {{ report.properties.comments.length }}
+              </p>
+              <p data-ng-if="report.properties.territory">
+                {{ report.properties.territory.properties.huc_8_name }}
+              </p>
+              <p>
+                <span data-ng-if="report.properties.tags.length">
+                  <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
+                    <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+                      #{{ tag.properties.tag }}
+                    </a>
+                  </span>
+                </span>
               </p>
             </div>
+
           </div>
         </div>
 
@@ -103,28 +109,33 @@
                 {{ report.properties.owner.properties.organization_name }}
               </p>
             </div>
+            <figure data-ng-if="report.properties.images && report.properties.images.length">
+              <a href="/reports/{{ report.id }}">
+                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.properties.images" width="100%" />
+              </a>
+            </figure>
             <div class="panel-body">
 
-              <figure data-ng-if="report.properties.images && report.properties.images.length">
-      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-                <a href="/reports/{{ report.id }}">
-                  <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
-                </a>
-              </figure>
-
-              <p>{{ report.properties.report_description }}</p>
-
-              <ul data-ng-if="report.properties.tags.length">
-                <li data-ng-repeat="tag in report.properties.tags">
-                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
-                    #{{ tag.properties.tag }}
-                  </a>
-                </li>
-              </ul>
-
               <p>
-                {{ report.geometry.geometries[0].coordinates[0] }}<br />
-                {{ report.geometry.geometries[0].coordinates[1] }}
+                {{ report.properties.report_description }} <a href="/reports/{{ report.id }}">
+                  View report
+                </a>
+
+              </p>
+              <p>
+                {{ report.properties.comments.length }}
+              </p>
+              <p data-ng-if="report.properties.territory">
+                {{ report.properties.territory.properties.huc_8_name }}
+              </p>
+              <p>
+                <span data-ng-if="report.properties.tags.length">
+                  <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
+                    <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+                      #{{ tag.properties.tag }}
+                    </a>
+                  </span>
+                </span>
               </p>
             </div>
           </div>
@@ -147,28 +158,33 @@
                 {{ report.properties.owner.properties.organization_name }}
               </p>
             </div>
+            <figure data-ng-if="report.properties.images && report.properties.images.length">
+              <a href="/reports/{{ report.id }}">
+                <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.properties.images" width="100%" />
+              </a>
+            </figure>
             <div class="panel-body">
 
-              <figure data-ng-if="report.properties.images && report.properties.images.length">
-      <!--           <img photoio photoio-u="image.properties.original" photoio-w="640" photoio-h="640" photoio-mode="crop" data-ng-repeat="image in report.properties.images" /> -->
-                <a href="/reports/{{ report.id }}">
-                  <img class="img-responsive" data-ng-src="{{ image.properties.original }}" width="640" data-ng-repeat="image in report.properties.images" />
-                </a>
-              </figure>
-
-              <p>{{ report.properties.report_description }}</p>
-
-              <ul data-ng-if="report.properties.tags.length">
-                <li data-ng-repeat="tag in report.properties.tags">
-                  <a href="" data-ng-click="activity.search.hashtag(tag.properties.tag, 'report_description')">
-                    #{{ tag.properties.tag }}
-                  </a>
-                </li>
-              </ul>
-
               <p>
-                {{ report.geometry.geometries[0].coordinates[0] }}<br />
-                {{ report.geometry.geometries[0].coordinates[1] }}
+                {{ report.properties.report_description }} <a href="/reports/{{ report.id }}">
+                  View report
+                </a>
+
+              </p>
+              <p>
+                {{ report.properties.comments.length }}
+              </p>
+              <p data-ng-if="report.properties.territory">
+                {{ report.properties.territory.properties.huc_8_name }}
+              </p>
+              <p>
+                <span data-ng-if="report.properties.tags.length">
+                  <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
+                    <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+                      #{{ tag.properties.tag }}
+                    </a>
+                  </span>
+                </span>
               </p>
             </div>
           </div>
