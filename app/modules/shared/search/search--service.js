@@ -119,9 +119,6 @@ angular.module('WaterReporter')
 
          });
 
-         console.log('service.params', service.params);
-
-
          //
          // With a completed `q` parameter, we can now pass it back to the
          // browser's address bar
