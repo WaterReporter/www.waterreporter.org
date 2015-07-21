@@ -46,6 +46,9 @@ angular.module('WaterReporter')
         controller: 'ProfileController',
         controllerAs: 'page',
         resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
           profile: function($route, User) {
             return User.get({
               id: $route.current.params.userId
@@ -72,7 +75,7 @@ angular.module('WaterReporter')
 
             return Report.query(search_params);
           },
-          reports: function($location, $route, Report) {
+          submissions: function($location, $route, Report) {
 
             //
             // Get all of our existing URL Parameters so that we can

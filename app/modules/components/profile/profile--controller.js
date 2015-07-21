@@ -8,18 +8,19 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, reports, $scope) {
+  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, Report, $rootScope, submissions, $scope, user) {
 
     var self = this;
 
     this.data = profile;
     this.organizations = organizations;
 
-    this.reports = reports;
+    this.submissions = submissions;
 
     this.closures = closures;
 
     this.visible = {
+      submissions: false,
       reports: true,
       closures: false
     };
@@ -37,7 +38,7 @@ angular.module('WaterReporter')
 
     L.Icon.Default.imagePath = '/images';
 
-    self.reports.$promise.then(function(reports_) {
+    self.submissions.$promise.then(function(reports_) {
         self.map.geojson.reports = {
             data: reports_
         };
@@ -78,5 +79,78 @@ angular.module('WaterReporter')
       };
 
     };
+
+    /**
+     * Load the dashboard with the appropriate User-specific reports
+     */
+    self.loadDashboard = function () {
+
+      //
+      // Prepare any pre-filters to append to any of our user-defined
+      // filters in the browser address bar
+      //
+      var search_params = {
+        q: {
+          filters: [],
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            }
+          ]
+        }
+      };
+
+      angular.forEach(Account.userObject.properties.classifications, function(value) {
+        var classification = value.properties,
+            fieldName = 'territory__huc_' + classification.digits + '_name',
+            filter = {
+              name: fieldName,
+              op: 'has',
+              val: classification.name
+            };
+
+        search_params.q.filters.push(filter);
+
+        // We need to dyamically define the model for this since the fieldName
+        // is variable
+
+        // We need to manually add the param to the classifications
+        // self.search.params[fieldName] = classification.name;
+      });
+
+      //
+      // Execute our query so that we can get the Reports back
+      //
+      self.reports = Report.query(search_params);
+    };
+
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && !Account.userObject.id) {
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          Account.userObject = userResponse;
+            $rootScope.user = Account.userObject;
+
+            $rootScope.isLoggedIn = Account.hasToken();
+            $rootScope.isAdmin = Account.hasRole('admin');
+
+            if ($rootScope.isAdmin) {
+              self.loadDashboard();
+            }
+            else {
+              $location.path('/activity/list');
+            }
+        });
+      }
+    }
+    else {
+      self.loadDashboard();
+    }
 
   });
