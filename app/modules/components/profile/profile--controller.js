@@ -8,7 +8,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, Report, $rootScope, submissions, $scope, user) {
+  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, Report, $rootScope, $route, submissions, $scope, user) {
 
     var self = this;
 
@@ -20,8 +20,8 @@ angular.module('WaterReporter')
     this.closures = closures;
 
     this.visible = {
-      submissions: false,
-      reports: true,
+      submissions: true,
+      reports: false,
       closures: false
     };
 
@@ -139,6 +139,7 @@ angular.module('WaterReporter')
 
             $rootScope.isLoggedIn = Account.hasToken();
             $rootScope.isAdmin = Account.hasRole('admin');
+            $rootScope.isCurrentUser = ($rootScope.user.id === $route.current.params.profileId) ? true : false;
 
             if ($rootScope.isAdmin) {
               self.loadDashboard();
@@ -148,9 +149,6 @@ angular.module('WaterReporter')
             }
         });
       }
-    }
-    else {
-      self.loadDashboard();
     }
 
   });

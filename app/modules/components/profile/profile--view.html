@@ -15,12 +15,12 @@
             {{ page.data.properties.organization_name }}
           </p>
           <p class="text-center">
-            <a data-ng-if="!page.visible.reports" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
+            <a data-ng-if="!page.visible.reports && $root.isCurrentUser" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
               {{ page.reports.properties.num_results | number:0 }} Reports
             </a>
-            <span data-ng-if="page.visible.reports">
+            <span data-ng-if="page.visible.reports && $root.isCurrentUser">
               {{ page.reports.properties.num_results | number:0 }} Reports
-            </span><br />
+            </span><br data-ng-if="$root.isCurrentUser" />
             <a data-ng-if="!page.visible.submissions" data-ng-click="page.visible.submissions = true; page.visible.closures = false; page.visible.reports = false;">
               {{ page.submissions.properties.num_results | number:0 }} Submissions
             </a>
