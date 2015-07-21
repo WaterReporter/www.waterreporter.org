@@ -27,10 +27,10 @@
             <span data-ng-if="page.visible.submissions">
               {{ page.submissions.properties.num_results | number:0 }} Submissions
             </span><br />
-            <a data-ng-if="!page.visible.closures && $root.isAdmin" data-ng-click="page.visible.closures = true; page.visible.reports = false; page.visible.submissions = false;">
+            <a data-ng-if="!page.visible.closures && page.closures.features.length" data-ng-click="page.visible.closures = true; page.visible.reports = false; page.visible.submissions = false;">
               {{ page.closures.properties.num_results | number:0 }} Actions
             </a>
-            <span data-ng-if="page.visible.closures && $root.isAdmin">
+            <span data-ng-if="page.visible.closures && page.closures.features.length">
               {{ page.closures.properties.num_results | number:0 }} Actions
             </span>
           </p>
