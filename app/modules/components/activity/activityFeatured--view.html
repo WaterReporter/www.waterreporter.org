@@ -29,27 +29,17 @@
         <div class="panel-body">
 
           <p>
-            <strong>User Submitted Content:</strong>
-            {{ report.properties.report_description }}</p>
-          <p>
-            <strong>Permalink: </strong> <a href="/reports/{{ report.id }}">
+            {{ report.properties.report_description }} <a href="/reports/{{ report.id }}">
               View report
             </a>
           </p>
           <p>
-            <strong>Comments: </strong>  {{ report.properties.comments.length }}
+            {{ report.properties.comments.length }}
+          </p>
+          <p data-ng-if="report.properties.territory">
+              {{ report.properties.territory.properties.huc_8_name }}
           </p>
           <p>
-            <strong>Watersheds: </strong>
-            <span data-ng-if="report.properties.territory">
-              {{ report.properties.territory.properties.huc_6_name }}, {{ report.properties.territory.properties.huc_8_name }}, {{ report.properties.territory.properties.huc_10_name }}, {{ report.properties.territory.properties.huc_12_name }}
-            </span>
-            <span data-ng-if="!report.properties.territory">
-              <em>None</em>
-            </span>
-          </p>
-          <p>
-            <strong>Tags: </strong>
             <span data-ng-if="report.properties.tags.length">
               <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
                 <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
@@ -57,21 +47,6 @@
                 </a>
               </span>
             </span>
-            <span data-ng-if="!report.properties.tags.length">
-              <em>None</em>
-            </span>
-          </p>
-
-          <p>
-            <strong>Longitude/Latitude: </strong> <em>
-              <span data-ng-if="report.geometry">
-                {{ report.geometry.geometries[0].coordinates[0] }},
-                {{ report.geometry.geometries[0].coordinates[1] }}
-              </span>
-              <span data-ng-if="!report.geometry">
-                None
-              </span>
-            </em>
           </p>
         </div>
       </div>
