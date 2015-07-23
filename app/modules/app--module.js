@@ -19,5 +19,6 @@ angular
     'angularPhotoio',
     'ui.gravatar',
     'Mapbox',
-    'exifReader'
+    'exifReader',
+    'angularMoment'
   ]);

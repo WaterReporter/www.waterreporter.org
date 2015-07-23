@@ -9,14 +9,32 @@
 
 .report {
   background-color: $color-white-base;
-  margin: 0 auto;
-  max-width: 640px;
+  border: 1px solid rgb(232,232,232);
+  margin: 0 auto 64px;
+  max-width: 642px;
   width: 100%;
 }
 
   .report--author {
+    float: left;
     padding: 1em;
+    width: 100%;
   }
+
+    .report--author p {
+      margin-bottom: 0;
+    }
+
+    .report--date {
+      color: $color-black-lightest;
+      float: right;
+      font-size: 0.875em;
+      margin: 4px 0 0;
+    }
+      .report--date span:active,
+      .report--date span:focus {
+        outline: 0;
+      }
 
     .report--author--avatar {
       border-radiu: 50%;
@@ -44,9 +62,16 @@
 
     .report--author--organization {}
 
-  .report--media {}
+  .report--media {
+    height: 640px;
+    overflow: hidden;
+    width: 640px;
+  }
 
-  .report--content {}
+  .report--content {
+    padding: 1em;
+    width: 100%;
+  }
 
   .report--state--open {
     border-top: 3px solid $color-red-base;
