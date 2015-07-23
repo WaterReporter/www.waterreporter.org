@@ -63,7 +63,7 @@
     .report--author--organization {}
 
   .report--media {
-    height: 640px;
+    max-height: 640px;
     overflow: hidden;
     width: 640px;
   }

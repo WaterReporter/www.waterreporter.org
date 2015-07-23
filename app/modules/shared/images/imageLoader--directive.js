@@ -38,38 +38,28 @@ angular.module('WaterReporter')
 
                                 image.onload = function () {
                                     EXIF.getData(image, function () {
-                                        console.log(EXIF.pretty(this));
-                                        console.log(EXIF.getTag(this, 'Orientation'));
-f
+
                                         var o = EXIF.getTag(this, 'Orientation');
 
                                         switch (o) {
 
                                         case 3:
 
-                                            element.addClass('flip-vertical');
-
-                                            element.attr('width', 540);
+                                            element.addClass('flip-vertical')
+                                                   .attr('height', 640);
 
                                             break;
 
                                         case 6:
 
-                                            //image.width = 400;
-
-                                            element.addClass('rotate-right');
-
-                                            element.attr('width', 720);
+                                            element.addClass('rotate-right')
+                                                   .attr('height', 640);
 
                                             break;
 
                                         default:
 
-                                            element.attr('width', 540);
-
-                                            //image.width = 400;
-
-                                            //
+                                            // element.attr('width', 640);
 
                                             break;
 
