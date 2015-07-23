@@ -27,27 +27,14 @@
         <div class="panel-body">
 
           <p>
-            <strong>User Submitted Content:</strong>
-            {{ page.data.properties.report_description }}</p>
-          <p>
-            <strong>Permalink: </strong> <a href="/reports/{{ page.data.id }}">
-              View report
-            </a>
+            {{ page.data.properties.report_description }}
           </p>
           <p>
-            <strong>Comments: </strong>  {{ page.data.properties.comments.length }}
-          </p>
-          <p>
-            <strong>Watersheds: </strong>
             <span data-ng-if="page.data.properties.territory">
-              {{ page.data.properties.territory.properties.huc_6_name }}, {{ page.data.properties.territory.properties.huc_8_name }}, {{ page.data.properties.territory.properties.huc_10_name }}, {{ page.data.properties.territory.properties.huc_12_name }}
-            </span>
-            <span data-ng-if="!page.data.properties.territory">
-              <em>None</em>
+              {{ page.data.properties.territory.properties.huc_6_name }}
             </span>
           </p>
           <p>
-            <strong>Tags: </strong>
             <span data-ng-if="page.data.properties.tags.length">
               <span class="label label--brand" data-ng-repeat="tag in page.data.properties.tags">
                 <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
@@ -60,7 +47,7 @@
             </span>
           </p>
 
-          <p>
+          <!-- <p>
             <strong>Longitude/Latitude: </strong> <em>
               <span data-ng-if="page.data.geometry">
                 {{ page.data.geometry.geometries[0].coordinates[0] }},
@@ -70,7 +57,8 @@
                 None
               </span>
             </em>
-          </p>
+          </p> -->
+
         </div>
       </div>
     </div>
