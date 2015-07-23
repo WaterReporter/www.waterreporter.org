@@ -7,11 +7,51 @@
 // @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 //
 
-
-.report--state--open {
-  border-top: 3px solid $color-red-base;
+.report {
+  background-color: $color-white-base;
+  margin: 0 auto;
+  max-width: 640px;
+  width: 100%;
 }
 
-.report--state--closed {
-  border-top: 3px solid $color-green-base;
-}
+  .report--author {
+    padding: 1em;
+  }
+
+    .report--author--avatar {
+      border-radiu: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      float: left;
+      height: 32px;
+      width: 32px;
+    }
+
+    .report--author--name {
+      color: $color-blue-dark;
+      float: left;
+      font-size: 0.875em;
+      font-weight: bold;
+      letter-spacing: 0;
+      margin: 4px 0 0 8px;
+    }
+      .report--author--name:hover {
+        color: $color-blue-darker;
+        text-decoration: none;
+      }
+
+    .report--author--position {}
+
+    .report--author--organization {}
+
+  .report--media {}
+
+  .report--content {}
+
+  .report--state--open {
+    border-top: 3px solid $color-red-base;
+  }
+
+  .report--state--closed {
+    border-top: 3px solid $color-green-base;
+  }

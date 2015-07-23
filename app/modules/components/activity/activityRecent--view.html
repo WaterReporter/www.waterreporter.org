@@ -6,32 +6,43 @@
 </div>
 
 <!-- Truthy Result Set (1+) -->
-<div class="row"
+<section class="row"
      data-ng-if="page.search.data.features.length"
      data-ng-repeat="report in page.search.data.features">
-  <div id="report--{{ report.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (report.properties.state === 'closed') }">
-    <div class="panel-heading">
+  <article id="report--{{ report.properties.id }}" class="report"
+           data-ng-class="{'report--state--closed': (report.properties.state === 'closed') }">
+    <header class="report--author">
       <p class="pull-right">{{ report.properties.report_date | date:"MMM d, yyyy"}}</p>
       <a href="/profiles/{{ report.properties.owner.id }}">
-        <img class="pull-left img-circle" data-ng-if="report.properties.owner.properties.email" gravatar-src="'{{ report.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
+        <img class="report--author--avatar" gravatar-size="32"
+             data-ng-if="report.properties.owner.properties.email"
+             gravatar-src="'{{ report.properties.owner.properties.email }}'" />
       </a>
       <p>
-        <a href="/profiles/{{ report.properties.owner.id }}">
+        <a class="report--author--name" href="/profiles/{{ report.properties.owner.id }}">
           {{ report.properties.owner.properties.first_name }} {{ report.properties.owner.properties.last_name }}
-        </a><br />
-        {{ report.properties.owner.properties.title }} <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
-        {{ report.properties.owner.properties.organization_name }}
+        </a>
+        <!-- {{ report.properties.owner.properties.title }}
+        <span data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name">at</span><br data-ng-if="report.properties.owner.properties.title && report.properties.owner.properties.organization_name" />
+        {{ report.properties.owner.properties.organization_name }} -->
       </p>
-    </div>
-    <figure data-ng-if="report.properties.images && report.properties.images.length">
+    </header>
+
+    <figure class="report--media">
       <a href="/reports/{{ report.id }}">
-        <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in report.properties.images" width="100%" />
+        <img data-ng-if="report.properties.images.length" class="img-responsive"
+             data-ng-src="{{ image.properties.original }}"
+             data-ng-repeat="image in report.properties.images" width="100%" />
+        <img data-ng-if="!report.properties.images.length" class="img-responsive"
+             data-ng-src="/images/icon--MissingImage.png" width="100%" />
       </a>
     </figure>
-    <div class="panel-body">
+
+    <div class="report--content">
 
       <p>
-        {{ report.properties.report_description }} <a href="/reports/{{ report.id }}">
+        {{ report.properties.report_description }}
+        <a href="/reports/{{ report.id }}">
           View report
         </a>
 
@@ -52,8 +63,8 @@
         </span>
       </p>
     </div>
-  </div>
-</div>
+  </article>
+</section>
 
 <!-- Load More Results -->
 <div class="row">
