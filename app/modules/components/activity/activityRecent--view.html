@@ -8,7 +8,6 @@
 <!-- Truthy Result Set (1+) -->
 <section>
   <article id="report--{{ report.properties.id }}" class="report"
-           data-ng-class="{'report--state--closed': (report.properties.state === 'closed') }"
            data-ng-repeat="report in page.search.data.features">
     <header class="report--author">
       <p class="report--date">
@@ -34,9 +33,6 @@
 
     <figure class="report--media">
       <a href="/reports/{{ report.id }}">
-        <!-- <img data-ng-if="report.properties.images.length" class="img-responsive"
-             data-ng-src="{{ image.properties.original }}"
-             data-ng-repeat="image in report.properties.images" width="100%" /> -->
        <img data-ng-if="report.properties.images.length"
             image-loader data="image.properties.original"
             data-ng-repeat="image in report.properties.images" width="100%" />
@@ -47,27 +43,31 @@
 
     <div class="report--content">
 
-      <p>
-        {{ report.properties.report_description }}
-        <a href="/reports/{{ report.id }}">
-          View report
-        </a>
-
-      </p>
-      <p>
-        {{ report.properties.comments.length }}
-      </p>
-      <p data-ng-if="report.properties.territory">
-        {{ report.properties.territory.properties.huc_6_name }}
-      </p>
-      <p>
-        <span data-ng-if="report.properties.tags.length">
-          <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
-            <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
-              #{{ tag.properties.tag }}
-            </a>
+      <p data-ng-if="report.properties.report_description || report.properties.comments.length">
+        <span data-ng-if="report.properties.report_description">
+          {{ report.properties.report_description }}
+        </span><br data-ng-if="report.properties.report_description" />
+        <a class="report--comment--link" href="/reports/{{ report.id }}#comments">
+          <span data-ng-if="report.properties.comments.length > 1">
+            view all {{ report.properties.comments.length }} comments
           </span>
+          <span data-ng-if="report.properties.comments.length === 1">
+            view comment
+          </span>
+        </a>
+      </p>
+
+      <p accesskey=""data-ng-if="report.properties.tags.length">
+        <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
+          <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+            #{{ tag.properties.tag }}
+          </a>
         </span>
+      </p>
+    </div>
+    <div class="report--location">
+      <p data-ng-if="report.properties.territory">
+        <span class="glyphicon glyphicon-map-marker"></span> {{ report.properties.territory.properties.huc_6_name }} Watershed
       </p>
     </div>
   </article>

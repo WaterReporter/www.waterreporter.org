@@ -9,13 +9,15 @@
 
 .report {
   background-color: $color-white-base;
-  border: 1px solid rgb(232,232,232);
   margin: 0 auto 64px;
-  max-width: 642px;
+  max-width: 640px;
   width: 100%;
 }
 
   .report--author {
+    border-left: 1px solid rgb(232,232,232);
+    border-right: 1px solid rgb(232,232,232);
+    border-top: 1px solid rgb(232,232,232);
     float: left;
     padding: 1em;
     width: 100%;
@@ -48,7 +50,6 @@
     .report--author--name {
       color: $color-blue-dark;
       float: left;
-      font-size: 0.875em;
       font-weight: bold;
       letter-spacing: 0;
       margin: 4px 0 0 8px;
@@ -62,21 +63,43 @@
 
     .report--author--organization {}
 
+  a.report--comment--link,
+  a.report--comment--link:active,
+  a.report--comment--link:link,
+  a.report--comment--link:visited {
+    color: $color-gray-base;
+  }
+    a.report--comment--link:hover {
+      color: darken($color-gray-base, 5%);
+    }
+
   .report--media {
+    border-left: 1px solid rgb(232,232,232);
+    border-right: 1px solid rgb(232,232,232);
     max-height: 640px;
     overflow: hidden;
     width: 640px;
   }
 
   .report--content {
+    border-left: 1px solid rgb(232,232,232);
+    border-right: 1px solid rgb(232,232,232);
+    border-bottom: 1px solid rgb(232,232,232);
     padding: 1em;
     width: 100%;
   }
 
-  .report--state--open {
-    border-top: 3px solid $color-red-base;
-  }
 
-  .report--state--closed {
-    border-top: 3px solid $color-green-base;
-  }
+//
+//
+//
+.report--location {
+  background-color: $color-white-dark;
+  text-align: right;
+}
+
+.report--location p {
+  color: $color-gray-light;
+  font-size: 0.75em;
+  padding: 6px 1em 0;
+}
