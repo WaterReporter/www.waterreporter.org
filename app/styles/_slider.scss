@@ -10,12 +10,12 @@
   width: 100%;
 }
 
-a.features--slider--previous,
+.features--slider--previous,
 a.features--slider--previous:active,
 a.features--slider--previous:link,
 a.features--slider--previous:focus,
 a.features--slider--previous:visited,
-a.features--slider--next,
+.features--slider--next,
 a.features--slider--next:active,
 a.features--slider--next:link,
 a.features--slider--next:focus,
@@ -23,10 +23,12 @@ a.features--slider--next:visited {
   color: $color-gray-base;
   display: inline-block;
   font-size: 64px;
+  height: 64px;
   outline: 0;
   margin-top: 96px;
   text-align: center;
   text-decoration: none;
+  width: 64px;
 }
 
 a.features--slider--previous:active,
