@@ -6,7 +6,7 @@
   <div class="container">
     <div class="row">
 
-      <div class="col-sm-4">
+      <div class="user--profile">
         <div id="user--profile--{{ page.data.id }}">
           <p class="text-center">
             <img class="user--profile--image img-circle" data-ng-if="page.data.properties.email" gravatar-src="'{{ page.data.properties.email }}'" gravatar-size="256" /><br /><br />
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div class="col-sm-8">
+      <div class="user--activity">
         <div data-ng-show="page.visible.reports && !page.visible.submissions && !page.visible.closures" class="row"
              data-ng-if="page.reports.features.length"
              data-ng-repeat="report in page.reports.features">

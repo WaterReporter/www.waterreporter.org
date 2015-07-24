@@ -105,7 +105,7 @@ angular.module('WaterReporter')
 
       self.map.center = {
         lat: center.lat,
-        lng: center.lng-0.0065,
+        lng: center.lng,
         zoom: 16
       };
 
