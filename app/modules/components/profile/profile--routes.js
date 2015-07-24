@@ -12,35 +12,6 @@
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
-      // .when('/profiles', {
-      //   templateUrl: '/modules/components/profile/profiles--view.html',
-      //   controller: 'ProfilesController',
-      //   controllerAs: 'page',
-      //   resolve: {
-      //     profiles: function($location, User) {
-      //
-      //       //
-      //       // Get all of our existing URL Parameters so that we can
-      //       // modify them to meet our goals
-      //       //
-      //       var search_params = $location.search();
-      //
-      //       //
-      //       // Prepare any pre-filters to append to any of our user-defined
-      //       // filters in the browser address bar
-      //       //
-      //       search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
-      //
-      //       search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
-      //       search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-      //
-      //       //
-      //       // Execute our query so that we can get the Reports back
-      //       //
-      //       return User.query(search_params);
-      //     }
-      //   }
-      // })
       .when('/profiles/:userId', {
         templateUrl: '/modules/components/profile/profile--view.html',
         controller: 'ProfileController',
@@ -68,6 +39,12 @@ angular.module('WaterReporter')
                     name: 'closed_by__id',
                     op: 'has',
                     val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
                   }
                 ]
               }
