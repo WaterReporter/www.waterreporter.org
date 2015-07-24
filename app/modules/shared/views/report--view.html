@@ -24,7 +24,7 @@
   <figure class="report--media">
     <a href="/reports/{{ report.id }}">
      <img data-ng-if="report.properties.images.length"
-          image-loader data="image.properties.original"
+          image-loader data="image.properties.square"
           data-ng-repeat="image in report.properties.images" width="100%" />
       <img data-ng-if="!report.properties.images.length" class="img-responsive"
            data-ng-src="/images/icon--MissingImage.png" width="100%" />

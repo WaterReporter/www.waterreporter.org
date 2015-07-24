@@ -42,27 +42,12 @@ angular.module('WaterReporter')
                                         var o = EXIF.getTag(this, 'Orientation');
 
                                         switch (o) {
-
-                                        case 3:
-
-                                            element.addClass('flip-vertical')
-                                                   .attr('height', 640);
-
-                                            break;
-
-                                        case 6:
-
-                                            element.addClass('rotate-right')
-                                                   .attr('height', 640);
-
-                                            break;
-
-                                        default:
-
-                                            // element.attr('width', 640);
-
-                                            break;
-
+                                          case 3:
+                                              element.addClass('flip-vertical');
+                                              break;
+                                          case 6:
+                                              element.addClass('rotate-right');
+                                              break;
                                         }
 
                                     });

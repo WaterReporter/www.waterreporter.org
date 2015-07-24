@@ -7,75 +7,24 @@
 // @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 //
 
-.navigation--primary {
-  margin-top: 64px;
-
-  li {
-    font-family: "proxima nova";
-    text-transform: uppercase;
-    font-weight: 100;
-    letter-spacing: 0.125em;
-    font-size: 1.25em;
-
-    a {
-      color: rgba(66,66,66,1);
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
-
-}
-
-.navigation--secondary {
-
-}
-
+.navigation--primary,
 .navigation--utility {
+  margin-top: 24px;
+
   li {
     font-family: "proxima nova";
-    text-transform: uppercase;
-    font-weight: 100;
-    letter-spacing: 0.125em;
-    font-size: 1em;
+    font-weight: bold;
+    letter-spacing: 0;
+    font-size: 0.9375em;
 
     a {
-      color: rgba(66,66,66,1);
+      color: $color-blue-dark;
 
       &:hover {
-        text-decoration: underline;
+        color: $color-blue-darker;
+        text-decoration: none;
       }
     }
   }
-}
-
-.navigation--contextual {
 
 }
-
-
-
-/**
- * Bootstrap .navbar Overrides
- */
-.navbar {
-  background-color: transparent;
-  border: none;
-  border-radius: 0;
-}
-
-
-/**
- * Bootstrap .label Overrides
- */
- .label.label--brand a {
-  background-color: $color-blue-dark;
-  color: white;
-  font-weight: 300;
-  padding: 4px 8px;
-  text-decoration: none;
- }
-   .label.label--brand a:hover {
-    background-color: $color-blue-base;
-   }
