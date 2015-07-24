@@ -1,66 +1,22 @@
-<leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+    <figure class="report--media">
+      <a href="/reports/{{ page.report.id }}">
+        <img data-ng-if="page.report.properties.images.length && !image.properties.square"
+             image-loader data="image.properties.original"
+             data-ng-repeat="image in page.report.properties.images" width="100%" />
+       <img data-ng-if="page.report.properties.images.length && image.properties.square"
+            image-loader data="image.properties.square"
+            data-ng-repeat="image in page.report.properties.images" width="100%" />
+        <img data-ng-if="!page.report.properties.images.length" class="img-responsive"
+             data-ng-src="/images/icon--MissingImage.png" width="100%" />
+      </a>
+    </figure>
 
-<div class="features">
+    <div class="report--content">
 
-  <div class="features--container">
-    <div class="features--report">
-      <div id="report--{{ page.data.properties.id }}" class="panel panel-default" data-ng-class="{'report--state--closed': (page.data.properties.state === 'closed') }">
-        <div class="panel-heading">
-          <p class="pull-right">{{ page.data.properties.report_date | date:"MMM d, yyyy"}}</p>
-          <a href="/profiles/{{ page.data.properties.owner.id }}">
-            <img class="pull-left img-circle" data-ng-if="page.data.properties.owner.properties.email" gravatar-src="'{{ page.data.properties.owner.properties.email }}'" gravatar-size="64" style="padding-right: 12px;" />
-          </a>
-          <p>
-            <a href="/profiles/{{ page.data.properties.owner.id }}">
-              {{ page.data.properties.owner.properties.first_name }} {{ page.data.properties.owner.properties.last_name }}
-            </a><br />
-            {{ page.data.properties.owner.properties.title }} <span data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name">at</span><br data-ng-if="page.data.properties.owner.properties.title && page.data.properties.owner.properties.organization_name" />
-            {{ page.data.properties.owner.properties.organization_name }}
-          </p>
-        </div>
-        <figure data-ng-if="page.data.properties.images && page.data.properties.images.length">
-          <a href="/reports/{{ page.data.id }}">
-            <img class="img-responsive" data-ng-src="{{ image.properties.original }}" data-ng-repeat="image in page.data.properties.images" width="100%" />
-            <!-- <img image-loader data="image.properties.original" data-ng-repeat="image in page.data.properties.images" width="100%" /> -->
-          </a>
-        </figure>
-        <div class="panel-body">
+      <p data-ng-if="page.report.properties.report_description || page.report.properties.comments.length">
+        <span data-ng-if="page.report.properties.report_description">
+          {{ page.report.properties.report_description }}
+        </span>
+      </p>
 
-          <p>
-            {{ page.data.properties.report_description }}
-          </p>
-          <p>
-            <span data-ng-if="page.data.properties.territory">
-              {{ page.data.properties.territory.properties.huc_6_name }}
-            </span>
-          </p>
-          <p>
-            <span data-ng-if="page.data.properties.tags.length">
-              <span class="label label--brand" data-ng-repeat="tag in page.data.properties.tags">
-                <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
-                  #{{ tag.properties.tag }}
-                </a>
-              </span>
-            </span>
-            <span data-ng-if="!page.data.properties.tags.length">
-              <em>None</em>
-            </span>
-          </p>
-
-          <!-- <p>
-            <strong>Longitude/Latitude: </strong> <em>
-              <span data-ng-if="page.data.geometry">
-                {{ page.data.geometry.geometries[0].coordinates[0] }},
-                {{ page.data.geometry.geometries[0].coordinates[1] }}
-              </span>
-              <span data-ng-if="!page.data.geometry">
-                None
-              </span>
-            </em>
-          </p> -->
-
-        </div>
-      </div>
     </div>
-  </div>
-</div>

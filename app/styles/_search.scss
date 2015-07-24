@@ -1,0 +1,82 @@
+//
+// _search.scss
+//
+// This stylesheet is written in SASS(1) and compiles all of the styles
+// we use throughout the site.
+//
+// @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
+//
+
+h1.search--title {
+  margin: 32px 0 0;
+}
+
+.search--toolbar {
+  background-color: $color-white-darker;
+  float: left;
+  margin: 32px 0;
+  padding: 0.5em;
+  width: 100%;
+}
+
+.search--toolbar ul {
+  list-style: none;
+  padding: 4px 0 0 16px;
+}
+
+.search--toolbar li {
+  display: inline-block;
+  list-style-type: none;
+}
+
+.search--toolbar li a,
+.search--toolbar li a:active,
+.search--toolbar li a:link,
+.search--toolbar li a:focus,
+.search--toolbar li a:visited {
+  background-color: transparent;
+  border-radius: 16px;
+  -moz-border-radius: 16px;
+  -webkit-border-radius: 16px;
+  font-size: 0.8125em;
+  outline: 0;
+  padding: 8px 16px;
+}
+
+.search--toolbar li a.active {
+  background-color: $color-white-base;
+}
+
+.search--toolbar a:hover {
+  color: $color-blue-darker;
+  text-decoration: none;
+}
+
+.search--listType,
+.search--form {
+  float: left;
+  margin: 0;
+  width: 50%;
+}
+
+.search--keyword {
+  float: right;
+  max-width: 32%;
+}
+
+.search--button--clear,
+.search--button--clear:active,
+.search--button--clear:link,
+.search--button--clear:focus,
+.search--button--clear:visited {
+  background-color: transparent;
+  color: $color-gray-base;
+  float: right;
+  font-size: 0.8125em;
+  margin: 6px 16px 0 6px;
+  text-decoration: none;
+}
+
+.search--button--clear:hover {
+  text-decoration: underline;
+}

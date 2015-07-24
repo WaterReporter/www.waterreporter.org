@@ -54,7 +54,9 @@ angular.module('WaterReporter')
 
     report.$promise.then(function(reportResponse) {
 
-      self.data = reportResponse;
+      console.log('reportResponse', reportResponse)
+
+      self.report = reportResponse;
 
       /**
        * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
@@ -62,19 +64,20 @@ angular.module('WaterReporter')
        *
        * @see https://developers.pinterest.com/rich_pins_place/
        */
-      var watershed = self.data.properties.territory.properties.huc_8_name ? ' in the ' + self.data.properties.territory.properties.huc_8_name + ' Watershed': '';
+      var watershed = (self.report.properties.territory) ? ' in the ' + self.report.properties.territory.properties.huc_8_name + ' Watershed': '';
+
       $rootScope.meta = {
         og: {
           site_name: 'WaterReporter',
           title: 'Citizen Water Report' + watershed,
           type: 'place',
-          description: (self.data.properties.report_description) ? self.data.properties.report_description: 'A report in the ' + self.data.properties.territory.properties.huc_8_name + ' watershed',
-          url: 'https://www.waterreporter.org/reports/' + self.data.id
+          description: (self.report.properties.report_description) ? self.report.properties.report_description: 'A report in the ' + self.report.properties.territory.properties.huc_8_name + ' watershed',
+          url: 'https://www.waterreporter.org/reports/' + self.report.id
         },
         place: {
           location: {
-            longitude: self.data.geometry.geometries[0].coordinates[1],
-            latitude: self.data.geometry.geometries[0].coordinates[0]
+            longitude: self.report.geometry.geometries[0].coordinates[1],
+            latitude: self.report.geometry.geometries[0].coordinates[0]
           }
         }
       };
@@ -86,7 +89,7 @@ angular.module('WaterReporter')
       //
       var featureGroup = new L.FeatureGroup();
 
-      self.map.markers = [mapboxGeometry.drawMarker(self.data, featureGroup)];
+      self.map.markers = [mapboxGeometry.drawMarker(self.report, featureGroup)];
 
       //
       // Define the first/newest Feature and center the map on it
@@ -205,7 +208,7 @@ angular.module('WaterReporter')
 
        self.map.center = {
          lat: center.lat,
-         lng: center.lng-0.0065,
+         lng: center.lng,
          zoom: 16
        };
 
