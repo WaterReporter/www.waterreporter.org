@@ -1,9 +1,7 @@
 .features {
-  width: 70%;
-  margin-top: -64px;
-  z-index: 1;
+  margin: -64px 0 auto;
   position: relative;
-  margin-left: 32px;
+  z-index: 1;
 }
 
 .features--container {
@@ -15,9 +13,4 @@
   display: inline-block;
   vertical-align: top;
   width: 8%;
-}
-
-.features--report {
-  display: inline-block;
-  width: 80%;
 }
