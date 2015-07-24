@@ -32,7 +32,6 @@ angular.module('Mapbox')
         });
       },
       drawMarker: function(marker) {
-        console.log('marker', marker)
         var image = (marker.properties.images.length) ? marker.properties.images[0].properties.original : '';
 
         return {

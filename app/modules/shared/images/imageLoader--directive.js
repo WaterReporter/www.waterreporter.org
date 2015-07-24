@@ -8,9 +8,6 @@
 angular.module('WaterReporter')
     .directive('imageLoader',
         function (EXIF) {
-
-            //console.log(orientImage);
-
             return {
                 restrict: 'EA',
                 scope: {
@@ -32,7 +29,6 @@ angular.module('WaterReporter')
                         http.open('GET', url, true);
                         http.responseType = 'blob';
                         http.onload = function (e) {
-                          console.log('e', e);
                             if (this.status === 200) {
                                 image.src = URL.createObjectURL(http.response);
 
@@ -59,10 +55,8 @@ angular.module('WaterReporter')
                         };
 
                         http.onprogress = function (e) {
-                            console.log(e);
                             if (e.lengthComputable) {
                                 image.completedPercentage = parseInt((e.loaded / e.total) * 100);
-                                console.log(image.completedPercentage);
                             }
                         };
 
