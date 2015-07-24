@@ -45,20 +45,19 @@
         <div data-ng-show="page.visible.reports && !page.visible.submissions && !page.visible.closures" class="row"
              data-ng-if="page.reports.features.length"
              data-ng-repeat="report in page.reports.features">
-             <div data-ng-include="'/modules/components/profile/profileReport--view.html'"></div>
+             <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
         </div>
 
-        <!-- Truthy Result Set (1+) -->
         <div data-ng-show="page.visible.submissions && !page.visible.reports && !page.visible.closures" class="row"
              data-ng-if="page.submissions.features.length"
              data-ng-repeat="report in page.submissions.features">
-          <div data-ng-include="'/modules/components/profile/profileReport--view.html'"></div>
+             <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
         </div>
 
         <div data-ng-show="!page.visible.reports && page.visible.closures" class="row"
              data-ng-if="page.closures.features.length"
              data-ng-repeat="report in page.closures.features">
-           <div data-ng-include="'/modules/components/profile/profileReport--view.html'"></div>
+             <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
         </div>
 
         <footer class="features-footer">
