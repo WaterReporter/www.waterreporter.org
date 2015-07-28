@@ -50,6 +50,9 @@ angular.module('WaterReporter')
      */
     this.map = Map;
 
+    this.map.markers = null;
+    this.map.center = null;
+
     L.Icon.Default.imagePath = '/images';
 
     report.$promise.then(function(reportResponse) {
@@ -199,8 +202,8 @@ angular.module('WaterReporter')
        });
      };
 
-     this.changeFeature = function(feature, index) {
-
+     self.changeFeature = function(feature, index) {
+       
        var center = {
          lat: feature.geometry.geometries[0].coordinates[1],
          lng: feature.geometry.geometries[0].coordinates[0]

@@ -28,3 +28,23 @@
   }
 
 }
+
+
+.site--footer--navigation li {
+  color: $color-white-base;
+  display: inline-block;
+  list-style-type: none;
+}
+
+.site--footer--navigation li a,
+.site--footer--navigation li a:active,
+.site--footer--navigation li a:link,
+.site--footer--navigation li a:visited,
+.site--footer--navigation li a:hover {
+  color: rgba($color-white-base, 0.35);
+  font-size: 0.8125em;
+  font-weight: bold;
+  letter-spacing: 0.025em;
+  margin-right: 32px;
+  text-transform: uppercase;
+}
