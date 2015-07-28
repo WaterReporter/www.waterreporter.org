@@ -95,34 +95,59 @@
 
         <aside class="report--metadata">
           <header class="report--author">
-            <a href="/profiles/{{ page.report.properties.owner.id }}">
-              <img class="report--author--avatar" gravatar-size="32"
-                   data-ng-if="page.report.properties.owner.properties.email"
-                   gravatar-src="'{{ page.report.properties.owner.properties.email }}'" />
-            </a>
-            <p>
-              <a class="report--author--name" href="/profiles/{{ page.report.properties.owner.id }}">
-                {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}
-              </a>
-              <span class="report--date">
-                submitted this report
-                <span data-ng-if="page.report.timeToggle"
-                      data-ng-click="page.report.timeToggle =! page.report.timeToggle"
-                      am-time-ago="page.report.properties.report_date"></span>
-                <span data-ng-if="!page.report.timeToggle"
-                      data-ng-click="page.report.timeToggle =! page.report.timeToggle">
-                  on {{ page.report.properties.report_date | date:"MMM d, yyyy"}}
+            <div class="report--metadata--section">
+              <p>
+                <a href="/profiles/{{ page.report.properties.owner.id }}">
+                  <img class="report--author--avatar" gravatar-size="32"
+                       data-ng-if="page.report.properties.owner.properties.email"
+                       gravatar-src="'{{ page.report.properties.owner.properties.email }}'" />
+                </a>
+                <a class="report--author--name" href="/profiles/{{ page.report.properties.owner.id }}">
+                  {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}
+                </a>
+                <span class="report--date">
+                  submitted this report
+                  <span data-ng-if="page.report.timeToggle"
+                        data-ng-click="page.report.timeToggle =! page.report.timeToggle"
+                        am-time-ago="page.report.properties.report_date"></span>
+                  <span data-ng-if="!page.report.timeToggle"
+                        data-ng-click="page.report.timeToggle =! page.report.timeToggle">
+                    on {{ page.report.properties.report_date | date:"MMM d, yyyy"}}
+                  </span>
                 </span>
-              </span>
-            </p>
-            <p>
+              </p>
+            </div>
+            <div class="report--metadata--section">
               <div class="addthis_sharing_toolbox"></div>
-            </p>
+            </div>
+            <div class="report--metadata--section">
+              <p>
+                <span class="icon icon--directions retinaicon-transport-007"></span>
+                <a href="https://www.google.com/maps/dir//{{ page.report.geometry.geometries[0].coordinates[1] }},{{ page.report.geometry.geometries[0].coordinates[0] }}" target="_blank">
+                  <small>Get directions to this report location</small>
+                </a>
+              </p>
+            </div>
+            <div class="report--metadata--section text-center">
+              <p class="report--metadata--sectionTitle">
+                <strong>
+                Other Reports by {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}</strong>
+              </p>
+              <span class="report--media"
+                    data-ng-repeat="report in page.other.reports track by $index">
+                <a href="/reports/{{ report.id }}">
+                  <img data-ng-if="report.properties.images[0].properties.thumbnail"
+                       image-loader data="report.properties.images[0].properties.thumbnail" width="100%" />
+                  <img data-ng-if="!report.properties.images[0].properties.thumbnail"
+                       image-loader data="report.properties.images[0].properties.original" width="100%" />
+                  <img data-ng-if="!report.properties.images[0].properties.original"
+                       data-ng-src="/images/icon--MissingImage.png" width="100%" />
+                </a>
+              </span>
+            </div>
           </header>
 
           <button data-ng-if="$root.isAdmin" class="btn btn-danger" data-ng-click="page.delete(page.data.id)">Delete Report</button>
-          <a class="btn btn-info" href="mailto:example@waterreporter.org?subject=Check out this Report on www.waterreporter.org&body=I wanted to share this report from WaterReporter with you. http://www.waterreporter.org/reports/{{ page.data.id }}" target="_blank">Share Report</a>
-          <a class="btn btn-info" href="https://www.google.com/maps/dir//{{ page.data.geometry.geometries[0].coordinates[1] }},{{ page.data.geometry.geometries[0].coordinates[0] }}" target="_blank">Directions</a>
 
         </aside>
 

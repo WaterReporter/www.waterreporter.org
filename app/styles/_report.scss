@@ -153,3 +153,39 @@
     float: none;
     margin: 0;
   }
+
+.report--metadata--section {
+  border-bottom: 1px solid $color-white-darkest;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+}
+
+.report--metadata--section:last-child {
+  border-bottom: 0;
+}
+
+.icon--directions {
+  color: $color-gray-base;
+  font-size: 16px;
+}
+
+
+.report--metadata .report--media {
+  border: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 48.6666666667%;
+}
+
+.report--metadata .report--media a {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  width: 100% !important;
+}
+
+.report--metadata--sectionTitle {
+  color: $color-black-lightest;
+  padding-bottom: 16px;
+}

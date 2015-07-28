@@ -56,6 +56,14 @@ angular.module('WaterReporter')
 
       self.report = reportResponse;
 
+      //
+      // Now that we have the Report fully loaded into the page we can request
+      // additional posts by this user
+      //
+      if (self.report.properties.owner_id) {
+        self.otherReports(self.report.properties.owner_id);
+      }
+
       /**
        * Setup Pinterest Rich Pins `<meta>` tags. Each of our Report objects
        * will their own Pinterest Rich Pins page
@@ -96,6 +104,44 @@ angular.module('WaterReporter')
     });
 
     self.comments = comments;
+
+    self.otherReports = function(userId) {
+
+      if (!userId) {
+        return;
+      }
+
+      var params = {
+        q: {
+          filters: [
+            {
+              name: 'owner_id',
+              op: 'eq',
+              val: userId
+            },
+            {
+              name: 'id',
+              op: 'neq',
+              val: $route.current.params.reportId
+            }
+          ],
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            }
+          ],
+          limit: 2
+        }
+      };
+
+      Report.query(params).$promise.then(function(reportResponse) {
+        console.log('reportResponse.features', reportResponse.features)
+        self.other = {
+          reports: reportResponse.features
+        };
+      });
+    };
 
     /**
      * This is the first page the authneticated user will see. We need to make
