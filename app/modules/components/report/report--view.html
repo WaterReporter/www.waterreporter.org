@@ -95,15 +95,6 @@
 
         <aside class="report--metadata">
           <header class="report--author">
-            <p class="report--date">
-              <span data-ng-if="!page.report.timeToggle"
-                    data-ng-click="page.report.timeToggle =! page.report.timeToggle"
-                    am-time-ago="page.report.properties.report_date"></span>
-              <span data-ng-if="page.report.timeToggle"
-                    data-ng-click="page.report.timeToggle =! page.report.timeToggle">
-                {{ page.report.properties.report_date | date:"MMM d, yyyy"}}
-              </span>
-            </p>
             <a href="/profiles/{{ page.report.properties.owner.id }}">
               <img class="report--author--avatar" gravatar-size="32"
                    data-ng-if="page.report.properties.owner.properties.email"
@@ -113,6 +104,19 @@
               <a class="report--author--name" href="/profiles/{{ page.report.properties.owner.id }}">
                 {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}
               </a>
+              <span class="report--date">
+                submitted this report
+                <span data-ng-if="page.report.timeToggle"
+                      data-ng-click="page.report.timeToggle =! page.report.timeToggle"
+                      am-time-ago="page.report.properties.report_date"></span>
+                <span data-ng-if="!page.report.timeToggle"
+                      data-ng-click="page.report.timeToggle =! page.report.timeToggle">
+                  on {{ page.report.properties.report_date | date:"MMM d, yyyy"}}
+                </span>
+              </span>
+            </p>
+            <p>
+              <div class="addthis_sharing_toolbox"></div>
             </p>
           </header>
 

@@ -27,13 +27,6 @@
     width: 75%;
   }
 
-  .report--metadata {
-    float: left;
-    min-height: 1;
-    position: relative;
-    width: 25%;
-  }
-
   .report--author {
     border-left: 1px solid rgb(232,232,232);
     border-right: 1px solid rgb(232,232,232);
@@ -133,3 +126,30 @@
   background-color: $color-white-dark;
   padding-top: 4em;
 }
+
+
+//
+// Single Report Metadata
+//
+.report--metadata {
+  float: left;
+  margin-top: 96px; // This is to compensate for the negative -64px margin on
+                    // the .features div
+  min-height: 1px;
+  position: relative;
+  width: 25%;
+}
+
+  .report--metadata .report--author {
+    border: none;
+  }
+
+  .report--metadata .report--author--avatar {
+    margin-right: 8px;
+  }
+
+  .report--metadata .report--date,
+  .report--metadata .report--author--name {
+    float: none;
+    margin: 0;
+  }

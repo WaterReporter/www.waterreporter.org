@@ -50,14 +50,9 @@ angular.module('WaterReporter')
      */
     this.map = Map;
 
-    this.map.markers = null;
-    this.map.center = null;
-
     L.Icon.Default.imagePath = '/images';
 
     report.$promise.then(function(reportResponse) {
-
-      console.log('reportResponse', reportResponse)
 
       self.report = reportResponse;
 
@@ -79,8 +74,8 @@ angular.module('WaterReporter')
         },
         place: {
           location: {
-            longitude: self.report.geometry.geometries[0].coordinates[1],
-            latitude: self.report.geometry.geometries[0].coordinates[0]
+            longitude: (self.report.geometry.geometries.length) ? self.report.geometry.geometries[0].coordinates[1] : null,
+            latitude: (self.report.geometry.geometries.length) ? self.report.geometry.geometries[0].coordinates[0] : null
           }
         }
       };
@@ -98,13 +93,6 @@ angular.module('WaterReporter')
       // Define the first/newest Feature and center the map on it
       //
       self.changeFeature(reportResponse, 0);
-
-      // leafletData.getMap().then(function() {
-      //   $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-      //     $location.path(self.map.markers[args.modelName].permalink);
-      //   });
-      // });
-
     });
 
     self.comments = comments;
@@ -140,15 +128,13 @@ angular.module('WaterReporter')
           comment_.$update({
             id: comment.id
           }).then(function() {
-            console.log('comment saved!!!');
             $route.reload();
           });
        },
        delete: function(commentId) {
         Comment.delete({
           id: commentId
-        }).$promise.then(function(response) {
-          console.log('response', response);
+        }).$promise.then(function() {
           $route.reload();
         });
        },
@@ -161,8 +147,7 @@ angular.module('WaterReporter')
          Report.close({
           id: reportId,
           state: 'closed'
-         }).$promise.then(function(response) {
-           console.log('response', response);
+         }).$promise.then(function() {
            $route.reload();
          });
        },
@@ -175,7 +160,7 @@ angular.module('WaterReporter')
          Report.close({
           id: reportId,
           state: 'open'
-         }).$promise.then(function(response) {
+         }).$promise.then(function() {
            $route.reload();
          });
        },
@@ -197,13 +182,13 @@ angular.module('WaterReporter')
      self.delete = function(reportId) {
        Report.delete({
          id: reportId
-       }).$promise.then(function(response) {
+       }).$promise.then(function() {
          $location.path('/activity/list');
        });
      };
 
-     self.changeFeature = function(feature, index) {
-       
+     self.changeFeature = function(feature) {
+
        var center = {
          lat: feature.geometry.geometries[0].coordinates[1],
          lng: feature.geometry.geometries[0].coordinates[0]
