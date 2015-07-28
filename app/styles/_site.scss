@@ -6,11 +6,11 @@
 //
 
 body {
-  background-color: rgba(242,242,242,1);
+  background-color: darken($color-blue-darker, 10%);
 }
 
 .site--header {
-  border-bottom: 1px solid $color-white-darker;
+  background-color: rgba(242,242,242,1);
   padding-bottom: 16px;
   padding-top: 16px;
 }
@@ -19,10 +19,20 @@ body {
   margin-top: 32px;
 }
 
-.site--content {}
+.site--content {
+  background-color: rgba(242,242,242,1);
 
-.site--footer {}
-
-.site--footer--navigation {
-  background-color: $color-blue-darker;
 }
+
+.site--footer {
+  background-color: rgba(242,242,242,1);
+  padding-top: 64px;
+}
+
+  .site--footer--navigation {
+    background-color: darken($color-blue-darker, 3%);
+  }
+
+  .site--footer--copyright {
+    background-color: darken($color-blue-darker, 10%);
+  }

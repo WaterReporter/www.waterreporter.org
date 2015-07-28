@@ -190,3 +190,24 @@ a:hover {
   color: $color-blue-dark;
   text-decoration: underline;
 }
+
+
+//
+//
+//
+.site--footer--copyright p a,
+.site--footer--copyright p a:active,
+.site--footer--copyright p a:link,
+.site--footer--copyright p a:visited,
+.site--footer--copyright p a:hover {
+  color: rgba($color-white-base, 0.5);
+}
+
+.site--footer--copyright p {
+  color: rgba($color-white-base, 0.5);
+  font-size: 0.875em;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: 64px 0;
+  text-align: center;
+}

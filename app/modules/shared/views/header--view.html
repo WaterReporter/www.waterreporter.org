@@ -1,48 +1,48 @@
-<header class="site--header container">
-
-  <div class="row">
-      <div class="col-sm-4">
-        <a class="site--header--brand" href="/activity">
-          <img src="/images/logo-WaterReporter.png" alt="" title="" width="128" />
-        </a>
-      </div>
-      <div class="col-sm-4">
-        <form class="site--search site--search--content form" role="form"
-              id="form--search--reports" name="form--search--reports"
-              data-ng-submit="page.search.redirect()">
-          <div class="form-group">
-            <label for="form--search--reportDescription" aria-hidden="true"
-                   class="hidden">
-              Search
-            </label>
-            <input type="text" class="form-control search-control"
-                   id="form--search--reportDescription" placeholder="Search"
-                   name="form--search--reportDescription" autofocus="autofocus"
-                   data-ng-model="page.search.params.report_description" />
-          </div>
-        </form>
-      </div>
-      <div class="col-sm-4">
-        <nav class="navigation">
-          <ul class="navigation--utility nav navbar-nav pull-right">
-            <li>
-              <a href="/activity">Activity</a>
-            </li>
-            <!-- <li>
-              <a href="/about">About</a>
-            </li> -->
-            <!-- <li data-ng-if="$root.isAdmin">
-              <a href="/dashboard">Dashboard</a>
-            </li> -->
-            <li data-ng-if="$root.user && $root.user.id">
-              <a href="/user/logout">Log out</a>
-            </li>
-            <li data-ng-if="!$root.user.id">
-              <a href="/user/login">Log in</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+<header class="site--header">
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+          <a class="site--header--brand" href="/activity">
+            <img src="/images/logo-WaterReporter.png" alt="" title="" width="128" />
+          </a>
+        </div>
+        <div class="col-sm-4">
+          <form class="site--search site--search--content form" role="form"
+                id="form--search--reports" name="form--search--reports"
+                data-ng-submit="page.search.redirect()">
+            <div class="form-group">
+              <label for="form--search--reportDescription" aria-hidden="true"
+                     class="hidden">
+                Search
+              </label>
+              <input type="text" class="form-control search-control"
+                     id="form--search--reportDescription" placeholder="Search"
+                     name="form--search--reportDescription" autofocus="autofocus"
+                     data-ng-model="page.search.params.report_description" />
+            </div>
+          </form>
+        </div>
+        <div class="col-sm-4">
+          <nav class="navigation">
+            <ul class="navigation--utility nav navbar-nav pull-right">
+              <li>
+                <a href="/activity">Activity</a>
+              </li>
+              <!-- <li>
+                <a href="/about">About</a>
+              </li> -->
+              <!-- <li data-ng-if="$root.isAdmin">
+                <a href="/dashboard">Dashboard</a>
+              </li> -->
+              <li data-ng-if="$root.user && $root.user.id">
+                <a href="/user/logout">Log out</a>
+              </li>
+              <li data-ng-if="!$root.user.id">
+                <a href="/user/login">Log in</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+    </div>
   </div>
-
 </header>
