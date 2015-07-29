@@ -1,16 +1,10 @@
-<!-- Untruthy Result Set (0) -->
-<div class="row" data-ng-if="page.search.data.features.length === 0">
-  <div class="col-sm-12">
-  <p>Your search didn’t return any reports</p>
-  </div>
+<div data-ng-if="page.search.data.features.length">
+  <section id="report--{{ report.properties.id }}" class="report"
+           data-ng-repeat="report in page.search.data.features">
+    <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
+  </section>
 </div>
 
-<section id="report--{{ report.properties.id }}" class="report"
-         data-ng-repeat="report in page.search.data.features">
-  <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
-</section>
-
-<!-- Load More Results -->
 <div class="row">
   <div class="col-sm-12">
     <!-- <a data-ng-click="page.search.autoload()" class="button">Load More</a> -->

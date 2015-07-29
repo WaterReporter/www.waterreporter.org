@@ -1,7 +1,8 @@
 <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
 
-<div class="features">
+<div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
 
+<div class="features" data-ng-if="page.map.geojson.reports.data.features.length">
   <div class="features--container" data-ng-show="page.features.visible === $index" data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
     <a class="features--slider--previous" data-ng-if="$index" data-ng-click="page.changeFeature(page.map.geojson.reports.data.features[$index-1], $index-1)">
       <span class="icon retinaicon-retina-icons-v-1-4"></span>

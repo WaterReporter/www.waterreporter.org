@@ -1,9 +1,12 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content">
-    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
 
-    <div class="features">
+    <div class="throbber" data-ng-if="!page.report"></div>
+
+    <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+
+    <div class="features" data-ng-if="page.report">
       <div class="container">
           <article id="report--{{ page.report.properties.id }}" class="report report--single">
 
