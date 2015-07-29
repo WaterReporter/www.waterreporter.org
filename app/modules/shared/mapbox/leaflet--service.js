@@ -17,7 +17,7 @@ angular.module('Mapbox')
       layers: {
         baselayers: {
           basemap: {
-            name: 'Run, Bike, and Hike',
+            name: 'Streets',
             url: 'https://{s}.tiles.mapbox.com/v3/{mapid}/{z}/{x}/{y}.png',
             type: 'xyz',
             layerOptions: {

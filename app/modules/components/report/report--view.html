@@ -141,7 +141,8 @@
             <div class="report--metadata--section">
               <div class="addthis_sharing_toolbox"></div>
             </div>
-            <div class="report--metadata--section">
+            <div class="report--metadata--section"
+                 data-ng-if="page.other.reports.length">
               <p class="report--metadata--sectionTitle">
                 <strong>
                 Other Reports by {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}</strong>
