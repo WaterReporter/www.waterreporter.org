@@ -94,6 +94,14 @@
         </article>
 
         <aside class="report--metadata">
+          <aside class="report--action" data-ng-if="page.report.properties.state === 'closed'">
+            <img src="/images/badget--CertifiedAction--Color.svg" width="228" height="228" alt="" />
+
+            <a class="report--action--owner" href="/profiles/{{ page.report.properties.closed_by.properties.id }}">
+              <span>Action Taken By</span><br />
+              {{ page.report.properties.closed_by.properties.first_name }} {{ page.report.properties.closed_by.properties.last_name }}
+            </a>
+          </aside>
           <header class="report--author">
             <div class="report--metadata--section">
               <p>

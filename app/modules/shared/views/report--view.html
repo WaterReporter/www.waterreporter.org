@@ -1,3 +1,12 @@
+<aside class="report--action" data-ng-if="report.properties.state === 'closed'">
+  <img src="/images/badget--CertifiedAction.svg" width="228" height="228" alt="" />
+
+  <a class="report--action--owner" href="/profiles/{{ report.properties.closed_by.properties.id }}">
+    <span>Action Taken By</span><br />
+    {{ report.properties.closed_by.properties.first_name }} {{ report.properties.closed_by.properties.last_name }}
+  </a>
+</aside>
+
 <article id="report--{{ report.properties.id }}" class="report">
   <header class="report--author">
     <p class="report--date">

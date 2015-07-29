@@ -6,11 +6,10 @@
 //
 
 body {
-  background-color: darken($color-blue-darker, 10%);
+  background-color: rgba(242,242,242,1);
 }
 
 .site--header {
-  background-color: rgba(242,242,242,1);
   padding-bottom: 16px;
   padding-top: 16px;
 }
@@ -20,17 +19,12 @@ body {
 }
 
 .site--content {
-  background-color: rgba(242,242,242,1);
 
 }
 
 .site--footer {
-  background-color: rgba(242,242,242,1);
-}
 
-  .site--footer--navigation {
-    background-color: darken($color-blue-darker, 3%);
-  }
+}
 
   .site--footer--copyright {
     background-color: darken($color-blue-darker, 10%);

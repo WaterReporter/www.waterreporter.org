@@ -129,6 +129,35 @@
 
 
 //
+//
+//
+.report--action {
+  background-color: rgb(242,242,242);
+  margin: 64px 0 0 -256px;
+  position: absolute;
+}
+
+a.report--action--owner,
+a.report--action--owner:active,
+a.report--action--owner:hover,
+a.report--action--owner:link,
+a.report--action--owner:visited {
+  color: $color-gray-light;
+  display: block;
+  font-size: 0.8125em;
+  font-weight: 500;
+  letter-spacing: 0.125em;
+  text-align: center;
+  text-transform: uppercase;
+
+  span {
+    font-size: 0.75em;
+    font-weight: 300;
+  }
+}
+
+
+//
 // Single Report Metadata
 //
 .report--metadata {
@@ -200,4 +229,22 @@
 .report--metadata--sectionTitle {
   color: $color-black-lightest;
   padding-bottom: 16px;
+}
+
+
+.report--metadata .report--action {
+  background-color: transparent;
+  border-bottom: 1px solid $color-white-darkest;
+  margin: -96px 1em 32px;
+  padding: 0 0 32px;
+  position: static;
+  text-align: center;
+}
+
+.report--metadata a.report--action--owner,
+.report--metadata a.report--action--owner:active,
+.report--metadata a.report--action--owner:hover,
+.report--metadata a.report--action--owner:link,
+.report--metadata a.report--action--owner:visited {
+  color: $color-blue-darkest;
 }
