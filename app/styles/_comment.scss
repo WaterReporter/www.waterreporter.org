@@ -1,0 +1,78 @@
+.report--comments {
+  background-color: rgb(242, 242, 242);
+  float: left;
+  padding-left: 32px;
+  width: 100%;
+}
+
+.report--comments h2 {
+  margin: 32px 0;
+}
+
+.report--comments--comment {
+  background-color: rgb(242, 242, 242);
+  float: left;
+  margin: 0;
+  width: 100%;
+}
+
+  .report--comments--comment:before {
+    border-left: 1px dashed rgba($color-gray-base,0.5);
+    content: '';
+    height: 32px;
+    left: 32px;
+    position: relative;
+    display: block;
+  }
+
+  .report--comments--comment a.report--action--owner {
+    text-align: left;
+  }
+
+.report--comment--avatar {
+  float: left;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  margin-right: 16px;
+  overflow: hidden;
+}
+
+.report--comment--author {
+  font-size: 0.8125em;
+  margin: 0;
+  padding: 8px 0 0;
+}
+
+.comment--action {
+  float: left;
+  width: 100%;
+}
+  .comment--action .comment--action--type {
+    float :left;
+    width: 100%;
+  }
+    .comment--action img {
+      float: left;
+      margin-right: 16px;
+      width: 64px;
+    }
+
+    .comment--action--reopened img {
+      clear: both;
+      float: left;
+    }
+
+    .comment--action a.report--action--owner {
+      color: $color-black-base;
+      padding-top: 14px;
+    }
+
+.comment--action--reopened:before {
+  border-left: 1px dashed rgba($color-gray-base,0.5);
+  content: '';
+  float: left;
+  height: 32px;
+  left: 32px;
+  position: relative;
+}
