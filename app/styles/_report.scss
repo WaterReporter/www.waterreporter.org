@@ -159,6 +159,9 @@
   margin-bottom: 32px;
   padding-bottom: 32px;
 }
+  .report--metadata--section p {
+    color: $color-black-lightest;
+  }
 
 .report--metadata--section:last-child {
   border-bottom: 0;
@@ -172,17 +175,26 @@
 
 .report--metadata .report--media {
   border: none;
-  display: inline-block;
-  margin: 0;
+  float: left;
+  height: 108px;
+  margin: 0 16px 16px 0;
   padding: 0;
-  width: 48.6666666667%;
+  width: 108px;
 }
+  .report--metadata .report--media:last-child {
+    margin-right: 0;
+  }
 
 .report--metadata .report--media a {
   display: inline-block;
   margin: 0;
   padding: 0;
   width: 100% !important;
+}
+
+.report--metadata .report--media img {
+  height: 100%;
+  width: 100%;
 }
 
 .report--metadata--sectionTitle {

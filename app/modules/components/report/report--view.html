@@ -118,7 +118,9 @@
               </p>
             </div>
             <div class="report--metadata--section">
-              <div class="addthis_sharing_toolbox"></div>
+              <p data-ng-if="page.report.properties.territory">
+                <small><span class="glyphicon glyphicon-map-marker"></span> {{ page.report.properties.territory.properties.huc_6_name }} Watershed</small>
+              </p>
             </div>
             <div class="report--metadata--section">
               <p>
@@ -128,22 +130,23 @@
                 </a>
               </p>
             </div>
-            <div class="report--metadata--section text-center">
+            <div class="report--metadata--section">
+              <div class="addthis_sharing_toolbox"></div>
+            </div>
+            <div class="report--metadata--section">
               <p class="report--metadata--sectionTitle">
                 <strong>
                 Other Reports by {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}</strong>
               </p>
-              <span class="report--media"
+              <a href="/reports/{{ report.id }}" class="report--media"
                     data-ng-repeat="report in page.other.reports track by $index">
-                <a href="/reports/{{ report.id }}">
                   <img data-ng-if="report.properties.images[0].properties.thumbnail"
-                       image-loader data="report.properties.images[0].properties.thumbnail" width="100%" />
+                       image-loader data="report.properties.images[0].properties.thumbnail" width="196px" />
                   <img data-ng-if="!report.properties.images[0].properties.thumbnail"
-                       image-loader data="report.properties.images[0].properties.original" width="100%" />
+                       image-loader data="report.properties.images[0].properties.original" width="196px" />
                   <img data-ng-if="!report.properties.images[0].properties.original"
-                       data-ng-src="/images/icon--MissingImage.png" width="100%" />
-                </a>
-              </span>
+                       data-ng-src="/images/icon--MissingImage.png" width="196px" />
+              </a>
             </div>
           </header>
 
