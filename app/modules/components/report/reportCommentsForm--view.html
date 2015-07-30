@@ -18,13 +18,13 @@
       <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="page.comment.data.body" placeholder="Join the conversation">
       </textarea>
     </div>
-    <button data-ng-if="$root.isAdmin && page.data.properties.state !== 'closed'" data-ng-if="page.data.properties.state !== 'closed'" class="button button--info" data-ng-click="page.comment.close(page.data.id)">
+    <button data-ng-if="$root.isAdmin && page.report.properties.state !== 'closed'" data-ng-if="page.report.properties.state !== 'closed'" class="button button--info" data-ng-click="page.comment.close(page.report.id)">
       Close Report
     </button>
-    <button data-ng-if="$root.isAdmin && page.data.properties.state === 'closed'" data-ng-if="page.data.properties.state === 'closed'" class="button button--info" data-ng-click="page.comment.open(page.data.id)">
+    <button data-ng-if="$root.isAdmin && page.report.properties.state === 'closed'" data-ng-if="page.report.properties.state === 'closed'" class="button button--info" data-ng-click="page.comment.open(page.report.id)">
       Reopen Report
     </button>
-    <button id="report--comment--submit" name="report--comment--submit" class="button" data-ng-click="page.comment.save(page.data.id)">
+    <button id="report--comment--submit" name="report--comment--submit" class="button" data-ng-click="page.comment.save(page.report.id)">
       Comment
     </button>
   </form>
