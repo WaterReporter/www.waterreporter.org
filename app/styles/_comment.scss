@@ -44,6 +44,10 @@
   padding: 8px 0 0;
 }
 
+  .report--comments--form .report--comment--author {
+    padding: 0;
+  }
+
 .comment--action {
   float: left;
   width: 100%;
@@ -75,4 +79,40 @@
   height: 32px;
   left: 32px;
   position: relative;
+}
+
+//
+//
+//
+.report--comment--action {
+
+}
+
+.report--comment--action a,
+.report--comment--action a:active,
+.report--comment--action a:link,
+.report--comment--action a:hover,
+.report--comment--action a:visited {
+  border-right: 1px solid $color-gray-base;
+  color: $color-black-bright;
+  font-size: 0.8125em;
+  margin: 0 4px 0 0;
+  padding-right: 0 4px 0 0;
+}
+
+.report--comment--action a:last-child {
+  border-right: none;
+}
+
+
+
+//
+//
+//
+.site--report--comment,
+.site--report--comment--edit {
+  background-color: rgb(242, 242, 242);
+  float: left;
+  margin-top: 4px;
+  width: 80%;
 }
