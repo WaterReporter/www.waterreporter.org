@@ -8,10 +8,10 @@
         <div class="row">
           <div class="col-sm-4 col-sm-offset-4 align-center">
             <h1 class="align-center" data-ng-show="page.login.visible && !page.register.visible">
-              Login to WaterReporter
+              Log in
             </h1>
             <h1 class="align-center" data-ng-show="!page.login.visible && page.register.visible">
-              Create a WaterReporter Citizen Account
+              Sign Up
             </h1>
           </div>
         </div>
@@ -36,13 +36,10 @@
                 <input type="text" class="form-control" type="text" id="email" name="email" data-ng-model="page.login.email" autofocus />
               </div>
               <div class="form-group">
-                <label for="password" class="control-label">Password</label>
+                <label for="password" class="control-label">Password <small><em><a href="#">Forgot your password?</a></em></small></label>
                 <input type="password" class="form-control" type="text" id="password" name="password" data-ng-model="page.login.password" />
               </div>
-              <input type="submit" class="button button-submit pull-left" id="submitUserLogin" name="submitUserLogin" value="Login" data-ng-if="!page.login.processing" />
-              <p class="pull-right help-text">
-                <a href="#">Forgot your password?</a>
-              </p>
+              <input type="submit" class="button button-submit" id="submitUserLogin" name="submitUserLogin" value="Login" data-ng-if="!page.login.processing" />
               <div class="throbber throbber-small" data-ng-if="page.login.processing"></div>
             </form>
           </div>
