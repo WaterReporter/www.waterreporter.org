@@ -17,7 +17,7 @@
             <div data-ng-include="'/modules/components/report/reportComments--view.html'"></div>
 
             <div data-ng-include="'/modules/components/report/reportCommentsForm--view.html'"></div>
-            
+
           </div>
 
         </article>
@@ -32,6 +32,9 @@
             </a>
           </aside>
           <header class="report--author">
+            <div class="report--metadata--section">
+              <button data-ng-if="$root.isAdmin" class="button button--danger" data-ng-click="page.delete(page.data.id)">Delete Report</button>
+            </div>
             <div class="report--metadata--section">
               <p>
                 <a href="/profiles/{{ page.report.properties.owner.id }}">
@@ -87,8 +90,6 @@
               </a>
             </div>
           </header>
-
-          <button data-ng-if="$root.isAdmin" class="btn btn-danger" data-ng-click="page.delete(page.data.id)">Delete Report</button>
 
         </aside>
 
