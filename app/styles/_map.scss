@@ -163,6 +163,12 @@
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
   opacity: 0;
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 960px;
+  position: relative;
 }
 
 .leaflet-control-container-visible {
@@ -170,4 +176,12 @@
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
   opacity: 1;
+}
+
+.leaflet-left .leaflet-control {
+  margin-left: 0;
+}
+
+.leaflet-right .leaflet-control {
+  margin-right: 0;
 }
