@@ -8,42 +8,409 @@
 //
 
 
+
+
+.form {
+  display: table;
+  margin: 4em auto;
+  width: 100%;
+}
+
+.form-xlarge {
+  max-width: 52.2em;
+}
+
+.form-large {
+  max-width: 48em;
+}
+
+.form-medium {
+  max-width: 40em;
+}
+
+.form-small {
+  max-width: 32em;
+}
+
+
+//
+// Form Element Groups
+//
+.form-row {
+  display: table-row;
+  margin: 0;
+  width: 100%;
+}
+
+.form-row:first-child .form-label,
+.form-row:first-child .form-field {
+  border-top: 1px solid rgb(232,232,232);
+}
+
+.form-row .form-label {
+  border-bottom: 1px solid rgb(232,232,232);
+  display: table-cell;
+  margin: 0;
+  padding: 2em 0;
+  vertical-align: middle;
+  width: 20%;
+}
+
+.form-row .form-field {
+  border-bottom: 1px solid rgb(232,232,232);
+  display: table-cell;
+  margin: 0;
+  padding: 2em 0;
+  vertical-align: middle;
+  width: 70%;
+}
+
+.form-field .control-label ul {
+  margin-top: 0;
+}
+
+.form-field li {
+  font-family: $font-sans;
+  margin-bottom: 0;
+}
+
+//
+//
+//
+.help-text {
+  font-family: $font-sans;
+  font-size: 0.75em;
+  font-style: italic;
+  max-width: 100%;
+}
+
+
+//
+// Form Actions
+//
+.form-actions {
+  display: table-row;
+  width: 100%;
+}
+
+.form-actions-buttons {
+  display: table-cell;
+  padding: 2em 0;
+}
+
+.form-actions-center {
+  text-align: center;
+}
+
+
+//
+// Labels
+//
+.control-label,
+label.control-label {
+  color: $color-gray-light;
+  display: block;
+  font-family: $font-sans;
+  font-size: 0.875em;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.15em;
+}
+
+.form-label p {
+  color: $color-gray-light;
+  font-family: $font-sans;
+  font-size: 0.75em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.form p {
+  margin: 0;
+}
+
+.form-element {
+  margin-bottom: 1.25em;
+  width: 100%;
+}
+
+
 //
 // Input fields
+//
+select.form-control,
+input.form-control {
+  background-color: transparent;
+
+  -webkit-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+  -moz-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+  box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+
+  border: 1px solid $color-white-dark;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+
+  box-sizing: border-box;
+  color: $color-gray-dark;
+  font-family: $font-sans;
+  font-size: 1em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0.5em 0.75em;
+
+  width: 100%;
+
+  &:focus {
+    border: 1px solid $color-blue-bright;
+    outline: 0;
+  }
+
+  &.input-lg {
+    font-size: 1.25em;
+    height: 34px;
+  }
+
+  &.input-xl {
+    font-size: 1.5em;
+    height: 36px;
+  }
+
+  &.readonly,
+  &.readonly:active,
+  &.readonly:focus {
+    border-bottom: none;
+    cursor: default;
+  }
+
+  &.highlight {
+    color: $color-blue-bright;
+    font-weight: 600;
+  }
+
+}
+
+select.form-control {
+  -webkit-appearance: none;
+  background-image: url(../images/select-arrows.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.form-control.form-control-half {
+  width: 49.375%;
+}
+  .form-control-half:first-child {
+    margin-right: 0.625%
+  }
+
+  //
+  // Input Placeholder Text
+  //
+  ::-webkit-input-placeholder {
+    color: $color-white-dark;
+    font-family: $font-sans;
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: $color-white-dark;
+    font-family: $font-sans;
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+  ::-moz-placeholder {  /* Firefox 19+ */
+    color: $color-white-dark;
+    font-family: $font-sans;
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+  :-ms-input-placeholder {
+    color: $color-white-dark;
+    font-family: $font-sans;
+    font-size: 1em;
+    font-weight: 300;
+  }
+
+
+  //
+  // Input fields
+  //
+  textarea.form-control {
+    background-color: transparent;
+
+    -webkit-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+    -moz-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+    box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+
+    border: 1px solid $color-white-dark;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+
+    box-sizing: border-box;
+    color: $color-gray-dark;
+    font-family: $font-sans;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 0;
+    padding: 0.5em 0.75em;
+
+    width: 100%;
+
+    &:focus {
+      border: 1px solid $color-blue-bright;
+      outline: 0;
+    }
+
+    &.input-lg {
+      font-size: 1.25em;
+      height: 34px;
+    }
+
+    &.input-xl {
+      font-size: 1.5em;
+      height: 36px;
+    }
+
+    &.readonly,
+    &.readonly:active,
+    &.readonly:focus {
+      border-bottom: none;
+      cursor: default;
+    }
+
+    &.highlight {
+      color: $color-blue-bright;
+      font-weight: 600;
+    }
+
+  }
+
+
+//
+//
+//
+// select.form-control {
+//   -webkit-appearance: menulist-button;
+//   background-color: rgb(232,232,232);
+//   border: 9px solid rgb(232,232,232);
+//   color: $color-gray-dark;
+//   font-family: $font-sans;
+//   font-size: 16px;
+//   font-weight: bold;
+// }
+
+
+
+//
+// Quesitons & Labels
+//
+.form .form-question,
+.form .form-question p {
+  font-family: $font-sans;
+  font-size: 1em;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 0.5em;
+}
+
+
+//
+// Form Columns
+//
+.form-group-labelWrapper {
+  float: left;
+  width: 100%;
+}
+  .form-group-labelWrapper.form-group-checkboxQuestion,
+  .form-group-indent {
+    margin-left: 10%;
+    width: 90%;
+  }
+
+.form-group-checkboxWrapper {
+  float: left;
+  width: 10%;
+}
+
+.form-group-checkboxWrapper + .form-group-labelWrapper {
+  float: left;
+  width: 90%;
+}
+
+
+//
+//
+//
+.form-imaginaryCheckbox {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 0.5em;
+    width: 100%;
+}
+  .form-imaginaryCheckbox:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-imaginaryCheckbox-checkbox {
+    background-color: $color-white-base;
+    border: 2px solid $color-blue-bright;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    content: "";
+    display: block;
+    height: 2em;
+    margin: 0 auto;
+    text-align: center;
+    width: 2em;
+  }
+
+    .form-imaginaryCheckbox-checkbox:active {
+      background-color: rgba($color-blue-bright, 0.25);
+      position: relative;
+      top: 1px;
+    }
+
+    .form-imaginaryCheckbox-checkbox .icon-checkmark {
+      color: $color-white-base;
+      font-size: 1.25em;
+      left: -1px;
+      position: relative;
+      top: 5px;
+    }
+
+    .form-imaginaryCheckbox-checkbox:focus,
+    .form-imaginaryCheckbox-label:focus {
+      outline: 0;
+    }
+
+  .form-imaginaryCheckbox-selected {
+    background-color: $color-blue-bright;
+  }
+
+    .form-imaginaryCheckbox-selected:active {
+      background-color: $color-blue-bright;
+      top: 0;
+    }
+
+  .form-imaginaryCheckbox-label {
+    font-family: $font-sans;
+    font-size: 0.8125em;
+    line-height: 1.25;
+  }
+
+
+//
+// Search fields
 //
 input.form-control.search-control {
   border-radius: 16px;
   -moz-border-radius: 16px;
   -webkit-border-radius: 16px;
 }
-
-  //
-  // Input Placeholder Text
-  //
-  ::-webkit-input-placeholder {
-    color: lighten($color-black-lighter, 40%);
-    font-family: $font-sans-plain;
-    font-size: 1em;
-    font-weight: 300;
-  }
-
-  :-moz-placeholder { /* Firefox 18- */
-    color: lighten($color-black-lighter, 40%);
-    font-family: $font-sans-plain;
-    font-size: 1em;
-    font-weight: 300;
-  }
-
-  ::-moz-placeholder {  /* Firefox 19+ */
-    color: lighten($color-black-lighter, 40%);
-    font-family: $font-sans-plain;
-    font-size: 1em;
-    font-weight: 300;
-  }
-
-  :-ms-input-placeholder {
-    color: lighten($color-black-lighter, 40%);
-    font-family: $font-sans-plain;
-    font-size: 1em;
-    font-weight: 300;
-  }
