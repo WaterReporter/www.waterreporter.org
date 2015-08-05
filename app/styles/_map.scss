@@ -1,58 +1,15 @@
+//
+// _map.scss
+//
+// This stylesheet is written in SASS(1) and contains site wide typographic
+// specifications.
+//
+
 .map {
   display: inline-block;
-  min-height: 32em;
+  min-height: 48em;
   width: 100%;
 }
-
-
-//
-// Geocoder Dropdown
-//
-.form-geocoder .address {
-  position: relative;
-  .dropdown {
-     background-color: transparent;
-     color: $color-white-base;
-     left: 0;
-     position: absolute;
-     top: 39px;
-     width: 100%;
-     z-index: 9999;
-
-     ul {
-         background-color: $color-white-base;
-         box-shadow: 0 2px 3px rgba(0,0,0,0.2);
-         list-style-type: none;
-         padding: 0;
-         width: 100%;
-     }
-
-     li {
-         color: rgb(85,85,85);
-         font-size: 16px;
-         font-weight: 300;
-         list-style-type: none;
-         margin: 0;
-         padding: 8px 16px;
-
-         a {
-           background-color: $color-white-base;
-           color: $color-black-lighter;
-           cursor: pointer;
-           display: block;
-           font-family: $font-sans-plain;
-           font-size: 1.25em;
-           font-weight: 300;
-           width: 100%;
-
-           &:hover {
-             background-color: $color-white-base;
-           }
-         }
-     }
-  }
-}
-
 
 //
 // Markers
@@ -168,7 +125,6 @@
 //   -webkit-font-smoothing: antialiased;
 //   -moz-osx-font-smoothing: grayscale;
 // }
-
 
 .leaflet-control-layers-list {
   display: block !important;
