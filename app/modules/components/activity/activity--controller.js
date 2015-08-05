@@ -117,14 +117,6 @@ angular.module('WaterReporter')
             }
           });
 
-          var mapEvents = leafletEvents.getAvailableMapEvents();
-          for (var k in mapEvents){
-              var eventName = 'leafletDirectiveMap.' + mapEvents[k];
-              $scope.$on(eventName, function(event){
-                  console.log('event.name', event.name);
-              });
-          }
-
         });
 
      });
@@ -143,6 +135,47 @@ angular.module('WaterReporter')
         lng: center.lng,
         zoom: 16
       };
+
+    };
+
+    this.busy = false;
+    this.page = 1;
+
+    this.load = function() {
+
+      if (self.busy) {
+        return;
+      }
+
+      self.busy = true;
+      self.page++;
+
+      if (self.page === self.search.data.properties.total_pages) {
+        return;
+      }
+
+      Report.query({
+        q: {
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            }
+          ]
+        },
+        page: self.page
+      }).$promise.then(function(successResponse) {
+        self.busy = false;
+
+        var reports = successResponse,
+            existing = self.search.data.features;
+
+        console.log('Add these', reports.features, 'to this', self.search.data.features);
+
+        self.search.data.features = existing.concat(reports.features);
+
+        console.log('Loaded ... keep going', self.search.data.features);
+      });
 
     };
 

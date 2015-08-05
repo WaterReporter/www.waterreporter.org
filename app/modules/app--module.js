@@ -20,5 +20,6 @@ angular
     'ui.gravatar',
     'Mapbox',
     'exifReader',
-    'angularMoment'
+    'angularMoment',
+    'infinite-scroll'
   ]);
