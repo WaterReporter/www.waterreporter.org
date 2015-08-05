@@ -7,7 +7,10 @@
 
 .map {
   display: inline-block;
-  min-height: 48em;
+  min-height: 32em;
+  position: absolute !important;
+  top: 0;
+  left: 0;
   width: 100%;
 }
 
@@ -148,4 +151,23 @@
   font-family: $font-sans;
   position: relative;
   top: 1px;
+}
+
+
+.leaflet-top .leaflet-control {
+  margin-top: 114px;
+}
+
+.leaflet-control-container {
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+  opacity: 0;
+}
+
+.leaflet-control-container-visible {
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+  opacity: 1;
 }

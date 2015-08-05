@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, features, $location, leafletData, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
     var self = this;
 
@@ -100,6 +100,31 @@ angular.module('WaterReporter')
           $scope.$on('leafletDirectiveMarker.click', function(event, args) {
             $location.path(self.map.markers[args.modelName].permalink);
           });
+
+          $scope.$on('leafletDirectiveMap.focus', function() {
+            var controls = document.getElementsByClassName('leaflet-control-container');
+
+            for(var i = 0; i < controls.length; ++i){
+              controls[i].setAttribute("class", "leaflet-control-container leaflet-control-container-visible");
+            }
+          });
+
+          $scope.$on('leafletDirectiveMap.blur', function() {
+            var controls = document.getElementsByClassName('leaflet-control-container');
+
+            for(var i = 0; i < controls.length; ++i){
+              controls[i].setAttribute("class", "leaflet-control-container");
+            }
+          });
+
+          var mapEvents = leafletEvents.getAvailableMapEvents();
+          for (var k in mapEvents){
+              var eventName = 'leafletDirectiveMap.' + mapEvents[k];
+              $scope.$on(eventName, function(event){
+                  console.log('event.name', event.name);
+              });
+          }
+
         });
 
      });
