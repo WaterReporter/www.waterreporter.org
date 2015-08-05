@@ -16,10 +16,8 @@ angular
     'ngSanitize',
     'ngRoute',
     'leaflet-directive',
-    'angularPhotoio',
     'ui.gravatar',
     'Mapbox',
-    'exifReader',
     'angularMoment',
     'infinite-scroll'
   ]);

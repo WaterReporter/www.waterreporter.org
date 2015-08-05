@@ -82,9 +82,9 @@
               <a href="/reports/{{ report.id }}" class="report--media"
                     data-ng-repeat="report in page.other.reports track by $index">
                   <img data-ng-if="report.properties.images[0].properties.thumbnail"
-                       image-loader data="report.properties.images[0].properties.thumbnail" width="196px" />
+                       data-ng-src="{{ report.properties.images[0].properties.thumbnail }}" width="196px" />
                   <img data-ng-if="!report.properties.images[0].properties.thumbnail"
-                       image-loader data="report.properties.images[0].properties.original" width="196px" />
+                       data-ng-src="{{ report.properties.images[0].properties.original }}" width="196px" />
                   <img data-ng-if="!report.properties.images[0].properties.original"
                        data-ng-src="/images/icon--MissingImage.png" width="196px" />
               </a>

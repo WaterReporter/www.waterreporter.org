@@ -1,5 +1,6 @@
-<div infinite-scroll="page.load()" infinite-scroll-disabled="page.busy"
-     infinite-scroll-distance="1" data-ng-if="page.search.data.features.length">
+<div infinite-scroll="page.search.autoload()"
+     infinite-scroll-disabled="page.search.busy"
+     infinite-scroll-distance="5" data-ng-if="page.search.data.features.length">
   <section id="report--{{ report.properties.id }}" class="report"
            data-ng-repeat="report in page.search.data.features">
     <div data-ng-include="'/modules/shared/views/report--view.html'"></div>

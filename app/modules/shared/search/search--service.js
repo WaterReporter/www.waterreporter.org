@@ -16,6 +16,8 @@ angular.module('WaterReporter')
      var service;
 
      var Search = {
+        busy: false,
+        page: 1,
         resource: {},
         model: {},
         data: {},
@@ -74,7 +76,40 @@ angular.module('WaterReporter')
         $route.reload();
       },
       autoload: function() {
-        this.execute(true);
+
+        var service = this;
+
+        if (service.busy) {
+          return;
+        }
+
+        service.busy = true;
+        service.page++;
+
+        if (service.data && service.page === service.data.properties.total_pages) {
+          return;
+        }
+
+        service.resource.query({
+          q: {
+            order_by: [
+              {
+                field: 'report_date',
+                direction: 'desc'
+              }
+            ]
+          },
+          page: service.page,
+          results_per_page: 25
+        }).$promise.then(function(successResponse) {
+          service.busy = false;
+
+          var reports = successResponse,
+              existing = service.data.features;
+
+          service.data.features = existing.concat(reports.features);
+        });
+
        },
        hashtag: function(tag, field) {
           this.params[field] = tag;
