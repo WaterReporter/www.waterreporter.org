@@ -4,38 +4,11 @@
   </div>
 </div>
 
-<section id="report--{{ report.properties.id }}" class="report"
-         data-ng-repeat="report in page.search.data.features">
-  <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
-</section>
-
-<footer class="features-footer">
-  <nav class="pager" data-ng-if="page.search.data.properties.page === 1 && page.search.data.properties.total_pages === 1">
-    <!-- If your on Page 1 and there's less than or equal to 10 results total -->
-    <span class="page">
-      Showing all {{ page.search.data.properties.num_results }} reports
-    </span>
-  </nav>
-  <nav class="pager" data-ng-if="page.search.data.properties.total_pages > 1">
-    <a data-ng-show="page.search.data.properties.total_pages >= page.search.data.properties.page && page.search.data.properties.page !== 1" href="javascript:void(0);" data-ng-click="page.search.paginate(page.search.data.properties.page-1)" class="previous">
-      Previous
-    </a>
-    <span data-ng-show="!search.paginationLabel" data-ng-click="search.paginationLabel =! search.paginationLabel" class="page">Page {{ page.search.data.properties.page }} of {{ page.search.data.properties.total_pages }}</span>
-    <span data-ng-show="search.paginationLabel" data-ng-click="search.paginationLabel =! search.paginationLabel" class="page">
-      <span data-ng-if="page.search.data.properties.page === 1 && page.search.data.properties.total_pages > 1">
-        Showing 1 - 10 of {{ page.search.data.properties.num_results | number:0 }} reports
-      </span>
-
-      <span data-ng-if="page.search.data.properties.page > 1 && page.search.data.properties.page !== page.search.data.properties.total_pages">
-        Showing <span data-ng-bind="((page.search.data.properties.page-1)*10+1)"></span> - <span data-ng-bind="page.search.data.properties.page*10"></span> of {{ page.search.data.properties.num_results | number:0 }} reports
-      </span>
-
-      <span data-ng-if="page.search.data.properties.page > 1 && page.search.data.properties.page === page.search.data.properties.total_pages">
-        Showing <span data-ng-bind="((page.search.data.properties.page-1)*10+1)"></span> - {{ page.search.data.properties.num_results }} of {{ page.search.data.properties.num_results | number:0 }} reports
-      </span>
-    </span>
-    <a data-ng-show="page.search.data.properties.total_pages !== page.search.data.properties.page" href="javascript:void(0);" data-ng-click="page.search.paginate(page.search.data.properties.page+1)" class="next">
-      Next
-    </a>
-  </nav>
-</footer>
+<div infinite-scroll="page.search.autoload()"
+     infinite-scroll-disabled="page.search.busy"
+     infinite-scroll-distance="5" data-ng-if="page.search.data.features.length">
+  <div id="report--{{ report.properties.id }}" class="report"
+           data-ng-repeat="report in page.search.data.features">
+    <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
+  </div>
+</div>

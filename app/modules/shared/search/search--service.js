@@ -77,6 +77,8 @@ angular.module('WaterReporter')
       },
       autoload: function() {
 
+        console.log('autoload')
+
         var service = this;
 
         if (service.busy) {
@@ -86,22 +88,16 @@ angular.module('WaterReporter')
         service.busy = true;
         service.page++;
 
-        if (service.data && service.page === service.data.properties.total_pages) {
+        if (service.data && service.page >= service.data.properties.total_pages) {
           return;
         }
 
-        service.resource.query({
-          q: {
-            order_by: [
-              {
-                field: 'report_date',
-                direction: 'desc'
-              }
-            ]
-          },
-          page: service.page,
-          results_per_page: 25
-        }).$promise.then(function(successResponse) {
+        //
+        // Load our filters
+        //
+        this.filters(service.page, 25);
+
+        service.resource.query($location.search()).$promise.then(function(successResponse) {
           service.busy = false;
 
           var reports = successResponse,
@@ -115,7 +111,7 @@ angular.module('WaterReporter')
           this.params[field] = tag;
           this.execute();
        },
-       filters: function() {
+       filters: function(_page, _results_per_page) {
          service = this;
 
          var params = service.params,
@@ -159,7 +155,9 @@ angular.module('WaterReporter')
          // browser's address bar
          //
          $location.search({
-           'q': angular.toJson(q)
+           q: angular.toJson(q),
+           page: _page ? _page : 1,
+           results_per_page: _results_per_page ? _results_per_page : 25
          });
        },
        clear: function() {
