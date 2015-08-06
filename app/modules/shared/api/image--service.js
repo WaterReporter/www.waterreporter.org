@@ -9,9 +9,16 @@
  */
 angular.module('WaterReporter')
   .service('Image', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/image/:imageId', {}, {
+    return $resource('//api.waterreporter.org/v1/media/image/:imageId', {}, {
       query: {
         isArray: false
+      },
+      upload: {
+        method: 'POST',
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined
+        }
       },
       update: {
         method: 'PATCH'

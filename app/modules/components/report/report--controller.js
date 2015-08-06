@@ -8,9 +8,11 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, Search, user) {
+  .controller('ReportController', function (Account, comments, Comment, Image, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, Search, user) {
 
     var self = this;
+
+    self.image = null;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -219,8 +221,26 @@ angular.module('WaterReporter')
           report_state: (state) ? state : null
         });
 
-        comment.$save(function() {
-          $route.reload();
+        var fileData = new FormData();
+
+        fileData.append('image', self.image);
+
+        Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+          console.log('successResponse', successResponse);
+
+          comment.images = [
+            {
+              id: successResponse.id
+            }
+          ]
+
+          comment.$save(function(commentResponse) {
+            $route.reload();
+          });
+
+        },function (errorResponse) {
+          console.log('errorResponse', errorResponse);
         });
        }
       };

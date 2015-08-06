@@ -33,6 +33,10 @@
           </a>
         </span>
       </p>
+      <p class="report--media">
+        <img data-ng-if="comment.properties.images.length"
+           data-ng-src="{{ comment.properties.images[0].properties.thumbnail_retina }}" />
+      </p>
       <p>
         <span data-ng-if="!comment.edit">{{ comment.properties.body }}</span>
       </p>
@@ -46,6 +50,8 @@
                     class="form-control" data-ng-model="comment.properties.body">
             {{ comment.properties.body }}
           </textarea>
+          <input type="file" id="report--commentImage" name="report--commentImage"
+                 class="form-control" data-ng-model="comment.properties.image" />
         </div>
         <button id="report--comment--submit" name="report--comment--submit" class="button">
           Save

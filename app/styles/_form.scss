@@ -108,7 +108,7 @@
 //
 .control-label,
 label.control-label {
-  color: $color-gray-light;
+  color: rgb(121,122,124);
   display: block;
   font-family: $font-sans;
   font-size: 0.875em;
@@ -118,7 +118,7 @@ label.control-label {
 }
 
 .form-label p {
-  color: $color-gray-light;
+  color: rgb(121,122,124);
   font-family: $font-sans;
   font-size: 0.75em;
   font-weight: 500;
@@ -140,19 +140,19 @@ label.control-label {
 //
 select.form-control,
 input.form-control {
-  background-color: transparent;
+  background-color: rgb(255,255,255);
 
-  -webkit-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
-  -moz-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
-  box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+  -webkit-box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
+  -moz-box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
+  box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
 
-  border: 1px solid $color-white-dark;
+  border: 1px solid rgb(196,196,196);
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
 
   box-sizing: border-box;
-  color: $color-gray-dark;
+  color: rgb(71,72,74);
   font-family: $font-sans;
   font-size: 1em;
   font-weight: bold;
@@ -162,7 +162,7 @@ input.form-control {
   width: 100%;
 
   &:focus {
-    border: 1px solid $color-blue-bright;
+    border: 1px solid rgba(20,171,224,1);
     outline: 0;
   }
 
@@ -184,7 +184,7 @@ input.form-control {
   }
 
   &.highlight {
-    color: $color-blue-bright;
+    color: rgba(20,171,224,1);
     font-weight: 600;
   }
 
@@ -209,28 +209,28 @@ select.form-control {
   // Input Placeholder Text
   //
   ::-webkit-input-placeholder {
-    color: $color-white-dark;
+    color: rgb(196,196,196);
     font-family: $font-sans;
     font-size: 1em;
     font-weight: 300;
   }
 
   :-moz-placeholder { /* Firefox 18- */
-    color: $color-white-dark;
+    color: rgb(196,196,196);
     font-family: $font-sans;
     font-size: 1em;
     font-weight: 300;
   }
 
   ::-moz-placeholder {  /* Firefox 19+ */
-    color: $color-white-dark;
+    color: rgb(196,196,196);
     font-family: $font-sans;
     font-size: 1em;
     font-weight: 300;
   }
 
   :-ms-input-placeholder {
-    color: $color-white-dark;
+    color: rgb(196,196,196);
     font-family: $font-sans;
     font-size: 1em;
     font-weight: 300;
@@ -241,19 +241,19 @@ select.form-control {
   // Input fields
   //
   textarea.form-control {
-    background-color: transparent;
+    background-color: rgb(255,255,255);
 
-    -webkit-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
-    -moz-box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
-    box-shadow: inset 0 0 6px rgba($color-white-dark, 0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
+    -moz-box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
+    box-shadow: inset 0 0 6px rgba(196,196,196, 0.5);
 
-    border: 1px solid $color-white-dark;
+    border: 1px solid rgb(196,196,196);
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 
     box-sizing: border-box;
-    color: $color-gray-dark;
+    color: rgb(71,72,74);
     font-family: $font-sans;
     font-size: 1em;
     font-weight: bold;
@@ -263,7 +263,7 @@ select.form-control {
     width: 100%;
 
     &:focus {
-      border: 1px solid $color-blue-bright;
+      border: 1px solid rgba(20,171,224,1);
       outline: 0;
     }
 
@@ -285,26 +285,37 @@ select.form-control {
     }
 
     &.highlight {
-      color: $color-blue-bright;
+      color: rgba(20,171,224,1);
       font-weight: 600;
     }
 
   }
 
+//
+// File Field
+//
+input.form-control-file,
+input.form-control.form-control-file {
+  margin-bottom: 16px;
+}
+
 
 //
 //
 //
-// select.form-control {
-//   -webkit-appearance: menulist-button;
-//   background-color: rgb(232,232,232);
-//   border: 9px solid rgb(232,232,232);
-//   color: $color-gray-dark;
-//   font-family: $font-sans;
-//   font-size: 16px;
-//   font-weight: bold;
-// }
+.form-control-toggle {
+  color: rgb(196, 196, 196);
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 8px 16px;
+  text-align: right;
+  width: 100%;
 
+  &:focus,
+  &:active {
+    outline: none;
+  }
+}
 
 
 //
@@ -358,8 +369,8 @@ select.form-control {
   }
 
   .form-imaginaryCheckbox-checkbox {
-    background-color: $color-white-base;
-    border: 2px solid $color-blue-bright;
+    background-color: rgb(252,252,252);
+    border: 2px solid rgba(20,171,224,1);
     border-radius: 50%;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -372,13 +383,13 @@ select.form-control {
   }
 
     .form-imaginaryCheckbox-checkbox:active {
-      background-color: rgba($color-blue-bright, 0.25);
+      background-color: rgba(20,171,224, 0.25);
       position: relative;
       top: 1px;
     }
 
     .form-imaginaryCheckbox-checkbox .icon-checkmark {
-      color: $color-white-base;
+      color: rgb(252,252,252);
       font-size: 1.25em;
       left: -1px;
       position: relative;
@@ -391,11 +402,11 @@ select.form-control {
     }
 
   .form-imaginaryCheckbox-selected {
-    background-color: $color-blue-bright;
+    background-color: rgba(20,171,224,1);
   }
 
     .form-imaginaryCheckbox-selected:active {
-      background-color: $color-blue-bright;
+      background-color: rgba(20,171,224,1);
       top: 0;
     }
 
