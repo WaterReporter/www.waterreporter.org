@@ -221,27 +221,31 @@ angular.module('WaterReporter')
           report_state: (state) ? state : null
         });
 
-        var fileData = new FormData();
+        if (self.image) {
+          var fileData = new FormData();
 
-        fileData.append('image', self.image);
+          fileData.append('image', self.image);
 
-        Image.upload({}, fileData).$promise.then(function(successResponse) {
+          Image.upload({}, fileData).$promise.then(function(successResponse) {
 
-          console.log('successResponse', successResponse);
+            console.log('successResponse', successResponse);
 
-          comment.images = [
-            {
-              id: successResponse.id
-            }
-          ]
+            comment.images = [
+              {
+                id: successResponse.id
+              }
+            ];
 
-          comment.$save(function(commentResponse) {
+            comment.$save(function() {
+              $route.reload();
+            });
+
+          });
+        } else {
+          comment.$save(function() {
             $route.reload();
           });
-
-        },function (errorResponse) {
-          console.log('errorResponse', errorResponse);
-        });
+        }
        }
       };
 
