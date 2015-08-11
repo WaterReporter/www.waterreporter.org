@@ -1473,6 +1473,58 @@ angular.module('WaterReporter')
 'use strict';
 
 /**
+ * @ngdoc service
+ * @name
+ * @description
+ */
+angular.module('WaterReporter')
+  .service('Notifications', function Notifications($rootScope, $timeout) {
+
+    $rootScope.notifications = {
+      objects: [],
+      success: function(alertTitle, alertMessage) { // kwargs in this context should be an
+        $rootScope.notifications.objects.push({
+          type: 'success',
+          title: (alertTitle) ? alertTitle : 'Great!',
+          message: (alertMessage) ? alertMessage : 'Your updates were saved.'
+        });
+      },
+      info: function(alertTitle, alertMessage) {
+        $rootScope.notifications.objects.push({
+          type: 'info',
+          title: (alertTitle) ? alertTitle : '',
+          message: (alertMessage) ? alertMessage : ''
+        });
+      },
+      warning: function(alertTitle, alertMessage) {
+        $rootScope.notifications.objects.push({
+          type: 'warning',
+          title: (alertTitle) ? alertTitle : 'Warning!',
+          message: (alertMessage) ? alertMessage : ''
+        });
+      },
+      error: function(alertTitle, alertMessage) {
+        $rootScope.notifications.objects.push({
+          type: 'error',
+          title: (alertTitle) ? alertTitle : 'Uh-oh!',
+          message: (alertMessage) ? alertMessage : 'We couldn\'t save your changes.'
+        });
+      },
+      dismiss: function($index) {
+        $timeout(function() {
+          $rootScope.notifications.objects.splice($index, 1);
+        }, 5000);
+      },
+      dismissAll: function() {
+        $rootScope.notifications.objects = [];
+      }
+    };
+
+  });
+
+'use strict';
+
+/**
  * @ngdoc overview
  * @name
  * @description
@@ -2801,7 +2853,7 @@ angular.module('WaterReporter')
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Report, $rootScope, $scope, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, user) {
 
       var self = this;
 
@@ -2999,28 +3051,23 @@ angular.module('WaterReporter')
 
             self.status.saving.message = 'Saving your report...';
 
-            console.log('Image uploaded successfully', imageResponse);
-
             self.report.images = [
               {
                 id: imageResponse.id
               }
             ];
 
-            console.log('report', JSON.stringify(self.report));
-
-            debugger;
-
             self.report.$save(function(response) {
+              $rootScope.notifications.success();
               $location.path('/reports/' + response.id);
             }, function() {
+              $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
               self.status.saving.action = false;
-              alert('An error occurred and we couldn\'t save your report');
               return;
             });
           }, function() {
+            $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
             self.status.saving.action = false;
-            alert('An error occurred and we couldn\'t save your report');
             return;
           });
         } else {
