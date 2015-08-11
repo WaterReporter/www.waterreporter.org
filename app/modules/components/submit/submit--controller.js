@@ -20,6 +20,16 @@
       //
       self.today = new Date();
 
+      self.days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
       self.months = [
         'Jan',
         'Feb',
@@ -50,15 +60,18 @@
        */
       self.date = {
         month: self.months[self.today.getMonth()],
-        day: self.today.getDate(),
+        date: self.today.getDate(),
+        day: self.days[self.today.getDay()],
         year: self.today.getFullYear()
       };
 
       $scope.$watch(angular.bind(this, function() {
         return this.date;
       }), function (response) {
-        var _new = response.month + ' ' + response.day + ' ' + response.year,
+        var _new = response.month + ' ' + response.date + ' ' + response.year,
             _date = new Date(_new);
+
+        self.date.day = self.days[_date.getDay()];
 
         self.report.report_date = _date;
       }, true);

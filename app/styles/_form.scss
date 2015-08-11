@@ -141,6 +141,7 @@ label.control--label {
 //
 // Input fields
 //
+.form--control,
 select.form--control,
 input.form--control {
   background-color: rgb(255,255,255);
@@ -156,6 +157,7 @@ input.form--control {
 
   box-sizing: border-box;
   color: rgb(71,72,74);
+  display: inline-block;
   font-family: $font-sans;
   font-size: 1em;
   font-weight: bold;
@@ -215,6 +217,13 @@ select.form--control {
   width: 32.3333333%;
 }
   .form--control--thirds:first-child {
+    margin-right: 0.625%
+  }
+
+.form--control.form--control--quarters {
+  width: 24.3333333%;
+}
+  .form--control--quarters:first-quarters {
     margin-right: 0.625%
   }
 
