@@ -15,6 +15,7 @@ angular
     'ngResource',
     'ngSanitize',
     'ngRoute',
+    'ngTouch',
     'leaflet-directive',
     'ui.gravatar',
     'Mapbox',
