@@ -21,11 +21,10 @@
         self.new.state = 'open';
         self.new.is_public = true;
 
-        self.new.report_date = '2015-08-10T00:00:00';
-        self.new.report_description = '';
+        // self.new.report_date = '2015-08-10T00:00:00';
+        // self.new.report_description = '';
 
         self.new.$save(function(response) {
-          console.log('response', response);
           $location.path('/reports/' + response.id);
         });
       };

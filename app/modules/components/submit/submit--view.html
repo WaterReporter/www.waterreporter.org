@@ -3,15 +3,97 @@
 <main class="site--content site--content--submit">
   <div class="container">
 
-    <form class="site--report--submit form" role="form"
+    <form class="form site--report--submit" role="form"
           id="form--reports--submit" name="form--reports--submit"
           data-ng-submit="submit.save()">
 
+      <!-- 1. Name of Project -->
+      <div class="form--row">
+        <div class="form--label">
+          <p>
+            Comments
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <label for="project_name" class="control--label">
+              Please be descriptive and use hashtags to help us properly
+              categorize your report
+            </label>
+            <textarea class="form--control"
+                   id="project_name" name="project_name"
+                   data-ng-model="page.report.grant.project_name">
+            </textarea>
+            <p class="help--text">
+              Example: Noticing a lot of trash in this area <strong>or</strong>
+              Taking advantage of the beautiful weather to try out the new boat
+              launch
+            </p>
+         </section>
+        </div>
+      </div>
 
-      <button type="submit" class="button button-submit"
-              id="report--submit" name="report--submit">
-        Send Report
-      </button>
+      <!-- 2. Location -->
+      <div class="form--row">
+        <div class="form--label">
+          <p>
+            Location
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <div class="form--element">
+
+              <label for="location_description" class="control--label">
+                Describe the report location
+              </label>
+              <input type="text" class="form--control"
+                     id="location_description" name="location_description"
+                     data-ng-model="page.report.location_description" />
+              <p class="help--text">
+                Example: Along the Potomac River near the Key Bridge Boathouse
+              </p>
+            </div>
+            <div class="form--element">
+              <leaflet class="map" markers="page.map.markers"
+                       defaults="page.map.defaults" layers="page.map.layers"
+                       center="page.map.center">
+              </leaflet>
+            </div>
+         </section>
+        </div>
+      </div>
+
+      <!-- 7. Images -->
+      <div class="form--row" data-ng-if="page.report.id">
+        <div class="form--label">
+          <p>
+            Images
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <label for="images" class="control-label">
+              Pictures of existing conditions should be included
+            </label>
+            <input type="file" class="form--control"
+                   id="images" name="images" placeholder=""
+                   data-ng-model="page.report.images"
+                   data-ng-readonly="page.report.grant.state !== null && !$root.user.isAdmin" />
+         </section>
+        </div>
+      </div>
+
+      <div class="form--actions" data-ng-if="!page.status.saving">
+        <div class="form--actions--buttons"></div>
+        <div class="form--actions--buttons">
+          <button type="submit" id="report--submit" name="report--submit"
+                  class="button button--submit button--indent button--outline">
+            Send Report
+          </button>
+
+        </div>
+      </div>
 
     </form>
 
