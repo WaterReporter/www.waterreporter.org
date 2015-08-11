@@ -2,7 +2,7 @@
             <form class="site--search site--search--content form" role="form" id="form--search--reports" name="form--search--reports" data-ng-submit="page.search.execute()">
               <div class="form-group">
                 <label for="form--search--reportDescription">Search</label>
-                <input type="text" class="form-control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="page.search.params.report_description" data-ng-change="page.search.execute()" autofocus="autofocus" />
+                <input type="text" class="form--control" id="form--search--reportDescription" name="form--search--reportDescription" data-ng-model="page.search.params.report_description" data-ng-change="page.search.execute()" autofocus="autofocus" />
               </div>
               <button data-ng-click="page.search.clear()" class="btn btn-default">Clear Search</button>
               <span data-ng-if="page.search.data.properties.num_results" class="pull-right">

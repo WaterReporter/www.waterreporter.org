@@ -15,15 +15,15 @@
   <form data-ng-if="$root.isLoggedIn" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
 
     <div class="form-group">
-      <textarea id="report--commentBody" name="report--commentBody" class="form-control" data-ng-model="page.comment.data.body" placeholder="Join the conversation">
+      <textarea id="report--commentBody" name="report--commentBody" class="form--control" data-ng-model="page.comment.data.body" placeholder="Join the conversation">
       </textarea>
-      <a class="form-control-toggle"
+      <a class="form--control--toggle"
          data-ng-if="!page.commentFileField"
          data-ng-click="page.commentFileField =! page.commentFileField">
          + Add Image
       </a>
       <input type="file" id="report--commentImage" name="report--commentImage"
-             class="form-control form-control-file"
+             class="form--control form--control--file"
              file-model="page.image" data-ng-if="page.commentFileField" />
     </div>
     <button data-ng-if="$root.isAdmin && page.report.properties.state !== 'closed'" data-ng-if="page.report.properties.state !== 'closed'" class="button button--info" data-ng-click="page.comment.close(page.report.id)">

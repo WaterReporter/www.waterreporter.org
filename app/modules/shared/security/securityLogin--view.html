@@ -33,11 +33,11 @@
             <form role="form" class="form" method="POST" data-ng-submit="page.login.submit()">
               <div class="form-group">
                 <label for="email" class="control-label">Email Address</label>
-                <input tabindex="1" type="text" class="form-control" type="text" id="email" name="email" data-ng-model="page.login.email" autofocus />
+                <input tabindex="1" type="text" class="form--control" type="text" id="email" name="email" data-ng-model="page.login.email" autofocus />
               </div>
               <div class="form-group">
                 <label for="password" class="control-label">Password <small><em><a href="#" tabindex="4">Forgot your password?</a></em></small></label>
-                <input tabindex="2" type="password" class="form-control" type="text" id="password" name="password" data-ng-model="page.login.password" />
+                <input tabindex="2" type="password" class="form--control" type="text" id="password" name="password" data-ng-model="page.login.password" />
               </div>
               <input tabindex="3" type="submit" class="button button-submit" id="submitUserLogin" name="submitUserLogin" value="Login" data-ng-if="!page.login.processing" />
               <div class="throbber throbber-small" data-ng-if="page.login.processing"></div>
@@ -48,11 +48,11 @@
             <form role="form" class="form" method="POST" data-ng-submit="page.register.submit()">
               <div class="form-group">
                 <label for="email" class="control-label">Email Address</label>
-                <input tabindex="1" type="text" class="form-control" type="text" id="email" name="email" data-ng-model="page.register.email" />
+                <input tabindex="1" type="text" class="form--control" type="text" id="email" name="email" data-ng-model="page.register.email" />
               </div>
               <div class="form-group">
                 <label for="password" class="control-label">Choose a password</label>
-                <input tabindex="2" type="password" class="form-control" type="text" id="password" name="password" data-ng-model="page.register.password" />
+                <input tabindex="2" type="password" class="form--control" type="text" id="password" name="password" data-ng-model="page.register.password" />
               </div>
               <input tabindex="3" type="submit" class="button button-submit pull-left" id="submitUserRegister" name="submitUserRegister" value="Create Account" data-ng-if="!page.register.processing" />
 

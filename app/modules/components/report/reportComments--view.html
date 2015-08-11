@@ -47,11 +47,11 @@
             data-ng-submit="page.comment.update(comment)">
         <div class="form-group">
           <textarea id="report--commentBody" name="report--commentBody"
-                    class="form-control" data-ng-model="comment.properties.body">
+                    class="form--control" data-ng-model="comment.properties.body">
             {{ comment.properties.body }}
           </textarea>
           <input type="file" id="report--commentImage" name="report--commentImage"
-                 class="form-control" data-ng-model="comment.properties.image" />
+                 class="form--control" data-ng-model="comment.properties.image" />
         </div>
         <button id="report--comment--submit" name="report--comment--submit" class="button">
           Save
