@@ -195,7 +195,7 @@ input.form--control {
 
 select.form--control {
   -webkit-appearance: none;
-  background-image: url(../images/select-arrows.svg);
+  background-image: url(../images/select--arrows.svg);
   background-position: right;
   background-repeat: no-repeat;
   background-size: contain;
@@ -417,4 +417,15 @@ input.form--control.search--control {
   border-radius: 16px;
   -moz-border-radius: 16px;
   -webkit-border-radius: 16px;
+}
+
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
 }

@@ -10,21 +10,56 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, $location, Report, $rootScope, user) {
+    .controller('SubmitController', function (Account, $location, Map, Report, $rootScope, user) {
 
       var self = this;
 
-      self.new = new Report();
 
+      self.today = new Date();
+
+      self.months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ];
+
+      //
+      //
+      //
+      self.report = new Report({
+        report_date: new Date()
+      });
+
+      //
+      //
+      //
+      self.date = {
+        month: self.months[self.today.getMonth()],
+        day: self.today.getDate(),
+        year: self.today.getFullYear()
+      };
+
+      //
+      //
+      //
       self.save = function() {
 
-        self.new.state = 'open';
-        self.new.is_public = true;
+        self.report.state = 'open';
+        self.report.is_public = true;
 
-        // self.new.report_date = '2015-08-10T00:00:00';
-        // self.new.report_description = '';
+        // self.report.report_date = '2015-08-10T00:00:00';
+        // self.report.report_description = '';
 
-        self.new.$save(function(response) {
+        self.report.$save(function(response) {
           $location.path('/reports/' + response.id);
         });
       };

@@ -5,9 +5,45 @@
 
     <form class="form site--report--submit" role="form"
           id="form--reports--submit" name="form--reports--submit"
-          data-ng-submit="submit.save()">
+          data-ng-submit="page.save()">
 
-      <!-- 1. Name of Project -->
+      <!-- Report Date -->
+      <div class="form--row">
+        <div class="form--label">
+          <p>
+            Report Date
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <div class="form--element">
+              <label for="project_name" class="control--label">
+                Please set the date to the day you took the photos
+              </label>
+
+              <select class="form--control" id="report_date_month"
+                      name="report_date_month" data-ng-model="page.date.month"
+                      data-ng-options="month for month in page.months">
+              </select>
+
+              <input number type="number" min="1" max="31" step="1" class="form--control"
+                     id="report_date_day" name="report_date_day"
+                     data-ng-model="page.date.day" />
+
+             <input number type="number" min="1990" step="1" class="form--control"
+                    id="report_date_year" name="report_date_year"
+                    data-ng-model="page.date.year" />
+
+              <p>
+                {{ page.report.report_date }}
+              </p>
+
+            </div>
+         </section>
+        </div>
+      </div>
+
+      <!-- Report Desciption -->
       <div class="form--row">
         <div class="form--label">
           <p>
@@ -33,7 +69,7 @@
         </div>
       </div>
 
-      <!-- 2. Location -->
+      <!-- Report Location -->
       <div class="form--row">
         <div class="form--label">
           <p>
@@ -52,6 +88,13 @@
                      data-ng-model="page.report.location_description" />
               <p class="help--text">
                 Example: Along the Potomac River near the Key Bridge Boathouse
+              </p>
+            </div>
+            <div class="form--element">
+              <p>
+                <small>
+                  <a href="javascript:void(0);">Search for an address or city</a>
+                </small>
               </p>
             </div>
             <div class="form--element">
@@ -76,10 +119,8 @@
             <label for="images" class="control-label">
               Pictures of existing conditions should be included
             </label>
-            <input type="file" class="form--control"
-                   id="images" name="images" placeholder=""
-                   data-ng-model="page.report.images"
-                   data-ng-readonly="page.report.grant.state !== null && !$root.user.isAdmin" />
+            <input type="file" class="form--control" id="images" name="images"
+                   data-ng-model="page.report.images" />
          </section>
         </div>
       </div>
