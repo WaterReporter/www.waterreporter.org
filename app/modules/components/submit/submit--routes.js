@@ -11,12 +11,17 @@
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/submit', {
         templateUrl: '/modules/components/submit/submit--view.html',
         controller: 'SubmitController',
-        controllerAs: 'submit'
+        controllerAs: 'submit',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
-      
+
   });
