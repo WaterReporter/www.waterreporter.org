@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Report, $rootScope, $scope, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, user) {
 
       var self = this;
 
@@ -208,28 +208,23 @@
 
             self.status.saving.message = 'Saving your report...';
 
-            console.log('Image uploaded successfully', imageResponse);
-
             self.report.images = [
               {
                 id: imageResponse.id
               }
             ];
 
-            console.log('report', JSON.stringify(self.report));
-
-            debugger;
-
             self.report.$save(function(response) {
+              $rootScope.notifications.success();
               $location.path('/reports/' + response.id);
             }, function() {
+              $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
               self.status.saving.action = false;
-              alert('An error occurred and we couldn\'t save your report');
               return;
             });
           }, function() {
+            $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
             self.status.saving.action = false;
-            alert('An error occurred and we couldn\'t save your report');
             return;
           });
         } else {
