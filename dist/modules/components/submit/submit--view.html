@@ -1,1 +1,41 @@
-<div data-ng-include="'/modules/shared/views/header--view.html'"></div> <main class="site--content site--content--submit"> <div class="container"> <form class="site--report--submit form" role="form" id="form--reports--submit" name="form--reports--submit" data-ng-submit="submit.save()"> <div class="form-group"> <label for="report_date"></label> <input type="date" id="report--reportDate" name="report--reportDate" class="" data-ng-model="submit.new.report_date"> </div> <div class="form-group"> <label for="report--reportDescription"></label> <textarea id="report--reportDescription" name="report--reportDescription" class="form-control" data-ng-model="submit.new.report_description"></textarea> </div> <button id="report--submit" name="report--submit" class="btn btn-success"> Submit Report </button> </form> </div> </main> <div data-ng-include="'/modules/shared/views/footer--view.html'"></div>
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div> <main class="site--content site--content--submit"> <div class="container"> <div data-ng-if="page.status.saving.action" style="text-align: center"> <div class="throbber"></div> <!-- <p>
+        {{ page.status.saving.message }}
+      </p> --> </div> <form class="form site--report--submit" role="form" id="form--reports--submit" name="form--reports--submit" data-ng-submit="page.save()" data-ng-if="!page.status.saving.action"> <!-- Report Date --> <div class="form--row"> <div class="form--label"> <p> Report Date </p> </div> <div class="form--field"> <section class="form--group--indent"> <label for="project_name" class="control--label"> Please set the date to the day you took the photos </label> <div class="form--element form--element--quarters"> <p class="form--control"> {{ page.date.day }} </p> <p class="help--text"> Day </p> </div> <div class="form--element form--element--quarters"> <select class="form--control" id="report_date_month" name="report_date_month" data-ng-model="page.date.month" data-ng-options="month for month in page.months"> </select> <p class="help--text"> Month </p> </div> <div class="form--element form--element--quarters"> <input number type="number" min="1" max="31" step="1" class="form--control" id="report_date_date" name="report_date_date" data-ng-model="page.date.date" data-ng-if="page.date.month === 'Jan' ||
+                                 page.date.month === 'Mar' ||
+                                 page.date.month === 'May' ||
+                                 page.date.month === 'Jul' ||
+                                 page.date.month === 'Aug' ||
+                                 page.date.month === 'Oct' ||
+                                 page.date.month === 'Dec'"> <input number type="number" min="1" max="30" step="1" class="form--control" id="report_date_date" name="report_date_date" data-ng-model="page.date.date" data-ng-if="page.date.month === 'Apr' ||
+                                page.date.month === 'Jun' ||
+                                page.date.month === 'Sep' ||
+                                page.date.month === 'Nov'"> <input number type="number" min="1" max="29" step="1" class="form--control" id="report_date_date" name="report_date_date" data-ng-model="page.date.date" data-ng-if="page.date.month === 'Feb'"> <p class="help--text"> Date </p> </div> <div class="form--element form--element--quarters"> <input number type="number" min="1990" step="1" class="form--control" id="report_date_year" name="report_date_year" data-ng-model="page.date.year"> <p class="help--text"> Year </p> </div> </section> </div> </div> <!-- Report Desciption --> <div class="form--row"> <div class="form--label"> <p> Comments </p> </div> <div class="form--field"> <section class="form--group--indent"> <label for="report_description" class="control--label"> Please be descriptive and use hashtags to help us properly categorize your report </label> <textarea class="form--control" id="report_description" name="report_description" data-ng-model="page.report.report_description">
+            </textarea> <p class="help--text"> Example: Noticing a lot of trash in this area <strong>or</strong> Taking advantage of the beautiful weather to try out the new boat launch </p> </section> </div> </div> <!-- Report Location --> <!-- <div class="form--row">
+        <div class="form--label">
+          <p>
+            Location Description
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <div class="form--element">
+
+              <label for="location_description" class="control--label">
+                Describe the report location
+              </label>
+              <input type="text" class="form--control"
+                     id="location_description" name="location_description"
+                     data-ng-model="page.report.location_description" />
+              <p class="help--text">
+                Example: Along the Potomac River near the Key Bridge Boathouse
+              </p>
+            </div>
+          </section>
+        </div>
+      </div> --> <!-- Report Location --> <div class="form--row"> <div class="form--label"> <p> Geographic Location </p> </div> <div class="form--field"> <section class="form--group--indent"> <!-- <div class="form--element">
+              <p>
+                <small>
+                  <a href="javascript:void(0);">Search for an address or city</a>
+                </small>
+              </p>
+            </div> --> <div class="form--element"> <leaflet class="map--form" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center"> </leaflet> </div> <div class="form--element form--element--half"> <input number type="number" min="-90.00000000000" max="90.00000000000" step="0.000000000001" class="form--control" id="report_geometry_coordinates_lng" name="report_geometry_coordinates_lng" data-ng-model="page.report.geometry.geometries[0].coordinates[0]" data-ng-change="page.map.processPin({lng:page.report.geometry.geometries[0].coordinates[0],lat:page.report.geometry.geometries[0].coordinates[1]})"> <p class="help--text"> Longitude </p> </div> <div class="form--element form--element--half"> <input number type="number" min="-180.00000000000" max="180.00000000000" step="0.000000000001" class="form--control" id="report_geometry_coordinates_lat" name="report_geometry_coordinates_lat" data-ng-model="page.report.geometry.geometries[0].coordinates[1]" data-ng-change="page.map.processPin({lng:page.report.geometry.geometries[0].coordinates[0],lat:page.report.geometry.geometries[0].coordinates[1]})"> <p class="help--text"> Latitude </p> </div> </section> </div> </div> <!-- Report Image --> <div class="form--row"> <div class="form--label"> <p> Images </p> </div> <div class="form--field"> <section class="form--group--indent"> <label for="images" class="control--label"> Include a picture of your report </label> <input type="file" id="report--image" name="report--image" class="form--control form--control--file" file-model="page.image"> </section> </div> </div> <div class="form--actions"> <div class="form--actions--buttons"></div> <div class="form--actions--buttons"> <button type="submit" id="report--submit" name="report--submit" class="button button--submit button--indent button--outline"> Send Report </button> </div> </div> </form> </div> </main> <div data-ng-include="'/modules/shared/views/footer--view.html'"></div>

@@ -15,6 +15,7 @@ angular
     'ngResource',
     'ngSanitize',
     'ngRoute',
+    'ngTouch',
     'leaflet-directive',
     'ui.gravatar',
     'Mapbox',
@@ -234,6 +235,7 @@ angular.module('WaterReporter')
       }
     });
   });
+
 'use strict';
 
 /**
@@ -270,6 +272,27 @@ angular.module('WaterReporter')
       }
     });
   }]);
+(function() {
+
+  'use strict';
+
+  angular.module('WaterReporter')
+    .directive('number', function() {
+  	return {
+  		restrict: 'A',
+  		link: function(scope, element){
+
+        var disable = function () {
+  				element[0].blur();
+  			};
+
+  			element.bind('mousewheel', disable);
+  		}
+  	};
+  });
+
+}());
+
 'use strict';
 
 /**
@@ -782,14 +805,24 @@ angular.module('Mapbox')
             type: 'xyz',
             layerOptions: {
               mapid: 'developedsimple.mn44k8he'
-            // },
-            // layerOptions: {
-            //   attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
             }
           }
         }
       },
-      center: {},
+      center: {
+        lng: -77.534,
+        lat: 40.834,
+        zoom: 7
+      },
+      markers: {
+         reportGeometry: {
+           lng: -77.534,
+           lat: 40.834,
+           message: 'Drag me to your report location',
+           focus: true,
+           draggable: true
+         }
+       },
       styles: {
         icon: {
           parcel: {
@@ -1179,8 +1212,6 @@ angular.module('WaterReporter')
 
         credentials.$save(function(response) {
 
-          console.log('Login started');
-
           //
           // Check to see if there are any errors by checking for the existence
           // of response.response.errors
@@ -1194,12 +1225,10 @@ angular.module('WaterReporter')
               self.login.errors = null;
             }, 3500);
           } else {
-            console.log('Login successful', response);
-            self.login.processing = false;
-            self.login.success = true;
-
+            //
+            // Make sure our cookies for the Session are being set properly
+            //
             ipCookie.remove('WATERREPORTER_SESSION');
-
             ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
@@ -1208,7 +1237,6 @@ angular.module('WaterReporter')
             //
             Account.setUserId().$promise.then(function() {
               Account.getUser().$promise.then(function(userResponse) {
-                console.log('userResponse', userResponse);
 
                 Account.userObject = userResponse;
 
@@ -1249,12 +1277,6 @@ angular.module('WaterReporter')
           email: self.register.email,
           password: self.register.password
         }, function(response) {
-
-          console.log('New user registration success', response);
-
-          self.register.processing = false;
-          self.login.processing = true;
-
           //
           // Check to see if there are any errors by checking for the existence
           // of response.response.errors
@@ -1275,8 +1297,6 @@ angular.module('WaterReporter')
           }
         }, function(error){
           self.login.processing = false;
-
-          console.error('Couldn\'t save registration', error);
 
           $timeout(function() {
             self.login.errors = null;
@@ -1878,147 +1898,151 @@ angular.module('WaterReporter')
       });
   });
 
-'use strict';
+(function() {
 
-/**
- * @ngdoc function
- * @name
- * @description
- */
-angular.module('WaterReporter')
-  .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+  'use strict';
 
-    var self = this;
+  /**
+   * @ngdoc function
+   * @name
+   * @description
+   */
+  angular.module('WaterReporter')
+    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
 
-    $rootScope.user = Account.userObject;
+      var self = this;
 
-    /**
-     * Setup our Features so that they appear on the home page in the
-     * appropriate position
-     */
-    this.features = features;
+      $rootScope.user = Account.userObject;
 
-    /**
-     * Setup search capabilities for the Report Activity Feed
-     *
-     * @data this.search
-     *    loads the Search Service into our page scope
-     * @data this.search.params
-     *    loads the default url parameters into the page fields
-     * @data this.search.model
-     *    tells the Search Service what the data model for this particular search looks like
-     * @data this.search.resource
-     *    tells the Search Service what resource to perform the search with
-     * @data this.search.data
-     *    retains and updates based on the features returned from the user-defined query
-     *
-     */
-    this.search = Search;
+      /**
+       * Setup our Features so that they appear on the home page in the
+       * appropriate position
+       */
+      this.features = features;
 
-    this.search.model = {
-      report_description: {
-        name: 'report_description',
-        op: 'ilike',
-        val: ''
+      /**
+       * Setup search capabilities for the Report Activity Feed
+       *
+       * @data this.search
+       *    loads the Search Service into our page scope
+       * @data this.search.params
+       *    loads the default url parameters into the page fields
+       * @data this.search.model
+       *    tells the Search Service what the data model for this particular search looks like
+       * @data this.search.resource
+       *    tells the Search Service what resource to perform the search with
+       * @data this.search.data
+       *    retains and updates based on the features returned from the user-defined query
+       *
+       */
+      this.search = Search;
+
+      this.search.model = {
+        report_description: {
+          name: 'report_description',
+          op: 'ilike',
+          val: ''
+        }
+      };
+
+      this.search.resource = Report;
+
+      this.search.data = reports;
+
+      /**
+       * This is the first page the authneticated user will see. We need to make
+       * sure that their user information is ready to use. Make sure the
+       * Account.userObject contains the appropriate information.
+       */
+      if (Account.userObject && !Account.userObject.id) {
+        if (user) {
+          user.$promise.then(function(userResponse) {
+            Account.userObject = userResponse;
+              $rootScope.user = Account.userObject;
+
+              $rootScope.isLoggedIn = Account.hasToken();
+              $rootScope.isAdmin = Account.hasRole('admin');
+          });
+        }
       }
-    };
 
-    this.search.resource = Report;
+      /**
+       * Setup the Mapbox map for this page with the results we got from the API
+       *
+       * @data this.map
+       *    loads the Map Service into our page scope
+       * @data this.map.geojson.reports
+       *    loads the request report information into the map
+       *
+       */
+      this.map = Map;
 
-    this.search.data = reports;
+      L.Icon.Default.imagePath = '/images';
 
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+      self.features.$promise.then(function(reports_) {
+          self.map.geojson.reports = {
+              data: reports_
+          };
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
-        });
-      }
-    }
+          //
+          // Define a layer to add geometries to later
+          //
+          // @see http://leafletjs.com/reference.html#featuregroup
+          //
+          var featureGroup = new L.FeatureGroup();
 
-    /**
-     * Setup the Mapbox map for this page with the results we got from the API
-     *
-     * @data this.map
-     *    loads the Map Service into our page scope
-     * @data this.map.geojson.reports
-     *    loads the request report information into the map
-     *
-     */
-    this.map = Map;
+          self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
 
-    L.Icon.Default.imagePath = '/images';
+          //
+          // Define the first/newest Feature and center the map on it
+          //
+          self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-    self.features.$promise.then(function(reports_) {
-        self.map.geojson.reports = {
-            data: reports_
+          leafletData.getMap().then(function() {
+            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+              $location.path(self.map.markers[args.modelName].permalink);
+            });
+
+            $scope.$on('leafletDirectiveMap.focus', function() {
+              var controls = document.getElementsByClassName('leaflet-control-container');
+
+              for(var i = 0; i < controls.length; ++i){
+                controls[i].setAttribute('class', 'leaflet-control-container leaflet-control-container-visible');
+              }
+            });
+
+            $scope.$on('leafletDirectiveMap.blur', function() {
+              var controls = document.getElementsByClassName('leaflet-control-container');
+
+              for(var i = 0; i < controls.length; ++i){
+                controls[i].setAttribute('class', 'leaflet-control-container');
+              }
+            });
+
+          });
+
+       });
+
+      this.changeFeature = function(feature, index) {
+
+        self.features.visible = index;
+
+        var center = {
+          lat: feature.geometry.geometries[0].coordinates[1],
+          lng: feature.geometry.geometries[0].coordinates[0]
         };
 
-        //
-        // Define a layer to add geometries to later
-        //
-        // @see http://leafletjs.com/reference.html#featuregroup
-        //
-        var featureGroup = new L.FeatureGroup();
+        self.map.center = {
+          lat: center.lat,
+          lng: center.lng,
+          zoom: 16
+        };
 
-        self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
-
-        //
-        // Define the first/newest Feature and center the map on it
-        //
-        self.changeFeature(self.map.geojson.reports.data.features[0], 0);
-
-        leafletData.getMap().then(function() {
-          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-            $location.path(self.map.markers[args.modelName].permalink);
-          });
-
-          $scope.$on('leafletDirectiveMap.focus', function() {
-            var controls = document.getElementsByClassName('leaflet-control-container');
-
-            for(var i = 0; i < controls.length; ++i){
-              controls[i].setAttribute("class", "leaflet-control-container leaflet-control-container-visible");
-            }
-          });
-
-          $scope.$on('leafletDirectiveMap.blur', function() {
-            var controls = document.getElementsByClassName('leaflet-control-container');
-
-            for(var i = 0; i < controls.length; ++i){
-              controls[i].setAttribute("class", "leaflet-control-container");
-            }
-          });
-
-        });
-
-     });
-
-    this.changeFeature = function(feature, index) {
-
-      self.features.visible = index;
-
-      var center = {
-        lat: feature.geometry.geometries[0].coordinates[1],
-        lng: feature.geometry.geometries[0].coordinates[0]
       };
 
-      self.map.center = {
-        lat: center.lat,
-        lng: center.lng,
-        zoom: 16
-      };
+    });
 
-    };
-
-  });
+}());
 
 'use strict';
 
@@ -2684,27 +2708,31 @@ angular.module('WaterReporter')
           report_state: (state) ? state : null
         });
 
-        var fileData = new FormData();
+        if (self.image) {
+          var fileData = new FormData();
 
-        fileData.append('image', self.image);
+          fileData.append('image', self.image);
 
-        Image.upload({}, fileData).$promise.then(function(successResponse) {
+          Image.upload({}, fileData).$promise.then(function(successResponse) {
 
-          console.log('successResponse', successResponse);
+            console.log('successResponse', successResponse);
 
-          comment.images = [
-            {
-              id: successResponse.id
-            }
-          ]
+            comment.images = [
+              {
+                id: successResponse.id
+              }
+            ];
 
-          comment.$save(function(commentResponse) {
+            comment.$save(function() {
+              $route.reload();
+            });
+
+          });
+        } else {
+          comment.$save(function() {
             $route.reload();
           });
-
-        },function (errorResponse) {
-          console.log('errorResponse', errorResponse);
-        });
+        }
        }
       };
 
@@ -2746,40 +2774,308 @@ angular.module('WaterReporter')
 
 angular.module('WaterReporter')
   .config(function ($routeProvider) {
-    
+
     $routeProvider
       .when('/submit', {
         templateUrl: '/modules/components/submit/submit--view.html',
         controller: 'SubmitController',
-        controllerAs: 'submit'
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
-      
-  });
-'use strict';
-
-/**
- * @ngdoc function
- * @name WaterReporter.submit.controller:SubmitController
- * @description
- * # SubmitReportController
- * Controller of the waterReporterApp
- */
-angular.module('WaterReporter')
-  .controller('SubmitController', function ($location, Report) {
-
-    var self = this;
-
-    self.new = new Report();
-
-    self.save = function() {
-
-      self.new.state = 'open';
-      self.new.is_public = true;
-
-      self.new.$save(function(response) {
-        console.log('response', response);
-        $location.path('/activity/list');
-      });
-    };
 
   });
+
+(function() {
+
+  'use strict';
+
+  /**
+   * @ngdoc function
+   * @name WaterReporter.submit.controller:SubmitController
+   * @description
+   * # SubmitReportController
+   * Controller of the waterReporterApp
+   */
+  angular.module('WaterReporter')
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Report, $rootScope, $scope, user) {
+
+      var self = this;
+
+      $rootScope.page = {
+        class: 'map--controls--visible'
+      };
+
+      self.image = null;
+
+      //
+      // Setup all of our basic date information so that we can use it
+      // throughout the page
+      //
+      self.today = new Date();
+
+      self.days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
+      ];
+
+      self.months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+      ];
+
+      //
+      // Create a new Date object and assign to today so that we have some
+      // default to work with
+      //
+      self.report = new Report({
+        report_date: self.today
+      });
+
+      //
+      // Define the generic map
+      //
+      self.map = Map;
+
+      //
+      // We mush reset the Markers and Center to ensure that they are not
+      // being retain by the Map service from previous pages.
+      //
+      self.map.markers = {
+        reportGeometry: {
+          lng: -77.534,
+          lat: 40.834,
+          message: 'Drag me to your report location',
+          focus: true,
+          draggable: true
+        }
+      };
+
+      self.map.center = {
+        lng: -77.534,
+        lat: 40.834,
+        zoom: 7
+      };
+
+      self.report.geometry = {
+        type: 'GeometryCollection',
+        geometries: []
+      };
+
+      self.report.geometry.geometries.push({
+        type: 'Point',
+        coordinates: [
+          self.map.markers.reportGeometry.lng,
+          self.map.markers.reportGeometry.lat
+        ]
+      });
+
+
+      //
+      // We use this function for handle any type of geographic change, whether
+      // through the map or through the fields
+      //
+      self.map.processPin = function(coordinates, zoom) {
+
+        if (coordinates.lat === null || coordinates.lat === undefined || coordinates.lng === null || coordinates.lng === undefined) {
+          console.log('Invalid coordinates, existing pin processing');
+          return;
+        }
+
+        console.log('coordinates changed', coordinates)
+
+        //
+        // Move the map pin/marker and recenter the map on the new location
+        //
+        self.map.markers = {
+          reportGeometry: {
+            lng: coordinates.lng,
+            lat: coordinates.lat,
+            focus: false,
+            draggable: true
+          }
+        };
+
+        //
+        // Update the coordinates for the Report
+        //
+        self.report.geometry = {
+          type: 'GeometryCollection',
+          geometries: []
+        };
+
+        self.report.geometry.geometries.push({
+          type: 'Point',
+          coordinates: [
+            coordinates.lng,
+            coordinates.lat
+          ]
+        });
+
+
+        leafletData.getMap().then(function(map) {
+          map.invalidateSize();
+
+          zoom = (zoom) ? zoom : map._zoom;
+
+          self.map.center = {
+            lng: coordinates.lng,
+            lat: coordinates.lat,
+            zoom: zoom
+          };
+        });
+
+      };
+
+      /**
+       * Take our three separate date fields (i.e., month, day, year) and on
+       * field updates change the report.report_date scoped object so that it
+       * builds a proper Date object for our Report $resource
+       */
+      self.date = {
+        month: self.months[self.today.getMonth()],
+        date: self.today.getDate(),
+        day: self.days[self.today.getDay()],
+        year: self.today.getFullYear()
+      };
+
+      $scope.$watch(angular.bind(this, function() {
+        return this.date;
+      }), function (response) {
+        var _new = response.month + ' ' + response.date + ' ' + response.year,
+            _date = new Date(_new);
+
+        self.date.day = self.days[_date.getDay()];
+
+        self.report.report_date = _date;
+      }, true);
+
+      self.status = {
+        saving: {
+          action: false,
+          message: null
+        }
+      }
+
+
+      //
+      //
+      //
+      self.save = function() {
+
+        self.status.saving.action = true;
+        self.status.saving.message = 'Uploading your image...';
+
+
+        self.report.state = 'open';
+        self.report.is_public = true;
+
+        if (self.image) {
+          var fileData = new FormData();
+
+          fileData.append('image', self.image);
+
+          self.status.saving.message = 'Saving your image...';
+
+          Image.upload({}, fileData).$promise.then(function(imageResponse) {
+
+            self.status.saving.message = 'Saving your report...';
+
+            console.log('Image uploaded successfully', imageResponse);
+
+            self.report.images = [
+              {
+                id: imageResponse.id
+              }
+            ];
+
+            console.log('report', JSON.stringify(self.report));
+
+            debugger;
+
+            self.report.$save(function(response) {
+              $location.path('/reports/' + response.id);
+            }, function() {
+              self.status.saving.action = false;
+              alert('An error occurred and we couldn\'t save your report');
+              return;
+            });
+          }, function() {
+            self.status.saving.action = false;
+            alert('An error occurred and we couldn\'t save your report');
+            return;
+          });
+        } else {
+          self.report.$save(function(response) {
+            $location.path('/reports/' + response.id);
+          });
+        }
+
+      };
+
+
+      //
+      // Define our map interactions via the Angular Leaflet Directive
+      //
+      leafletData.getMap().then(function(map) {
+
+        //
+        // Update the pin and segment information when the user clicks on the map
+        // or drags the pin to a new location
+        //
+        $scope.$on('leafletDirectiveMap.click', function(event, args) {
+          self.map.processPin(args.leafletEvent.latlng, map._zoom);
+        });
+
+        $scope.$on('leafletDirectiveMap.dblclick', function(event, args) {
+          self.map.processPin(args.leafletEvent.latlng, map._zoom+1);
+        });
+
+        $scope.$on('leafletDirectiveMarker.dragend', function(event, args) {
+          self.map.processPin(args.leafletEvent.target._latlng, map._zoom);
+        });
+
+        $scope.$on('leafletDirectiveMarker.dblclick', function(event, args) {
+          var zoom = map._zoom+1;
+          map.setZoom(zoom);
+        });
+
+      });
+
+      /**
+       * This is the first page the authneticated user will see. We need to make
+       * sure that their user information is ready to use. Make sure the
+       * Account.userObject contains the appropriate information.
+       */
+      if (Account.userObject && !Account.userObject.id) {
+        if (user) {
+          user.$promise.then(function(userResponse) {
+            Account.userObject = userResponse;
+              $rootScope.user = Account.userObject;
+              $rootScope.isLoggedIn = Account.hasToken();
+              $rootScope.isAdmin = Account.hasRole('admin');
+          });
+        }
+      }
+
+    });
+
+}());
