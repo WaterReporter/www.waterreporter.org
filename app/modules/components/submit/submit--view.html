@@ -3,9 +3,18 @@
 <main class="site--content site--content--submit">
   <div class="container">
 
+    <div data-ng-if="page.status.saving.action"
+         style="text-align: center;">
+      <div class="throbber"></div>
+      <!-- <p>
+        {{ page.status.saving.message }}
+      </p> -->
+    </div>
+
     <form class="form site--report--submit" role="form"
           id="form--reports--submit" name="form--reports--submit"
-          data-ng-submit="page.save()">
+          data-ng-submit="page.save()"
+          data-ng-if="!page.status.saving.action">
 
       <!-- Report Date -->
       <div class="form--row">
@@ -76,13 +85,13 @@
         </div>
         <div class="form--field">
           <section class="form--group--indent">
-            <label for="project_name" class="control--label">
+            <label for="report_description" class="control--label">
               Please be descriptive and use hashtags to help us properly
               categorize your report
             </label>
             <textarea class="form--control"
-                   id="project_name" name="project_name"
-                   data-ng-model="page.report.grant.project_name">
+                   id="report_description" name="report_description"
+                   data-ng-model="page.report.report_description">
             </textarea>
             <p class="help--text">
               Example: Noticing a lot of trash in this area <strong>or</strong>
@@ -94,7 +103,7 @@
       </div>
 
       <!-- Report Location -->
-      <div class="form--row">
+      <!-- <div class="form--row">
         <div class="form--label">
           <p>
             Location Description
@@ -116,7 +125,7 @@
             </div>
           </section>
         </div>
-      </div>
+      </div> -->
       <!-- Report Location -->
       <div class="form--row">
         <div class="form--label">
@@ -126,13 +135,13 @@
         </div>
         <div class="form--field">
           <section class="form--group--indent">
-            <div class="form--element">
+            <!-- <div class="form--element">
               <p>
                 <small>
                   <a href="javascript:void(0);">Search for an address or city</a>
                 </small>
               </p>
-            </div>
+            </div> -->
             <div class="form--element">
               <leaflet class="map--form" markers="page.map.markers"
                        defaults="page.map.defaults" layers="page.map.layers"
@@ -175,13 +184,14 @@
             <label for="images" class="control--label">
               Include a picture of your report
             </label>
-            <input type="file" class="form--control" id="images" name="images"
-                   data-ng-model="page.report.images" />
+            <input type="file" id="report--image" name="report--image"
+                   class="form-control form-control-file"
+                   file-model="page.image" />
          </section>
         </div>
       </div>
 
-      <div class="form--actions" data-ng-if="!page.status.saving">
+      <div class="form--actions">
         <div class="form--actions--buttons"></div>
         <div class="form--actions--buttons">
           <button type="submit" id="report--submit" name="report--submit"

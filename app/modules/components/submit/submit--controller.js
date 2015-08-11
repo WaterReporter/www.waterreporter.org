@@ -10,13 +10,15 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, leafletData, $location, Map, Report, $rootScope, $scope, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Report, $rootScope, $scope, user) {
 
       var self = this;
 
       $rootScope.page = {
         class: 'map--controls--visible'
       };
+
+      self.image = null;
 
       //
       // Setup all of our basic date information so that we can use it
@@ -175,21 +177,67 @@
         self.report.report_date = _date;
       }, true);
 
+      self.status = {
+        saving: {
+          action: false,
+          message: null
+        }
+      }
+
 
       //
       //
       //
       self.save = function() {
 
+        self.status.saving.action = true;
+        self.status.saving.message = 'Uploading your image...';
+
+
         self.report.state = 'open';
         self.report.is_public = true;
 
-        // self.report.report_date = '2015-08-10T00:00:00';
-        // self.report.report_description = '';
+        if (self.image) {
+          var fileData = new FormData();
 
-        self.report.$save(function(response) {
-          $location.path('/reports/' + response.id);
-        });
+          fileData.append('image', self.image);
+
+          self.status.saving.message = 'Saving your image...';
+
+          Image.upload({}, fileData).$promise.then(function(imageResponse) {
+
+            self.status.saving.message = 'Saving your report...';
+
+            console.log('Image uploaded successfully', imageResponse);
+
+            self.report.images = [
+              {
+                id: imageResponse.id
+              }
+            ];
+
+            console.log('report', JSON.stringify(self.report));
+
+            debugger;
+
+            self.report.$save(function(response) {
+              $location.path('/reports/' + response.id);
+            }, function() {
+              self.status.saving.action = false;
+              alert('An error occurred and we couldn\'t save your report');
+              return;
+            });
+          }, function() {
+            self.status.saving.action = false;
+            alert('An error occurred and we couldn\'t save your report');
+            return;
+          });
+        } else {
+          self.report.$save(function(response) {
+            $location.path('/reports/' + response.id);
+          });
+        }
+
       };
 
 
