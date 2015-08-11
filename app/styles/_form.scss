@@ -216,20 +216,26 @@ select.form--control {
     margin-right: 0.625%
   }
 
-.form--control.form--control--thirds {
+.form--control.form--control--thirds,
+.form--element.form--element--thirds {
   display: inline-block;
+  margin-right: 0.625%;
   width: 32.3333333%;
 }
-  .form--control--thirds:first-child {
-    margin-right: 0.625%
+  .form--control--thirds:first-child,
+  .form--element--thirds:first-child {
+    margin-right: 0;
   }
 
-.form--control.form--control--quarters {
+.form--control.form--control--quarters,
+.form--element.form--element--quarters {
   display: inline-block;
-  width: 24.3333333%;
+  margin-right: 0.625%;
+  width: 23.3333333%;
 }
-  .form--control--quarters:first-quarters {
-    margin-right: 0.625%
+  .form--control--quarters:last-child,
+  .form--element--quarters:last-child {
+    margin-right: 0;
   }
 
   //
