@@ -206,14 +206,18 @@ select.form--control {
 //
 // Multiple columns
 //
-.form--control.form--control--half {
+.form--control.form--control--half,
+.form--element.form--element--half {
+  display: inline-block;
   width: 49.375%;
 }
-  .form--control--half:first-child {
+  .form--control--half:first-child,
+  .form--element--half:first-child {
     margin-right: 0.625%
   }
 
 .form--control.form--control--thirds {
+  display: inline-block;
   width: 32.3333333%;
 }
   .form--control--thirds:first-child {
@@ -221,6 +225,7 @@ select.form--control {
   }
 
 .form--control.form--control--quarters {
+  display: inline-block;
   width: 24.3333333%;
 }
   .form--control--quarters:first-quarters {

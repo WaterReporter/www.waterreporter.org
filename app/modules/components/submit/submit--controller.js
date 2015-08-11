@@ -50,6 +50,14 @@
       ];
 
       //
+      // Create a new Date object and assign to today so that we have some
+      // default to work with
+      //
+      self.report = new Report({
+        report_date: self.today
+      });
+
+      //
       // Define the generic map
       //
       self.map = Map;
@@ -74,11 +82,32 @@
         zoom: 7
       };
 
+      self.report.geometry = {
+        type: 'GeometryCollection',
+        geometries: []
+      };
+
+      self.report.geometry.geometries.push({
+        type: 'Point',
+        coordinates: [
+          self.map.markers.reportGeometry.lng,
+          self.map.markers.reportGeometry.lat
+        ]
+      });
+
+
       //
       // We use this function for handle any type of geographic change, whether
       // through the map or through the fields
       //
       self.map.processPin = function(coordinates, zoom) {
+
+        if (coordinates.lat === null || coordinates.lat === undefined || coordinates.lng === null || coordinates.lng === undefined) {
+          console.log('Invalid coordinates, existing pin processing');
+          return;
+        }
+
+        console.log('coordinates changed', coordinates)
 
         //
         // Move the map pin/marker and recenter the map on the new location
@@ -90,12 +119,6 @@
             focus: false,
             draggable: true
           }
-        };
-
-        self.map.center = {
-          lng: coordinates.lng,
-          lat: coordinates.lat,
-          zoom: zoom
         };
 
         //
@@ -114,15 +137,20 @@
           ]
         });
 
-      };
 
-      //
-      // Create a new Date object and assign to today so that we have some
-      // default to work with
-      //
-      self.report = new Report({
-        report_date: self.today
-      });
+        leafletData.getMap().then(function(map) {
+          map.invalidateSize();
+
+          zoom = (zoom) ? zoom : map._zoom;
+
+          self.map.center = {
+            lng: coordinates.lng,
+            lat: coordinates.lat,
+            zoom: zoom
+          };
+        });
+
+      };
 
       /**
        * Take our three separate date fields (i.e., month, day, year) and on
