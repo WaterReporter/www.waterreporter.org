@@ -76,8 +76,6 @@ angular.module('WaterReporter')
 
         credentials.$save(function(response) {
 
-          console.log('Login started');
-
           //
           // Check to see if there are any errors by checking for the existence
           // of response.response.errors
@@ -91,12 +89,10 @@ angular.module('WaterReporter')
               self.login.errors = null;
             }, 3500);
           } else {
-            console.log('Login successful', response);
-            self.login.processing = false;
-            self.login.success = true;
-
+            //
+            // Make sure our cookies for the Session are being set properly
+            //
             ipCookie.remove('WATERREPORTER_SESSION');
-
             ipCookie('WATERREPORTER_SESSION', response.access_token, self.cookieOptions);
 
             //
@@ -105,7 +101,6 @@ angular.module('WaterReporter')
             //
             Account.setUserId().$promise.then(function() {
               Account.getUser().$promise.then(function(userResponse) {
-                console.log('userResponse', userResponse);
 
                 Account.userObject = userResponse;
 
@@ -146,12 +141,6 @@ angular.module('WaterReporter')
           email: self.register.email,
           password: self.register.password
         }, function(response) {
-
-          console.log('New user registration success', response);
-
-          self.register.processing = false;
-          self.login.processing = true;
-
           //
           // Check to see if there are any errors by checking for the existence
           // of response.response.errors
@@ -172,8 +161,6 @@ angular.module('WaterReporter')
           }
         }, function(error){
           self.login.processing = false;
-
-          console.error('Couldn\'t save registration', error);
 
           $timeout(function() {
             self.login.errors = null;
