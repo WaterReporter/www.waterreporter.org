@@ -201,10 +201,20 @@ select.form--control {
   background-size: contain;
 }
 
+//
+// Multiple columns
+//
 .form--control.form--control--half {
   width: 49.375%;
 }
   .form--control--half:first-child {
+    margin-right: 0.625%
+  }
+
+.form--control.form--control--thirds {
+  width: 32.3333333%;
+}
+  .form--control--thirds:first-child {
     margin-right: 0.625%
   }
 

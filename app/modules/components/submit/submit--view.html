@@ -21,22 +21,21 @@
                 Please set the date to the day you took the photos
               </label>
 
-              <select class="form--control" id="report_date_month"
-                      name="report_date_month" data-ng-model="page.date.month"
+              <select class="form--control form--control--thirds"
+                      id="report_date_month" name="report_date_month"
+                      data-ng-model="page.date.month"
                       data-ng-options="month for month in page.months">
               </select>
 
-              <input number type="number" min="1" max="31" step="1" class="form--control"
+              <input number type="number" min="1" max="31" step="1"
+                     class="form--control form--control--thirds"
                      id="report_date_day" name="report_date_day"
                      data-ng-model="page.date.day" />
 
-             <input number type="number" min="1990" step="1" class="form--control"
+             <input number type="number" min="1990" step="1"
+                    class="form--control form--control--thirds"
                     id="report_date_year" name="report_date_year"
                     data-ng-model="page.date.year" />
-
-              <p>
-                {{ page.report.report_date }}
-              </p>
 
             </div>
          </section>

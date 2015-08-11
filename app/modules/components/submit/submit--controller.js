@@ -10,11 +10,14 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, $location, Map, Report, $rootScope, user) {
+    .controller('SubmitController', function (Account, $location, Map, Report, $rootScope, $scope, user) {
 
       var self = this;
 
-
+      //
+      // Setup all of our basic date information so that we can use it
+      // throughout the page
+      //
       self.today = new Date();
 
       self.months = [
@@ -33,20 +36,33 @@
       ];
 
       //
-      //
+      // Create a new Date object and assign to today so that we have some
+      // default to work with
       //
       self.report = new Report({
-        report_date: new Date()
+        report_date: self.today
       });
 
-      //
-      //
-      //
+      /**
+       * Take our three separate date fields (i.e., month, day, year) and on
+       * field updates change the report.report_date scoped object so that it
+       * builds a proper Date object for our Report $resource
+       */
       self.date = {
         month: self.months[self.today.getMonth()],
         day: self.today.getDate(),
         year: self.today.getFullYear()
       };
+
+      $scope.$watch(angular.bind(this, function() {
+        return this.date;
+      }), function (response) {
+        var _new = response.month + ' ' + response.day + ' ' + response.year,
+            _date = new Date(_new);
+
+        self.report.report_date = _date;
+      }, true);
+
 
       //
       //
