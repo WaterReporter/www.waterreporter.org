@@ -14,6 +14,12 @@
   width: 100%;
 }
 
+.map--form {
+  display: inline-block;
+  min-height: 32em;
+  width: 100%;
+}
+
 //
 // Markers
 //
@@ -82,7 +88,7 @@
 
 .leaflet-bar a,
 .leaflet-bar a:hover {
-  background-color: rgba(252,252,252,0.75);
+  background-color: rgba(252,252,252,0.95);
   color: $color-black-bright;
   display: inline-block;
   font-size: 20px;
@@ -102,12 +108,14 @@
 }
 
 .leaflet-control-layers {
-  background-color: rgba(252,252,252,0.75);
+  background-color: rgba(252,252,252,0.95);
 }
 
 .leaflet-control-layers-toggle {
   display: none;
 }
+
+
 
 // .leaflet-control-layers-toggle:before {
 //   color: $color-black-bright !important;
@@ -184,4 +192,21 @@
 
 .leaflet-right .leaflet-control {
   margin-right: 0;
+}
+
+
+body.map--controls--visible .leaflet-control-container {
+  opacity: 1 !important;
+}
+
+body.map--controls--visible .leaflet-top .leaflet-control {
+  margin-top: 10px;
+}
+
+body.map--controls--visible .leaflet-left .leaflet-control {
+  margin-left: 10px;
+}
+
+body.map--controls--visible .leaflet-right .leaflet-control {
+  margin-right: 10px;
 }

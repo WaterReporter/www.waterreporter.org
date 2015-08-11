@@ -97,7 +97,7 @@
       <div class="form--row">
         <div class="form--label">
           <p>
-            Location
+            Location Description
           </p>
         </div>
         <div class="form--field">
@@ -114,6 +114,18 @@
                 Example: Along the Potomac River near the Key Bridge Boathouse
               </p>
             </div>
+          </section>
+        </div>
+      </div>
+      <!-- Report Location -->
+      <div class="form--row">
+        <div class="form--label">
+          <p>
+            Geographic Location
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
             <div class="form--element">
               <p>
                 <small>
@@ -122,7 +134,7 @@
               </p>
             </div>
             <div class="form--element">
-              <leaflet class="map" markers="page.map.markers"
+              <leaflet class="map--form" markers="page.map.markers"
                        defaults="page.map.defaults" layers="page.map.layers"
                        center="page.map.center">
               </leaflet>

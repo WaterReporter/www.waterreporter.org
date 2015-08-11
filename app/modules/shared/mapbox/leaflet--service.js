@@ -30,14 +30,24 @@ angular.module('Mapbox')
             type: 'xyz',
             layerOptions: {
               mapid: 'developedsimple.mn44k8he'
-            // },
-            // layerOptions: {
-            //   attribution: '<a href="https://www.mapbox.com/about/maps/" target="_blank">&copy; Mapbox &copy; OpenStreetMap</a>'
             }
           }
         }
       },
-      center: {},
+      center: {
+        lng: -77.534,
+        lat: 40.834,
+        zoom: 7
+      },
+      markers: {
+         reportGeometry: {
+           lng: -77.534,
+           lat: 40.834,
+           message: 'Drag me to your report location',
+           focus: true,
+           draggable: true
+         }
+       },
       styles: {
         icon: {
           parcel: {
