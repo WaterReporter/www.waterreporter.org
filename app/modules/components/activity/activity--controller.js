@@ -169,6 +169,21 @@
         }
       };
 
+      self.key = function($event) {
+
+        if ($event.keyCode === 39) {
+          if (self.features.visible < self.map.geojson.reports.data.features.length) {
+            var index = self.features.visible+1;
+            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+          }
+        } else if ($event.keyCode === 37) {
+          if (self.features.visible <= self.map.geojson.reports.data.features.length) {
+            var index = self.features.visible-1;
+            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+          }
+        }
+      };
+
     });
 
 }());

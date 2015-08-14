@@ -134,6 +134,10 @@ a.features--slider--next .icon {
       font-size: 0.625em;
       padding: 0.75em 2.2em;
       text-shadow: none;
+
+      &:active {
+        top: 2px;
+      }
     }
 
     .feature--marker--icon.marker--icon .marker--icon--point {
