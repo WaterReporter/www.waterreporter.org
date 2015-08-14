@@ -17,4 +17,15 @@
 
 </div>
 
+<nav class="features--navigation">
+  <ul>
+    <li data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
+      <a href="javascript:void(0);" data-ng-class="{ 'active': page.features.visible === $index }"
+         data-ng-click="page.changeFeature(page.map.geojson.reports.data.features[$index], $index)">
+        {{ $index }}
+      </a>
+    </li>
+  </ul>
+</nav>
+
 <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>

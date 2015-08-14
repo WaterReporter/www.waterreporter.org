@@ -138,6 +138,17 @@
         self.map.toggleControls('show');
       };
 
+      this.showVignette = function() {
+        self.map.toggleControls('hide');
+        self.vignette = true;
+
+        var vignette = document.getElementById('map--vignette');
+        vignette.className = 'map--vignette';
+
+        var feature__ = document.getElementById('map--featured');
+        feature__.className = 'map--featured';
+      };
+
       this.changeFeature = function(feature, index) {
 
         self.features.visible = index;
@@ -152,6 +163,10 @@
           lng: center.lng,
           zoom: 16
         };
+
+        if (self.vignette === false) {
+          self.showVignette();
+        }
       };
 
     });
