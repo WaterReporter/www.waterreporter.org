@@ -74,6 +74,7 @@ a.features--slider--next .icon {
   }
 
     .feature--marker--icon.marker--icon .marker--icon--image.marker--icon--large + .marker--icon--point {
+      background-color: $color-blue-bright;
       display: inline-block;
       margin-left: 0;
     }
