@@ -7,18 +7,41 @@
 // @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 //
 
-.navigation--primary,
+.navigation {
+  display: inline-block;
+}
+
+.navigation--right {
+  float: right;
+  padding-top: 1em;
+}
+
 .navigation--utility {
-  margin-top: 24px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 
   li {
-    font-family: "proxima nova";
-    font-weight: bold;
-    letter-spacing: 0;
-    font-size: 0.9375em;
+    display: inline-block;
+    font-family: $font-sans;
+    font-size: 0.8125em;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    list-style-type: none;
+    margin: 0 2em 0 0;
+    text-transform: uppercase;
+
+    &:last-child {
+      margin: 0;
+    }
 
     a {
-      color: $color-blue-dark;
+      color: $color-blue-base;
 
       &:hover {
         color: $color-blue-darker;

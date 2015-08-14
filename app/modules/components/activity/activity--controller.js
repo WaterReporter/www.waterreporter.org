@@ -20,6 +20,8 @@
        */
       this.features = features;
 
+      this.vignette = true;
+
       /**
        * Setup search capabilities for the Report Activity Feed
        *
@@ -104,24 +106,33 @@
             });
 
             $scope.$on('leafletDirectiveMap.focus', function() {
-              var controls = document.getElementsByClassName('leaflet-control-container');
+              self.map.toggleControls('show');
+              self.vignette = false;
 
-              for(var i = 0; i < controls.length; ++i){
-                controls[i].setAttribute('class', 'leaflet-control-container leaflet-control-container-visible');
-              }
-            });
-
-            $scope.$on('leafletDirectiveMap.blur', function() {
-              var controls = document.getElementsByClassName('leaflet-control-container');
-
-              for(var i = 0; i < controls.length; ++i){
-                controls[i].setAttribute('class', 'leaflet-control-container');
-              }
+              var vignette = document.getElementById('map--vignette');
+              vignette.className = 'map--vignette map--vignette--hidden';
+            // });
+            //
+            // $scope.$on('leafletDirectiveMap.blur', function() {
+            //   self.map.toggleControls('hide');
+            //   self.vignette = true;
+            //
+            //   var vignette = document.getElementById('map--vignette');
+            //   vignette.className = 'map--vignette map--vignette--hidden';
             });
 
           });
 
        });
+
+      this.hideVignette = function() {
+        self.vignette = false;
+
+        var vignette = document.getElementById('map--vignette');
+        vignette.className = 'map--vignette map--vignette--hidden';
+
+        self.map.toggleControls('show');
+      };
 
       this.changeFeature = function(feature, index) {
 

@@ -87,7 +87,22 @@ angular.module('Mapbox')
           }
         }
       },
-      geojson: {}
+      geojson: {},
+      toggleControls: function(toggle) {
+
+        var controls = document.getElementsByClassName('leaflet-control-container'),
+            index;
+
+        if (toggle === 'show') {
+          for(index = 0; index < controls.length; ++index){
+            controls[index].setAttribute('class', 'leaflet-control-container leaflet-control-container-visible');
+          }
+        } else {
+          for(index = 0; index < controls.length; ++index){
+            controls[index].setAttribute('class', 'leaflet-control-container');
+          }
+        }
+      }
     };
 
     return Map;

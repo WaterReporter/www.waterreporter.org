@@ -1,4 +1,9 @@
-<leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+<div class="map--wrapper">
+  <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+
+  <div id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
+  </div>
+</div>
 
 <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
 

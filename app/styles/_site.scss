@@ -6,18 +6,28 @@
 //
 
 body {
-  background-color: rgba(242,242,242,1);
+  background-color: $color-white-dark;
+}
+
+
+
+.element-hidden {
+  display: none;
 }
 
 .site--header {
-  position: relative;
-  z-index: 2;
+  background-color: $color-white-base;
+  float: left;
+  width: 100%;
 
   .container {
-    background-color: rgba(255,255,255,0.75);
-    padding: 1em;
+    padding: 1.5em 0;
     margin: 0 auto;
   }
+}
+
+.site--header--brand {
+  display: inline-block;
 }
 
 .site--search {
@@ -38,6 +48,7 @@ body {
 
 
   .container {
+    display: block;
     padding-right: 1em;
     padding-left: 1em;
     margin-right: auto;
