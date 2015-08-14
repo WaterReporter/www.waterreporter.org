@@ -627,7 +627,9 @@ angular.module('Mapbox')
         });
       },
       drawMarker: function(marker) {
-        var image = (marker.properties.images.length) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original;
+        var image = (marker.properties.images.length) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original,
+            _unresolved_html = '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="" width="100%" /></div><span class="marker--icon--point"></span>',
+            _resolved_html = '<div class="marker--icon--image marker--icon--large"><img src="/images/badget--CertifiedAction--Small--ClosedBlue.svg" class="" alt="" width="70%" /></div><span class="marker--icon--point"></span>';
 
         return {
           lat: marker.geometry.geometries[0].coordinates[1],
@@ -637,8 +639,8 @@ angular.module('Mapbox')
           permalink: '/reports/' + marker.id,
           icon: {
             type: 'div',
-            html: '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="" width="100%" /></div><span class="marker--icon--point"></span>',
-            className: 'marker--icon',
+            html: (marker.properties.state === 'closed') ? _resolved_html : _unresolved_html,
+            className: (marker.properties.state === 'closed') ? 'marker--icon marker--icon--resolved' : 'marker--icon',
             iconSize: [96, 96],
             popupAnchor: [0, -16]
           }
