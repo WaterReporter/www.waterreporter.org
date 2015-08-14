@@ -127,6 +127,7 @@
        });
 
       this.hideVignette = function() {
+
         self.vignette = false;
 
         var vignette = document.getElementById('map--vignette');
@@ -135,11 +136,18 @@
         var feature = document.getElementById('map--featured');
         feature.className = 'map--featured map--feature--hidden';
 
+        var map_ = document.getElementById('map--wrapper');
+        map_.className = 'map--wrapper map--wrapper--expanded';
+
         self.map.toggleControls('show');
+
+        leafletData.getMap().then(function(map) {
+          map.invalidateSize();
+        });
       };
 
       this.showVignette = function() {
-        self.map.toggleControls('hide');
+
         self.vignette = true;
 
         var vignette = document.getElementById('map--vignette');
@@ -147,6 +155,15 @@
 
         var feature__ = document.getElementById('map--featured');
         feature__.className = 'map--featured';
+
+        var map_ = document.getElementById('map--wrapper');
+        map_.className = 'map--wrapper';
+
+        self.map.toggleControls('hide');
+
+        leafletData.getMap().then(function(map) {
+          map.invalidateSize();
+        });
       };
 
       this.changeFeature = function(feature, index) {
@@ -174,12 +191,12 @@
         if ($event.keyCode === 39) {
           if (self.features.visible < self.map.geojson.reports.data.features.length) {
             var index = self.features.visible+1;
-            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+            self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         } else if ($event.keyCode === 37) {
           if (self.features.visible <= self.map.geojson.reports.data.features.length) {
             var index = self.features.visible-1;
-            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+            self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         }
       };

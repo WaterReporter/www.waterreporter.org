@@ -7,7 +7,7 @@
 
 .map--wrapper {
   display: inline-block;
-  min-height: 320px;
+  height: 320px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -18,15 +18,21 @@
   min-height: 320px;
   position: absolute;
   top: 0;
-  // left: 0;
-  // width: 100%;
   left: -420px;
   width: calc(100% + 420px);
 }
 
+.map--wrapper--expanded,
+.map--wrapper--expanded .map {
+  transition: height .25s ease-in-out;
+  -moz-transition: height .25s ease-in-out;
+  -webkit-transition: height .25s ease-in-out;
+  height: 640px;
+}
+
 .map--form {
   display: inline-block;
-  min-height: 320px;
+  height: 320px;
   width: 100%;
 }
 
