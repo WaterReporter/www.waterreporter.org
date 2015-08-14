@@ -1,10 +1,13 @@
 <div class="map--wrapper">
-  <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
 
-  <div id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+
+  <leaflet  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+
+  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
   </div>
 
-  <div id="map--featured" class="map--featured" data-ng-if="page.map.geojson.reports.data.features.length">
+  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--featured" class="map--featured" data-ng-if="page.map.geojson.reports.data.features.length">
     <div class="features--container" data-ng-show="page.features.visible === $index"
          data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <div class="features--report"
@@ -17,7 +20,7 @@
 
 </div>
 
-<nav class="features--navigation">
+<nav data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" class="features--navigation">
   <ul>
     <li data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <a href="javascript:void(0);" data-ng-class="{ 'active': page.features.visible === $index }"
@@ -27,5 +30,3 @@
     </li>
   </ul>
 </nav>
-
-<div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
