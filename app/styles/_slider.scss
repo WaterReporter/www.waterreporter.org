@@ -6,14 +6,12 @@
 //
 
 .features {
-  margin: 13em auto;
+  margin-top: 2.625em;
   position: relative;
   z-index: 1;
 }
 
 .features--container {
-  margin: 0 auto;
-  max-width: 1100px;
   width: 100%;
 }
 
@@ -59,8 +57,87 @@ a.features--slider--next .icon {
 }
 
 
-.features--report {
-  display: inline-block;
-  min-width: 70%;
-  vertical-align: top;
+//
+//
+//
+.report.report--featured {
+  background-color: transparent;
+  max-width: 960px;
+  width: 960px;
 }
+
+  .report.report--featured .feature--marker--icon {
+    float: left;
+    margin-left: 8.3333333333%;
+    text-align: center;
+    width: 33.33333333%;
+  }
+
+    .feature--marker--icon.marker--icon .marker--icon--image.marker--icon--large + .marker--icon--point {
+      display: inline-block;
+      margin-left: 0;
+    }
+
+    .feature--marker--icon.marker--icon .marker--icon--image.marker--icon--large {
+      border-radius: 128px;
+      -moz-border-radius: 128px;
+      -webkit-border-radius: 128px;
+      border-width: 10px;
+      display: inline-block;
+      height: 216px;
+      width: 216px;
+    }
+
+  .report.report--featured .report--content {
+    border: none;
+    display: inline-block;
+    margin-right: 8.3333333333%;
+    padding: 3em 0 0;
+    width: 50%;
+  }
+
+    .report.report--featured p.feature--author {
+      border-bottom: 1px solid rgba($color-white-base, 0.2);
+      color: $color-white-base;
+      font-family: $font-sans;
+      font-size: 0.875em;
+      margin: 0 0 0.375em;
+      padding: 0 0 0.25em;
+    }
+
+    .report.report--featured h1.feature--title {
+      color: $color-white-base;
+      font-family: $font-sans;
+      font-size: 2em;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      margin: 0 0 0.125em;
+      padding: 0;
+      text-transform: uppercase;
+    }
+
+    .report.report--featured p.feature--description {
+      color: $color-white-base;
+      font-family: $font-sans;
+      font-size: 0.9375em;
+      margin: 0 0 0.75em;
+      padding: 0;
+    }
+
+    .report.report--featured p.feature--description:first-letter{
+      text-transform: capitalize
+    }
+
+    .report.report--featured .feature--button {
+      background-color: $color-blue-bright;
+      font-size: 0.625em;
+      padding: 0.75em 2.2em;
+      text-shadow: none;
+    }
+
+    .feature--marker--icon.marker--icon .marker--icon--point {
+      border-top: 34px solid rgb(255,255,255);
+      border-right: 24px solid rgba(0, 0, 0, 0);
+      border-left: 24px solid rgba(0, 0, 0, 0);
+      margin-left: 4px;
+    }

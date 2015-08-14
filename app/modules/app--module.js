@@ -20,5 +20,6 @@ angular
     'ui.gravatar',
     'Mapbox',
     'angularMoment',
-    'infinite-scroll'
+    'infinite-scroll',
+    'igTruncate'
   ]);
