@@ -245,3 +245,18 @@ body.map--controls--visible .leaflet-control-container {
 .leaflet-right {
     right: -220px;
 }
+
+.marker--icon.marker--icon--resolved {
+}
+
+.marker--icon.marker--icon--resolved .marker--icon--image {
+  background-color: $color-white-base;
+  text-align: center;
+}
+
+.marker--icon.marker--icon--resolved .marker--icon--image.marker--icon--large img {
+  margin-top: 11px;
+  min-height: 0;
+  min-width: 0;
+  width: 70%;
+}

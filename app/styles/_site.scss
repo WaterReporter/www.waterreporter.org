@@ -28,10 +28,14 @@ body {
 
 .site--header--brand {
   display: inline-block;
+  max-width: 25%;
 }
 
-.site--search {
-  margin-top: 32px;
+.site--search,
+.site--search.form {
+  display: inline-block;
+  margin: 0 0 0 12.5%;
+  max-width: 25%;
 }
 
 .site--content {
