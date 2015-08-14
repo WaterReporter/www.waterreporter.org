@@ -5,7 +5,7 @@
 // specifications.
 //
 
-.features {
+.map--featured {
   margin-top: 2.625em;
   position: relative;
   z-index: 1;
@@ -92,16 +92,17 @@ a.features--slider--next .icon {
     border: none;
     display: inline-block;
     margin-right: 8.3333333333%;
-    padding: 3em 0 0;
+    padding: 2em 0 0;
     width: 50%;
   }
 
     .report.report--featured p.feature--author {
       border-bottom: 1px solid rgba($color-white-base, 0.2);
       color: $color-white-base;
+      display: inline-block;
       font-family: $font-sans;
       font-size: 0.875em;
-      margin: 0 0 0.375em;
+      margin: 0 0 0.5em;
       padding: 0 0 0.25em;
     }
 

@@ -132,6 +132,9 @@
         var vignette = document.getElementById('map--vignette');
         vignette.className = 'map--vignette map--vignette--hidden';
 
+        var feature = document.getElementById('map--featured');
+        feature.className = 'map--featured map--feature--hidden';
+
         self.map.toggleControls('show');
       };
 

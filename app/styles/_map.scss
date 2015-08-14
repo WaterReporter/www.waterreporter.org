@@ -45,7 +45,8 @@
   width: 100%;
 }
 
-.map--vignette--hidden {
+.map--vignette--hidden,
+.map--feature--hidden {
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;

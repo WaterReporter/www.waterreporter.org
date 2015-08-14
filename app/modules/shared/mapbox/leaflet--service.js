@@ -40,13 +40,13 @@ angular.module('Mapbox')
         zoom: 7
       },
       markers: {
-         reportGeometry: {
-           lng: -77.534,
-           lat: 40.834,
-           message: 'Drag me to your report location',
-           focus: true,
-           draggable: true
-         }
+        //  reportGeometry: {
+        //    lng: -77.534,
+        //    lat: 40.834,
+        //    message: 'Drag me to your report location',
+        //    focus: true,
+        //    draggable: true
+        //  }
        },
       styles: {
         icon: {

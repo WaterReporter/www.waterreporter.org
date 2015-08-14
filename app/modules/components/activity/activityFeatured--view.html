@@ -4,7 +4,7 @@
   <div id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
   </div>
 
-  <div class="features" data-ng-if="page.map.geojson.reports.data.features.length">
+  <div id="map--featured" class="map--featured" data-ng-if="page.map.geojson.reports.data.features.length">
     <div class="features--container" data-ng-show="page.features.visible === $index"
          data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <div class="features--report"
