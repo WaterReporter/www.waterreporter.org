@@ -20,7 +20,8 @@ angular
     'ui.gravatar',
     'Mapbox',
     'angularMoment',
-    'infinite-scroll'
+    'infinite-scroll',
+    'igTruncate'
   ]);
 
 'use strict';
@@ -292,6 +293,26 @@ angular.module('WaterReporter')
   });
 
 }());
+
+angular.module('igTruncate', []).filter('truncate', function (){
+  return function (text, length, end){
+    if (text !== undefined){
+      if (isNaN(length)){
+        length = 10;
+      }
+
+      if (end === undefined){
+        end = "...";
+      }
+
+      if (text.length <= length || text.length - end.length <= length){
+        return text;
+      }else{
+        return String(text).substring(0, length - end.length) + end;
+      }
+    }
+  };
+});
 
 'use strict';
 
@@ -815,13 +836,13 @@ angular.module('Mapbox')
         zoom: 7
       },
       markers: {
-         reportGeometry: {
-           lng: -77.534,
-           lat: 40.834,
-           message: 'Drag me to your report location',
-           focus: true,
-           draggable: true
-         }
+        //  reportGeometry: {
+        //    lng: -77.534,
+        //    lat: 40.834,
+        //    message: 'Drag me to your report location',
+        //    focus: true,
+        //    draggable: true
+        //  }
        },
       styles: {
         icon: {
@@ -862,7 +883,22 @@ angular.module('Mapbox')
           }
         }
       },
-      geojson: {}
+      geojson: {},
+      toggleControls: function(toggle) {
+
+        var controls = document.getElementsByClassName('leaflet-control-container'),
+            index;
+
+        if (toggle === 'show') {
+          for(index = 0; index < controls.length; ++index){
+            controls[index].setAttribute('class', 'leaflet-control-container leaflet-control-container-visible');
+          }
+        } else {
+          for(index = 0; index < controls.length; ++index){
+            controls[index].setAttribute('class', 'leaflet-control-container');
+          }
+        }
+      }
     };
 
     return Map;
@@ -1972,6 +2008,8 @@ angular.module('WaterReporter')
        */
       this.features = features;
 
+      this.vignette = true;
+
       /**
        * Setup search capabilities for the Report Activity Feed
        *
@@ -2050,30 +2088,54 @@ angular.module('WaterReporter')
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          leafletData.getMap().then(function() {
+          leafletData.getMap().then(function(map) {
+
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
               $location.path(self.map.markers[args.modelName].permalink);
             });
 
             $scope.$on('leafletDirectiveMap.focus', function() {
-              var controls = document.getElementsByClassName('leaflet-control-container');
+              self.map.toggleControls('show');
+              self.vignette = false;
 
-              for(var i = 0; i < controls.length; ++i){
-                controls[i].setAttribute('class', 'leaflet-control-container leaflet-control-container-visible');
-              }
-            });
-
-            $scope.$on('leafletDirectiveMap.blur', function() {
-              var controls = document.getElementsByClassName('leaflet-control-container');
-
-              for(var i = 0; i < controls.length; ++i){
-                controls[i].setAttribute('class', 'leaflet-control-container');
-              }
+              var vignette = document.getElementById('map--vignette');
+              vignette.className = 'map--vignette map--vignette--hidden';
+            // });
+            //
+            // $scope.$on('leafletDirectiveMap.blur', function() {
+            //   self.map.toggleControls('hide');
+            //   self.vignette = true;
+            //
+            //   var vignette = document.getElementById('map--vignette');
+            //   vignette.className = 'map--vignette map--vignette--hidden';
             });
 
           });
 
        });
+
+      this.hideVignette = function() {
+        self.vignette = false;
+
+        var vignette = document.getElementById('map--vignette');
+        vignette.className = 'map--vignette map--vignette--hidden';
+
+        var feature = document.getElementById('map--featured');
+        feature.className = 'map--featured map--feature--hidden';
+
+        self.map.toggleControls('show');
+      };
+
+      this.showVignette = function() {
+        self.map.toggleControls('hide');
+        self.vignette = true;
+
+        var vignette = document.getElementById('map--vignette');
+        vignette.className = 'map--vignette';
+
+        var feature__ = document.getElementById('map--featured');
+        feature__.className = 'map--featured';
+      };
 
       this.changeFeature = function(feature, index) {
 
@@ -2090,6 +2152,24 @@ angular.module('WaterReporter')
           zoom: 16
         };
 
+        if (self.vignette === false) {
+          self.showVignette();
+        }
+      };
+
+      self.key = function($event) {
+
+        if ($event.keyCode === 39) {
+          if (self.features.visible < self.map.geojson.reports.data.features.length) {
+            var index = self.features.visible+1;
+            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+          }
+        } else if ($event.keyCode === 37) {
+          if (self.features.visible <= self.map.geojson.reports.data.features.length) {
+            var index = self.features.visible-1;
+            self.changeFeature(self.map.geojson.reports.data.features[index], index)
+          }
+        }
       };
 
     });
