@@ -18,8 +18,10 @@
   min-height: 320px;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  // left: 0;
+  // width: 100%;
+  left: -420px;
+  width: calc(100% + 420px);
 }
 
 .map--form {
@@ -227,4 +229,12 @@
 
 body.map--controls--visible .leaflet-control-container {
   opacity: 1 !important;
+}
+
+.leaflet-left {
+    left: 200px;
+}
+
+.leaflet-right {
+    right: -220px;
 }

@@ -100,7 +100,8 @@
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          leafletData.getMap().then(function() {
+          leafletData.getMap().then(function(map) {
+
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
               $location.path(self.map.markers[args.modelName].permalink);
             });
@@ -148,7 +149,6 @@
           lng: center.lng,
           zoom: 16
         };
-
       };
 
     });
