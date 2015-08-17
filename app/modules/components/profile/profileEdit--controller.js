@@ -49,6 +49,9 @@ angular.module('WaterReporter')
       if (self.profile.properties.telephone.length === 0) {
         self.profile.properties.telephone = [{}];
       }
+      if (self.profile.properties.organization.length === 0) {
+        self.profile.properties.organization = [{}];
+      }
     });
 
     //
@@ -82,8 +85,30 @@ angular.module('WaterReporter')
         organization_name: self.profile.properties.organization_name,
         telephone: [{
           number: self.profile.properties.telephone[0].properties.number
-        }]
+        }],
       });
+
+      if (!self.profile.properties.organization[0].properties.name) {
+        profile_.organization = [];
+        console.log('NULL', self.profile.properties.organization[0].properties.name)
+      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
+        profile_.organization = [
+          {
+            id: self.profile.properties.organization[0].properties.id,
+            name: self.profile.properties.organization[0].properties.name
+          }
+        ];
+        console.log('UPDATE', self.profile.properties.organization[0].properties.name)
+      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
+        profile_.organization = [
+          {
+            name: self.profile.properties.organization[0].properties.name
+          }
+        ];
+        console.log('NEW', self.profile.properties.organization[0].properties.name)
+      }
+
+      debugger;
 
       if (self.image) {
          var fileData = new FormData();

@@ -45,11 +45,11 @@
             {{ page.closures.properties.num_results | number:0 }} Actions
           </span>
         </p>
-        <p class="text-center">
+        <!-- <p class="text-center">
           <small>
             {{ page.data.properties.description }}
           </small>
-        </p>
+        </p> -->
       </div>
     </div>
 
@@ -70,7 +70,7 @@
            data-ng-if="page.closures.features.length"
            data-ng-repeat="report in page.closures.features">
            <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
-      </div>      
+      </div>
     </div>
 
   </div>

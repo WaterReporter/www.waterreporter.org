@@ -42,6 +42,22 @@
         </div>
       </div>
 
+      <div class="form--row" data-ng-if="page.profile.id">
+        <div class="form--label">
+          <p>
+            Your Name
+          </p>
+        </div>
+        <div class="form--field">
+          <input type="text" class="form--control form--control--half"
+                 id="title" name="title" placeholder=""
+                 data-ng-model="page.profile.properties.title" />
+          <input type="text" class="form--control form--control--half"
+                 id="organization_name" name="organization_name"  placeholder=""
+                 data-ng-model="page.profile.properties.organization[0].properties.name" />
+        </div>
+      </div>
+
       <!-- User Profile Image -->
       <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
@@ -80,7 +96,7 @@
         </div>
       </div>
 
-      <div class="form--row" data-ng-if="page.profile.id">
+      <!-- <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
           <p>
             Bio
@@ -93,7 +109,7 @@
             {{ page.profile.properties.description }}
           </textarea>
         </div>
-      </div>
+      </div> -->
 
       <div class="form--actions" data-ng-if="page.profile.id">
         <div class="form--actions--buttons"></div>
