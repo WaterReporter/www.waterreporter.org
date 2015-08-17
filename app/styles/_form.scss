@@ -203,6 +203,10 @@ select.form--control {
   background-size: contain;
 }
 
+.form--control.form--control--disabled {
+  background-color: $color-white-darker;
+}
+
 //
 // Multiple columns
 //
