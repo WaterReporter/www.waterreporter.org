@@ -104,6 +104,18 @@
   border-right: none;
 }
 
+.comment--body {
+  border-left: 1px dashed rgba($color-gray-base,0.5);
+  display: block;
+  margin: 0 0 0 32px;
+  padding: 0 0 0 48px;
+}
+
+.comment--media {
+  display: block;
+  margin: 0.5em 0;
+}
+
 
 
 //
