@@ -14,8 +14,6 @@ angular.module('WaterReporter')
 
     self.image = null;
 
-    self.permissions = {};
-
     /**
      * Setup search capabilities for the Report Activity Feed
      *
@@ -42,6 +40,25 @@ angular.module('WaterReporter')
     };
 
     this.search.resource = Report;
+
+    /**
+     * Setup the User object so that we can determine the type of authentication,
+     * user permissions, and if the current page is the profile page.
+     *
+     * @param (object) A User $promise
+     */
+    if (user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false
+        };
+
+      });
+    }
 
     /**
      * Setup the Mapbox map for this page with the results we got from the API
@@ -146,23 +163,6 @@ angular.module('WaterReporter')
         };
       });
     };
-
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          $rootScope.user = Account.userObject = userResponse;
-
-          self.permissions.isLoggedIn = Account.hasToken();
-          self.permissions.isAdmin = Account.hasRole('admin');
-          self.permissions.isProfile = false;
-        });
-      }
-    }
 
     /**
      * Open Report functionality to the Cotnroller
