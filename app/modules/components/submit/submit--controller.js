@@ -274,9 +274,11 @@
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
 
-            self.permissions.isLoggedIn = Account.hasToken();
-            self.permissions.isAdmin = Account.hasRole('admin');
-            self.permissions.isProfile = false;
+            self.permissions = {
+              isLoggedIn: Account.hasToken(),
+              isAdmin: Account.hasRole('admin'),
+              isProfile: false
+            };
           });
         }
       }
