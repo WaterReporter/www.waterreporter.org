@@ -19,6 +19,11 @@
 
             {{ page.data.properties.organization[0].properties.name }}
           </p>
+          <p class="text-center" data-ng-if="page.permissions.isProfile">
+            <a href="/profiles/{{ page.data.id }}/edit" class="button">
+              Edit Profile
+            </a>
+          </p>
           <p class="text-center">
             <a data-ng-if="!page.visible.reports && $root.isCurrentUser && $root.isAdmin" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
               {{ page.reports.properties.num_results | number:0 }} Reports

@@ -60,7 +60,6 @@ angular.module('WaterReporter')
       }
 
       for (var index = 0; index < roles.length; index++) {
-        console.log(roleNeeded, '===', roles[index].properties.name, '?');
         if (roleNeeded === roles[index].properties.name) {
           return true;
         }

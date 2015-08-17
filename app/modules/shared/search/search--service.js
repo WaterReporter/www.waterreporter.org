@@ -77,8 +77,6 @@ angular.module('WaterReporter')
       },
       autoload: function() {
 
-        console.log('autoload')
-
         var service = this;
 
         if (service.busy) {

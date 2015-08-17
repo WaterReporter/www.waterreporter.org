@@ -89,5 +89,20 @@ angular.module('WaterReporter')
             return Report.query(search_params);
           }
         }
+      })
+      .when('/profiles/:userId/edit', {
+        templateUrl: '/modules/components/profile/profileEdit--view.html',
+        controller: 'ProfileEditController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          }
+        }
       });
   });

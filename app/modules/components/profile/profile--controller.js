@@ -168,8 +168,11 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
-        self.permissions.isLoggedIn = Account.hasToken();
-        self.permissions.isAdmin = Account.hasRole('admin');
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin')
+        };
+
         self.permissions.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
 
         if ($rootScope.user.id === parseInt($route.current.params.userId)) {
