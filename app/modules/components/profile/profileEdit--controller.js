@@ -90,7 +90,6 @@ angular.module('WaterReporter')
 
       if (!self.profile.properties.organization[0].properties.name) {
         profile_.organization = [];
-        console.log('NULL', self.profile.properties.organization[0].properties.name)
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
         profile_.organization = [
           {
@@ -98,17 +97,13 @@ angular.module('WaterReporter')
             name: self.profile.properties.organization[0].properties.name
           }
         ];
-        console.log('UPDATE', self.profile.properties.organization[0].properties.name)
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
         profile_.organization = [
           {
             name: self.profile.properties.organization[0].properties.name
           }
         ];
-        console.log('NEW', self.profile.properties.organization[0].properties.name)
       }
-
-      debugger;
 
       if (self.image) {
          var fileData = new FormData();

@@ -65,13 +65,22 @@
             Profile Picture
           </p>
         </div>
-        <div class="form--field">
+        <div class="form--field" data-ng-if="!page.profile.properties.images.length">
           <label for="images" class="control--label">
             Include a profile picture
           </label>
           <input type="file" id="user--image" name="user--image"
                  class="form--control form--control--file"
                  file-model="page.image" />
+        </div>
+        <div class="form--field" data-ng-if="page.profile.properties.images.length">
+
+          <p>
+            <img class="img-circle" data-ng-src="{{ page.profile.properties.images[0].properties.thumbnail }}" />
+          </p>
+          <br />
+          <button type="button" class="button button--hollow" data>Remove Image</button>
+
         </div>
       </div>
 
