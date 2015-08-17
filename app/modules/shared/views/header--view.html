@@ -34,19 +34,21 @@
         <li data-ng-if="$root.user && $root.user.id">
           <a href="/profiles/{{ $root.user.id }}">{{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}</a>
         </li>
-        <li data-ng-if="$root.user && $root.user.id">
+        <li data-ng-if="$root.user && $root.user.id && page.isCurrentUser">
           <a href="/user/logout">Log out</a>
         </li>
         <li data-ng-if="!$root.user.id">
           <a href="/user/login">Log in</a>
         </li>
-        <li>
+        <li data-ng-if="!$root.user.id">
           <a href="/activity" title="Explore the WaterReporter Activity map">
             Explore
           </a>
         </li>
         <li data-ng-if="$root.user.id">
-          <a class="button" href="/submit">Submit a Report</a>
+          <a type="button" class="button button--info button--feature" href="/submit">
+            Submit a Report
+          </a>
         </li>
       </ul>
     </nav>

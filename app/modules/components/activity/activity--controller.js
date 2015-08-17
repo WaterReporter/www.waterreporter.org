@@ -12,8 +12,6 @@
 
       var self = this;
 
-      $rootScope.user = Account.userObject;
-
       /**
        * Setup our Features so that they appear on the home page in the
        * appropriate position

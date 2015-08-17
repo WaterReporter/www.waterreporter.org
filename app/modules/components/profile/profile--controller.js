@@ -170,10 +170,10 @@ angular.module('WaterReporter')
 
             $rootScope.isLoggedIn = Account.hasToken();
             $rootScope.isAdmin = Account.hasRole('admin');
-            $rootScope.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
+            self.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
 
-            self.visible.reports = ($rootScope.isCurrentUser) ? true : false;
-            self.visible.submissions = ($rootScope.isCurrentUser) ? false : true;
+            self.visible.reports = (self.isCurrentUser) ? true : false;
+            self.visible.submissions = (self.isCurrentUser) ? false : true;
 
             if ($rootScope.isAdmin) {
               self.loadDashboard();

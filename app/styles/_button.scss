@@ -8,161 +8,6 @@
 //
 
 
-// //
-// // Buttons
-// //
-// a.button,
-// a.button:hover,
-// .button,
-// .button:hover {
-//   background-color: darken($color-green-base, 10%);
-//   border: 0;
-//   -webkit-border-radius: 0;
-//   -moz-border-radius: 0;
-//   border-radius: 0;
-//   box-shadow: 0px 2px 3px rgba(0,0,0,0.2);
-//   color: rgb(255, 255, 255);
-//   display: inline-block;
-//   font-family: $font-sans;
-//   font-size: 0.875em;
-//   font-weight: 300;
-//   font-style: normal;
-//   letter-spacing: 0.125em;
-//   padding: 10px 20px;
-//   text-decoration: none;
-//   text-align: center;
-//   text-shadow: none;
-//   text-transform: uppercase;
-//   white-space: nowrap;
-//
-//   &:hover {
-//     background-color: $color-green-base;
-//   }
-//
-//   &.button-large {
-//     font-size: 1em;
-//   }
-//
-//   em {
-//     font-style: italic;
-//
-//     &.fancy {
-//       font-family: $font-serif;
-//       font-weight: 300;
-//       text-transform: none;
-//       -webkit-font-smoothing: antialiased;
-//     }
-//   }
-//
-// }
-//
-// .button.button-inverse,
-// .button.button-inverse:hover {
-//   background-color: $color-white-base;
-//   border: 1px solid darken($color-green-base, 10%);
-//   color: darken($color-green-base, 10%);
-//
-//   &:hover {
-//     background-color: $color-white-base;
-//     border: 1px solid $color-green-base;
-//   }
-// }
-//
-// .button:active {
-//   position:relative;
-//   top: 1px;
-// }
-//
-// .button.button-default,
-// .button.button-default:hover {
-//   background-color: $color-white-bright;
-//   color: $color-black-light;
-//
-//   &.button-inverse,
-//   &.button-inverse:hover {
-//     background-color: transparent;
-//     border: 1px solid $color-white-bright;
-//     color: $color-white-bright;
-//   }
-// }
-//
-// .button.button-info,
-// .button.button-info:hover {
-//   background-color: $color-blue-darker;
-//   color: rgb(252,252,252);
-//   &:hover {
-//     background-color: $color-blue-base;
-//   }
-// }
-//   .button.button-info.button-inverse,
-//   .button.button-info.button-inverse:hover {
-//     background-color: $color-white-base;
-//     border: 1px solid darken($color-blue-base, 5%);
-//     color: darken($color-blue-base, 5%);
-//
-//     &:hover {
-//       background-color: $color-white-base;
-//       border: 1px solid $color-blue-base;
-//     }
-//   }
-//
-// .button.button-link,
-// .button.button-link:hover {
-//   background-color: rgb(252,252,252);
-//   border-bottom: 2px solid rgb(252,252,252);
-//   box-shadow: none;
-//   color: rgb(64, 172, 24);
-//   margin: 10px 20px;
-//   padding: 0;
-// }
-//
-// .button.button-link:hover {
-//   border-bottom: 2px solid rgb(64, 172, 24);
-// }
-//
-// .button.button-cancel,
-// .button.button-cancel:hover {
-//   background-color: darken($color-red-base, 5%);
-//   color: rgb(252,252,252);
-//   &:hover {
-//     background-color: $color-red-base;
-//   }
-// }
-//   .button.button-cancel.button-inverse,
-//   .button.button-cancel.button-inverse:hover {
-//     background-color: $color-white-base;
-//     border: 1px solid darken($color-red-base, 5%);
-//     color: darken($color-red-base, 5%);
-//
-//     &:hover {
-//       background-color: $color-white-base;
-//       border: 1px solid $color-red-base;
-//     }
-//   }
-//
-// .button.small {
-//   font-size: 12px;
-//   padding: 2px 10px 3px;
-// }
-//
-// .button.success {
-//     background-color: rgb(108,196,14);
-//     box-shadow: 0 0.2em 0 darken(rgb(108,196,14), 10%);
-// }
-// .button.success:active,
-// .button.success:focus {
-//     box-shadow: 0 0.1em 0 darken(rgb(108,196,14), 10%);
-// }
-//
-// .button.danger {
-//   background-color: rgb(187, 17, 17);
-//   border-radius: 5px;
-//   -moz-border-radius: 5px;
-//   -webkit-border-radius: 5px;
-//   border: 1px solid rgb(147, 17, 17);
-// }
-
-
 //
 // Buttons
 //
@@ -258,6 +103,18 @@ a.button.button-delete {
   &:hover {
     background-color: transparent;
     text-decoration: underline;
+  }
+}
+
+.button.button--feature,
+a.button.button--feature {
+  color: rgb(255, 255, 255);
+  font-size: 0.75em;
+  padding: 0.75em 2.2em;
+  text-shadow: none;
+
+  &:hover {
+    color: rgb(255, 255, 255);
   }
 }
 
