@@ -1,7 +1,19 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content site--content--userProfileEdit">
-  <div class="container">
+  <div class="page--content">
+
+    <h1>Your Personal Information</h1>
+
+    <p>
+      Below are your personal account details. These control how you log in,
+      let us know how best to contact you, and keep your reports, comments,
+      and images in organized.
+    </p>
+
+    <div class="status" data-ng-if="!page.profile.id">
+      <div class="throbber"></div>
+    </div>
 
     <div data-ng-if="page.status.saving.action"
          style="text-align: center;">
@@ -83,7 +95,7 @@
 
 
       <!-- User Profile Image -->
-      <div class="form--row">
+      <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
           <p>
             Profile Picture
@@ -99,11 +111,11 @@
         </div>
       </div>
 
-      <div class="form--actions">
+      <div class="form--actions" data-ng-if="page.profile.id">
         <div class="form--actions--buttons"></div>
         <div class="form--actions--buttons">
           <button type="submit" id="report--submit" name="report--submit"
-                  class="button button--submit button--indent button--outline">
+                  class="button button--submit button--outline">
             Save
           </button>
 
@@ -111,6 +123,13 @@
       </div>
 
     </form>
+
+    <div class="status" data-ng-if="page.status.savingUser">
+      <div class="throbber"></div>
+      <p class="status--message">
+        Saving your user information
+      </p>
+    </div>
 
   </div>
 </main>

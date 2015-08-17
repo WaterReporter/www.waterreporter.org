@@ -39,8 +39,35 @@ body {
 }
 
 .site--content {
-
+  background-color: rgb(238,238,238);
+  box-sizing: border-box;
+  float: left;
+  padding: 2em;
+  width: 100%;
 }
+
+  .page--content {
+    background-color: $color-white-base;
+    margin: 2em auto 1em;
+    padding: 3em 3em 6em;
+    max-width: 68em;
+  }
+    .page--content.page--content--transparent {
+      background-color: transparent;
+    }
+
+    .page--content--row {
+      display: inline-block;
+      width: 100%;
+    }
+
+    .page--content--column {
+      box-sizing: border-box;
+      float: left;
+      min-height: 1px;
+      margin-left: 0.625%;
+      margin-right: 0.625%;
+    }
 
 .site--footer {
   clear: both;
