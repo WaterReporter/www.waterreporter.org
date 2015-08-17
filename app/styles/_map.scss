@@ -242,9 +242,17 @@ body.map--controls--visible .leaflet-control-container {
     left: 200px;
 }
 
+  .map--form .leaflet-left {
+    left: 0;
+  }
+
 .leaflet-right {
     right: -220px;
 }
+
+  .map--form .leaflet-right {
+    right: 0;
+  }
 
 .marker--icon.marker--icon--resolved {
 }
