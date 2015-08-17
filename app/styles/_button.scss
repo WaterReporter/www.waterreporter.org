@@ -118,6 +118,26 @@ a.button.button--feature {
   }
 }
 
+.button.button--hollow,
+a.button.button--hollow {
+  background-color: transparent;
+  border: 1px solid rgb(91,96,93);
+  box-shadow: none;
+  color: rgb(91,96,93);
+  font-size: 0.75em;
+  font-weight: 400;
+  padding: 0.75em 2.2em 0.5em;
+  text-shadow: none;
+
+  &:hover {
+    color: rgb(41,46,43);
+  }
+}
+
+.button.button--space {
+  margin: 2em 0;
+}
+
 
 
 //

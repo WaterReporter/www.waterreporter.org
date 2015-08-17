@@ -13,16 +13,18 @@
       <div class="user--profile">
         <div id="user--profile--{{ page.data.id }}">
           <p class="text-center">
-            <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" /><br /><br />
+            <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" />
+          </p>
+          <p class="text-center" data-ng-if="page.permissions.isProfile">
+            <a href="/profiles/{{ page.data.id }}/edit" class="button button--hollow button--space">
+              Edit Profile
+            </a>
+          </p>
+          <p class="text-center">
             <strong>{{ page.data.properties.first_name }} {{ page.data.properties.last_name }}</strong><br />
             {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span><br data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name" />
 
             {{ page.data.properties.organization[0].properties.name }}
-          </p>
-          <p class="text-center" data-ng-if="page.permissions.isProfile">
-            <a href="/profiles/{{ page.data.id }}/edit" class="button">
-              Edit Profile
-            </a>
           </p>
           <p class="text-center">
             <a data-ng-if="!page.visible.reports && $root.isCurrentUser && $root.isAdmin" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
