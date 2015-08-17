@@ -45,10 +45,13 @@
 
   <div class="report--content">
 
-    <p data-ng-if="report.properties.report_description || report.properties.comments.length">
+    <p>
       <span data-ng-if="report.properties.report_description">
         {{ report.properties.report_description }}
-      </span><br data-ng-if="report.properties.report_description" />
+      </span>
+      <span data-ng-if="!report.properties.report_description">
+        <em>No report description</em>
+      </span><br />
       <a class="report--comment--link" href="/reports/{{ report.id }}#comments">
         <span data-ng-if="report.properties.comments.length > 1">
           view all {{ report.properties.comments.length }} comments

@@ -13,9 +13,12 @@
 
     <div class="report--content">
 
-      <p data-ng-if="page.report.properties.report_description || page.report.properties.comments.length">
-        <span data-ng-if="page.report.properties.report_description">
-          {{ page.report.properties.report_description }}
+      <p>
+        <span data-ng-if="report.properties.report_description">
+          {{ report.properties.report_description }}
+        </span>
+        <span data-ng-if="!report.properties.report_description">
+          <em>No report description</em>
         </span>
       </p>
 
