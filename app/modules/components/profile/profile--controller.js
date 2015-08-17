@@ -50,6 +50,8 @@ angular.module('WaterReporter')
 
     this.closures = closures;
 
+    this.permissions = {};
+
     this.visible = {
       submissions: true,
       reports: false,
@@ -162,27 +164,25 @@ angular.module('WaterReporter')
     // sure that their user information is ready to use. Make sure the
     // Account.userObject contains the appropriate information.
     //
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
-            self.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
+        self.permissions.isLoggedIn = Account.hasToken();
+        self.permissions.isAdmin = Account.hasRole('admin');
+        self.permissions.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
 
-            self.visible.reports = (self.isCurrentUser) ? true : false;
-            self.visible.submissions = (self.isCurrentUser) ? false : true;
+        if ($rootScope.user.id === parseInt($route.current.params.userId)) {
+          self.permissions.isProfile = true;
+        }
 
-            if ($rootScope.isAdmin) {
-              self.loadDashboard();
-            }
-            else {
-              $location.path('/activity/list');
-            }
-        });
-      }
+        self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
+        self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
+
+        if (self.permissions.isAdmin) {
+          self.loadDashboard();
+        }
+      });
     }
 
   });

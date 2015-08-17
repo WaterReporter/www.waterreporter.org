@@ -1,11 +1,15 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content site--profile">
-  <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+
+  <div id="map--wrapper" class="map--wrapper">
+    <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+      <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+    </div>
+  </div>
 
   <div class="container">
     <div class="row">
-
       <div class="user--profile">
         <div id="user--profile--{{ page.data.id }}">
           <p class="text-center">

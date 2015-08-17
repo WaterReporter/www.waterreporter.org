@@ -31,10 +31,10 @@
                   width="16" alt="Search" />
           </a>
         </li>
-        <li data-ng-if="$root.user && $root.user.id">
+        <li data-ng-if="!page.permissions.isCurrentUser">
           <a href="/profiles/{{ $root.user.id }}">{{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}</a>
         </li>
-        <li data-ng-if="$root.user && $root.user.id && page.isCurrentUser">
+        <li data-ng-if="page.permissions.isCurrentUser">
           <a href="/user/logout">Log out</a>
         </li>
         <li data-ng-if="!$root.user.id">

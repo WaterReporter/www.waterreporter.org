@@ -14,6 +14,8 @@ angular.module('WaterReporter')
 
     self.image = null;
 
+    self.permissions = {};
+
     /**
      * Setup search capabilities for the Report Activity Feed
      *
@@ -153,11 +155,11 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       if (user) {
         user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+          $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
+          self.permissions.isLoggedIn = Account.hasToken();
+          self.permissions.isAdmin = Account.hasRole('admin');
+          self.permissions.isProfile = false;
         });
       }
     }

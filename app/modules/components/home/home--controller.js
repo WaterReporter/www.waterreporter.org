@@ -8,7 +8,9 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('HomeController', function (Account, Report, Search, user) {
+  .controller('HomeController', function (Account, Report, $rootScope, Search, user) {
+
+    var self = this;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -45,11 +47,13 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       if (user) {
         user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+          $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
+          self.permissions = {
+            isLoggedIn: Account.hasToken(),
+            isAdmin: Account.hasRole('admin')
+          };
+
         });
       }
     }

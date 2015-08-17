@@ -14,7 +14,7 @@ angular.module('WaterReporter')
       userObject: {}
     };
 
-    Account.getUser = function( ) {
+    Account.getUser = function() {
 
       var userId = ipCookie('WATERREPORTER_CURRENTUSER');
 
@@ -36,7 +36,7 @@ angular.module('WaterReporter')
           path: '/',
           expires: 2
         });
-        
+
         return accountResponse.id;
       });
 
@@ -68,6 +68,6 @@ angular.module('WaterReporter')
 
       return false;
     };
-    
+
     return Account;
   });
