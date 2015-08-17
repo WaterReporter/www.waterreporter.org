@@ -6,9 +6,11 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, profile, Report, $rootScope, $route, Search, $scope, user) {
+  .controller('ProfileEditController', function (Account, Image, profile, Report, $rootScope, $route, Search, $scope, user, User) {
 
     var self = this;
+
+    self.image = null;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -42,10 +44,10 @@ angular.module('WaterReporter')
     //
     profile.$promise.then(function(profileResponse) {
 
-      self.profile = profileResponse.properties;
+      self.profile = profileResponse;
 
-      if (self.profile.telephone.length === 0) {
-        self.profile.telephone = [{}];
+      if (self.profile.properties.telephone.length === 0) {
+        self.profile.properties.telephone = [{}];
       }
     });
 
@@ -67,5 +69,47 @@ angular.module('WaterReporter')
 
       });
     }
+
+    self.save = function() {
+
+      var profile_ = new User({
+        id: self.profile.id,
+        first_name: self.profile.properties.first_name,
+        last_name: self.profile.properties.last_name,
+        email: self.profile.properties.email,
+        description: self.profile.properties.description,
+        title: self.profile.properties.title,
+        organization_name: self.profile.properties.organization_name,
+        telephone: [{
+          number: self.profile.properties.telephone[0].properties.number
+        }]
+      });
+
+      if (self.image) {
+         var fileData = new FormData();
+
+         fileData.append('image', self.image);
+
+         Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+           console.log('successResponse', successResponse);
+
+           profile_.images = [
+             {
+               id: successResponse.id
+             }
+           ];
+
+           profile_.$update(function() {
+             $route.reload();
+           });
+
+         });
+      } else {
+         profile_.$update(function() {
+           $route.reload();
+         });
+      }
+   };
 
   });

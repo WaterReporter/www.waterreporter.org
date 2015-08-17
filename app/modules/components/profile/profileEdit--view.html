@@ -1,7 +1,7 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content site--content--userProfileEdit">
-  <div class="page--content">
+  <div class="page--content page--content--form">
 
     <h1>Your Personal Information</h1>
 
@@ -35,64 +35,12 @@
         <div class="form--field">
           <input type="text" class="form--control form--control--half"
                  id="first_name" name="first_name" placeholder="First Name"
-                 data-ng-model="page.profile.first_name" />
+                 data-ng-model="page.profile.properties.first_name" />
           <input type="text" class="form--control form--control--half"
                  id="last_name" name="last_name"  placeholder="Last Name"
-                 data-ng-model="page.profile.last_name" />
+                 data-ng-model="page.profile.properties.last_name" />
         </div>
       </div>
-
-      <div class="form--row" data-ng-if="page.profile.id">
-        <div class="form--label">
-          <p>
-            Contact Information
-          </p>
-        </div>
-        <div class="form--field">
-          <div class="form--element form--element--half">
-            <label for="email" class="control--label">Email Address</label>
-            <input type="text" class="form--control" id="email"
-                   name="email" data-ng-model="page.profile.email" />
-         </div>
-         <div class="form--element form--element--half">
-            <label for="telephone" class="control--label">Telephone Number</label>
-            <input type="text" class="form--control" id="telephone" name="telephone"
-                   data-ng-model="phone.number" placeholder="555-555-5555"
-                   data-ng-repeat="phone in page.profile.telephone track by $index" />
-           </div>
-        </div>
-      </div>
-
-      <div class="form--row" data-ng-if="page.profile.id">
-        <div class="form--label">
-          <p>
-            Email Address
-          </p>
-        </div>
-        <div class="form--field">
-          <input type="text" class="form--control" id="email"
-                 name="email" data-ng-model="page.profile.email" />
-        </div>
-      </div>
-
-
-      <div class="form--row" data-ng-if="page.profile.id">
-        <div class="form--label">
-          <p>
-            Bio
-          </p>
-        </div>
-        <div class="form--field">
-          <textarea class="form--control" id="description"
-                 name="description" placeholder="" rows="5"
-                 data-ng-model="page.profile.description">
-            {{ page.profile.description }}
-          </textarea>
-        </div>
-      </div>
-
-
-
 
       <!-- User Profile Image -->
       <div class="form--row" data-ng-if="page.profile.id">
@@ -108,6 +56,42 @@
           <input type="file" id="user--image" name="user--image"
                  class="form--control form--control--file"
                  file-model="page.image" />
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.profile.id">
+        <div class="form--label">
+          <p>
+            Contact Information
+          </p>
+        </div>
+        <div class="form--field">
+          <div class="form--element form--element--half">
+            <label for="email" class="control--label">Email Address</label>
+            <input type="text" class="form--control" id="email"
+                   name="email" data-ng-model="page.profile.properties.email" />
+         </div>
+         <div class="form--element form--element--half">
+            <label for="telephone" class="control--label">Telephone Number</label>
+            <input type="text" class="form--control" id="telephone" name="telephone"
+                   data-ng-model="phone.properties.number" placeholder="555-555-5555"
+                   data-ng-repeat="phone in page.profile.properties.telephone track by $index" />
+           </div>
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.profile.id">
+        <div class="form--label">
+          <p>
+            Bio
+          </p>
+        </div>
+        <div class="form--field">
+          <textarea class="form--control" id="description"
+                 name="description" placeholder="" rows="5"
+                 data-ng-model="page.profile.properties.description">
+            {{ page.profile.properties.description }}
+          </textarea>
         </div>
       </div>
 

@@ -48,11 +48,6 @@ angular.module('WaterReporter')
       },
       responseError: function (response) {
         console.debug('AuthorizationInterceptor::ResponseError', response || $q.when(response));
-
-        if (response.status === 403) {
-          $location.path('/user/logout');
-        }
-
         return $q.reject(response);
       }
     };
