@@ -1,19 +1,19 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
-<main class="site--content site--profile">
-
-  <div id="map--wrapper" class="map--wrapper">
-    <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
-      <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
-    </div>
+<div id="map--wrapper" class="map--wrapper">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
   </div>
+</div>
+
+<main class="site--content site--profile">
 
   <div class="container">
     <div class="row">
       <div class="user--profile">
         <div id="user--profile--{{ page.data.id }}">
           <p class="text-center">
-            <img class="user--profile--image img-circle" data-ng-if="page.data.properties.email" gravatar-src="'{{ page.data.properties.email }}'" gravatar-size="256" /><br /><br />
+            <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" /><br /><br />
             <strong>{{ page.data.properties.first_name }} {{ page.data.properties.last_name }}</strong><br />
             {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span><br data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name" />
 
