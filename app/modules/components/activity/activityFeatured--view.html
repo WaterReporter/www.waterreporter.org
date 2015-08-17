@@ -2,7 +2,11 @@
 
   <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
 
-  <leaflet id="map" data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+  <leaflet id="map" class="map map--hero" markers="page.map.markers"
+           data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length"
+           defaults="page.map.defaults" layers="page.map.layers"
+           center="page.map.center" bounds="page.map.bounds">
+  </leaflet>
 
   <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
   </div>

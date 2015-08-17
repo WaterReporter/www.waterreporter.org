@@ -14,6 +14,14 @@
 }
 
 .map {
+  min-height: 320px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.map--hero {
   margin-bottom: -320px;
   min-height: 320px;
   position: absolute;
@@ -22,7 +30,7 @@
   width: calc(100% + 420px);
 }
 
-.map--wrapper--expanded,
+.map--wrapper--expanded,m
 .map--wrapper--expanded .map {
   transition: height .25s ease-in-out;
   -moz-transition: height .25s ease-in-out;
@@ -66,6 +74,7 @@
 .marker--icon {}
 
   .marker--icon--image {
+    background-color: $color-gray-base;
     border: 5px solid rgb(255, 255, 255);
     border-radius: 32px;
     box-shadow: 1px 1px 24px rgba(0, 0, 0, 0.5);
@@ -108,9 +117,27 @@
       margin-left: 37px;
     }
 
+    //
+    // Marker Icon Enhanced : Resolved
+    //
+    .marker--icon.marker--icon--resolved {
+    }
+
+    .marker--icon.marker--icon--resolved .marker--icon--image {
+      background-color: $color-white-base;
+      text-align: center;
+    }
+
+    .marker--icon.marker--icon--resolved .marker--icon--image.marker--icon--large img {
+      margin-top: 11px;
+      min-height: 0;
+      min-width: 0;
+      width: 70%;
+    }
+
 
 //
-// Leaflet Overrides
+// Generic Leaflet Overrides
 //
 .leaflet-bar,
 .leaflet-bar a,
@@ -154,28 +181,6 @@
 .leaflet-control-layers-toggle {
   display: none;
 }
-
-
-
-// .leaflet-control-layers-toggle:before {
-//   color: $color-black-bright !important;
-//   content: ",";
-//   font-family: "retina-icon";
-//
-//   font-size: 26px;
-//   top: 5px;
-//   left: 4px;
-//   position: relative;
-//
-//   font-style: normal !important;
-//   font-weight: normal !important;
-//   font-variant: normal !important;
-//   text-transform: none !important;
-//   speak: none;
-//   line-height: 1;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-// }
 
 .leaflet-control-layers-list {
   display: block !important;
@@ -238,33 +243,21 @@ body.map--controls--visible .leaflet-control-container {
   opacity: 1 !important;
 }
 
+//
+// Map Control Positioning
+//
 .leaflet-left {
-    left: 200px;
+    left: 0;
 }
 
-  .map--form .leaflet-left {
-    left: 0;
+  .map--hero .leaflet-left {
+    left: 200px;
   }
 
 .leaflet-right {
-    right: -220px;
-}
-
-  .map--form .leaflet-right {
     right: 0;
+}
+
+  .map--hero .leaflet-right {
+    right: -220px;
   }
-
-.marker--icon.marker--icon--resolved {
-}
-
-.marker--icon.marker--icon--resolved .marker--icon--image {
-  background-color: $color-white-base;
-  text-align: center;
-}
-
-.marker--icon.marker--icon--resolved .marker--icon--image.marker--icon--large img {
-  margin-top: 11px;
-  min-height: 0;
-  min-width: 0;
-  width: 70%;
-}
