@@ -63,8 +63,8 @@ angular.module('WaterReporter')
         self.permissions = {
           isLoggedIn: Account.hasToken(),
           isAdmin: Account.hasRole('admin'),
-          isProfile: ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false,
-          isCurrentUser: ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false
+          isProfile: false,
+          isCurrentUser: false
         };
 
       });
