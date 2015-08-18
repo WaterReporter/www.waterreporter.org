@@ -17,7 +17,6 @@ angular
     'ngRoute',
     'ngTouch',
     'leaflet-directive',
-    'ui.gravatar',
     'Mapbox',
     'angularMoment',
     'infinite-scroll',
