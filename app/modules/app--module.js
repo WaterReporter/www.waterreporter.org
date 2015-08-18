@@ -18,7 +18,6 @@ angular
     'ngTouch',
     'leaflet-directive',
     'angularMoment',
-    'infinite-scroll',
     'igTruncate',
     'Mapbox'
   ]);

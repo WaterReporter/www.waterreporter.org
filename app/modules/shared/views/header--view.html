@@ -6,39 +6,23 @@
       <img src="/images/logo-WaterReporter-SideBySide.svg" alt="" title="" width="192" />
     </a>
 
-    <form class="site--search site--search--content form" role="form"
-          id="form--search--reports" name="form--search--reports"
-          data-ng-submit="page.search.redirect()"
-          data-ng-if="page.search.visible">
-      <div class="form-group">
-        <label for="form--search--reportDescription" aria-hidden="true"
-               class="element-hidden">
-          Search
-        </label>
-        <input type="text" class="form--control search--control"
-               id="form--search--reportDescription" placeholder="Search"
-               name="form--search--reportDescription" autofocus="autofocus"
-               data-ng-model="page.search.params.report_description" />
-      </div>
-    </form>
-
     <nav class="navigation navigation--right">
       <ul class="navigation--utility nav navbar-nav pull-right">
-        <li>
-          <a href="javascript:void(0);"
-             data-ng-click="page.search.visible =! page.search.visible">
-             <img class="icon--search" src="/images/icon--search.svg"
-                  width="16" alt="Search" />
-          </a>
-        </li>
         <li data-ng-if="!page.permissions.isCurrentUser">
-          <a href="/profiles/{{ $root.user.id }}">{{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}</a>
+          <a href="/profiles/{{ $root.user.id }}">
+            {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}
+          </a>
         </li>
         <li data-ng-if="page.permissions.isCurrentUser">
           <a href="/user/logout">Log out</a>
         </li>
         <li data-ng-if="!$root.user.id">
           <a href="/user/login">Log in</a>
+        </li>
+        <li>
+          <a href="/search">
+             Search Community
+          </a>
         </li>
         <li data-ng-if="!$root.user.id">
           <a href="/activity" title="Explore the WaterReporter Activity map">

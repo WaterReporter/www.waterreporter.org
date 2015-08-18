@@ -14,7 +14,7 @@
 .navigation--right {
   float: right;
   padding-top: 1em;
-  max-width: 37.5%;
+  max-width: 62.5%;
 }
 
 .navigation--utility {
@@ -42,10 +42,13 @@
     }
 
     a {
+      border: none;
       color: $color-blue-base;
 
       &:hover {
+        border-bottom: 3px solid $color-blue-darker;
         color: $color-blue-darker;
+        font-size: 600;
         text-decoration: none;
       }
     }
