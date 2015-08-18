@@ -86,6 +86,7 @@ angular.module('WaterReporter')
         telephone: [{
           number: self.profile.properties.telephone[0].properties.number
         }],
+        images: self.profile.properties.images
       });
 
       if (!self.profile.properties.organization[0].properties.name) {
@@ -130,6 +131,10 @@ angular.module('WaterReporter')
            $route.reload();
          });
       }
+   };
+
+   self.removeImage = function(imageId) {
+    self.profile.properties.images= [];
    };
 
   });

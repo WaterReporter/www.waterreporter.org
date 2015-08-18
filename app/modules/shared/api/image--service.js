@@ -22,6 +22,10 @@ angular.module('WaterReporter')
       },
       update: {
         method: 'PATCH'
+      },
+      delete: {
+        method: 'DELETE',
+        url: '//api.waterreporter.org/v1/data/image/:imageId'
       }
     });
   }]);
