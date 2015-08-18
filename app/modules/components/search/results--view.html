@@ -4,19 +4,9 @@
   </div>
 </div>
 
-<div data-ng-if="page.search.data.features.length && !page.search.loadMore">
+<div data-ng-if="page.search.data.features.length">
   <div id="report--{{ report.properties.id }}" class="report"
        data-ng-repeat="report in page.search.data.features">
-    <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
-  </div>
-</div>
-
-
-<div infinite-scroll="page.search.autoload()"
-     infinite-scroll-disabled="page.search.busy"
-     infinite-scroll-distance="5" data-ng-if="page.search.loadMore">
-  <div id="report--{{ report.properties.id }}" class="report"
-           data-ng-repeat="report in page.search.data.features">
     <div data-ng-include="'/modules/shared/views/report--view.html'"></div>
   </div>
 </div>
