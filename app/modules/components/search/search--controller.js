@@ -43,21 +43,21 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-            $rootScope.user = Account.userObject = userResponse;
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
 
-            self.permissions.isLoggedIn = Account.hasToken();
-            self.permissions.isAdmin = Account.hasRole('admin');
-            self.permissions.isProfile = false;
-        });
-      }
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false
+        };
+      });
     }
 
   });

@@ -9,8 +9,6 @@ body {
   background-color: $color-white-dark;
 }
 
-
-
 .element-hidden {
   display: none;
 }
@@ -54,6 +52,7 @@ body {
   }
     .page--content.page--content--transparent {
       background-color: transparent;
+      padding: 0 3em;
     }
 
     .page--content--row {
