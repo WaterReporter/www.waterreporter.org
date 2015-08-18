@@ -1,9 +1,8 @@
 <div data-ng-if="!page.comment.edit" class="report--comments--comment report--comments--form">
 
   <a class="report--comment--avatar" href="/profiles/{{ $root.user.id }}">
-    <img data-ng-if="$root.user.properties.email"
-         gravatar-src="'{{ $root.user.properties.email }}'"
-         gravatar-size="64" />
+    <img data-ng-src="{{ $root.user.properties.picture }}"
+         width="64" />
   </a>
 
   <p class="report--comment--author">

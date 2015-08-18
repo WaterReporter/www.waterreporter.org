@@ -5,9 +5,8 @@
        data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
     <div data-ng-if="comment.properties.body">
       <a class="report--comment--avatar" href="/profiles/{{ comment.properties.owner.id }}">
-        <img data-ng-if="comment.properties.owner.properties.email"
-             gravatar-src="'{{ comment.properties.owner.properties.email }}'"
-             gravatar-size="64" />
+         <img data-ng-src="{{ comment.properties.owner.properties.picture }}"
+              width="64" />
       </a>
       <p class="report--comment--author">
         <a href="/profiles/{{ comment.properties.owner.id }}">

@@ -40,11 +40,9 @@
             <div class="report--metadata--section">
               <p>
                 <a href="/profiles/{{ page.report.properties.owner.id }}">
-                  <img class="report--author--avatar" gravatar-size="32"
-                       data-ng-if="page.report.properties.owner.properties.email"
-                       gravatar-src="'{{ page.report.properties.owner.properties.email }}'" />
-                  <img class="user--profile--image img-circle"
-                       data-ng-src="{{ page.report.properties.owner.images[0].properties.thumbnail }}" />
+                  <img class="report--author--avatar"
+                       data-ng-src="{{ page.report.properties.owner.properties.picture }}"
+                       width="32" />
                 </a>
                 <a class="report--author--name" href="/profiles/{{ page.report.properties.owner.id }}">
                   {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}
