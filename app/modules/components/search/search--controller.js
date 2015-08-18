@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Exporter, Report, reports, $rootScope, Search, user) {
+  .controller('SearchController', function (Account, Exporter, $location, Report, reports, $rootScope, Search, user) {
 
     var self = this;
 
@@ -44,9 +44,19 @@ angular.module('WaterReporter')
     this.search.data = reports;
 
     self.download = function() {
-      Exporter.geojsonToCsv(self.search.data);
 
+      /**
+       * In order to download all the results we need to make a second request
+       * to the API.
+       */
+      var search_params = $location.search();
 
+      Report.query({
+        q: search_params.q,
+        results_per_page: self.search.data.properties.num_results
+      }).$promise.then(function(reportResponse) {
+        Exporter.geojsonToCsv(reportResponse);
+      });
     };
 
     //
