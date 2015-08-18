@@ -1,6 +1,4 @@
-<div id="map--wrapper" class="map--wrapper">
-
-  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+<div id="map--wrapper" class="map--wrapper" data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length">
 
   <leaflet id="map" class="map map--hero" markers="page.map.markers"
            data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length"
