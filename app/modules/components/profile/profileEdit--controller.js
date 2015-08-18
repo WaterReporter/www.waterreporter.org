@@ -121,6 +121,8 @@ angular.module('WaterReporter')
              }
            ];
 
+           profile_.picture = successResponse.thumbnail;
+
            profile_.$update(function() {
              $route.reload();
            });
