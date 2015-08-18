@@ -138,6 +138,26 @@ a.button.button--hollow {
   margin: 2em 0;
 }
 
+.button.button--link,
+a.button.button--link {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: rgb(91,96,93);
+  font-size: 0.75em;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-shadow: none;
+  text-transform: none;
+
+  &:hover {
+    color: rgb(41,46,43);
+    text-decoration: none;
+  }
+}
 
 
 //
