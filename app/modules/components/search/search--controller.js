@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Report, reports, $rootScope, Search, user) {
+  .controller('SearchController', function (Account, Exporter, Report, reports, $rootScope, Search, user) {
 
     var self = this;
 
@@ -42,6 +42,12 @@ angular.module('WaterReporter')
     this.search.resource = Report;
 
     this.search.data = reports;
+
+    self.download = function() {
+      Exporter.geojsonToCsv(self.search.data);
+
+
+    };
 
     //
     // This is the first page the authneticated user will see. We need to make

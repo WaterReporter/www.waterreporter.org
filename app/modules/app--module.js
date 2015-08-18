@@ -17,8 +17,8 @@ angular
     'ngRoute',
     'ngTouch',
     'leaflet-directive',
-    'Mapbox',
     'angularMoment',
     'infinite-scroll',
-    'igTruncate'
+    'igTruncate',
+    'Mapbox'
   ]);

@@ -154,8 +154,7 @@ angular.module('WaterReporter')
          //
          $location.search({
            q: angular.toJson(q),
-           page: _page ? _page : 1,
-           results_per_page: _results_per_page ? _results_per_page : 25
+           page: _page ? _page : 1
          });
        },
        clear: function() {
