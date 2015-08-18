@@ -45,16 +45,22 @@
       <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
           <p>
-            Your Name
+            Your Organization
           </p>
         </div>
         <div class="form--field">
-          <input type="text" class="form--control form--control--half"
-                 id="title" name="title" placeholder=""
-                 data-ng-model="page.profile.properties.title" />
-          <input type="text" class="form--control form--control--half"
-                 id="organization_name" name="organization_name"  placeholder=""
-                 data-ng-model="page.profile.properties.organization[0].properties.name" />
+          <div class="form--element form--element--half">
+            <label for="" class="control--label">Title or Position</label>
+            <input type="text" class="form--control"
+                   id="title" name="title" placeholder="e.g., Volunteer, Waterkeeper, Executive Director"
+                   data-ng-model="page.profile.properties.title" />
+          </div>
+          <div class="form--element form--element--half">
+            <label for="" class="control--label">Organization Name</label>
+            <input type="text" class="form--control"
+                   id="organization_name" name="organization_name"  placeholder=""
+                   data-ng-model="page.profile.properties.organization[0].properties.name" />
+          </div>
         </div>
       </div>
 
