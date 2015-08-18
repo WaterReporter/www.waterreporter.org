@@ -17,11 +17,10 @@ angular
     'ngRoute',
     'ngTouch',
     'leaflet-directive',
-    'ui.gravatar',
-    'Mapbox',
     'angularMoment',
     'infinite-scroll',
-    'igTruncate'
+    'igTruncate',
+    'Mapbox'
   ]);
 
 'use strict';
@@ -175,6 +174,10 @@ angular.module('WaterReporter')
       },
       update: {
         method: 'PATCH'
+      },
+      delete: {
+        method: 'DELETE',
+        url: '//api.waterreporter.org/v1/data/image/:imageId'
       }
     });
   }]);
@@ -1504,6 +1507,106 @@ angular.module('WaterReporter')
       };
   });
 
+(function() {
+
+  'use strict';
+
+  /**
+   * @ngdoc service
+   * @name
+   * @description
+   */
+  angular.module('WaterReporter')
+    .service('Exporter', function() {
+
+      var _private = {};
+
+      var _public = {
+        /**
+         * Create a CSV file structure from a GeoJSON Blob
+         *
+         * @param (object) geoJsonObject
+         *
+         * @return (object) csvFile
+         */
+        geojsonToCsv: function (geoJsonObject) {
+
+
+          var date = new Date().toISOString(),
+              filename = 'WaterReporter--ReportsSearch' + date + '.csv',
+              rows = [];
+
+          //
+          // Create the CSV Header
+          //
+          var header = [
+            'date',
+            'report_state',
+            'comment',
+            'image',
+            'owner',
+            'title',
+            'organization',
+            'huc_6_name',
+            'huc_6_code',
+            'huc_8_name',
+            'huc_8_code',
+            'huc_10_name',
+            'huc_10_code',
+            'huc_12_name',
+            'huc_12_code',
+            'longitude',
+            'latitude'
+          ];
+
+          rows.push(header.join(', '));
+
+          //
+          // Create the individual Rows
+          //
+          angular.forEach(geoJsonObject.features, function(feature) {
+
+            console.log('feature', feature);
+
+            var row = [
+              feature.properties.report_date,
+              feature.properties.state,
+              (feature.properties.report_description) ? feature.properties.report_description.replace(/ /g, '%20').replace(/,/g, ' ') : '',
+              ((feature.properties.images.length) ? feature.properties.images[0].properties.original : ''),
+              ((feature.properties.owner) ? feature.properties.owner.properties.first_name + '%20' + feature.properties.owner.properties.last_name : ''),
+              ((feature.properties.owner && feature.properties.owner.properties.title) ? feature.properties.owner.properties.title.replace(/ /g, '%20').replace(/,/g, ' ') : ''),
+              ((feature.properties.owner && feature.properties.owner.properties.organization_name) ? feature.properties.owner.properties.organization_name.replace(/ /g, '%20').replace(/,/g, ' ') : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_6_name : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_6_code : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_8_name : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_8_code : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_10_name : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_10_code : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_12_name : ''),
+              ((feature.properties.territory) ? feature.properties.territory.properties.huc_12_code : ''),
+              feature.geometry.geometries[0].coordinates[1],
+              feature.geometry.geometries[0].coordinates[0]
+            ];
+
+            rows.push(row.join(', '));
+          });
+
+          var a         = document.createElement('a');
+          a.href        = 'data:attachment/csv,' + rows.join('%0A');
+          a.target      = '_blank';
+          a.download    = filename;
+
+          document.body.appendChild(a);
+          a.click();
+        }
+      };
+
+      return _public;
+    });
+
+
+} ());
+
 'use strict';
 
 /**
@@ -1618,7 +1721,7 @@ angular.module('WaterReporter')
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Report, reports, $rootScope, Search, user) {
+  .controller('SearchController', function (Account, Exporter, $location, Report, reports, $rootScope, Search, user) {
 
     var self = this;
 
@@ -1655,21 +1758,37 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-            $rootScope.user = Account.userObject = userResponse;
+    self.download = function() {
 
-            self.permissions.isLoggedIn = Account.hasToken();
-            self.permissions.isAdmin = Account.hasRole('admin');
-            self.permissions.isProfile = false;
-        });
-      }
+      /**
+       * In order to download all the results we need to make a second request
+       * to the API.
+       */
+      var search_params = $location.search();
+
+      Report.query({
+        q: search_params.q,
+        results_per_page: self.search.data.properties.num_results
+      }).$promise.then(function(reportResponse) {
+        Exporter.geojsonToCsv(reportResponse);
+      });
+    };
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false
+        };
+      });
     }
 
   });
@@ -1830,8 +1949,7 @@ angular.module('WaterReporter')
          //
          $location.search({
            q: angular.toJson(q),
-           page: _page ? _page : 1,
-           results_per_page: _results_per_page ? _results_per_page : 25
+           page: _page ? _page : 1
          });
        },
        clear: function() {
@@ -2733,6 +2851,7 @@ angular.module('WaterReporter')
         telephone: [{
           number: self.profile.properties.telephone[0].properties.number
         }],
+        images: self.profile.properties.images
       });
 
       if (!self.profile.properties.organization[0].properties.name) {
@@ -2767,6 +2886,8 @@ angular.module('WaterReporter')
              }
            ];
 
+           profile_.picture = successResponse.thumbnail;
+
            profile_.$update(function() {
              $route.reload();
            });
@@ -2777,6 +2898,10 @@ angular.module('WaterReporter')
            $route.reload();
          });
       }
+   };
+
+   self.removeImage = function(imageId) {
+    self.profile.properties.images= [];
    };
 
   });
