@@ -72,7 +72,7 @@ angular.module('WaterReporter')
       userObject: {}
     };
 
-    Account.getUser = function( ) {
+    Account.getUser = function() {
 
       var userId = ipCookie('WATERREPORTER_CURRENTUSER');
 
@@ -94,7 +94,7 @@ angular.module('WaterReporter')
           path: '/',
           expires: 2
         });
-        
+
         return accountResponse.id;
       });
 
@@ -118,7 +118,6 @@ angular.module('WaterReporter')
       }
 
       for (var index = 0; index < roles.length; index++) {
-        console.log(roleNeeded, '===', roles[index].properties.name, '?');
         if (roleNeeded === roles[index].properties.name) {
           return true;
         }
@@ -126,9 +125,10 @@ angular.module('WaterReporter')
 
       return false;
     };
-    
+
     return Account;
   });
+
 'use strict';
 
 /**
@@ -273,6 +273,7 @@ angular.module('WaterReporter')
       }
     });
   }]);
+
 (function() {
 
   'use strict';
@@ -627,7 +628,7 @@ angular.module('Mapbox')
         });
       },
       drawMarker: function(marker) {
-        var image = (marker.properties.images.length) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original,
+        var image = (marker.properties.images.length && marker.properties.images[0].properties.icon_retina) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original,
             _unresolved_html = '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="" width="100%" /></div><span class="marker--icon--point"></span>',
             _resolved_html = '<div class="marker--icon--image marker--icon--large"><img src="/images/badget--CertifiedAction--Small--ClosedBlue.svg" class="" alt="" width="70%" /></div><span class="marker--icon--point"></span>';
 
@@ -1470,11 +1471,6 @@ angular.module('WaterReporter')
       },
       responseError: function (response) {
         console.debug('AuthorizationInterceptor::ResponseError', response || $q.when(response));
-
-        if (response.status === 403) {
-          $location.path('/user/logout');
-        }
-
         return $q.reject(response);
       }
     };
@@ -1626,7 +1622,7 @@ angular.module('WaterReporter')
 
     var self = this;
 
-    $rootScope.user = Account.userObject;
+    self.permissions = {};
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -1667,11 +1663,11 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       if (user) {
         user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+            $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
+            self.permissions.isLoggedIn = Account.hasToken();
+            self.permissions.isAdmin = Account.hasRole('admin');
+            self.permissions.isProfile = false;
         });
       }
     }
@@ -1756,8 +1752,6 @@ angular.module('WaterReporter')
         $route.reload();
       },
       autoload: function() {
-
-        console.log('autoload')
 
         var service = this;
 
@@ -1909,9 +1903,15 @@ angular.module('WaterReporter')
       .when('/about', {
         templateUrl: '/modules/components/about/about--view.html',
         controller: 'AboutController',
-        controllerAs: 'about'
+        controllerAs: 'about',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
   });
+
 'use strict';
 
 /**
@@ -1922,9 +1922,31 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('AboutController', function () {
+  .controller('AboutController', function (Account, $rootScope, user) {
+
+    var self = this;
+
+    /**
+     * This is the first page the authneticated user will see. We need to make
+     * sure that their user information is ready to use. Make sure the
+     * Account.userObject contains the appropriate information.
+     */
+    if (Account.userObject && !Account.userObject.id) {
+      if (user) {
+        user.$promise.then(function(userResponse) {
+          $rootScope.user = Account.userObject = userResponse;
+
+          self.permissions = {
+            isLoggedIn: Account.hasToken(),
+            isAdmin: Account.hasRole('admin'),
+            isProfile: false
+          };
+        });
+      }
+    }
 
   });
+
 'use strict';
 
 /**
@@ -2002,8 +2024,6 @@ angular.module('WaterReporter')
 
       var self = this;
 
-      $rootScope.user = Account.userObject;
-
       /**
        * Setup our Features so that they appear on the home page in the
        * appropriate position
@@ -2011,6 +2031,8 @@ angular.module('WaterReporter')
       this.features = features;
 
       this.vignette = true;
+
+      this.permissions = {};
 
       /**
        * Setup search capabilities for the Report Activity Feed
@@ -2049,11 +2071,14 @@ angular.module('WaterReporter')
       if (Account.userObject && !Account.userObject.id) {
         if (user) {
           user.$promise.then(function(userResponse) {
-            Account.userObject = userResponse;
-              $rootScope.user = Account.userObject;
+            $rootScope.user = Account.userObject = userResponse;
 
-              $rootScope.isLoggedIn = Account.hasToken();
-              $rootScope.isAdmin = Account.hasRole('admin');
+            self.permissions = {
+              isLoggedIn: Account.hasToken(),
+              isAdmin: Account.hasRole('admin'),
+              isProfile: false
+            };
+
           });
         }
       }
@@ -2230,7 +2255,9 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('HomeController', function (Account, Report, Search, user) {
+  .controller('HomeController', function (Account, Report, $rootScope, Search, user) {
+
+    var self = this;
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -2267,11 +2294,13 @@ angular.module('WaterReporter')
     if (Account.userObject && !Account.userObject.id) {
       if (user) {
         user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+          $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
+          self.permissions = {
+            isLoggedIn: Account.hasToken(),
+            isAdmin: Account.hasRole('admin')
+          };
+
         });
       }
     }
@@ -2369,6 +2398,21 @@ angular.module('WaterReporter')
             return Report.query(search_params);
           }
         }
+      })
+      .when('/profiles/:userId/edit', {
+        templateUrl: '/modules/components/profile/profileEdit--view.html',
+        controller: 'ProfileEditController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          }
+        }
       });
   });
 
@@ -2460,6 +2504,8 @@ angular.module('WaterReporter')
     this.submissions = submissions;
 
     this.closures = closures;
+
+    this.permissions = {};
 
     this.visible = {
       submissions: true,
@@ -2573,28 +2619,165 @@ angular.module('WaterReporter')
     // sure that their user information is ready to use. Make sure the
     // Account.userObject contains the appropriate information.
     //
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
 
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
-            $rootScope.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin')
+        };
 
-            self.visible.reports = ($rootScope.isCurrentUser) ? true : false;
-            self.visible.submissions = ($rootScope.isCurrentUser) ? false : true;
+        self.permissions.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
 
-            if ($rootScope.isAdmin) {
-              self.loadDashboard();
-            }
-            else {
-              $location.path('/activity/list');
-            }
-        });
-      }
+        if ($rootScope.user.id === parseInt($route.current.params.userId)) {
+          self.permissions.isProfile = true;
+        }
+
+        self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
+        self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
+
+        if (self.permissions.isAdmin) {
+          self.loadDashboard();
+        }
+      });
     }
+
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name
+ * @description
+ */
+angular.module('WaterReporter')
+  .controller('ProfileEditController', function (Account, Image, profile, Report, $rootScope, $route, Search, $scope, user, User) {
+
+    var self = this;
+
+    self.image = null;
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    self.search = Search;
+
+    self.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    self.search.resource = Report;
+
+    //
+    // Load main Profile data
+    //
+    profile.$promise.then(function(profileResponse) {
+
+      self.profile = profileResponse;
+
+      if (self.profile.properties.telephone.length === 0) {
+        self.profile.properties.telephone = [{}];
+      }
+      if (self.profile.properties.organization.length === 0) {
+        self.profile.properties.organization = [{}];
+      }
+    });
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false,
+          isCurrentUser: false
+        };
+
+      });
+    }
+
+    self.save = function() {
+
+      var profile_ = new User({
+        id: self.profile.id,
+        first_name: self.profile.properties.first_name,
+        last_name: self.profile.properties.last_name,
+        email: self.profile.properties.email,
+        description: self.profile.properties.description,
+        title: self.profile.properties.title,
+        organization_name: self.profile.properties.organization_name,
+        telephone: [{
+          number: self.profile.properties.telephone[0].properties.number
+        }],
+      });
+
+      if (!self.profile.properties.organization[0].properties.name) {
+        profile_.organization = [];
+      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
+        profile_.organization = [
+          {
+            id: self.profile.properties.organization[0].properties.id,
+            name: self.profile.properties.organization[0].properties.name
+          }
+        ];
+      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
+        profile_.organization = [
+          {
+            name: self.profile.properties.organization[0].properties.name
+          }
+        ];
+      }
+
+      if (self.image) {
+         var fileData = new FormData();
+
+         fileData.append('image', self.image);
+
+         Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+           console.log('successResponse', successResponse);
+
+           profile_.images = [
+             {
+               id: successResponse.id
+             }
+           ];
+
+           profile_.$update(function() {
+             $route.reload();
+           });
+
+         });
+      } else {
+         profile_.$update(function() {
+           $route.reload();
+         });
+      }
+   };
 
   });
 
@@ -2678,6 +2861,25 @@ angular.module('WaterReporter')
     };
 
     this.search.resource = Report;
+
+    /**
+     * Setup the User object so that we can determine the type of authentication,
+     * user permissions, and if the current page is the profile page.
+     *
+     * @param (object) A User $promise
+     */
+    if (user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false
+        };
+
+      });
+    }
 
     /**
      * Setup the Mapbox map for this page with the results we got from the API
@@ -2782,23 +2984,6 @@ angular.module('WaterReporter')
         };
       });
     };
-
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          Account.userObject = userResponse;
-            $rootScope.user = Account.userObject;
-
-            $rootScope.isLoggedIn = Account.hasToken();
-            $rootScope.isAdmin = Account.hasRole('admin');
-        });
-      }
-    }
 
     /**
      * Open Report functionality to the Cotnroller
@@ -3214,13 +3399,17 @@ angular.module('WaterReporter')
       if (Account.userObject && !Account.userObject.id) {
         if (user) {
           user.$promise.then(function(userResponse) {
-            Account.userObject = userResponse;
-              $rootScope.user = Account.userObject;
-              $rootScope.isLoggedIn = Account.hasToken();
-              $rootScope.isAdmin = Account.hasRole('admin');
+            $rootScope.user = Account.userObject = userResponse;
+
+            self.permissions = {
+              isLoggedIn: Account.hasToken(),
+              isAdmin: Account.hasRole('admin'),
+              isProfile: false
+            };
           });
         }
       }
+
 
     });
 
