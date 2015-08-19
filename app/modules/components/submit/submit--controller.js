@@ -214,6 +214,8 @@
               }
             ];
 
+            console.log('Gettin\' saved', self.report);
+
             self.report.$save(function(response) {
               $rootScope.notifications.success();
               $location.path('/reports/' + response.id);
