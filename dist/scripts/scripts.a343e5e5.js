@@ -1631,6 +1631,14 @@ angular.module('WaterReporter')
 
 'use strict';
 
+angular.module('WaterReporter').filter('isArray', function() {
+  return function (input) {
+    return (angular.isArray(input)) ? true : false;
+  };
+});
+
+'use strict';
+
 /**
  * @ngdoc service
  * @name
@@ -1645,13 +1653,13 @@ angular.module('WaterReporter')
         $rootScope.notifications.objects.push({
           type: 'success',
           title: (alertTitle) ? alertTitle : 'Great!',
-          message: (alertMessage) ? alertMessage : 'Your updates were saved.'
+          message: (alertMessage) ? alertMessage : 'Your report was saved.'
         });
       },
       info: function(alertTitle, alertMessage) {
         $rootScope.notifications.objects.push({
           type: 'info',
-          title: (alertTitle) ? alertTitle : '',
+          title: (alertTitle) ? alertTitle : 'FYI',
           message: (alertMessage) ? alertMessage : ''
         });
       },
@@ -3862,10 +3870,8 @@ angular.module('WaterReporter')
               }
             ];
 
-            console.log('Gettin\' saved', self.report);
-
             self.report.$save(function(response) {
-              $rootScope.notifications.success();
+              $rootScope.notifications.success('Awesome!', 'Your report was submitted');
               $location.path('/reports/' + response.id);
             }, function() {
               $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
