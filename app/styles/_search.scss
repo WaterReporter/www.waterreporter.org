@@ -52,12 +52,16 @@ h1.search--title {
   text-decoration: none;
 }
 
-.search--listType,
 .search--form {
   float: left;
   margin: 0;
-  width: 50%;
 }
+  .search--form .form--field {
+    padding: 1em 0;
+  }
+  .search--form .form--element {
+    margin-bottom: 0;
+  }
 
 .search--keyword {
   float: right;
@@ -71,7 +75,6 @@ h1.search--title {
 .search--button--clear:visited {
   background-color: transparent;
   color: $color-gray-base;
-  float: right;
   font-size: 0.8125em;
   margin: 6px 16px 0 6px;
   text-decoration: none;
@@ -91,7 +94,6 @@ p.search--download {
   display: inline-block;
   font-size: 0.8125em;
   text-align: right;
-  width: 50%;
 
   a,
   a:active,

@@ -167,9 +167,18 @@ angular.module('WaterReporter')
          });
        },
        clear: function() {
-        $location.search('');
-        this.filters(-1);
-        $route.reload();
+
+         // Remove all URL bar parameters
+         $location.search('');
+
+         // Clear out our parameter object
+         this.params = {};
+
+         // Make sure our filters are empty
+         this.filters(-1);
+
+         // Then reload the page
+         $route.reload();
        },
        redirect: function() {
          this.filters();

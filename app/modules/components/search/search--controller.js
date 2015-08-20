@@ -43,6 +43,8 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
+    this.search.options = [];
+
     self.download = {
       processing: false,
       format: null,
@@ -86,6 +88,10 @@ angular.module('WaterReporter')
       }
     };
 
+    self.changeSearchType = function() {
+      (!self.search.params.territory) ? delete self.search.params.territory : self.search.model.territory.val = self.search.params.territory;
+    };
+
     //
     // This is the first page the authneticated user will see. We need to make
     // sure that their user information is ready to use. Make sure the
@@ -97,18 +103,28 @@ angular.module('WaterReporter')
 
         if (userResponse.properties.classifications !== null) {
 
-          var hucType = userResponse.properties.classifications[0].properties.digits,
-              fieldName = 'huc_' + hucType + '_name';
+          var hucType = user.properties.classifications[0].properties.digits,
+              fieldName = 'huc_' + hucType + '_name',
+              prefilter = $location.search().prefilter,
+              territory = userResponse.properties.classifications[0].properties.name;
 
-          self.search.model.territory = {
-            name: 'territory__' + fieldName,
-            op: 'has',
-            val: userResponse.properties.classifications[0].properties.name
-          };
+          //
+          // Add an additional search filter option
+          //
 
-          self.search.model.territory.val = self.search.params.territory = userResponse.properties.classifications[0].properties.name;
+          if (self.search.model.territory === undefined) {
+            self.search.model.territory = {
+              name: 'territory__' + fieldName,
+              op: 'has',
+              val: (self.search.params.territory) ? self.search.params.territory : null
+            };
+          }
 
-          console.log('Search Parameter', fieldName, self.search.params)
+          self.search.options.push({
+            name: 'My Watershed',
+            val: territory
+          });
+
         }
 
         self.permissions = {
