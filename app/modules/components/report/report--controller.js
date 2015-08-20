@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, Image, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, Search, user) {
+  .controller('ReportController', function (Account, comments, Comment, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, Search, user) {
 
     var self = this;
 
@@ -41,6 +41,8 @@ angular.module('WaterReporter')
 
     this.search.resource = Report;
 
+    self.permissions = {};
+
     /**
      * Setup the User object so that we can determine the type of authentication,
      * user permissions, and if the current page is the profile page.
@@ -51,11 +53,9 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
-        self.permissions = {
-          isLoggedIn: Account.hasToken(),
-          isAdmin: Account.hasRole('admin'),
-          isProfile: false
-        };
+        self.permissions.isLoggedIn = Account.hasToken();
+        self.permissions.isAdmin = Account.hasRole('admin');
+        self.permissions.isProfile = false;
 
       });
     }
@@ -76,6 +76,8 @@ angular.module('WaterReporter')
     report.$promise.then(function(reportResponse) {
 
       self.report = reportResponse;
+
+      self.permissions.isOwner = (ipCookie('WATERREPORTER_CURRENTUSER') === self.report.properties.owner_id) ? true : false;
 
       //
       // Now that we have the Report fully loaded into the page we can request
