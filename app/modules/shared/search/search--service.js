@@ -64,16 +64,61 @@ angular.module('WaterReporter')
 
           return params;
       },
+      status: {
+        loading: false
+      },
       params: {}, // On initial page load, load in our defaults from the address bar
-      paginate: function(pageNumber) {
-        var params = $location.search();
+      more: function() {
 
-        if (angular.isObject(params.q)) {
-          $location.search('q', JSON.stringify(params.q));
+        var service = this;
+
+        service.page = 1;
+
+        if (service.data.features.length < service.data.properties.num_results) {
+
+          //
+          // Increment the page to be loaded by 1
+          //
+          service.page++;
+
+          //
+          // Get all of our existing URL Parameters so that we can
+          // modify them to meet our goals
+          //
+          var search_params = $location.search();
+
+          //
+          // Prepare any pre-filters to append to any of our user-defined
+          // filters in the browser address bar
+          //
+          search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+          search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+          search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+          //
+          // Ensure that returned Report features are sorted newest first
+          //
+          search_params.q.order_by.push({
+            field: 'report_date',
+            direction: 'desc'
+          });
+
+          search_params.page = service.page;
+
+          //
+          // Execute our query so that we can get the Reports back
+          //
+          service.resource.query(search_params).$promise.then(function(response) {
+
+            var original = service.data.features,
+                newResults = response.features;
+
+            service.data.features = original.concat(newResults);
+
+          });
         }
 
-        $location.search('page', pageNumber);
-        $route.reload();
       },
       autoload: function() {
 

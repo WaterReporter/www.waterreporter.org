@@ -62,11 +62,11 @@
     <div data-ng-include="'/modules/components/search/results--view.html'"></div>
 
     <p>
-      <a data-ng-click="page.more()" class="circle--button"
-         data-ng-if="!page.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+      <a data-ng-click="page.search.more()" class="circle--button"
+         data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
           Load More
       </a>
-      <span data-ng-if="page.status.loading" class="throbber"></span>
+      <span data-ng-if="page.search.status.loading" class="throbber"></span>
     </p>
 
   </div>

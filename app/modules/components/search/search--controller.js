@@ -12,10 +12,6 @@ angular.module('WaterReporter')
 
     self.permissions = {};
 
-    self.status = {
-      loading: false
-    };
-
     /**
      * Setup search capabilities for the Report Activity Feed
      *
@@ -52,64 +48,6 @@ angular.module('WaterReporter')
     this.search.data = reports;
 
     this.search.options = [];
-
-    //
-    // Load an additional 25 reports and append them to the existing search
-    //
-    self.page = 1;
-
-    self.more = function() {
-      if (self.search.data.features.length < self.search.data.properties.num_results) {
-
-        self.status.loading = true;
-
-        //
-        // Increment the page to be loaded by 1
-        //
-        self.page++;
-
-        //
-        // Get all of our existing URL Parameters so that we can
-        // modify them to meet our goals
-        //
-        var search_params = $location.search();
-
-        //
-        // Prepare any pre-filters to append to any of our user-defined
-        // filters in the browser address bar
-        //
-        search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
-
-        search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
-        search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-
-        //
-        // Ensure that returned Report features are sorted newest first
-        //
-        search_params.q.order_by.push({
-          field: 'report_date',
-          direction: 'desc'
-        });
-
-        search_params.page = self.page;
-
-        //
-        // Execute our query so that we can get the Reports back
-        //
-        Report.query(search_params).$promise.then(function(reportsResponse) {
-
-          var original = self.search.data.features,
-              newResults = reportsResponse.features;
-
-          self.search.data.features = original.concat(newResults);
-
-          self.status.loading = false;
-
-        });
-      }
-    };
-
-    self.displayTerm = null;
 
     self.download = {
       processing: false,
@@ -175,7 +113,6 @@ angular.module('WaterReporter')
 
           var hucType = user.properties.classifications[0].properties.digits,
               fieldName = 'huc_' + hucType + '_name',
-              prefilter = $location.search().prefilter,
               territory = userResponse.properties.classifications[0].properties.name;
 
           //
