@@ -14,13 +14,13 @@ angular.module('WaterReporter')
         $rootScope.notifications.objects.push({
           type: 'success',
           title: (alertTitle) ? alertTitle : 'Great!',
-          message: (alertMessage) ? alertMessage : 'Your updates were saved.'
+          message: (alertMessage) ? alertMessage : 'Your report was saved.'
         });
       },
       info: function(alertTitle, alertMessage) {
         $rootScope.notifications.objects.push({
           type: 'info',
-          title: (alertTitle) ? alertTitle : '',
+          title: (alertTitle) ? alertTitle : 'FYI',
           message: (alertMessage) ? alertMessage : ''
         });
       },

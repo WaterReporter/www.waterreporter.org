@@ -214,10 +214,8 @@
               }
             ];
 
-            console.log('Gettin\' saved', self.report);
-
             self.report.$save(function(response) {
-              $rootScope.notifications.success();
+              $rootScope.notifications.success('Awesome!', 'Your report was submitted');
               $location.path('/reports/' + response.id);
             }, function() {
               $rootScope.notifications.error('', 'An error occurred and we couldn\'t save your report');
