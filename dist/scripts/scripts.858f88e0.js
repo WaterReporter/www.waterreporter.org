@@ -1597,6 +1597,26 @@ angular.module('WaterReporter')
 
           document.body.appendChild(a);
           a.click();
+        },
+        /**
+         * Create a CSV file structure from a GeoJSON Blob
+         *
+         * @param (object) geoJsonObject
+         *
+         * @return (object) csvFile
+         */
+        geojson: function (geoJsonObject) {
+
+          var date = new Date().toISOString(),
+              filename = 'WaterReporter--ReportsSearch' + date + '.geojson';
+
+          var a         = document.createElement('a');
+          a.href        = 'data:attachment/json,' + JSON.stringify(geoJsonObject);
+          a.target      = '_blank';
+          a.download    = filename;
+
+          document.body.appendChild(a);
+          a.click();
         }
       };
 
@@ -1673,7 +1693,7 @@ angular.module('WaterReporter')
         templateUrl: '/modules/components/search/search--view.html',
         controller: 'SearchController',
         controllerAs: 'page',
-        reloadOnSearch: false,
+        reloadOnSearch: true,
         resolve: {
           reports: function($location, $route, Report) {
 
@@ -1757,20 +1777,53 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-    self.download = function() {
+    this.search.options = [];
 
-      /**
-       * In order to download all the results we need to make a second request
-       * to the API.
-       */
-      var search_params = $location.search();
+    self.download = {
+      processing: false,
+      format: null,
+      csv: function() {
 
-      Report.query({
-        q: search_params.q,
-        results_per_page: self.search.data.properties.num_results
-      }).$promise.then(function(reportResponse) {
-        Exporter.geojsonToCsv(reportResponse);
-      });
+        self.download.processing = true;
+        self.download.format = 'CSV';
+
+        /**
+         * In order to download all the results we need to make a second request
+         * to the API.
+         */
+        var search_params = $location.search();
+
+        Report.query({
+          q: search_params.q,
+          results_per_page: self.search.data.properties.num_results
+        }).$promise.then(function(reportResponse) {
+          Exporter.geojsonToCsv(reportResponse);
+          self.download.processing = false;
+        });
+      },
+      geojson: function() {
+
+        self.download.processing = true;
+        self.download.format = 'GeoJSON';
+
+        /**
+         * In order to download all the results we need to make a second request
+         * to the API.
+         */
+        var search_params = $location.search();
+
+        Report.query({
+          q: search_params.q,
+          results_per_page: self.search.data.properties.num_results
+        }).$promise.then(function(reportResponse) {
+          Exporter.geojson(reportResponse);
+          self.download.processing = false;
+        });
+      }
+    };
+
+    self.changeSearchType = function() {
+      (!self.search.params.territory) ? delete self.search.params.territory : self.search.model.territory.val = self.search.params.territory;
     };
 
     //
@@ -1782,10 +1835,37 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
+        if (userResponse.properties.classifications !== null) {
+
+          var hucType = user.properties.classifications[0].properties.digits,
+              fieldName = 'huc_' + hucType + '_name',
+              prefilter = $location.search().prefilter,
+              territory = userResponse.properties.classifications[0].properties.name;
+
+          //
+          // Add an additional search filter option
+          //
+
+          if (self.search.model.territory === undefined) {
+            self.search.model.territory = {
+              name: 'territory__' + fieldName,
+              op: 'has',
+              val: (self.search.params.territory) ? self.search.params.territory : null
+            };
+          }
+
+          self.search.options.push({
+            name: 'My Watershed',
+            val: territory
+          });
+
+        }
+
         self.permissions = {
           isLoggedIn: Account.hasToken(),
           isAdmin: Account.hasRole('admin'),
-          isProfile: false
+          isProfile: false,
+          hasWatershed: null
         };
       });
     }
@@ -1915,6 +1995,15 @@ angular.module('WaterReporter')
                }]
              };
 
+         if (_page === -1) {
+           $location.search({
+             q: angular.toJson(q),
+             page: 1
+           });
+
+           return;
+         }
+
          //
          // Loop over each of the parameters that the search allows the user
          // to fill in and for each one, use the provided model to build out
@@ -1952,8 +2041,18 @@ angular.module('WaterReporter')
          });
        },
        clear: function() {
-        $location.search('');
-        $route.reload();
+
+         // Remove all URL bar parameters
+         $location.search('');
+
+         // Clear out our parameter object
+         this.params = {};
+
+         // Make sure our filters are empty
+         this.filters(-1);
+
+         // Then reload the page
+         $route.reload();
        },
        redirect: function() {
          this.filters();
@@ -2220,7 +2319,7 @@ angular.module('WaterReporter')
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          leafletData.getMap().then(function(map) {
+          leafletData.getMap().then(function() {
 
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
               $location.path(self.map.markers[args.modelName].permalink);
@@ -2308,14 +2407,16 @@ angular.module('WaterReporter')
 
       self.key = function($event) {
 
+        var index;
+
         if ($event.keyCode === 39) {
           if (self.features.visible < self.map.geojson.reports.data.features.length) {
-            var index = self.features.visible+1;
+            index = self.features.visible+1;
             self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         } else if ($event.keyCode === 37) {
           if (self.features.visible <= self.map.geojson.reports.data.features.length) {
-            var index = self.features.visible-1;
+            index = self.features.visible-1;
             self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         }
@@ -3452,6 +3553,8 @@ angular.module('WaterReporter')
                 id: imageResponse.id
               }
             ];
+
+            console.log('Gettin\' saved', self.report);
 
             self.report.$save(function(response) {
               $rootScope.notifications.success();
