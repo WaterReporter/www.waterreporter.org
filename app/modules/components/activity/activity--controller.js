@@ -91,7 +91,7 @@
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          leafletData.getMap().then(function(map) {
+          leafletData.getMap().then(function() {
 
             $scope.$on('leafletDirectiveMarker.click', function(event, args) {
               $location.path(self.map.markers[args.modelName].permalink);
@@ -179,14 +179,16 @@
 
       self.key = function($event) {
 
+        var index;
+
         if ($event.keyCode === 39) {
           if (self.features.visible < self.map.geojson.reports.data.features.length) {
-            var index = self.features.visible+1;
+            index = self.features.visible+1;
             self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         } else if ($event.keyCode === 37) {
           if (self.features.visible <= self.map.geojson.reports.data.features.length) {
-            var index = self.features.visible-1;
+            index = self.features.visible-1;
             self.changeFeature(self.map.geojson.reports.data.features[index], index);
           }
         }

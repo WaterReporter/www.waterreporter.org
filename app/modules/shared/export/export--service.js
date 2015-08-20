@@ -89,6 +89,26 @@
 
           document.body.appendChild(a);
           a.click();
+        },
+        /**
+         * Create a CSV file structure from a GeoJSON Blob
+         *
+         * @param (object) geoJsonObject
+         *
+         * @return (object) csvFile
+         */
+        geojson: function (geoJsonObject) {
+
+          var date = new Date().toISOString(),
+              filename = 'WaterReporter--ReportsSearch' + date + '.geojson';
+
+          var a         = document.createElement('a');
+          a.href        = 'data:attachment/json,' + JSON.stringify(geoJsonObject);
+          a.target      = '_blank';
+          a.download    = filename;
+
+          document.body.appendChild(a);
+          a.click();
         }
       };
 

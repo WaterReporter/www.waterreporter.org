@@ -5,39 +5,46 @@
 
     <h1 class="search--title" data-ng-if="page.search.data.properties.num_results && page.search.params.report_description">
       Search: {{ page.search.data.properties.num_results || 0 | number:0 }} reports
-      found for ‘<em>{{ page.search.params.report_description }}</em>’
+      found for ‘<em>{{ ::page.search.params.report_description }}</em>’
     </h1>
     <h1 class="search--title" data-ng-if="page.search.data.properties.num_results && !page.search.params.report_description">
-      Search: {{ page.search.data.properties.num_results || 0 | number:0 }} reports
+      Search: {{ ::page.search.data.properties.num_results || 0 | number:0 }} reports
       found
     </h1>
 
     <div class="search--toolbar">
-      <ul class="search--listType">
-        <li>
-          <a class="active" href="" data-ng-click="">
-            All Reports
-          </a>
-        </li>
-        <li data-ng-if="$root.isAdmin">
-          <a href="" data-ng-click="">
-            My Watershed
-          </a>
-        </li>
-      </ul>
-      <a href="javascript:void(0);" data-ng-click="page.download()" download="WaterReporter--Reports--20150101.csv">Download</a>
       <form class="search--form form" role="form" id="search--form"
             name="search--form" data-ng-submit="page.search.execute()">
-        <a class="search--button--clear" data-ng-click="page.search.clear()">
-          Clear Search
-        </a>
-        <button type="submit" class="button button--info">Search</button>
-        <input type="text" class="form--control search--control search--keyword"
+        <input type="text" class="form--control"
                id="form--search--reportDescription"
                name="form--search--reportDescription" autofocus="autofocus"
                data-ng-model="page.search.params.report_description" />
+        <button type="submit" class="button button--info button--inline">
+          Search
+        </button>
+        <a class="search--button--clear" data-ng-click="page.search.clear()">
+          Clear Search
+        </a>
       </form>
+      <p class="downloads">
+        Download As:
+        <a href="javascript:void(0);" data-ng-click="page.download.csv()">CSV</a>
+        <a href="javascript:void(0);" data-ng-click="page.download.geojson()">GeoJSON</a>
+      </p>
     </div>
+
+    <ul class="search--tabs">
+      <li>
+        <a class="active" href="" data-ng-click="">
+          All Reports
+        </a>
+      </li>
+      <li data-ng-if="$root.isAdmin">
+        <a href="" data-ng-click="">
+          My Watershed
+        </a>
+      </li>
+    </ul>
 
     <div class="row" data-ng-if="!page.search.data.features">
       <div class="col-sm-12">

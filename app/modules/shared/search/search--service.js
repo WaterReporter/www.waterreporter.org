@@ -121,6 +121,15 @@ angular.module('WaterReporter')
                }]
              };
 
+         if (_page === -1) {
+           $location.search({
+             q: angular.toJson(q),
+             page: 1
+           });
+
+           return;
+         }
+
          //
          // Loop over each of the parameters that the search allows the user
          // to fill in and for each one, use the provided model to build out
@@ -159,6 +168,7 @@ angular.module('WaterReporter')
        },
        clear: function() {
         $location.search('');
+        this.filters(-1);
         $route.reload();
        },
        redirect: function() {

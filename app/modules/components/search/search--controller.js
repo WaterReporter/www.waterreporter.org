@@ -43,20 +43,36 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-    self.download = function() {
+    self.download = {
+      csv: function() {
 
-      /**
-       * In order to download all the results we need to make a second request
-       * to the API.
-       */
-      var search_params = $location.search();
+        /**
+         * In order to download all the results we need to make a second request
+         * to the API.
+         */
+        var search_params = $location.search();
 
-      Report.query({
-        q: search_params.q,
-        results_per_page: self.search.data.properties.num_results
-      }).$promise.then(function(reportResponse) {
-        Exporter.geojsonToCsv(reportResponse);
-      });
+        Report.query({
+          q: search_params.q,
+          results_per_page: self.search.data.properties.num_results
+        }).$promise.then(function(reportResponse) {
+          Exporter.geojsonToCsv(reportResponse);
+        });
+      },
+      geojson: function() {
+        /**
+         * In order to download all the results we need to make a second request
+         * to the API.
+         */
+        var search_params = $location.search();
+
+        Report.query({
+          q: search_params.q,
+          results_per_page: self.search.data.properties.num_results
+        }).$promise.then(function(reportResponse) {
+          Exporter.geojson(reportResponse);
+        });
+      }
     };
 
     //
@@ -68,10 +84,27 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
+        if (userResponse.properties.classifications !== null) {
+
+          var hucType = userResponse.properties.classifications[0].properties.digits,
+              fieldName = 'huc_' + hucType + '_name';
+
+          self.search.model.territory = {
+            name: 'territory__' + fieldName,
+            op: 'has',
+            val: userResponse.properties.classifications[0].properties.name
+          };
+
+          self.search.model.territory.val = self.search.params.territory = userResponse.properties.classifications[0].properties.name;
+
+          console.log('Search Parameter', fieldName, self.search.params)
+        }
+
         self.permissions = {
           isLoggedIn: Account.hasToken(),
           isAdmin: Account.hasRole('admin'),
-          isProfile: false
+          isProfile: false,
+          hasWatershed: null
         };
       });
     }
