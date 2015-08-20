@@ -45,6 +45,8 @@ angular.module('WaterReporter')
 
     this.search.options = [];
 
+    self.displayTerm = null;
+
     self.download = {
       processing: false,
       format: null,

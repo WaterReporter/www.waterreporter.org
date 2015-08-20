@@ -1,15 +1,14 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <main class="site--content site--content--activity">
-  <div class="page--content page--content--transparent">
+  <div class="page--content page--content--form page--content--transparent">
 
     <h1 class="search--title" data-ng-if="page.search.data.properties.num_results && page.search.params.report_description">
-      Search: {{ page.search.data.properties.num_results || 0 | number:0 }} reports
-      found for ‘<em>{{ page.search.params.report_description }}</em>’
+      {{ page.search.data.properties.num_results || 0 | number:0 }} reports<br />
+      <em class="search--title--term">{{ ::page.search.params.report_description }}</em>
     </h1>
     <h1 class="search--title" data-ng-if="page.search.data.properties.num_results && !page.search.params.report_description">
-      Search: {{ ::page.search.data.properties.num_results || 0 | number:0 }} reports
-      found
+      {{ page.search.data.properties.num_results || 0 | number:0 }} reports
     </h1>
 
     <div class="search--toolbar">

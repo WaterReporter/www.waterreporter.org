@@ -8,8 +8,13 @@
 //
 
 h1.search--title {
-  margin: 32px 0 0;
+  text-align: center;
 }
+  .search--title--term {
+    font-size: 0.75em;
+    font-weight: 300;
+    font-style: italic;
+  }
 
 .search--toolbar {
   background-color: $color-white-bright;
