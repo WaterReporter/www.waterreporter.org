@@ -106,7 +106,7 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
-        if (userResponse.properties.classifications !== null) {
+        if (userResponse.properties.classifications.length) {
 
           var hucType = user.properties.classifications[0].properties.digits,
               fieldName = 'huc_' + hucType + '_name',
