@@ -1763,8 +1763,6 @@ angular.module('WaterReporter')
      */
     this.search = Search;
 
-    this.search.hidden = true;
-
     this.search.model = {
       report_description: {
         name: 'report_description',
@@ -1774,15 +1772,16 @@ angular.module('WaterReporter')
     };
 
     var defaults = this.search.defaults();
+
     this.search.params = (defaults) ? defaults : {};
 
     this.search.resource = Report;
 
+    this.search.page = 1;
+
     this.search.data = reports;
 
     this.search.options = [];
-
-    self.displayTerm = null;
 
     self.download = {
       processing: false,
@@ -1828,7 +1827,11 @@ angular.module('WaterReporter')
     };
 
     self.changeSearchType = function() {
-      (!self.search.params.territory) ? delete self.search.params.territory : self.search.model.territory.val = self.search.params.territory;
+      if (!self.search.params.territory) {
+        delete self.search.params.territory;
+      } else {
+        self.search.model.territory.val = self.search.params.territory;
+      }
     };
 
     //
@@ -1844,7 +1847,6 @@ angular.module('WaterReporter')
 
           var hucType = user.properties.classifications[0].properties.digits,
               fieldName = 'huc_' + hucType + '_name',
-              prefilter = $location.search().prefilter,
               territory = userResponse.properties.classifications[0].properties.name;
 
           //
@@ -1873,7 +1875,7 @@ angular.module('WaterReporter')
           hasWatershed: null
         };
       });
-    }
+    };
 
   });
 
@@ -1941,20 +1943,65 @@ angular.module('WaterReporter')
 
           });
 
-          console.log(params)
-
           return params;
       },
+      page: 1,
+      status: {
+        loading: false
+      },
       params: {}, // On initial page load, load in our defaults from the address bar
-      paginate: function(pageNumber) {
-        var params = $location.search();
+      more: function() {
 
-        if (angular.isObject(params.q)) {
-          $location.search('q', JSON.stringify(params.q));
+        var service = this;
+
+        if ((service.data.features.length < service.data.properties.num_results) && service.data.properties.total_pages !== service.data.properties.page) {
+
+          service.status.loading = true;
+
+          //
+          // Increment the page to be loaded by 1
+          //
+          service.page++;
+
+          //
+          // Get all of our existing URL Parameters so that we can
+          // modify them to meet our goals
+          //
+          var search_params = $location.search();
+
+          //
+          // Prepare any pre-filters to append to any of our user-defined
+          // filters in the browser address bar
+          //
+          search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+          search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+          search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+          //
+          // Ensure that returned Report features are sorted newest first
+          //
+          search_params.q.order_by.push({
+            field: 'report_date',
+            direction: 'desc'
+          });
+
+          search_params.page = service.page;
+
+          //
+          // Execute our query so that we can get the Reports back
+          //
+          service.resource.query(search_params).$promise.then(function(response) {
+
+            var original = service.data.features,
+                newResults = response.features;
+
+            service.data.features = original.concat(newResults);
+
+            service.status.loading = false;
+          });
         }
 
-        $location.search('page', pageNumber);
-        $route.reload();
       },
       autoload: function() {
 
@@ -2243,7 +2290,7 @@ angular.module('WaterReporter')
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, user) {
+    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, Search, $scope, user) {
 
       var self = this;
 
@@ -2257,7 +2304,28 @@ angular.module('WaterReporter')
 
       this.permissions = {};
 
-      this.data = reports;
+      /**
+       * Setup search capabilities for the Report Activity Feed
+       *
+       * @data this.search
+       *    loads the Search Service into our page scope
+       * @data this.search.params
+       *    loads the default url parameters into the page fields
+       * @data this.search.model
+       *    tells the Search Service what the data model for this particular search looks like
+       * @data this.search.resource
+       *    tells the Search Service what resource to perform the search with
+       * @data this.search.data
+       *    retains and updates based on the features returned from the user-defined query
+       *
+       */
+      this.search = Search;
+
+      this.search.resource = Report;
+
+      this.search.page = 1;
+
+      this.search.data = reports;
 
       //
       // This is the first page the authneticated user will see. We need to make
