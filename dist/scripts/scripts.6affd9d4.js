@@ -3150,8 +3150,6 @@ angular.module('WaterReporter')
      */
     this.map = Map;
 
-    L.Icon.Default.imagePath = '/images';
-
     report.$promise.then(function(reportResponse) {
 
       self.report = reportResponse;
