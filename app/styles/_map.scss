@@ -206,7 +206,7 @@
   top: 1px;
 }
 
-.leaflet-control-container {
+.map--hero .leaflet-control-container {
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
@@ -219,7 +219,7 @@
   position: relative;
 }
 
-.leaflet-control-container-visible {
+.map--hero .leaflet-control-container-visible {
   transition: opacity .25s ease-in-out;
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
