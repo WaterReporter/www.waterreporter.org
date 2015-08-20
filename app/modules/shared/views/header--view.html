@@ -19,7 +19,7 @@
         <li data-ng-if="!$root.user.id">
           <a href="/user/login">Log in</a>
         </li>
-        <li data-ng-if="!$root.user.id">
+        <li data-ng-if="!$root.user.id || ($root.user.id && !page.permissions.isAdmin)">
           <a href="/search">
              Search Community
           </a>
