@@ -2,7 +2,7 @@
 
 <header class="site--header">
   <div class="container">
-    <a class="site--header--brand" href="/activity">
+    <a class="site--header--brand" href="/">
       <img src="/images/logo-WaterReporter-SideBySide.svg" alt="" title="" width="192" />
     </a>
 
@@ -15,9 +15,6 @@
         </li>
         <li data-ng-if="page.permissions.isCurrentUser">
           <a href="/user/logout">Log out</a>
-        </li>
-        <li data-ng-if="!$root.user.id">
-          <a href="/user/login">Log in</a>
         </li>
         <li data-ng-if="!$root.user.id || ($root.user.id && !page.permissions.isAdmin)">
           <a href="/search">
@@ -34,8 +31,11 @@
             Explore
           </a>
         </li>
+        <li data-ng-if="!$root.user.id">
+          <a class="button button--info button--feature" href="/user/login">Log in</a>
+        </li>
         <li data-ng-if="$root.user.id">
-          <a type="button" class="button button--info button--feature" href="/submit">
+          <a class="button button--info button--feature" href="/submit">
             Submit a Report
           </a>
         </li>

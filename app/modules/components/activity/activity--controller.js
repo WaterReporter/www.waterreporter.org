@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, Search, user) {
+    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, $scope, user) {
 
       var self = this;
 
@@ -22,24 +22,7 @@
 
       this.permissions = {};
 
-      /**
-       * Setup search capabilities for the Report Activity Feed
-       *
-       * @data this.search
-       *    loads the Search Service into our page scope
-       * @data this.search.params
-       *    loads the default url parameters into the page fields
-       * @data this.search.model
-       *    tells the Search Service what the data model for this particular search looks like
-       * @data this.search.resource
-       *    tells the Search Service what resource to perform the search with
-       * @data this.search.data
-       *    retains and updates based on the features returned from the user-defined query
-       *
-       */
-      this.search = Search;
-
-      this.search.data = reports;
+      this.data = reports;
 
       //
       // This is the first page the authneticated user will see. We need to make

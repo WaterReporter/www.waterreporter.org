@@ -4,11 +4,11 @@
 
 <main class="site--content site--content--activity">
 
-  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.data.features.length">
 
   </div>
 
-  <div class="container" data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length">
+  <div class="container" data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length">
     <h2 class="text-center">Recent Activity</h2><br />
 
     <div data-ng-include="'/modules/components/activity/activityRecent--view.html'"></div>
