@@ -35,6 +35,7 @@
           </aside>
           <header class="report--author">
             <div class="report--metadata--section">
+              <button data-ng-if="page.permissions.isAdmin || page.permissions.isOwner" class="button button--submit" data-ng-click="page.edit(page.report.id)">Edit Report</button>
               <button data-ng-if="page.permissions.isAdmin || page.permissions.isOwner" class="button button--danger" data-ng-click="page.delete(page.report.id)">Delete Report</button>
             </div>
             <div class="report--metadata--section">

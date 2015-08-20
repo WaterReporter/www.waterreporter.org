@@ -261,6 +261,10 @@ angular.module('WaterReporter')
        });
      };
 
+     self.edit = function(reportId) {
+       $location.path('/reports/' + reportId + '/edit');
+     };
+
      self.changeFeature = function(feature) {
 
        var center = {

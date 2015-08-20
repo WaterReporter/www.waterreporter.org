@@ -32,6 +32,22 @@ angular.module('WaterReporter')
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }
+      })
+      .when('/reports/:reportId/edit', {
+        templateUrl: '/modules/components/report/reportEdit--view.html',
+        controller: 'ReportEditController',
+        controllerAs: 'page',
+        resolve: {
+          report: function($route, Report) {
+            return Report.get({
+              id: $route.current.params.reportId
+            });
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
+
 
   });

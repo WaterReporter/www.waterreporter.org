@@ -18,6 +18,9 @@ angular.module('WaterReporter')
       close: {
         method: 'PATCH'
       },
+      update: {
+        method: 'PATCH'
+      },
       comments: {
         method: 'GET',
         url: 'http://api.waterreporter.org/v1/data/report/:id/comments',
