@@ -26,10 +26,15 @@
           Clear Search
         </a>
       </form>
-      <p class="downloads">
-        Download As:
-        <a href="javascript:void(0);" data-ng-click="page.download.csv()">CSV</a>
-        <a href="javascript:void(0);" data-ng-click="page.download.geojson()">GeoJSON</a>
+      <p class="search--download">
+        <span data-ng-if="!page.download.processing">
+          Download results as
+          <a href="javascript:void(0);" data-ng-click="page.download.csv()">CSV</a> or
+          <a href="javascript:void(0);" data-ng-click="page.download.geojson()">GeoJSON</a>
+        </span>
+        <span data-ng-if="page.download.processing">
+          Creating your {{ page.download.format }} file...
+        </span>
       </p>
     </div>
 
@@ -39,7 +44,7 @@
           All Reports
         </a>
       </li>
-      <li data-ng-if="$root.isAdmin">
+      <li data-ng-if="page.permissions.isAdmin">
         <a href="" data-ng-click="">
           My Watershed
         </a>

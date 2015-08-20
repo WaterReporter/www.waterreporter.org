@@ -44,7 +44,12 @@ angular.module('WaterReporter')
     this.search.data = reports;
 
     self.download = {
+      processing: false,
+      format: null,
       csv: function() {
+
+        self.download.processing = true;
+        self.download.format = 'CSV';
 
         /**
          * In order to download all the results we need to make a second request
@@ -57,9 +62,14 @@ angular.module('WaterReporter')
           results_per_page: self.search.data.properties.num_results
         }).$promise.then(function(reportResponse) {
           Exporter.geojsonToCsv(reportResponse);
+          self.download.processing = false;
         });
       },
       geojson: function() {
+
+        self.download.processing = true;
+        self.download.format = 'GeoJSON';
+
         /**
          * In order to download all the results we need to make a second request
          * to the API.
@@ -71,6 +81,7 @@ angular.module('WaterReporter')
           results_per_page: self.search.data.properties.num_results
         }).$promise.then(function(reportResponse) {
           Exporter.geojson(reportResponse);
+          self.download.processing = false;
         });
       }
     };

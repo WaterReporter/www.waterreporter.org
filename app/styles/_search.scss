@@ -80,3 +80,27 @@ h1.search--title {
 .search--button--clear:hover {
   text-decoration: underline;
 }
+
+
+
+//
+// Download Links
+//
+.search--download,
+p.search--download {
+  display: inline-block;
+  font-size: 0.8125em;
+  text-align: right;
+  width: 50%;
+
+  a,
+  a:active,
+  a:link,
+  a:visited {
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
