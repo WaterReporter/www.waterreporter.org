@@ -1773,11 +1773,16 @@ angular.module('WaterReporter')
       }
     };
 
+    var defaults = this.search.defaults();
+    this.search.params = (defaults) ? defaults : {};
+
     this.search.resource = Report;
 
     this.search.data = reports;
 
     this.search.options = [];
+
+    self.displayTerm = null;
 
     self.download = {
       processing: false,
@@ -1935,6 +1940,8 @@ angular.module('WaterReporter')
             }
 
           });
+
+          console.log(params)
 
           return params;
       },
