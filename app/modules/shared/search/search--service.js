@@ -64,6 +64,7 @@ angular.module('WaterReporter')
 
           return params;
       },
+      page: 1,
       status: {
         loading: false
       },
@@ -72,9 +73,9 @@ angular.module('WaterReporter')
 
         var service = this;
 
-        service.page = 1;
+        if ((service.data.features.length < service.data.properties.num_results) && service.data.properties.total_pages !== service.data.properties.page) {
 
-        if (service.data.features.length < service.data.properties.num_results) {
+          service.status.loading = true;
 
           //
           // Increment the page to be loaded by 1
@@ -116,6 +117,7 @@ angular.module('WaterReporter')
 
             service.data.features = original.concat(newResults);
 
+            service.status.loading = false;
           });
         }
 

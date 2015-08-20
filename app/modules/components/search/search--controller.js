@@ -29,8 +29,6 @@ angular.module('WaterReporter')
      */
     this.search = Search;
 
-    this.search.hidden = true;
-
     this.search.model = {
       report_description: {
         name: 'report_description',
@@ -44,6 +42,8 @@ angular.module('WaterReporter')
     this.search.params = (defaults) ? defaults : {};
 
     this.search.resource = Report;
+
+    this.search.page = 1;
 
     this.search.data = reports;
 

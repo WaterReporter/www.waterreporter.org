@@ -1,15 +1,15 @@
-<div id="map--wrapper" class="map--wrapper" data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length">
+<div id="map--wrapper" class="map--wrapper" data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length">
 
   <leaflet id="map" class="map map--hero" markers="page.map.markers"
-           data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length"
+           data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length"
            defaults="page.map.defaults" layers="page.map.layers"
            center="page.map.center" bounds="page.map.bounds">
   </leaflet>
 
-  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
+  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
   </div>
 
-  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length" id="map--featured" class="map--featured" data-ng-if="page.map.geojson.reports.data.features.length">
+  <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--featured" class="map--featured" data-ng-if="page.map.geojson.reports.data.features.length">
     <div class="features--container" data-ng-show="page.features.visible === $index"
          data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <div class="features--report"
@@ -22,7 +22,7 @@
 
 </div>
 
-<nav data-ng-if="page.map.geojson.reports.data.features.length && page.data.features.length" class="features--navigation">
+<nav data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" class="features--navigation">
   <ul>
     <li data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <a href="javascript:void(0);" data-ng-class="{ 'active': page.features.visible === $index }"
