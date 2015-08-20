@@ -12,6 +12,10 @@ angular.module('WaterReporter')
 
     self.permissions = {};
 
+    self.status = {
+      loading: false
+    };
+
     /**
      * Setup search capabilities for the Report Activity Feed
      *
@@ -55,8 +59,9 @@ angular.module('WaterReporter')
     self.page = 1;
 
     self.more = function() {
-      console.log(self.search.data.features.length, self.search.data.properties.num_results, (self.search.data.features.length < self.search.data.properties.num_results));
       if (self.search.data.features.length < self.search.data.properties.num_results) {
+
+        self.status.loading = true;
 
         //
         // Increment the page to be loaded by 1
@@ -95,7 +100,11 @@ angular.module('WaterReporter')
 
           var original = self.search.data.features,
               newResults = reportsResponse.features;
+
           self.search.data.features = original.concat(newResults);
+
+          self.status.loading = false;
+
         });
       }
     };
@@ -146,7 +155,11 @@ angular.module('WaterReporter')
     };
 
     self.changeSearchType = function() {
-      (!self.search.params.territory) ? delete self.search.params.territory : self.search.model.territory.val = self.search.params.territory;
+      if (!self.search.params.territory) {
+        delete self.search.params.territory;
+      } else {
+        self.search.model.territory.val = self.search.params.territory;
+      }
     };
 
     //
@@ -191,6 +204,6 @@ angular.module('WaterReporter')
           hasWatershed: null
         };
       });
-    }
+    };
 
   });
