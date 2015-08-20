@@ -8,7 +8,7 @@
 
     <div class="throbber" data-ng-if="!page.report"></div>
 
-    <div class="features" data-ng-if="page.report">
+    <div class="report--single--wrapper" data-ng-if="page.report">
       <div class="container">
         <article id="report--{{ page.report.properties.id }}" class="report report--single">
 
@@ -35,10 +35,6 @@
           </aside>
           <header class="report--author">
             <div class="report--metadata--section">
-              <button data-ng-if="page.permissions.isAdmin || page.permissions.isOwner" class="button button--submit" data-ng-click="page.edit(page.report.id)">Edit Report</button>
-              <button data-ng-if="page.permissions.isAdmin || page.permissions.isOwner" class="button button--danger" data-ng-click="page.delete(page.report.id)">Delete Report</button>
-            </div>
-            <div class="report--metadata--section">
               <p>
                 <a href="/profiles/{{ page.report.properties.owner.id }}">
                   <img class="report--author--avatar"
@@ -62,15 +58,19 @@
             </div>
             <div class="report--metadata--section">
               <p data-ng-if="page.report.properties.territory">
-                <small><span class="glyphicon glyphicon-map-marker"></span> {{ page.report.properties.territory.properties.huc_6_name }} Watershed</small>
-              </p>
-            </div>
-            <div class="report--metadata--section">
-              <p>
-                <span class="icon icon--directions retinaicon-transport-007"></span>
+                {{ page.report.properties.territory.properties.huc_6_name }} Watershed<br />
                 <a href="https://www.google.com/maps/dir//{{ page.report.geometry.geometries[0].coordinates[1] }},{{ page.report.geometry.geometries[0].coordinates[0] }}" target="_blank">
                   <small>Get directions to this report location</small>
                 </a>
+              </p>
+            </div>
+            <div class="report--metadata--section">
+              <p data-ng-if="page.report.properties.tags.length">
+                <span class="label label--brand" data-ng-repeat="tag in page.report.properties.tags">
+                  <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+                    #{{ tag.properties.tag }}
+                  </a>
+                </span>
               </p>
             </div>
             <div class="report--metadata--section">

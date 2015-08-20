@@ -62,7 +62,7 @@
       </a>
     </p>
 
-    <p accesskey=""data-ng-if="report.properties.tags.length">
+    <p data-ng-if="report.properties.tags.length">
       <span class="label label--brand" data-ng-repeat="tag in report.properties.tags">
         <a href="" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
           #{{ tag.properties.tag }}
