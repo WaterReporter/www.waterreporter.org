@@ -62,6 +62,8 @@ angular.module('WaterReporter')
 
           });
 
+          console.log(params)
+
           return params;
       },
       params: {}, // On initial page load, load in our defaults from the address bar

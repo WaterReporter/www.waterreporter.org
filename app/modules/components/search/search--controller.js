@@ -39,6 +39,9 @@ angular.module('WaterReporter')
       }
     };
 
+    var defaults = this.search.defaults();
+    this.search.params = (defaults) ? defaults : {};
+
     this.search.resource = Report;
 
     this.search.data = reports;
