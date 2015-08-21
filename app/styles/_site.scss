@@ -48,6 +48,11 @@ body {
       padding: 0 3em;
     }
 
+    .page--content.page--content--overlay {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
     .page--content--row {
       display: inline-block;
       width: 100%;

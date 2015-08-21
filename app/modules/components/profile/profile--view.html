@@ -8,7 +8,7 @@
 
 <main class="site--content site--content--activity">
 
-  <div class="container">
+  <div class="page--content page--content--transparent page--content--overlay">
     <div class="user--profile">
       <div id="user--profile--{{ page.data.id }}">
         <p class="text-center">
@@ -21,7 +21,7 @@
         </p>
         <p class="text-center">
           <strong>{{ page.data.properties.first_name }} {{ page.data.properties.last_name }}</strong><br />
-          {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span><br data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name" />
+          {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span>
 
           {{ page.data.properties.organization[0].properties.name }}
         </p>

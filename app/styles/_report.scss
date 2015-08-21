@@ -131,8 +131,10 @@
 //
 .report--action {
   background-color: rgb(242,242,242);
-  margin: 64px 0 0 656px;
-  position: absolute;
+  float: left;
+  margin: 64px 0 0;
+  text-align: center;
+  width: 26%;
 }
 
 a.report--action--owner,
