@@ -16,6 +16,16 @@
   width: 100%;
 }
 
+.form--centered {
+  text-align: center;
+  width: 50%;
+}
+
+.form--centered.form--narrow {
+  margin: 0 auto;
+  width: 36.3333333%;
+}
+
 .form--xlarge {
   max-width: 52.2em;
 }
@@ -118,6 +128,7 @@ label.control--label {
   font-weight: 500;
   line-height: 1.5;
   margin-bottom: 0.15em;
+  text-align: left;
 }
 
 .form--label p {

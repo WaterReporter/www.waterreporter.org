@@ -55,14 +55,6 @@ angular.module('WaterReporter')
       results_per_page: undefined
     });
 
-    //
-    // If the user has not authenicated, send them to the Login page. We can't
-    // register or save Family information without a User object and token.
-    //
-    if (Security.has_token()) {
-      $location.path('/licensee/' + $route.current.params.licensee + '/events');
-    }
-
     self.login = {
       visible: true,
       submit: function() {

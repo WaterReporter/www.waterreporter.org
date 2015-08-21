@@ -27,6 +27,10 @@ angular.module('WaterReporter')
       register: {
         method: 'POST',
         url: '//api.waterreporter.org/v1/user/register'
+      },
+      reset: {
+        method: 'POST',
+        url: '//api.waterreporter.org/reset'
       }
     });
 
