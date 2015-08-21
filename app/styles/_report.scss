@@ -239,6 +239,7 @@ a.report--action--owner:visited {
   padding: 0 0 32px;
   position: static;
   text-align: center;
+  width: 100%;
 }
 
 .report--metadata a.report--action--owner,
@@ -247,4 +248,5 @@ a.report--action--owner:visited {
 .report--metadata a.report--action--owner:link,
 .report--metadata a.report--action--owner:visited {
   color: $color-blue-darkest;
+  padding: 1em 0 0;
 }

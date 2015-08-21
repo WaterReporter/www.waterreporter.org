@@ -179,10 +179,9 @@ angular.module('WaterReporter')
           self.permissions.isProfile = true;
         }
 
-        self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
-        self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
-
         if (self.permissions.isAdmin) {
+          self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
+          self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
           self.loadDashboard();
         }
       });
