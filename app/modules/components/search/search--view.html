@@ -23,12 +23,12 @@
                    id="report_description" name="report_description"
                    data-ng-model="page.search.params.report_description" />
              <p class="search--download help--text">
-               <span data-ng-if="!page.download.processing">
+               <span data-ng-if="!page.download.processing && page.permissions.isAdmin">
                  Download results as
                  <a href="javascript:void(0);" data-ng-click="page.download.csv()">CSV</a> or
                  <a href="javascript:void(0);" data-ng-click="page.download.geojson()">GeoJSON</a>
                </span>
-               <span data-ng-if="page.download.processing">
+               <span data-ng-if="page.download.processing && page.permissions.isAdmin">
                  Creating your {{ page.download.format }} file...
                </span>
              </p>
