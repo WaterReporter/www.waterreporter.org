@@ -2477,19 +2477,17 @@ angular.module('WaterReporter')
 
               var vignette = document.getElementById('map--vignette');
               vignette.className = 'map--vignette map--vignette--hidden';
-            // });
-            //
-            // $scope.$on('leafletDirectiveMap.blur', function() {
-            //   self.map.toggleControls('hide');
-            //   self.vignette = true;
-            //
-            //   var vignette = document.getElementById('map--vignette');
-            //   vignette.className = 'map--vignette map--vignette--hidden';
             });
 
           });
 
        });
+
+      $scope.$on('leafletDirectiveMap.moveend', function(event) {
+        leafletData.getMap().then(function(map) {
+          console.log('Bounds', map.getBounds());
+        });
+      });
 
       this.hideVignette = function() {
 

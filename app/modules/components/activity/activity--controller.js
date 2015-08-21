@@ -107,14 +107,6 @@
 
               var vignette = document.getElementById('map--vignette');
               vignette.className = 'map--vignette map--vignette--hidden';
-            // });
-            //
-            // $scope.$on('leafletDirectiveMap.blur', function() {
-            //   self.map.toggleControls('hide');
-            //   self.vignette = true;
-            //
-            //   var vignette = document.getElementById('map--vignette');
-            //   vignette.className = 'map--vignette map--vignette--hidden';
             });
 
           });
@@ -197,6 +189,29 @@
           }
         }
       };
+
+      //
+      // If the vignette is disabled make sure we're listening for map movement
+      //
+      $scope.$on('leafletDirectiveMap.moveend', function(event) {
+        if (self.vignette === false) {
+          leafletData.getMap().then(function(map) {
+
+            //
+            //
+            //
+            var bounds = map.getBounds(),
+                top = bounds._northEast.lat,
+                bottom = bounds._southWest.lat,
+                left = bounds._southWest.lng,
+                right = bounds._northEast.lng,
+                polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+            console.log('polygon', polygon);
+
+          });
+        }
+      });
 
     });
 
