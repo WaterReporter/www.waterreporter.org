@@ -12,7 +12,17 @@ angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '/modules/components/home/home--view.html',
+        templateUrl: '/modules/components/pages/home--view.html',
+        controller: 'HomeController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      })
+      .when('/terms', {
+        templateUrl: '/modules/components/pages/terms--view.html',
         controller: 'HomeController',
         controllerAs: 'page',
         resolve: {
@@ -21,4 +31,5 @@ angular.module('WaterReporter')
           }
         }
       });
+
   });
