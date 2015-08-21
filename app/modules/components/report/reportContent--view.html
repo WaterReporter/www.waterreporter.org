@@ -21,10 +21,12 @@
       </p>
 
       <p data-ng-if="!page.confirm && (page.permissions.isAdmin || page.permissions.isOwner)">
-        <button class="button button--link" data-ng-click="page.edit(page.report.id)">
+        <button data-ng-if="page.permissions.isOwner" class="button button--link"
+                data-ng-click="page.edit(page.report.id)">
           Edit
         </button>
-        <button class="button button--link">
+        <button data-ng-if="(page.permissions.isAdmin || page.permissions.isOwner)"
+                class="button button--link">
           <span data-ng-click="page.confirm =! page.confirm">
             Delete
           </span>
