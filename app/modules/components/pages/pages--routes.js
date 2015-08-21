@@ -13,7 +13,7 @@ angular.module('WaterReporter')
     $routeProvider
       .when('/', {
         templateUrl: '/modules/components/pages/home--view.html',
-        controller: 'HomeController',
+        controller: 'PageController',
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
@@ -23,7 +23,17 @@ angular.module('WaterReporter')
       })
       .when('/terms', {
         templateUrl: '/modules/components/pages/terms--view.html',
-        controller: 'HomeController',
+        controller: 'PageController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      })
+      .when('/about', {
+        templateUrl: '/modules/components/pages/about--view.html',
+        controller: 'PageController',
         controllerAs: 'page',
         resolve: {
           user: function(Account) {

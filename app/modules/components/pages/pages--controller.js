@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('HomeController', function (Account, $location, Report, $rootScope, user) {
+  .controller('PageController', function (Account, $location, Report, $rootScope, user) {
 
     var self = this;
 
@@ -22,7 +22,6 @@ angular.module('WaterReporter')
         $rootScope.user = Account.userObject = userResponse;
 
         $location.path('/activity');
-
       });
     }
 
