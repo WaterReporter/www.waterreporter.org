@@ -1168,6 +1168,11 @@ angular.module('WaterReporter')
         controller: 'SecurityController',
         controllerAs: 'page'
       })
+      .when('/user/reset', {
+        templateUrl: '/modules/shared/security/securityResetPassword--view.html',
+        controller: 'SecurityResetPasswordController',
+        controllerAs: 'page'
+      })
       .when('/logout', {
         redirectTo: '/user/logout'
       })
@@ -1234,14 +1239,6 @@ angular.module('WaterReporter')
       q: undefined,
       results_per_page: undefined
     });
-
-    //
-    // If the user has not authenicated, send them to the Login page. We can't
-    // register or save Family information without a User object and token.
-    //
-    if (Security.has_token()) {
-      $location.path('/licensee/' + $route.current.params.licensee + '/events');
-    }
 
     self.login = {
       visible: true,
@@ -1387,6 +1384,67 @@ angular.module('WaterReporter')
     $location.path('/activity/list');
   });
 
+(function() {
+
+  'use strict';
+
+  /**
+   * @ngdoc function
+   * @name
+   * @description
+   */
+  angular.module('WaterReporter')
+    .controller('SecurityResetPasswordController', function ($location, Security, $timeout) {
+
+      var self = this;
+
+      self.reset = {
+        processing: false,
+        visible: true,
+        submit: function() {
+
+          self.reset.processing = true;
+
+          var credentials = new Security({
+            email: self.reset.email
+          });
+
+          credentials.$reset(function(response) {
+
+            //
+            // Check to see if there are any errors by checking for the existence
+            // of response.response.errors
+            //
+            if (response.response && response.response.errors) {
+              self.reset.errors = response.response.errors;
+              self.register.processing = false;
+              self.reset.processing = false;
+
+              $timeout(function() {
+                self.reset.errors = null;
+              }, 3500);
+            } else {
+              self.reset.processing = false;
+              console.log('AWESOME SHOW A MESSAGE');
+            }
+          }, function(){
+            self.reset.processing = false;
+
+            self.reset.errors = {
+              email: ['The email or password you provided was incorrect']
+            };
+
+            $timeout(function() {
+              self.reset.errors = null;
+            }, 3500);
+          });
+        }
+      };
+
+    });
+
+} ());
+
 'use strict';
 
 /*jshint camelcase:false*/
@@ -1416,6 +1474,10 @@ angular.module('WaterReporter')
       register: {
         method: 'POST',
         url: '//api.waterreporter.org/v1/user/register'
+      },
+      reset: {
+        method: 'POST',
+        url: '//api.waterreporter.org/reset'
       }
     });
 
@@ -2524,8 +2586,28 @@ angular.module('WaterReporter')
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: '/modules/components/home/home--view.html',
-        controller: 'HomeController',
+        templateUrl: '/modules/components/pages/home--view.html',
+        controller: 'PageController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      })
+      .when('/terms', {
+        templateUrl: '/modules/components/pages/terms--view.html',
+        controller: 'PageController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
+      })
+      .when('/about', {
+        templateUrl: '/modules/components/pages/about--view.html',
+        controller: 'PageController',
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
@@ -2533,6 +2615,7 @@ angular.module('WaterReporter')
           }
         }
       });
+
   });
 
 'use strict';
@@ -2545,7 +2628,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('HomeController', function (Account, $location, Report, $rootScope, user) {
+  .controller('PageController', function (Account, $location, Report, $rootScope, user) {
 
     var self = this;
 
@@ -2559,7 +2642,6 @@ angular.module('WaterReporter')
         $rootScope.user = Account.userObject = userResponse;
 
         $location.path('/activity');
-
       });
     }
 
@@ -2892,10 +2974,9 @@ angular.module('WaterReporter')
           self.permissions.isProfile = true;
         }
 
-        self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
-        self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
-
         if (self.permissions.isAdmin) {
+          self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
+          self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
           self.loadDashboard();
         }
       });
