@@ -20,6 +20,7 @@
   box-sizing: border-box;
   float: left;
   margin: 0 0.625%;
+  overflow: hidden;
   width: 32.0833333%
 }
 
@@ -93,4 +94,80 @@
       text-decoration: none;
     }
   }
+}
+
+.page--front--brand--alternative {
+  display: none;
+}
+
+
+@media (max-width: 1160px) {
+
+  .site--content {
+    padding: 0;
+  }
+
+  .site--content--front .page--content {
+    margin: 0;
+    padding: 0;
+  }
+
+  .page--front--content {
+    padding: 0 1em;
+  }
+
+    .page--front--content .page--front--brand {
+      max-width: 256px;
+      width: 100%;
+    }
+
+    .page--front--brand--alternative {
+      display: none;
+    }
+
+  .page--front--slider {
+    margin: 0;
+  }
+
+  .page--front--slider img {
+    float: right;
+    width: 412px;
+  }
+
+}
+
+@media (max-width: 524px) {
+
+  .page--front--slider {
+    height: 270px;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+  }
+
+  .page--front--slider img {
+    float: none;
+    margin-left: -40px;
+  }
+
+  .page--front--content {
+    margin: 1em auto;
+    padding: 0 1em;
+    width: 100%;
+  }
+
+  .page--front--content .page--front--brand {
+    display: none;
+  }
+
+  .page--front--content .page--front--introduction {
+    text-align: center;
+  }
+
+  .page--front--brand--alternative {
+    display: block;
+    padding: 1em 0;
+    text-align: center;
+  }
+
 }
