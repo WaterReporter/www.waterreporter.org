@@ -32,9 +32,16 @@ angular.module('Mapbox')
         });
       },
       drawMarker: function(marker) {
-        var image = (marker.properties.images.length && marker.properties.images[0].properties.icon_retina) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original,
+        var image = null,
             _unresolved_html = '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="" width="100%" /></div><span class="marker--icon--point"></span>',
             _resolved_html = '<div class="marker--icon--image marker--icon--large"><img src="/images/badget--CertifiedAction--Small--ClosedBlue.svg" class="" alt="" width="70%" /></div><span class="marker--icon--point"></span>';
+
+
+        if (marker.properties.images.length && marker.properties.images[0].properties.icon_retina) {
+          image = marker.properties.images[0].properties.icon_retina;
+        } else if (marker.properties.images.length && marker.properties.images[0].properties.original) {
+          image =  marker.properties.images[0].properties.original;
+        }
 
         return {
           lat: marker.geometry.geometries[0].coordinates[1],
