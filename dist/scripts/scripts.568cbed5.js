@@ -633,9 +633,16 @@ angular.module('Mapbox')
         });
       },
       drawMarker: function(marker) {
-        var image = (marker.properties.images.length && marker.properties.images[0].properties.icon_retina) ? marker.properties.images[0].properties.icon_retina : marker.properties.images[0].properties.original,
+        var image = null,
             _unresolved_html = '<div class="marker--icon--image marker--icon--large"><img src="' + image + '" class="" alt="" width="100%" /></div><span class="marker--icon--point"></span>',
             _resolved_html = '<div class="marker--icon--image marker--icon--large"><img src="/images/badget--CertifiedAction--Small--ClosedBlue.svg" class="" alt="" width="70%" /></div><span class="marker--icon--point"></span>';
+
+
+        if (marker.properties.images.length && marker.properties.images[0].properties.icon_retina) {
+          image = marker.properties.images[0].properties.icon_retina;
+        } else if (marker.properties.images.length && marker.properties.images[0].properties.original) {
+          image =  marker.properties.images[0].properties.original;
+        }
 
         return {
           lat: marker.geometry.geometries[0].coordinates[1],
@@ -2465,29 +2472,19 @@ angular.module('WaterReporter')
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-          leafletData.getMap().then(function() {
+          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+            $location.path(self.map.markers[args.modelName].permalink);
+          });
 
-            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-              $location.path(self.map.markers[args.modelName].permalink);
-            });
+          $scope.$on('leafletDirectiveMap.focus', function() {
+            self.map.toggleControls('show');
+            self.vignette = false;
 
-            $scope.$on('leafletDirectiveMap.focus', function() {
-              self.map.toggleControls('show');
-              self.vignette = false;
-
-              var vignette = document.getElementById('map--vignette');
-              vignette.className = 'map--vignette map--vignette--hidden';
-            });
-
+            var vignette = document.getElementById('map--vignette');
+            vignette.className = 'map--vignette map--vignette--hidden';
           });
 
        });
-
-      $scope.$on('leafletDirectiveMap.moveend', function(event) {
-        leafletData.getMap().then(function(map) {
-          console.log('Bounds', map.getBounds());
-        });
-      });
 
       this.hideVignette = function() {
 
@@ -2565,6 +2562,67 @@ angular.module('WaterReporter')
           }
         }
       };
+
+      self.unique = function(report, list) {
+
+        for (var index = 0; index < list.length; index++) {
+          if (report.id === list[index].id) {
+            return false;
+          }
+        }
+
+        return true;
+      };
+
+      self.set = function(existingReports, newReports) {
+
+        var reports = existingReports;
+
+        angular.forEach(newReports, function(report){
+          if (self.unique(report, existingReports)) {
+            reports.push(report);
+          }
+        });
+
+        return reports;
+      };
+
+      //
+      // If the vignette is disabled make sure we're listening for map movement
+      //
+      $scope.$on('leafletDirectiveMap.moveend', function() {
+        if (self.vignette === false) {
+          leafletData.getMap().then(function(map) {
+
+            var bounds = map.getBounds(),
+                top = bounds._northEast.lat,
+                bottom = bounds._southWest.lat,
+                left = bounds._southWest.lng,
+                right = bounds._northEast.lng,
+                polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+            Report.query({
+              q: {
+                filters: [
+                  {
+                    name: 'geometry',
+                    op: 'intersects',
+                    val: 'SRID=4326;POLYGON((' + polygon + '))'
+                  }
+                ]
+              }
+            }).$promise.then(function(response) {
+
+              self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
+
+              var featureGroup = new L.FeatureGroup();
+
+              self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+            });
+
+          });
+        }
+      });
 
     });
 
