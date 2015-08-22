@@ -1852,9 +1852,18 @@ angular.module('WaterReporter')
       }
     };
 
+    //
+    // Make sure our defaults are setup and accomodate the searcm params object
+    //
     var defaults = this.search.defaults();
 
     this.search.params = (defaults) ? defaults : {};
+
+    angular.forEach(defaults, function(_default, index) {
+      if (index.indexOf('territory__') === 0) {
+        self.search.params.territory = _default;
+      }
+    });
 
     this.search.resource = Report;
 
@@ -1971,7 +1980,7 @@ angular.module('WaterReporter')
           hasWatershed: null
         };
       });
-    };
+    }
 
   });
 
@@ -2133,7 +2142,20 @@ angular.module('WaterReporter')
           this.params[field] = tag;
           this.execute();
        },
-       filters: function(_page, _results_per_page) {
+       keys: function() {
+
+         var keys = [];
+
+         if (service.model) {
+           angular.forEach(service.model, function(_model, _index) {
+             keys.push(_index);
+           });
+         }
+
+         return keys;
+       },
+       filters: function(_page) {
+
          service = this;
 
          var params = service.params,
@@ -2159,25 +2181,33 @@ angular.module('WaterReporter')
          // to fill in and for each one, use the provided model to build out
          // a proper Filters array
          //
+         var keys = service.keys();
+
          angular.forEach(params, function(field_value, field_name) {
 
-           //
-           // Get the information for the model
-           //
-           var filter = service.model[field_name];
+           console.log('field_value', field_value, 'field_name', field_name, 'keys', keys, 'Is in model?', keys.indexOf(field_name));
 
-           //
-           // Build the value for the filter
-           //
-           if (filter.op === 'ilike') {
-             filter.val = '%' + field_value + '%';
+           if (keys.indexOf(field_name) !== -1) {
+
+             //
+             // Get the information for the model
+             //
+             var filter = service.model[field_name];
+
+             //
+             // Build the value for the filter
+             //
+             if (filter.op && filter.op === 'ilike') {
+               filter.val = '%' + field_value + '%';
+             }
+
+             //
+             // Pass off the completed filter to the `q` parameter for
+             // processing
+             //
+             q.filters.push(filter);
            }
 
-           //
-           // Pass off the completed filter to the `q` parameter for
-           // processing
-           //
-           q.filters.push(filter);
 
          });
 
@@ -2200,6 +2230,8 @@ angular.module('WaterReporter')
 
          // Make sure our filters are empty
          this.filters(-1);
+
+         this.term = null;
 
          // Then reload the page
          $route.reload();

@@ -37,9 +37,18 @@ angular.module('WaterReporter')
       }
     };
 
+    //
+    // Make sure our defaults are setup and accomodate the searcm params object
+    //
     var defaults = this.search.defaults();
 
     this.search.params = (defaults) ? defaults : {};
+
+    angular.forEach(defaults, function(_default, index) {
+      if (index.indexOf('territory__') === 0) {
+        self.search.params.territory = _default;
+      }
+    });
 
     this.search.resource = Report;
 
@@ -156,6 +165,6 @@ angular.module('WaterReporter')
           hasWatershed: null
         };
       });
-    };
+    }
 
   });
