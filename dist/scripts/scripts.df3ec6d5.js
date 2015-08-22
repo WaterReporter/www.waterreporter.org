@@ -655,8 +655,8 @@ angular.module('Mapbox')
             type: 'div',
             html: (marker.properties.state === 'closed') ? _resolved_html : _unresolved_html,
             className: (marker.properties.state === 'closed') ? 'marker--icon marker--icon--resolved' : 'marker--icon',
-            iconSize: [96, 96],
-            popupAnchor: [0, -16]
+            iconSize: [98, 114],
+            iconAnchor: [49, 114],
           }
         };
       },
