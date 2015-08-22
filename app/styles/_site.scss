@@ -37,6 +37,10 @@ body {
   width: 100%;
 }
 
+  .site--content--front {
+    background-color: $color-white-base;
+  }
+
   .page--content {
     background-color: $color-white-base;
     margin: 2em auto 1em;

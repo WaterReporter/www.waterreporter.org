@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('PageController', function (Account, $location, Report, $rootScope, user) {
+  .controller('PageController', function (Account, $location, $rootScope, user) {
 
     var self = this;
 

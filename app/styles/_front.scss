@@ -1,0 +1,96 @@
+//
+// _front.scss
+//
+// This stylesheet is written in SASS(1) and compiles all of the styles
+// we use throughout the site.
+//
+// @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
+//
+
+.site--content--front .page--content {
+  margin: 0 auto 1em;
+}
+
+.page--front {
+  display: block;
+  width: 100%;
+}
+
+.page--front--slider {
+  box-sizing: border-box;
+  float: left;
+  margin: 0 0.625%;
+  width: 32.0833333%
+}
+
+  .page--front--slider img {
+    width: 100%;
+  }
+
+.page--front--content {
+  box-sizing: border-box;
+  float: left;
+  margin: 4em 0.625% 0;
+  padding: 0 0 0 2em;
+  width: 65.4166667%
+}
+
+  .page--front--content .page--front--introduction {
+    color: $color-blue-darker;
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: 0.25em;
+  }
+
+  .page--front--content > p {
+    font-size: 0.875em;
+    margin: 0 0 1.25em;
+    max-width: 40.25em;
+  }
+
+  .page--front--download {
+    padding-top: 1em;
+    text-align: center;
+  }
+
+
+//
+// Navigation
+//
+.navigation--front {
+  display: inline-block;
+  margin: 2em auto;
+  text-align: center;
+  width: 100%;
+}
+
+.navigation--front ul {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.navigation--front li,
+.navigation--front span {
+  color: rgba($color-gray-dark, 0.75);
+  display: inline-block;
+  font-family: $font-sans;
+  font-size: 0.8125em;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+  list-style-type: none;
+  margin: 0 1em 0 0;
+  text-transform: uppercase;
+
+  a {
+    border: none;
+    color: $color-blue-darker;
+
+    &:hover {
+      color: $color-blue-darkest;
+      font-size: 600;
+      text-decoration: none;
+    }
+  }
+}
