@@ -1176,6 +1176,11 @@ angular.module('WaterReporter')
         controller: 'SecurityController',
         controllerAs: 'page'
       })
+      .when('/user/register', {
+        templateUrl: '/modules/shared/security/securityRegister--view.html',
+        controller: 'SecurityController',
+        controllerAs: 'page'
+      })
       .when('/user/reset', {
         templateUrl: '/modules/shared/security/securityResetPassword--view.html',
         controller: 'SecurityResetPasswordController',
@@ -3149,6 +3154,8 @@ angular.module('WaterReporter')
     }
 
     self.save = function() {
+
+      self.profile.properties.images = self.profile.properties.images.properties;
 
       var profile_ = new User({
         id: self.profile.id,
