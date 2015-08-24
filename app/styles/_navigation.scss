@@ -78,3 +78,15 @@
   margin-right: 32px;
   text-transform: uppercase;
 }
+
+
+//
+//
+//
+@media (max-width: 767px) {
+
+  .navigation--right {
+      display: none;
+  }
+
+}

@@ -89,3 +89,11 @@ body {
     margin-left: auto;
     max-width: 960px;
   }
+
+
+@media (max-width: 767px) {
+  .site--header--brand {
+    margin-left: 1em;
+    max-width: 100%;
+  }
+}
