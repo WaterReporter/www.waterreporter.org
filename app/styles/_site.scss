@@ -47,11 +47,11 @@ body {
     background-color: $color-white-base;
     margin: 2em auto 1em;
     padding: 3em 3em 6em;
-    max-width: 68em;
+    max-width: 73.125em;
   }
     .page--content.page--content--transparent {
       background-color: transparent;
-      padding: 0 3em;
+      padding: 0;
     }
 
     .page--content.page--content--overlay {
@@ -87,7 +87,7 @@ body {
     padding-left: 1em;
     margin-right: auto;
     margin-left: auto;
-    max-width: 960px;
+    max-width: 1170px;
   }
 
 

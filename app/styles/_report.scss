@@ -14,23 +14,29 @@
 }
 
 .report {
-  background-color: $color-white-base;
-  clear: both;
+  background-color: transparent;
+  float: left;
   margin: 0 auto 64px;
   width: 100%;
 }
 
+.features--container .report {
+  float: none;
+}
+
   .report.report--featured {
-    max-width: 960px;
+    max-width: 1170px;
     width: 100%;
   }
 
   .report.report--single {
+    background-color: $color-white-base;
     float: left;
     min-height: 1;
     position: relative;
-    max-width: 100%;
-    width: 68%;
+    margin-left: 22.306035%;
+    max-width: 640px;
+    width: 55.38793%;
   }
 
   .report--author {
@@ -132,9 +138,9 @@
 .report--action {
   background-color: rgb(242,242,242);
   float: left;
-  margin: 64px 0 0;
+  margin: 64px 0 0 0.625%;
   text-align: center;
-  width: 26%;
+  width: 21.681035%;
 }
 
 a.report--action--owner,
