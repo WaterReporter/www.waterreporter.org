@@ -17,11 +17,25 @@
   position: relative;
   width: 100%;
 }
+  .user--profile--avatar {
+    float: left;
+    min-height: 1;
+    position: relative;
+    text-align: center;
+    width: 25%;
+  }
 
 .user--activity {
   float: right;
-  margin-top: -48px;
+  margin-top: 4em;
   min-height: 1px;
   position: relative;
   width: 100%;
+}
+
+.user--profile--bio {
+  float: left;
+  min-height: 1;
+  position: relative;
+  width: 75%;
 }

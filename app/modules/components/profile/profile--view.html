@@ -9,23 +9,23 @@
 <main class="site--content site--content--activity">
 
   <div class="page--content page--content--transparent page--content--overlay">
-    <div class="user--profile">
-      <div id="user--profile--{{ page.data.id }}">
-        <p class="text-center">
-          <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" />
-        </p>
-        <p class="text-center" data-ng-if="page.permissions.isProfile">
-          <a href="/profiles/{{ page.data.id }}/edit" class="button button--hollow button--space">
-            Edit Profile
-          </a>
-        </p>
-        <p class="text-center">
-          <strong>{{ page.data.properties.first_name }} {{ page.data.properties.last_name }}</strong><br />
+    <div class="user--profile" id="user--profile--{{ page.data.id }}">
+      <div class="user--profile--avatar">
+        <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" />
+        <a href="/profiles/{{ page.data.id }}/edit" class="button button--hollow button--space clear--all">
+          Edit Profile
+        </a>
+      </div>
+      <div class="user--profile--bio">
+        <h1>
+          <strong>{{ page.data.properties.first_name }} {{ page.data.properties.last_name }}</strong>
+        </h1>
+        <p>
           {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span>
 
           {{ page.data.properties.organization[0].properties.name }}
         </p>
-        <p class="text-center">
+        <p>
           <a data-ng-if="!page.visible.reports && page.permissions.isCurrentUser && page.permissions.isAdmin" data-ng-click="page.visible.reports = true; page.visible.closures = false; page.visible.submissions = false;">
             {{ page.reports.properties.num_results | number:0 }} Reports
           </a>
@@ -45,11 +45,11 @@
             {{ page.closures.properties.num_results | number:0 }} Actions
           </span>
         </p>
-        <!-- <p class="text-center">
+        <p>
           <small>
             {{ page.data.properties.description }}
           </small>
-        </p> -->
+        </p>
       </div>
     </div>
 
