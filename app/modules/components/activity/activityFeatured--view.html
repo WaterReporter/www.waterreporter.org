@@ -24,7 +24,8 @@
 
 <nav data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" class="features--navigation">
   <ul>
-    <li data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
+    <li data-ng-if="report.properties.is_featured"
+        data-ng-repeat="report in page.map.geojson.reports.data.features track by $index">
       <a href="javascript:void(0);" data-ng-class="{ 'active': page.features.visible === $index }"
          data-ng-click="page.changeFeature(page.map.geojson.reports.data.features[$index], $index)">
         {{ $index }}
