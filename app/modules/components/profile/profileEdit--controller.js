@@ -75,6 +75,8 @@ angular.module('WaterReporter')
 
     self.save = function() {
 
+      self.profile.properties.images = self.profile.properties.images.properties;
+
       var profile_ = new User({
         id: self.profile.id,
         first_name: self.profile.properties.first_name,

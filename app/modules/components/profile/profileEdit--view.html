@@ -45,17 +45,27 @@
       <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
           <p>
-            Your Organization
+            Your Position
           </p>
         </div>
         <div class="form--field">
-          <div class="form--element form--element--half">
+          <div class="form--element">
             <label for="" class="control--label">Title or Position</label>
             <input type="text" class="form--control"
                    id="title" name="title" placeholder="e.g., Volunteer, Waterkeeper, Executive Director"
                    data-ng-model="page.profile.properties.title" />
           </div>
-          <div class="form--element form--element--half">
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.profile.id">
+        <div class="form--label">
+          <p>
+            Your Organization
+          </p>
+        </div>
+        <div class="form--field">
+          <div class="form--element">
             <label for="" class="control--label">Organization Name</label>
             <input type="text" class="form--control"
                    id="organization_name" name="organization_name"  placeholder=""
@@ -112,7 +122,7 @@
         </div>
       </div>
 
-      <!-- <div class="form--row" data-ng-if="page.profile.id">
+      <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">
           <p>
             Bio
@@ -125,7 +135,7 @@
             {{ page.profile.properties.description }}
           </textarea>
         </div>
-      </div> -->
+      </div>
 
       <div class="form--actions" data-ng-if="page.profile.id">
         <div class="form--actions--buttons"></div>
