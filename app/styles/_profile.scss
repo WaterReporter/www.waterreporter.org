@@ -5,7 +5,7 @@
   border: 5px solid rgb(255, 255, 255);
   border-radius: 50%;
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.25);
-  margin-top: -128px;
+  margin-top: -4em;
   max-width: 16em;
   width: 100%;
 }
@@ -22,20 +22,55 @@
     min-height: 1;
     position: relative;
     text-align: center;
-    width: 25%;
+    width: 22.306035%;
   }
 
 .user--activity {
+  border-top: 1px solid $color-white-darker;
   float: right;
-  margin-top: 4em;
+  margin-top: 3em;
   min-height: 1px;
   position: relative;
   width: 100%;
 }
+  .user--activity ul {
+    list-style: none;
+    margin: 2em 0;
+    padding: 0;
+    text-align: center;
+  }
+
+    .user--activity ul li {
+      display: inline-block;
+      list-style-type: none;
+      margin: 0 1em;
+    }
+      .user--activity ul li span {
+        border-bottom: 3px solid $color-gray-dark;
+        color: $color-gray-dark;
+      }
 
 .user--profile--bio {
   float: left;
   min-height: 1;
   position: relative;
-  width: 75%;
+  margin-left: 1.25%;
+  margin-top: -1em;
+  max-width: 622px;
+  width: 54.76293%;
 }
+  .user--profile--bio h1 {
+    font-size: 2em;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0 0 0.125em;
+    text-transform: uppercase;
+
+    strong {
+      weight: 600;
+    }
+  }
+
+  .user--profile--bio > p {
+    font-weight: 300;
+  }
