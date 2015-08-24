@@ -19,6 +19,11 @@ angular.module('WaterReporter')
         controller: 'SecurityController',
         controllerAs: 'page'
       })
+      .when('/user/register', {
+        templateUrl: '/modules/shared/security/securityRegister--view.html',
+        controller: 'SecurityController',
+        controllerAs: 'page'
+      })
       .when('/user/reset', {
         templateUrl: '/modules/shared/security/securityResetPassword--view.html',
         controller: 'SecurityResetPasswordController',
