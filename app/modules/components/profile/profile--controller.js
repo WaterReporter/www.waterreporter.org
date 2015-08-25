@@ -187,4 +187,97 @@ angular.module('WaterReporter')
       });
     }
 
+    self.unique = function(report, list) {
+
+      for (var index = 0; index < list.length; index++) {
+        if (report.id === list[index].id) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    self.set = function(existingReports, newReports) {
+
+      var reports = existingReports;
+
+      angular.forEach(newReports, function(report){
+        if (self.unique(report, existingReports)) {
+          reports.push(report);
+        }
+      });
+
+      return reports;
+    };
+
+    //
+    // If the vignette is disabled make sure we're listening for map movement
+    //
+    $scope.$on('leafletDirectiveMap.moveend', function() {
+      if (self.map.expanded === true) {
+        leafletData.getMap().then(function(map) {
+
+          var bounds = map.getBounds(),
+              top = bounds._northEast.lat,
+              bottom = bounds._southWest.lat,
+              left = bounds._southWest.lng,
+              right = bounds._northEast.lng,
+              polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+          Report.query({
+            q: {
+              filters: [
+                {
+                  name: 'geometry',
+                  op: 'intersects',
+                  val: 'SRID=4326;POLYGON((' + polygon + '))'
+                }
+              ]
+            }
+          }).$promise.then(function(response) {
+
+            if (self.map.geojson.reports.data && self.map.geojson.reports.data.features) {
+              self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
+            } else {
+              self.map.geojson.reports.data.features = self.set([], response.features);
+            }
+
+            var featureGroup = new L.FeatureGroup();
+
+            self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+          });
+
+        });
+      }
+    });
+
+    $scope.$on('leafletDirectiveMap.focus', function() {
+      self.map.toggleControls('show');
+      self.map.expanded = true;
+
+      var map_ = document.getElementById('map--wrapper');
+      map_.className = 'map--wrapper map--wrapper--expanded';
+
+      leafletData.getMap().then(function(map) {
+        map.invalidateSize();
+      });
+    });
+
+    // $scope.$on('leafletDirectiveMap.blur', function() {
+    //   self.map.toggleControls('hide');
+    //   self.map.expanded = false;
+    //
+    //   var map_ = document.getElementById('map--wrapper');
+    //   map_.className = 'map--wrapper';
+    //
+    //   leafletData.getMap().then(function(map) {
+    //     map.invalidateSize();
+    //   });
+    // });
+
+    $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      $location.path(self.map.markers[args.modelName].permalink);
+    });
+
   });

@@ -365,17 +365,17 @@ angular.module('WaterReporter')
        });
      });
 
-     $scope.$on('leafletDirectiveMap.blur', function() {
-       self.map.toggleControls('hide');
-       self.map.expanded = false;
-
-       var map_ = document.getElementById('map--wrapper');
-       map_.className = 'map--wrapper';
-
-       leafletData.getMap().then(function(map) {
-         map.invalidateSize();
-       });
-     });
+    //  $scope.$on('leafletDirectiveMap.blur', function() {
+    //    self.map.toggleControls('hide');
+    //    self.map.expanded = false;
+     //
+    //    var map_ = document.getElementById('map--wrapper');
+    //    map_.className = 'map--wrapper';
+     //
+    //    leafletData.getMap().then(function(map) {
+    //      map.invalidateSize();
+    //    });
+    //  });
 
      $scope.$on('leafletDirectiveMarker.click', function(event, args) {
        $location.path(self.map.markers[args.modelName].permalink);
