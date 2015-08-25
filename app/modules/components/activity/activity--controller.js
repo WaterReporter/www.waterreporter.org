@@ -12,6 +12,8 @@
 
       var self = this;
 
+      self.markers = null;
+
       /**
        * Setup our Features so that they appear on the home page in the
        * appropriate position
@@ -88,26 +90,28 @@
           //
           var featureGroup = new L.FeatureGroup();
 
-          self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+          self.map.markers = {};
+
+          self.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
 
           //
           // Define the first/newest Feature and center the map on it
           //
           self.changeFeature(self.map.geojson.reports.data.features[0], 0);
-
-          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-            $location.path(self.map.markers[args.modelName].permalink);
-          });
-
-          $scope.$on('leafletDirectiveMap.focus', function() {
-            self.map.toggleControls('show');
-            self.vignette = false;
-
-            var vignette = document.getElementById('map--vignette');
-            vignette.className = 'map--vignette map--vignette--hidden';
-          });
-
        });
+
+       $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+         $location.path(self.map.markers[args.modelName].permalink);
+       });
+
+       $scope.$on('leafletDirectiveMap.focus', function() {
+         self.map.toggleControls('show');
+         self.vignette = false;
+
+         var vignette = document.getElementById('map--vignette');
+         vignette.className = 'map--vignette map--vignette--hidden';
+       });
+
 
       this.hideVignette = function() {
 
@@ -121,6 +125,8 @@
 
         var map_ = document.getElementById('map--wrapper');
         map_.className = 'map--wrapper map--wrapper--expanded';
+
+        self.map.markers = self.markers;
 
         self.map.toggleControls('show');
 
@@ -141,6 +147,8 @@
 
         var map_ = document.getElementById('map--wrapper');
         map_.className = 'map--wrapper';
+
+        self.map.markers = {};
 
         self.map.toggleControls('hide');
 
