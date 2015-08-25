@@ -1,10 +1,13 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
-<div class="map--wrapper">
-  <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+<div id="map--wrapper" class="map--wrapper">
+  <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds" controls="page.map.controls"></leaflet>
 </div>
 
 <main class="site--content">
+
+    <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
+    </div>
 
     <div class="throbber" data-ng-if="!page.report"></div>
 
