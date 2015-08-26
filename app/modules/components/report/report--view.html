@@ -6,9 +6,6 @@
 
 <main class="site--content">
 
-    <div  data-ng-if="page.map.geojson.reports.data.features.length && page.search.data.features.length" id="map--vignette" class="map--vignette" data-ng-click="page.hideVignette()">
-    </div>
-
     <div class="throbber" data-ng-if="!page.report"></div>
 
     <div class="report--single--wrapper" data-ng-if="page.report">
@@ -40,9 +37,12 @@
             <div class="report--metadata--section">
               <p>
                 <a href="/profiles/{{ page.report.properties.owner.id }}">
-                  <img class="report--author--avatar"
+                  <img class="report--author--avatar" width="32"
                        data-ng-src="{{ page.report.properties.owner.properties.picture }}"
-                       width="32" />
+                       data-ng-if="page.report.properties.owner.properties.picture" />
+                  <img class="report--author--avatar report--author--avatarMissing" width="32"
+                       data-ng-src="/images/badget--MissingUser.png"
+                       data-ng-if="!page.report.properties.owner.properties.picture" />
                 </a>
                 <a class="report--author--name" href="/profiles/{{ page.report.properties.owner.id }}">
                   {{ page.report.properties.owner.properties.first_name }} {{ page.report.properties.owner.properties.last_name }}
