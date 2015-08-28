@@ -32,6 +32,9 @@
           </a>
         </li>
         <li data-ng-if="!$root.user.id">
+          <a href="/user/register">Sign up</a>
+        </li>
+        <li data-ng-if="!$root.user.id">
           <a class="button button--info button--feature" href="/user/login">Log in</a>
         </li>
         <li data-ng-if="$root.user.id">
