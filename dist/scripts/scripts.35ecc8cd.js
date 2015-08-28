@@ -2400,6 +2400,10 @@ angular.module('WaterReporter')
                   {
                     field: 'report_date',
                     direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
                   }
                 ]
               },
