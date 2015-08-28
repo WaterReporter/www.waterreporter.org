@@ -11,7 +11,12 @@
   <div class="page--content page--content--transparent page--content--overlay">
     <div class="user--profile" id="user--profile--{{ page.data.id }}">
       <div class="user--profile--avatar">
-        <img class="user--profile--image img-circle" data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}" />
+        <img class="user--profile--image img-circle"
+             data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}"
+             data-ng-if="page.data.properties.images[0].properties.thumbnail" />
+        <img class="user--profile--image user--profile--empty img-circle"
+             data-ng-src="/images/badget--MissingUser.png"
+             data-ng-if="!page.data.properties.images[0].properties.thumbnail" />
       </div>
       <div class="user--profile--bio">
         <h1>
