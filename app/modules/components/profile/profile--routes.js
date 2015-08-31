@@ -30,32 +30,6 @@ angular.module('WaterReporter')
               id: $route.current.params.userId
             });
           },
-          closures: function(Report, $route) {
-
-            var search_params = {
-              q: {
-                filters: [
-                  {
-                    name: 'closed_by__id',
-                    op: 'has',
-                    val: $route.current.params.userId
-                  }
-                ],
-                order_by: [
-                  {
-                    field: 'report_date',
-                    direction: 'desc'
-                  },
-                  {
-                    field: 'id',
-                    direction: 'desc'
-                  }
-                ]
-              }
-            };
-
-            return Report.query(search_params);
-          },
           submissions: function($location, $route, Report) {
 
             //
@@ -95,6 +69,186 @@ angular.module('WaterReporter')
             //
             // Execute our query so that we can get the Reports back
             //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          }
+        }
+      })
+      .when('/profiles/:userId/actions', {
+        templateUrl: '/modules/components/profile/profileActions--view.html',
+        controller: 'ProfileActionsController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          },
+          organizations: function($route, User) {
+            return User.getOrganizations({
+              id: $route.current.params.userId
+            });
+          },
+          submissions: function($location, $route, Report) {
+
+            //
+            // Get all of our existing URL Parameters so that we can
+            // modify them to meet our goals
+            //
+            var search_params = $location.search();
+
+            //
+            // Prepare any pre-filters to append to any of our user-defined
+            // filters in the browser address bar
+            //
+            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+            //
+            // Ensure that returned Report features are sorted newest first
+            //
+            search_params.q.filters.push({
+              name: 'owner_id',
+              op: 'eq',
+              val: $route.current.params.userId
+            });
+
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          }
+        }
+      })
+      .when('/profiles/:userId/reports', {
+        templateUrl: '/modules/components/profile/profileReports--view.html',
+        controller: 'ProfileReportsController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          },
+          organizations: function($route, User) {
+            return User.getOrganizations({
+              id: $route.current.params.userId
+            });
+          },
+          submissions: function($location, $route, Report) {
+
+            //
+            // Get all of our existing URL Parameters so that we can
+            // modify them to meet our goals
+            //
+            var search_params = $location.search();
+
+            //
+            // Prepare any pre-filters to append to any of our user-defined
+            // filters in the browser address bar
+            //
+            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+            //
+            // Ensure that returned Report features are sorted newest first
+            //
+            search_params.q.filters.push({
+              name: 'owner_id',
+              op: 'eq',
+              val: $route.current.params.userId
+            });
+
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
             return Report.query(search_params);
           }
         }

@@ -1,0 +1,78 @@
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+<div id="map--wrapper" class="map--wrapper">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+  </div>
+</div>
+
+<main class="site--content site--content--activity">
+
+  <div class="page--content page--content--transparent page--content--overlay">
+    <div class="user--profile" id="user--profile--{{ page.data.id }}">
+      <div class="user--profile--avatar">
+        <img class="user--profile--image img-circle"
+             data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}"
+             data-ng-if="page.data.properties.images[0].properties.thumbnail" />
+        <img class="user--profile--image user--profile--empty img-circle"
+             data-ng-src="/images/badget--MissingUser.png"
+             data-ng-if="!page.data.properties.images[0].properties.thumbnail" />
+      </div>
+      <div class="user--profile--bio">
+        <h1>
+          {{ page.data.properties.first_name }} <strong>{{ page.data.properties.last_name }}</strong>
+        </h1>
+        <p>
+          {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span>
+
+          {{ page.data.properties.organization[0].properties.name }}
+        </p>
+        <p>
+          {{ page.data.properties.description }}
+        </p>
+        <p>
+          <a data-ng-if="$root.user.id && page.permissions.isCurrentUser" href="/profiles/{{ page.data.id }}/edit" class="button button--link">
+            Edit Profile
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="user--activity">
+      <ul>
+        <li data-ng-if="$root.user.id && page.permissions.isCurrentUser && page.permissions.isAdmin">
+           <a href="/profiles/{{ page.data.id }}/reports">
+            {{ page.reports.properties.num_results | number:0 }} Reports
+           </a>
+        </li>
+        <li>
+          <a href="/profiles/{{ page.data.id }}">
+            {{ page.submissions.properties.num_results | number:0 }} Submissions
+          </a>
+        </li>
+        <li>
+          <span>
+            {{ page.search.data.properties.num_results | number:0 }} Actions
+          </span>
+        </li>
+      </ul>
+      <div class="row" data-ng-if="page.search.data.features.length">
+           <div data-ng-repeat="report in page.search.data.features"
+                data-ng-include="'/modules/shared/views/report--view.html'"
+                >
+           </div>
+      </div>
+      <div>
+        <a data-ng-click="page.search.more()" class="circle--button"
+           data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+            Load More
+        </a>
+        <span data-ng-if="page.search.status.loading" class="throbber"></span>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>

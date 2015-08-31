@@ -8,7 +8,7 @@
 
     <nav class="navigation navigation--right">
       <ul class="navigation--utility nav navbar-nav pull-right">
-        <li data-ng-if="!page.permissions.isCurrentUser">
+        <li data-ng-if="!page.permissions.isCurrentUser && $root.user">
           <a href="/profiles/{{ $root.user.id }}">
             <span data-ng-if="$root.user.properties.first_name && $root.user.properties.last_name">
               {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}

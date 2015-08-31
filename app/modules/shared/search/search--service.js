@@ -107,6 +107,8 @@ angular.module('WaterReporter')
 
           search_params.page = service.page;
 
+          console.log('search_params', search_params)
+
           //
           // Execute our query so that we can get the Reports back
           //

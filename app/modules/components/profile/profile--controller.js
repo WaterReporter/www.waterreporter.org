@@ -27,9 +27,9 @@ angular.module('WaterReporter')
      *    retains and updates based on the features returned from the user-defined query
      *
      */
-    self.search = Search;
+    this.search = Search;
 
-    self.search.model = {
+    this.search.model = {
       report_description: {
         name: 'report_description',
         op: 'ilike',
@@ -37,7 +37,31 @@ angular.module('WaterReporter')
       }
     };
 
-    self.search.resource = Report;
+    this.search.params = {
+      q: {
+        filters: [
+          {
+            name: 'owner_id',
+            op: 'eq',
+            val: $route.current.params.userId
+          }
+        ],
+        order_by: [
+          {
+            field: 'report_date',
+            direction: 'desc'
+          },
+          {
+            field: 'id',
+            direction: 'desc'
+          }
+        ]
+      }
+    };
+
+    this.search.resource = Report;
+
+    this.search.data = submissions;
 
     //
     // Load other data
@@ -45,8 +69,6 @@ angular.module('WaterReporter')
     this.data = profile;
 
     this.organizations = organizations;
-
-    this.submissions = submissions;
 
     this.closures = closures;
 
@@ -71,7 +93,7 @@ angular.module('WaterReporter')
 
     L.Icon.Default.imagePath = '/images';
 
-    self.submissions.$promise.then(function(reports_) {
+    this.search.data.$promise.then(function(reports_) {
         self.map.geojson.reports = {
             data: reports_
         };
@@ -184,8 +206,6 @@ angular.module('WaterReporter')
         }
 
         if (self.permissions.isAdmin) {
-          self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
-          self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
           self.loadDashboard();
         }
       });
@@ -267,18 +287,6 @@ angular.module('WaterReporter')
         map.invalidateSize();
       });
     });
-
-    // $scope.$on('leafletDirectiveMap.blur', function() {
-    //   self.map.toggleControls('hide');
-    //   self.map.expanded = false;
-    //
-    //   var map_ = document.getElementById('map--wrapper');
-    //   map_.className = 'map--wrapper';
-    //
-    //   leafletData.getMap().then(function(map) {
-    //     map.invalidateSize();
-    //   });
-    // });
 
     $scope.$on('leafletDirectiveMarker.click', function(event, args) {
       $location.path(self.map.markers[args.modelName].permalink);
