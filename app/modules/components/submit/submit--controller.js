@@ -97,7 +97,6 @@
         ]
       });
 
-
       //
       // We use this function for handle any type of geographic change, whether
       // through the map or through the fields
@@ -105,11 +104,8 @@
       self.map.processPin = function(coordinates, zoom) {
 
         if (coordinates.lat === null || coordinates.lat === undefined || coordinates.lng === null || coordinates.lng === undefined) {
-          console.log('Invalid coordinates, existing pin processing');
           return;
         }
-
-        console.log('coordinates changed', coordinates)
 
         //
         // Move the map pin/marker and recenter the map on the new location
@@ -241,6 +237,8 @@
       //
       leafletData.getMap().then(function(map) {
 
+        self.map.toggleControls('show');
+
         //
         // Update the pin and segment information when the user clicks on the map
         // or drags the pin to a new location
@@ -286,6 +284,46 @@
           });
         }
       }
+
+      //
+      // Empty Geocode object
+      //
+      // We need to have an empty geocode object so that we can fill it in later
+      // in the address geocoding process. This allows us to pass the results along
+      // to the Form Submit function we have in place below.
+      //
+      self.geocode = {
+        state: 'Maryland'
+      };
+
+      //
+      // When the user has selected a response, we need to perform a few extra
+      // tasks so that our scope is updated properly.
+      //
+      $scope.$watch(angular.bind(this, function() {
+        return this.geocode.response;
+      }), function (response) {
+
+        //
+        // Only execute the following block of code if the user has geocoded an
+        // address. This block of code expects this to be a single feature from a
+        // Carmen GeoJSON object.
+        //
+        // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+        //
+        if (response) {
+          self.map.processPin({
+            lat: response.geometry.coordinates[1],
+            lng: response.geometry.coordinates[0]
+          }, 16);
+
+          self.geocode = {
+            query: null,
+            response: null
+          };
+        }
+
+      });
 
 
     });

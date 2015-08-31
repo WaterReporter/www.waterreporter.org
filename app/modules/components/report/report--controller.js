@@ -182,18 +182,44 @@ angular.module('WaterReporter')
      * Open Report functionality to the Cotnroller
      */
      self.comment = {
+       loading: false,
        data: {},
        update: function(comment, state) {
+
+         self.comment.loading = true;
+
           var comment_ = new Comment({
             body: comment.properties.body,
             report_state: state
           });
 
-          comment_.$update({
-            id: comment.id
-          }).then(function() {
-            $route.reload();
-          });
+          if (self.image) {
+            var fileData = new FormData();
+
+            fileData.append('image', self.image);
+
+            Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+              comment_.images = [
+                {
+                  id: successResponse.id
+                }
+              ];
+
+              comment_.$update({
+                id: comment.id
+              }).then(function() {
+                $route.reload();
+              });
+
+            });
+          } else {
+            comment_.$update({
+              id: comment.id
+            }).then(function() {
+              $route.reload();
+            });
+          }
        },
        delete: function(commentId) {
         Comment.delete({
@@ -229,6 +255,8 @@ angular.module('WaterReporter')
          });
        },
        save: function(reportId, state) {
+
+         self.comment.loading = true;
 
         var comment = new Comment({
           body: self.comment.data.body,

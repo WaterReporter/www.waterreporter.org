@@ -42,7 +42,7 @@
         <span data-ng-if="!comment.edit">{{ comment.properties.body }}</span>
       </p>
 
-      <form data-ng-if="comment.edit" class="site--report--comment--edit form"
+      <form data-ng-if="comment.edit && !page.comment.loading" class="site--report--comment--edit form"
             role="form" id="form--reports--comment--edit"
             name="form--reports--comment--edit"
             data-ng-submit="page.comment.update(comment)">
@@ -51,8 +51,14 @@
                     class="form--control" data-ng-model="comment.properties.body">
             {{ comment.properties.body }}
           </textarea>
+          <a class="form--control--toggle"
+             data-ng-if="!page.commentFileField"
+             data-ng-click="page.commentFileField =! page.commentFileField">
+             + Add Image
+          </a>
           <input type="file" id="report--commentImage" name="report--commentImage"
-                 class="form--control" data-ng-model="comment.properties.image" />
+                 class="form--control form--control--file"
+                 file-model="page.image" data-ng-if="page.commentFileField" />
         </div>
         <button id="report--comment--submit" name="report--comment--submit" class="button">
           Save

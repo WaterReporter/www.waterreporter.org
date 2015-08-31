@@ -30,6 +30,7 @@
   padding: 6px 0;
   position: absolute;
   width: 100%;
+  z-index: 9999;
 
   .mapboxGeocoder--results--result {
     cursor: pointer;

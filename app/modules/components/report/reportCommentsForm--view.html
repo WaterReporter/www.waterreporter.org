@@ -11,7 +11,9 @@
     </a>
   </p>
 
-  <form data-ng-if="page.permissions.isLoggedIn" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
+  <div class="throbber" data-ng-if="page.comment.loading"></div>
+
+  <form data-ng-if="page.permissions.isLoggedIn && !page.comment.loading" class="site--report--comment form" role="form" id="form--reports--comment" name="form--reports--comment">
 
     <div class="form-group">
       <textarea id="report--commentBody" name="report--commentBody" class="form--control" data-ng-model="page.comment.data.body" placeholder="Join the conversation">
