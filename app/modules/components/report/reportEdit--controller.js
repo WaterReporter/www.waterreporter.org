@@ -174,7 +174,6 @@
           self.date.day = self.days[_date.getDay()];
 
           self.report.properties.report_date = _new;
-          console.log('DATE CHANGE', _new)
         }
       }, true);
 

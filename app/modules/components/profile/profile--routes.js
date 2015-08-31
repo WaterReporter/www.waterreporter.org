@@ -45,6 +45,10 @@ angular.module('WaterReporter')
                   {
                     field: 'report_date',
                     direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
                   }
                 ]
               }
@@ -80,6 +84,11 @@ angular.module('WaterReporter')
 
             search_params.q.order_by.push({
               field: 'report_date',
+              direction: 'desc'
+            });
+
+            search_params.q.order_by.push({
+              field: 'id',
               direction: 'desc'
             });
 

@@ -40,6 +40,11 @@ angular.module('WaterReporter')
               direction: 'desc'
             });
 
+            search_params.q.order_by.push({
+              field: 'id',
+              direction: 'desc'
+            });
+
             //
             // Execute our query so that we can get the Reports back
             //
