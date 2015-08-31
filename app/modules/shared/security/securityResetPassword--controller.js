@@ -13,6 +13,7 @@
       var self = this;
 
       self.reset = {
+        success: false,
         processing: false,
         visible: true,
         submit: function() {
@@ -39,7 +40,7 @@
               }, 3500);
             } else {
               self.reset.processing = false;
-              console.log('AWESOME SHOW A MESSAGE');
+              self.reset.success = true;
             }
           }, function(){
             self.reset.processing = false;
