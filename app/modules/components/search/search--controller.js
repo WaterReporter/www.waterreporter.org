@@ -134,7 +134,7 @@ angular.module('WaterReporter')
         $rootScope.user = Account.userObject = userResponse;
 
         if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
-          $rootScope.notifications.warning('Profile Incomplete', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
         }
 
         if (userResponse.properties.classifications.length) {

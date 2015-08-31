@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('PageController', function (Account, $location, $rootScope, user) {
+  .controller('PageController', function (Account, $location, Notifications, $rootScope, user) {
 
     var self = this;
 
@@ -21,7 +21,9 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
-        $location.path('/activity');
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
       });
     }
 

@@ -8,7 +8,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, Report, $rootScope, $route, Search, submissions, $scope, user) {
+  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, Notifications, organizations, profile, Report, $rootScope, $route, Search, submissions, $scope, user) {
 
     var self = this;
 
@@ -167,6 +167,10 @@ angular.module('WaterReporter')
     if (Account.userObject && user) {
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
+
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
 
         self.permissions = {
           isLoggedIn: Account.hasToken(),
