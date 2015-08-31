@@ -5,10 +5,18 @@
 
     <h1>Your Personal Information</h1>
 
-    <p>
+    <p data-ng-if="$root.user.properties.first_name || $root.user.properties.last_name">
       Below are your personal account details. These control how you log in,
       let us know how best to contact you, and keep your reports, comments,
       and images in organized.
+    </p>
+
+    <p data-ng-if="$root.user && (!$root.user.properties.first_name || !$root.user.properties.last_name) && page.reports.properties.num_results">
+      Thanks for joining Water Reporter, the only social network that connects
+      citizens and stewards for the welfare of their waterways. You’re now part
+      of an amazing community of more than <strong>{{ page.reports.properties.num_results }}</strong>
+      users sharing their experiences in the enjoyment and conservation of
+      rivers and oceans.
     </p>
 
     <div class="status" data-ng-if="!page.profile.id">

@@ -6,9 +6,11 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, Image, profile, Report, $rootScope, $route, Search, $scope, user, User) {
+  .controller('ProfileEditController', function (Account, Image, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
 
     var self = this;
+
+    this.reports = reports;
 
     self.image = null;
 
