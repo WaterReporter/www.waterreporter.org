@@ -205,6 +205,13 @@ input.form--control {
     font-weight: 600;
   }
 
+  //
+  // Form Field Errors
+  //
+  &.ng-invalid {
+    border-color: $color-red-base;
+  }
+
 }
 
 select.form--control {

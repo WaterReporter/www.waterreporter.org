@@ -12,12 +12,12 @@
 
         <div data-ng-switch-when="true">
           <div data-ng-repeat="message_ in notification.title">
-             {{ message_ }}
+             <span data-ng-bind-html="message_"></span>
           </div>
         </div>
 
         <div data-ng-switch-when="false">
-          <strong>{{ notification.title }}</strong> {{ notification.message }}
+          <strong>{{ notification.title }}</strong> <span data-ng-bind-html="notification.message"></span>
         </div>
 
      </div>

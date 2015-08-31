@@ -23,7 +23,7 @@
     <form class="form site--profile--edit" role="form"
           id="site--profile--edit" name="site--profile--edit"
           data-ng-submit="page.save()"
-          data-ng-if="!page.status.saving.action" novalidate>
+          data-ng-if="!page.status.saving.action">
 
 
       <div class="form--row" data-ng-if="page.profile.id">
@@ -35,10 +35,12 @@
         <div class="form--field">
           <input type="text" class="form--control form--control--half"
                  id="first_name" name="first_name" placeholder="First Name"
-                 data-ng-model="page.profile.properties.first_name" />
+                 data-ng-model="page.profile.properties.first_name"
+                 required="required" />
           <input type="text" class="form--control form--control--half"
                  id="last_name" name="last_name"  placeholder="Last Name"
-                 data-ng-model="page.profile.properties.last_name" />
+                 data-ng-model="page.profile.properties.last_name"
+                 required="required" />
         </div>
       </div>
 

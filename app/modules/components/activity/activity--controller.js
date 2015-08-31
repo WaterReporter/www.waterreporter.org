@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, Search, $scope, user) {
+    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Notifications, Report, reports, $rootScope, Search, $scope, user) {
 
       var self = this;
 
@@ -61,6 +61,10 @@
             isAdmin: Account.hasRole('admin'),
             isProfile: false
           };
+
+          if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+            $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+          }
 
         });
       }

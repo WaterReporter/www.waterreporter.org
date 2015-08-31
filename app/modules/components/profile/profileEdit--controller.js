@@ -86,18 +86,19 @@ angular.module('WaterReporter')
         title: self.profile.properties.title,
         organization_name: self.profile.properties.organization_name,
         telephone: [{
-          number: self.profile.properties.telephone[0].properties.number
+          number: (self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
         }],
         images: self.profile.properties.images
       });
 
-      if (!self.profile.properties.organization[0].properties.name) {
+      if (!self.profile.properties.organization.length || self.profile.properties.organization[0].properties === undefined) {
         profile_.organization = [];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
         profile_.organization = [
           {
             id: self.profile.properties.organization[0].properties.id,
-            name: self.profile.properties.organization[0].properties.name
+            name: self.profile.properties.organization[0].properties.name,
+            geometry: null
           }
         ];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {

@@ -10,7 +10,12 @@
       <ul class="navigation--utility nav navbar-nav pull-right">
         <li data-ng-if="!page.permissions.isCurrentUser">
           <a href="/profiles/{{ $root.user.id }}">
-            {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}
+            <span data-ng-if="$root.user.properties.first_name && $root.user.properties.last_name">
+              {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}
+            </span>
+            <span data-ng-if="$root.user && !$root.user.properties.first_name || !$root.user.properties.last_name">
+              My Profile
+            </span>
           </a>
         </li>
         <li data-ng-if="page.permissions.isCurrentUser">

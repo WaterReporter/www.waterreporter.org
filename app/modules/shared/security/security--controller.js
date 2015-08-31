@@ -57,7 +57,7 @@ angular.module('WaterReporter')
 
     self.login = {
       visible: true,
-      submit: function() {
+      submit: function(firstTime) {
 
         self.login.processing = true;
 
@@ -102,6 +102,9 @@ angular.module('WaterReporter')
 
                 if ($rootScope.isAdmin) {
                   $location.path('/dashboard');
+                }
+                else if (firstTime) {
+                  $location.path('/profiles/' + $rootScope.user.id + '/edit');
                 }
                 else {
                   $location.path('/activity/list');
@@ -149,7 +152,7 @@ angular.module('WaterReporter')
           } else {
             self.login.email = self.register.email;
             self.login.password = self.register.password;
-            self.login.submit();
+            self.login.submit(true);
           }
         }, function(error){
           self.login.processing = false;

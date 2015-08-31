@@ -38,11 +38,11 @@ angular.module('WaterReporter')
           message: (alertMessage) ? alertMessage : 'We couldn\'t save your changes.'
         });
       },
-      dismiss: function($index) {
-        $timeout(function() {
-          $rootScope.notifications.objects.splice($index, 1);
-        }, 5000);
-      },
+      // dismiss: function($index) {
+      //   $timeout(function() {
+      //     $rootScope.notifications.objects.splice($index, 1);
+      //   }, 5000);
+      // },
       dismissAll: function() {
         $rootScope.notifications.objects = [];
       }
