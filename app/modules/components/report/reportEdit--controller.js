@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, Notifications, report, Report, $rootScope, $scope, user) {
+    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user) {
 
       var self = this;
 
@@ -24,8 +24,6 @@
       // Setup all of our basic date information so that we can use it
       // throughout the page
       //
-      self.today = new Date();
-
       self.days = [
         'Sunday',
         'Monday',
@@ -65,6 +63,27 @@
       report.$promise.then(function(response) {
         self.report = response;
 
+        /**
+         * Take our three separate date fields (i.e., month, day, year) and on
+         * field updates change the report.report_date scoped object so that it
+         * builds a proper Date object for our Report $resource
+         */
+        console.log('self.report.properties.report_date', self.report.properties.report_date)
+        var temporaryDate = new Date(self.report.properties.report_date);
+        self.today = moment.utc(temporaryDate);
+
+
+
+        console.log('self.today', self.today.month(), self.today.date(), self.today.day(), self.today.year());
+
+        self.date = {
+          month: self.months[self.today.month()],
+          date: self.today.date(),
+          day: self.days[self.today.day()],
+          year: self.today.year()
+        };
+
+
         self.coordinates = {
           lng: self.report.geometry.geometries[0].coordinates[0],
           lat: self.report.geometry.geometries[0].coordinates[1]
@@ -101,8 +120,6 @@
           console.log('Invalid coordinates, existing pin processing');
           return;
         }
-
-        console.log('coordinates changed', coordinates)
 
         //
         // Move the map pin/marker and recenter the map on the new location
@@ -147,27 +164,18 @@
 
       };
 
-      /**
-       * Take our three separate date fields (i.e., month, day, year) and on
-       * field updates change the report.report_date scoped object so that it
-       * builds a proper Date object for our Report $resource
-       */
-      self.date = {
-        month: self.months[self.today.getMonth()],
-        date: self.today.getDate(),
-        day: self.days[self.today.getDay()],
-        year: self.today.getFullYear()
-      };
-
       $scope.$watch(angular.bind(this, function() {
         return this.date;
       }), function (response) {
-        var _new = response.month + ' ' + response.date + ' ' + response.year,
-            _date = new Date(_new);
+        if (response !== undefined) {
+          var _new = response.month + ' ' + response.date + ' ' + response.year,
+              _date = new Date(_new);
 
-        self.date.day = self.days[_date.getDay()];
+          self.date.day = self.days[_date.getDay()];
 
-        self.report.report_date = _date;
+          self.report.properties.report_date = _new;
+          console.log('DATE CHANGE', _new)
+        }
       }, true);
 
       self.status = {
