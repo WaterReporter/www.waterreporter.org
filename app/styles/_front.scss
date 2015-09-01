@@ -40,12 +40,23 @@
   float: left;
   margin: 0 0.625%;
   overflow: hidden;
+  position: relative;
   width: 32.0833333%
 }
 
-  .page--front--slider img {
+  .page--front--slider > img {
     width: 100%;
   }
+
+  .page--front--slides {
+    left: 95px;
+    position: absolute;
+    top: 135px;
+    width: 248px;
+  }
+    .page--front--slides > img {
+      width: 100%;
+    }
 
 .page--front--content {
   box-sizing: border-box;
