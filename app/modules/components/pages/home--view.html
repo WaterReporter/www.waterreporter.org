@@ -15,16 +15,7 @@
           <img src="/images/example--Phones.png" alt="" title="" width="" class="pull-left" />
 
           <div class="page--front--slides">
-            <img src="/images/slide_1.jpg" alt="Use the satellite or trails map to explore other peoples reports"/>
-            <img src="/images/slide_2.jpg" alt=""/>
-            <img src="/images/slide_3.jpg" alt=""/>
-            <img src="/images/slide_4.jpg" alt=""/>
-            <img src="/images/slide_5.jpg" alt=""/>
-            <img src="/images/slide_6.jpg" alt=""/>
-            <img src="/images/slide_7.jpg" alt=""/>
-            <img src="/images/slide_8.jpg" alt=""/>
-            <img src="/images/slide_9.jpg" alt=""/>
-            <img src="/images/slide_10.jpg" alt=""/>
+            <img data-ng-class="{'page--front--slidesVisible': page.slides.visible === $index}" data-ng-src="{{ slide.url }}" alt="{{ slide.title }}" data-ng-repeat="slide in page.slides.data track by $index"/>
           </div>
         </div>
 
