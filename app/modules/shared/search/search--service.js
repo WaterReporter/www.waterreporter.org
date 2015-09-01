@@ -69,7 +69,7 @@ angular.module('WaterReporter')
         loading: false
       },
       params: {}, // On initial page load, load in our defaults from the address bar
-      more: function() {
+      more: function(isStatic) {
 
         var service = this;
 
@@ -78,15 +78,17 @@ angular.module('WaterReporter')
           service.status.loading = true;
 
           //
-          // Increment the page to be loaded by 1
-          //
-          service.page++;
-
-          //
           // Get all of our existing URL Parameters so that we can
           // modify them to meet our goals
           //
-          var search_params = $location.search();
+          var search_params = (!isStatic) ? $location.search() : service.params;
+
+          //
+          // Increment the page to be loaded by 1
+          //
+          search_params.page++;
+
+          console.log('Static search_params', search_params)
 
           //
           // Prepare any pre-filters to append to any of our user-defined
@@ -104,10 +106,6 @@ angular.module('WaterReporter')
             field: 'report_date',
             direction: 'desc'
           });
-
-          search_params.page = service.page;
-
-          console.log('search_params', search_params)
 
           //
           // Execute our query so that we can get the Reports back

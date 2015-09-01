@@ -129,7 +129,8 @@ angular.module('WaterReporter')
               direction: 'desc'
             }
           ]
-        }
+        },
+        page: 1
       };
 
       angular.forEach(Account.userObject.properties.classifications, function(value) {
@@ -144,11 +145,12 @@ angular.module('WaterReporter')
         search_params.q.filters.push(filter);
       });
 
-      search_params.page = 1;
-
       //
       // Execute our query so that we can get the Reports back
       //
+
+      self.search.params = search_params;
+
       self.search.data = Report.query(search_params);
 
       self.addReportsToMap();

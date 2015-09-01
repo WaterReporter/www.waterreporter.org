@@ -56,7 +56,8 @@ angular.module('WaterReporter')
             direction: 'desc'
           }
         ]
-      }
+      },
+      page: 1
     };
 
     this.search.resource = Report;
