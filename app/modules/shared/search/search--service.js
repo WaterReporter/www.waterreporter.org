@@ -86,7 +86,11 @@ angular.module('WaterReporter')
           //
           // Increment the page to be loaded by 1
           //
-          search_params.page++;
+          if (search_params.page) {
+            search_params.page++;
+          } else {
+            search_params.page = 2;
+          }
 
           console.log('Static search_params', search_params)
 
