@@ -336,6 +336,24 @@ angular
 
 'use strict';
 
+angular.module('Mapbox')
+  .service('TemplateLoader', function ($compile, $http, $templateCache) {
+    return {
+      get: function(templateUrl) {
+
+        var promise = $http.get(templateUrl, {
+            cache: $templateCache
+          }).success(function(html) {
+            return html;
+          });
+
+        return promise;
+      }
+    };
+  });
+
+'use strict';
+
 /*jshint camelcase: false */
 
 /**
@@ -1255,7 +1273,7 @@ angular.module('WaterReporter')
 
     self.login = {
       visible: true,
-      submit: function() {
+      submit: function(firstTime) {
 
         self.login.processing = true;
 
@@ -1300,6 +1318,9 @@ angular.module('WaterReporter')
 
                 if ($rootScope.isAdmin) {
                   $location.path('/dashboard');
+                }
+                else if (firstTime) {
+                  $location.path('/profiles/' + $rootScope.user.id + '/edit');
                 }
                 else {
                   $location.path('/activity/list');
@@ -1347,7 +1368,7 @@ angular.module('WaterReporter')
           } else {
             self.login.email = self.register.email;
             self.login.password = self.register.password;
-            self.login.submit();
+            self.login.submit(true);
           }
         }, function(error){
           self.login.processing = false;
@@ -1412,6 +1433,7 @@ angular.module('WaterReporter')
       var self = this;
 
       self.reset = {
+        success: false,
         processing: false,
         visible: true,
         submit: function() {
@@ -1438,7 +1460,7 @@ angular.module('WaterReporter')
               }, 3500);
             } else {
               self.reset.processing = false;
-              console.log('AWESOME SHOW A MESSAGE');
+              self.reset.success = true;
             }
           }, function(){
             self.reset.processing = false;
@@ -1752,11 +1774,11 @@ angular.module('WaterReporter')
           message: (alertMessage) ? alertMessage : 'We couldn\'t save your changes.'
         });
       },
-      dismiss: function($index) {
-        $timeout(function() {
-          $rootScope.notifications.objects.splice($index, 1);
-        }, 5000);
-      },
+      // dismiss: function($index) {
+      //   $timeout(function() {
+      //     $rootScope.notifications.objects.splice($index, 1);
+      //   }, 5000);
+      // },
       dismissAll: function() {
         $rootScope.notifications.objects = [];
       }
@@ -1806,6 +1828,11 @@ angular.module('WaterReporter')
               direction: 'desc'
             });
 
+            search_params.q.order_by.push({
+              field: 'id',
+              direction: 'desc'
+            });
+
             //
             // Execute our query so that we can get the Reports back
             //
@@ -1826,7 +1853,7 @@ angular.module('WaterReporter')
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Exporter, $location, Report, reports, $rootScope, Search, user) {
+  .controller('SearchController', function (Account, Exporter, $location, Notifications, Report, reports, $rootScope, Search, user) {
 
     var self = this;
 
@@ -1953,6 +1980,10 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
+
         if (userResponse.properties.classifications.length) {
 
           var hucType = user.properties.classifications[0].properties.digits,
@@ -2060,7 +2091,7 @@ angular.module('WaterReporter')
         loading: false
       },
       params: {}, // On initial page load, load in our defaults from the address bar
-      more: function() {
+      more: function(isStatic) {
 
         var service = this;
 
@@ -2069,15 +2100,21 @@ angular.module('WaterReporter')
           service.status.loading = true;
 
           //
-          // Increment the page to be loaded by 1
-          //
-          service.page++;
-
-          //
           // Get all of our existing URL Parameters so that we can
           // modify them to meet our goals
           //
-          var search_params = $location.search();
+          var search_params = (!isStatic) ? $location.search() : service.params;
+
+          //
+          // Increment the page to be loaded by 1
+          //
+          if (search_params.page) {
+            search_params.page++;
+          } else {
+            search_params.page = 2;
+          }
+
+          console.log('Static search_params', search_params)
 
           //
           // Prepare any pre-filters to append to any of our user-defined
@@ -2095,8 +2132,6 @@ angular.module('WaterReporter')
             field: 'report_date',
             direction: 'desc'
           });
-
-          search_params.page = service.page;
 
           //
           // Execute our query so that we can get the Reports back
@@ -2325,7 +2360,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('AboutController', function (Account, $rootScope, user) {
+  .controller('AboutController', function (Account, Notifications, $rootScope, user) {
 
     var self = this;
 
@@ -2338,6 +2373,10 @@ angular.module('WaterReporter')
       if (user) {
         user.$promise.then(function(userResponse) {
           $rootScope.user = Account.userObject = userResponse;
+
+          if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+            $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+          }
 
           self.permissions = {
             isLoggedIn: Account.hasToken(),
@@ -2427,7 +2466,7 @@ angular.module('WaterReporter')
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Report, reports, $rootScope, Search, $scope, user) {
+    .controller('ActivityController', function (Account, features, $location, leafletData, leafletEvents, Map, mapbox, mapboxGeometry, Notifications, Report, reports, $rootScope, Search, $scope, user) {
 
       var self = this;
 
@@ -2480,6 +2519,10 @@ angular.module('WaterReporter')
             isAdmin: Account.hasRole('admin'),
             isProfile: false
           };
+
+          if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+            $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+          }
 
         });
       }
@@ -2734,7 +2777,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('PageController', function (Account, $location, $rootScope, user) {
+  .controller('PageController', function (Account, $location, Notifications, $rootScope, user) {
 
     var self = this;
 
@@ -2747,7 +2790,9 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
-        $location.path('/activity');
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
       });
     }
 
@@ -2785,28 +2830,6 @@ angular.module('WaterReporter')
               id: $route.current.params.userId
             });
           },
-          closures: function(Report, $route) {
-
-            var search_params = {
-              q: {
-                filters: [
-                  {
-                    name: 'closed_by__id',
-                    op: 'has',
-                    val: $route.current.params.userId
-                  }
-                ],
-                order_by: [
-                  {
-                    field: 'report_date',
-                    direction: 'desc'
-                  }
-                ]
-              }
-            };
-
-            return Report.query(search_params);
-          },
           submissions: function($location, $route, Report) {
 
             //
@@ -2838,9 +2861,194 @@ angular.module('WaterReporter')
               direction: 'desc'
             });
 
+            search_params.q.order_by.push({
+              field: 'id',
+              direction: 'desc'
+            });
+
             //
             // Execute our query so that we can get the Reports back
             //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          }
+        }
+      })
+      .when('/profiles/:userId/actions', {
+        templateUrl: '/modules/components/profile/profileActions--view.html',
+        controller: 'ProfileActionsController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          },
+          organizations: function($route, User) {
+            return User.getOrganizations({
+              id: $route.current.params.userId
+            });
+          },
+          submissions: function($location, $route, Report) {
+
+            //
+            // Get all of our existing URL Parameters so that we can
+            // modify them to meet our goals
+            //
+            var search_params = $location.search();
+
+            //
+            // Prepare any pre-filters to append to any of our user-defined
+            // filters in the browser address bar
+            //
+            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+            //
+            // Ensure that returned Report features are sorted newest first
+            //
+            search_params.q.filters.push({
+              name: 'owner_id',
+              op: 'eq',
+              val: $route.current.params.userId
+            });
+
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
+            return Report.query(search_params);
+          }
+        }
+      })
+      .when('/profiles/:userId/reports', {
+        templateUrl: '/modules/components/profile/profileReports--view.html',
+        controller: 'ProfileReportsController',
+        controllerAs: 'page',
+        resolve: {
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          },
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
+            });
+          },
+          organizations: function($route, User) {
+            return User.getOrganizations({
+              id: $route.current.params.userId
+            });
+          },
+          submissions: function($location, $route, Report) {
+
+            //
+            // Get all of our existing URL Parameters so that we can
+            // modify them to meet our goals
+            //
+            var search_params = $location.search();
+
+            //
+            // Prepare any pre-filters to append to any of our user-defined
+            // filters in the browser address bar
+            //
+            search_params.q = (search_params.q) ? angular.fromJson(search_params.q) : {};
+
+            search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
+            search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
+
+            //
+            // Ensure that returned Report features are sorted newest first
+            //
+            search_params.q.filters.push({
+              name: 'owner_id',
+              op: 'eq',
+              val: $route.current.params.userId
+            });
+
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query(search_params);
+          },
+          closures: function(Report, $route) {
+
+            var search_params = {
+              q: {
+                filters: [
+                  {
+                    name: 'closed_by__id',
+                    op: 'has',
+                    val: $route.current.params.userId
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
+            };
+
             return Report.query(search_params);
           }
         }
@@ -2856,6 +3064,14 @@ angular.module('WaterReporter')
           profile: function($route, User) {
             return User.get({
               id: $route.current.params.userId
+            });
+          },
+          reports: function(Report) {
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query({
+              q: {}
             });
           }
         }
@@ -2909,7 +3125,7 @@ angular.module('WaterReporter')
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, organizations, profile, Report, $rootScope, $route, Search, submissions, $scope, user) {
+  .controller('ProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, Notifications, organizations, profile, Report, $rootScope, $route, Search, submissions, $scope, user) {
 
     var self = this;
 
@@ -2928,9 +3144,9 @@ angular.module('WaterReporter')
      *    retains and updates based on the features returned from the user-defined query
      *
      */
-    self.search = Search;
+    this.search = Search;
 
-    self.search.model = {
+    this.search.model = {
       report_description: {
         name: 'report_description',
         op: 'ilike',
@@ -2938,7 +3154,32 @@ angular.module('WaterReporter')
       }
     };
 
-    self.search.resource = Report;
+    this.search.params = {
+      q: {
+        filters: [
+          {
+            name: 'owner_id',
+            op: 'eq',
+            val: $route.current.params.userId
+          }
+        ],
+        order_by: [
+          {
+            field: 'report_date',
+            direction: 'desc'
+          },
+          {
+            field: 'id',
+            direction: 'desc'
+          }
+        ]
+      },
+      page: 1
+    };
+
+    this.search.resource = Report;
+
+    this.search.data = submissions;
 
     //
     // Load other data
@@ -2946,8 +3187,6 @@ angular.module('WaterReporter')
     this.data = profile;
 
     this.organizations = organizations;
-
-    this.submissions = submissions;
 
     this.closures = closures;
 
@@ -2972,7 +3211,7 @@ angular.module('WaterReporter')
 
     L.Icon.Default.imagePath = '/images';
 
-    self.submissions.$promise.then(function(reports_) {
+    this.search.data.$promise.then(function(reports_) {
         self.map.geojson.reports = {
             data: reports_
         };
@@ -3069,6 +3308,10 @@ angular.module('WaterReporter')
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
+
         self.permissions = {
           isLoggedIn: Account.hasToken(),
           isAdmin: Account.hasRole('admin')
@@ -3081,9 +3324,248 @@ angular.module('WaterReporter')
         }
 
         if (self.permissions.isAdmin) {
-          self.visible.reports = (self.permissions.isCurrentUser) ? true : false;
-          self.visible.submissions = (self.permissions.isCurrentUser) ? false : true;
           self.loadDashboard();
+        }
+      });
+    }
+
+    self.unique = function(report, list) {
+
+      for (var index = 0; index < list.length; index++) {
+        if (report.id === list[index].id) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    self.set = function(existingReports, newReports) {
+
+      var reports = existingReports;
+
+      angular.forEach(newReports, function(report){
+        if (self.unique(report, existingReports)) {
+          reports.push(report);
+        }
+      });
+
+      return reports;
+    };
+
+    //
+    // If the vignette is disabled make sure we're listening for map movement
+    //
+    $scope.$on('leafletDirectiveMap.moveend', function() {
+      if (self.map.expanded === true) {
+        leafletData.getMap().then(function(map) {
+
+          var bounds = map.getBounds(),
+              top = bounds._northEast.lat,
+              bottom = bounds._southWest.lat,
+              left = bounds._southWest.lng,
+              right = bounds._northEast.lng,
+              polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+          Report.query({
+            q: {
+              filters: [
+                {
+                  name: 'geometry',
+                  op: 'intersects',
+                  val: 'SRID=4326;POLYGON((' + polygon + '))'
+                }
+              ]
+            }
+          }).$promise.then(function(response) {
+
+            if (self.map.geojson.reports.data && self.map.geojson.reports.data.features) {
+              self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
+            } else {
+              self.map.geojson.reports.data.features = self.set([], response.features);
+            }
+
+            var featureGroup = new L.FeatureGroup();
+
+            self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+          });
+
+        });
+      }
+    });
+
+    $scope.$on('leafletDirectiveMap.focus', function() {
+      self.map.toggleControls('show');
+      self.map.expanded = true;
+
+      var map_ = document.getElementById('map--wrapper');
+      map_.className = 'map--wrapper map--wrapper--expanded';
+
+      leafletData.getMap().then(function(map) {
+        map.invalidateSize();
+      });
+    });
+
+    $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      $location.path(self.map.markers[args.modelName].permalink);
+    });
+
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name WaterReporter.profile.controller:ProfileController
+ * @description
+ * # ProfileController
+ * Controller of the WaterReporter
+ */
+angular.module('WaterReporter')
+  .controller('ProfileActionsController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, Notifications, organizations, profile, Report, $rootScope, $route, Search, $scope, submissions, user) {
+
+    var self = this;
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    self.search = Search;
+
+    self.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    this.search.data = closures;
+
+    this.search.resource = Report;
+
+    this.search.params = {
+      q: {
+        filters: [
+          {
+            name: 'closed_by__id',
+            op: 'has',
+            val: $route.current.params.userId
+          }
+        ],
+        order_by: [
+          {
+            field: 'report_date',
+            direction: 'desc'
+          },
+          {
+            field: 'id',
+            direction: 'desc'
+          }
+        ]
+      },
+      page: 1
+    };
+
+    //
+    // Load other data
+    //
+    this.data = profile;
+
+    this.organizations = organizations;
+
+    this.submissions = submissions;
+
+    this.permissions = {};
+
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
+
+    this.search.data.$promise.then(function(reports_) {
+        self.map.geojson.reports = {
+            data: reports_
+        };
+
+        //
+        // Define a layer to add geometries to later
+        //
+        // @see http://leafletjs.com/reference.html#featuregroup
+        //
+        var featureGroup = new L.FeatureGroup();
+
+        self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+
+        //
+        // Define the first/newest Feature and center the map on it
+        //
+        self.changeFeature(self.map.geojson.reports.data.features[0], 0);
+
+        leafletData.getMap().then(function() {
+          $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+            $location.path(self.map.markers[args.modelName].permalink);
+          });
+        });
+
+     });
+
+    this.changeFeature = function(feature, index) {
+
+      var center = {
+        lat: feature.geometry.geometries[0].coordinates[1],
+        lng: feature.geometry.geometries[0].coordinates[0]
+      };
+
+      self.map.center = {
+        lat: center.lat,
+        lng: center.lng,
+        zoom: 16
+      };
+
+    };
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin')
+        };
+
+        self.permissions.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
+
+        if ($rootScope.user.id === parseInt($route.current.params.userId)) {
+          self.permissions.isProfile = true;
         }
       });
     }
@@ -3187,15 +3669,292 @@ angular.module('WaterReporter')
 
 /**
  * @ngdoc function
+ * @name WaterReporter.profile.controller:ProfileController
+ * @description
+ * # ProfileController
+ * Controller of the WaterReporter
+ */
+angular.module('WaterReporter')
+  .controller('ProfileReportsController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, Notifications, organizations, profile, Report, $rootScope, $route, Search, submissions, $scope, user) {
+
+    var self = this;
+
+
+    /**
+     * Setup search capabilities for the Report Activity Feed
+     *
+     * @data this.search
+     *    loads the Search Service into our page scope
+     * @data this.search.params
+     *    loads the default url parameters into the page fields
+     * @data this.search.model
+     *    tells the Search Service what the data model for this particular search looks like
+     * @data this.search.resource
+     *    tells the Search Service what resource to perform the search with
+     * @data this.search.data
+     *    retains and updates based on the features returned from the user-defined query
+     *
+     */
+    this.search = Search;
+
+    this.search.model = {
+      report_description: {
+        name: 'report_description',
+        op: 'ilike',
+        val: ''
+      }
+    };
+
+    this.search.resource = Report;
+
+    //
+    // Load other data
+    //
+    this.data = profile;
+
+    this.organizations = organizations;
+
+    this.submissions = submissions;
+
+    this.closures = closures;
+
+    this.permissions = {};
+
+    /**
+     * Setup the Mapbox map for this page with the results we got from the API
+     *
+     * @data this.map
+     *    loads the Map Service into our page scope
+     * @data this.map.geojson.reports
+     *    loads the request report information into the map
+     *
+     */
+    this.map = Map;
+
+    L.Icon.Default.imagePath = '/images';
+
+    this.addReportsToMap = function() {
+      self.search.data.$promise.then(function(reports_) {
+          self.map.geojson.reports = {
+              data: reports_
+          };
+
+          //
+          // Define a layer to add geometries to later
+          //
+          // @see http://leafletjs.com/reference.html#featuregroup
+          //
+          var featureGroup = new L.FeatureGroup();
+
+          self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+
+          //
+          // Define the first/newest Feature and center the map on it
+          //
+          self.changeFeature(self.map.geojson.reports.data.features[0], 0);
+
+          leafletData.getMap().then(function() {
+            $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+              $location.path(self.map.markers[args.modelName].permalink);
+            });
+          });
+
+       });
+
+    };
+
+    this.changeFeature = function(feature, index) {
+
+      var center = {
+        lat: feature.geometry.geometries[0].coordinates[1],
+        lng: feature.geometry.geometries[0].coordinates[0]
+      };
+
+      self.map.center = {
+        lat: center.lat,
+        lng: center.lng,
+        zoom: 16
+      };
+
+    };
+
+    /**
+     * Load the dashboard with the appropriate User-specific reports
+     */
+    self.loadDashboard = function () {
+
+      //
+      // Prepare any pre-filters to append to any of our user-defined
+      // filters in the browser address bar
+      //
+      var search_params = {
+        q: {
+          filters: [],
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            }
+          ]
+        },
+        page: 1
+      };
+
+      angular.forEach(Account.userObject.properties.classifications, function(value) {
+        var classification = value.properties,
+            fieldName = 'territory__huc_' + classification.digits + '_name',
+            filter = {
+              name: fieldName,
+              op: 'has',
+              val: classification.name
+            };
+
+        search_params.q.filters.push(filter);
+      });
+
+      //
+      // Execute our query so that we can get the Reports back
+      //
+
+      self.search.params = search_params;
+
+      self.search.data = Report.query(search_params);
+
+      self.addReportsToMap();
+    };
+
+
+    //
+    // This is the first page the authneticated user will see. We need to make
+    // sure that their user information is ready to use. Make sure the
+    // Account.userObject contains the appropriate information.
+    //
+    if (Account.userObject && user) {
+      user.$promise.then(function(userResponse) {
+        $rootScope.user = Account.userObject = userResponse;
+
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin')
+        };
+
+        self.permissions.isCurrentUser = ($rootScope.user.id === parseInt($route.current.params.userId)) ? true : false;
+
+        if ($rootScope.user.id === parseInt($route.current.params.userId)) {
+          self.permissions.isProfile = true;
+        }
+
+        if (self.permissions.isAdmin) {
+          self.loadDashboard();
+        }
+      });
+    }
+
+    self.unique = function(report, list) {
+
+      for (var index = 0; index < list.length; index++) {
+        if (report.id === list[index].id) {
+          return false;
+        }
+      }
+
+      return true;
+    };
+
+    self.set = function(existingReports, newReports) {
+
+      var reports = existingReports;
+
+      angular.forEach(newReports, function(report){
+        if (self.unique(report, existingReports)) {
+          reports.push(report);
+        }
+      });
+
+      return reports;
+    };
+
+    //
+    // If the vignette is disabled make sure we're listening for map movement
+    //
+    $scope.$on('leafletDirectiveMap.moveend', function() {
+      if (self.map.expanded === true) {
+        leafletData.getMap().then(function(map) {
+
+          var bounds = map.getBounds(),
+              top = bounds._northEast.lat,
+              bottom = bounds._southWest.lat,
+              left = bounds._southWest.lng,
+              right = bounds._northEast.lng,
+              polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+          Report.query({
+            q: {
+              filters: [
+                {
+                  name: 'geometry',
+                  op: 'intersects',
+                  val: 'SRID=4326;POLYGON((' + polygon + '))'
+                }
+              ]
+            }
+          }).$promise.then(function(response) {
+
+            if (self.map.geojson.reports.data && self.map.geojson.reports.data.features) {
+              self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
+            } else {
+              self.map.geojson.reports.data.features = self.set([], response.features);
+            }
+
+            var featureGroup = new L.FeatureGroup();
+
+            self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+          });
+
+        });
+      }
+    });
+
+    $scope.$on('leafletDirectiveMap.focus', function() {
+      self.map.toggleControls('show');
+      self.map.expanded = true;
+
+      var map_ = document.getElementById('map--wrapper');
+      map_.className = 'map--wrapper map--wrapper--expanded';
+
+      leafletData.getMap().then(function(map) {
+        map.invalidateSize();
+      });
+    });
+
+    $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+      $location.path(self.map.markers[args.modelName].permalink);
+    });
+
+  });
+
+'use strict';
+
+/**
+ * @ngdoc function
  * @name
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, Image, profile, Report, $rootScope, $route, Search, $scope, user, User) {
+  .controller('ProfileEditController', function (Account, Image, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
 
     var self = this;
 
+    this.reports = reports;
+
     self.image = null;
+
+    $rootScope.notifications = [];
+
 
     /**
      * Setup search capabilities for the Report Activity Feed
@@ -3271,18 +4030,19 @@ angular.module('WaterReporter')
         title: self.profile.properties.title,
         organization_name: self.profile.properties.organization_name,
         telephone: [{
-          number: self.profile.properties.telephone[0].properties.number
+          number: (self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
         }],
         images: self.profile.properties.images
       });
 
-      if (!self.profile.properties.organization[0].properties.name) {
+      if (!self.profile.properties.organization.length || self.profile.properties.organization[0].properties === undefined) {
         profile_.organization = [];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
         profile_.organization = [
           {
             id: self.profile.properties.organization[0].properties.id,
-            name: self.profile.properties.organization[0].properties.name
+            name: self.profile.properties.organization[0].properties.name,
+            geometry: null
           }
         ];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
@@ -3392,7 +4152,7 @@ angular.module('WaterReporter')
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, $rootScope, report, Report, $route, $scope, Search, user) {
+  .controller('ReportController', function (Account, comments, Comment, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
 
     var self = this;
 
@@ -3436,6 +4196,10 @@ angular.module('WaterReporter')
     if (user) {
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
+
+        if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+          $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
 
         self.permissions.isLoggedIn = Account.hasToken();
         self.permissions.isAdmin = Account.hasRole('admin');
@@ -3562,18 +4326,44 @@ angular.module('WaterReporter')
      * Open Report functionality to the Cotnroller
      */
      self.comment = {
+       loading: false,
        data: {},
        update: function(comment, state) {
+
+         self.comment.loading = true;
+
           var comment_ = new Comment({
             body: comment.properties.body,
             report_state: state
           });
 
-          comment_.$update({
-            id: comment.id
-          }).then(function() {
-            $route.reload();
-          });
+          if (self.image) {
+            var fileData = new FormData();
+
+            fileData.append('image', self.image);
+
+            Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+              comment_.images = [
+                {
+                  id: successResponse.id
+                }
+              ];
+
+              comment_.$update({
+                id: comment.id
+              }).then(function() {
+                $route.reload();
+              });
+
+            });
+          } else {
+            comment_.$update({
+              id: comment.id
+            }).then(function() {
+              $route.reload();
+            });
+          }
        },
        delete: function(commentId) {
         Comment.delete({
@@ -3609,6 +4399,8 @@ angular.module('WaterReporter')
          });
        },
        save: function(reportId, state) {
+
+         self.comment.loading = true;
 
         var comment = new Comment({
           body: self.comment.data.body,
@@ -3779,7 +4571,7 @@ angular.module('WaterReporter')
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, Notifications, report, Report, $rootScope, $scope, user) {
+    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user) {
 
       var self = this;
 
@@ -3793,8 +4585,6 @@ angular.module('WaterReporter')
       // Setup all of our basic date information so that we can use it
       // throughout the page
       //
-      self.today = new Date();
-
       self.days = [
         'Sunday',
         'Monday',
@@ -3834,6 +4624,27 @@ angular.module('WaterReporter')
       report.$promise.then(function(response) {
         self.report = response;
 
+        /**
+         * Take our three separate date fields (i.e., month, day, year) and on
+         * field updates change the report.report_date scoped object so that it
+         * builds a proper Date object for our Report $resource
+         */
+        console.log('self.report.properties.report_date', self.report.properties.report_date)
+        var temporaryDate = new Date(self.report.properties.report_date);
+        self.today = moment.utc(temporaryDate);
+
+
+
+        console.log('self.today', self.today.month(), self.today.date(), self.today.day(), self.today.year());
+
+        self.date = {
+          month: self.months[self.today.month()],
+          date: self.today.date(),
+          day: self.days[self.today.day()],
+          year: self.today.year()
+        };
+
+
         self.coordinates = {
           lng: self.report.geometry.geometries[0].coordinates[0],
           lat: self.report.geometry.geometries[0].coordinates[1]
@@ -3870,8 +4681,6 @@ angular.module('WaterReporter')
           console.log('Invalid coordinates, existing pin processing');
           return;
         }
-
-        console.log('coordinates changed', coordinates)
 
         //
         // Move the map pin/marker and recenter the map on the new location
@@ -3916,27 +4725,17 @@ angular.module('WaterReporter')
 
       };
 
-      /**
-       * Take our three separate date fields (i.e., month, day, year) and on
-       * field updates change the report.report_date scoped object so that it
-       * builds a proper Date object for our Report $resource
-       */
-      self.date = {
-        month: self.months[self.today.getMonth()],
-        date: self.today.getDate(),
-        day: self.days[self.today.getDay()],
-        year: self.today.getFullYear()
-      };
-
       $scope.$watch(angular.bind(this, function() {
         return this.date;
       }), function (response) {
-        var _new = response.month + ' ' + response.date + ' ' + response.year,
-            _date = new Date(_new);
+        if (response !== undefined) {
+          var _new = response.month + ' ' + response.date + ' ' + response.year,
+              _date = new Date(_new);
 
-        self.date.day = self.days[_date.getDay()];
+          self.date.day = self.days[_date.getDay()];
 
-        self.report.report_date = _date;
+          self.report.properties.report_date = _new;
+        }
       }, true);
 
       self.status = {
@@ -4011,6 +4810,10 @@ angular.module('WaterReporter')
         if (user) {
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
+
+            if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+              $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+            }
 
             self.permissions = {
               isLoggedIn: Account.hasToken(),
@@ -4153,7 +4956,6 @@ angular.module('WaterReporter')
         ]
       });
 
-
       //
       // We use this function for handle any type of geographic change, whether
       // through the map or through the fields
@@ -4161,11 +4963,8 @@ angular.module('WaterReporter')
       self.map.processPin = function(coordinates, zoom) {
 
         if (coordinates.lat === null || coordinates.lat === undefined || coordinates.lng === null || coordinates.lng === undefined) {
-          console.log('Invalid coordinates, existing pin processing');
           return;
         }
-
-        console.log('coordinates changed', coordinates)
 
         //
         // Move the map pin/marker and recenter the map on the new location
@@ -4297,6 +5096,8 @@ angular.module('WaterReporter')
       //
       leafletData.getMap().then(function(map) {
 
+        self.map.toggleControls('show');
+
         //
         // Update the pin and segment information when the user clicks on the map
         // or drags the pin to a new location
@@ -4330,6 +5131,10 @@ angular.module('WaterReporter')
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
 
+            if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
+              $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+            }
+
             self.permissions = {
               isLoggedIn: Account.hasToken(),
               isAdmin: Account.hasRole('admin'),
@@ -4338,6 +5143,46 @@ angular.module('WaterReporter')
           });
         }
       }
+
+      //
+      // Empty Geocode object
+      //
+      // We need to have an empty geocode object so that we can fill it in later
+      // in the address geocoding process. This allows us to pass the results along
+      // to the Form Submit function we have in place below.
+      //
+      self.geocode = {
+        state: 'Maryland'
+      };
+
+      //
+      // When the user has selected a response, we need to perform a few extra
+      // tasks so that our scope is updated properly.
+      //
+      $scope.$watch(angular.bind(this, function() {
+        return this.geocode.response;
+      }), function (response) {
+
+        //
+        // Only execute the following block of code if the user has geocoded an
+        // address. This block of code expects this to be a single feature from a
+        // Carmen GeoJSON object.
+        //
+        // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+        //
+        if (response) {
+          self.map.processPin({
+            lat: response.geometry.coordinates[1],
+            lng: response.geometry.coordinates[0]
+          }, 16);
+
+          self.geocode = {
+            query: null,
+            response: null
+          };
+        }
+
+      });
 
 
     });
