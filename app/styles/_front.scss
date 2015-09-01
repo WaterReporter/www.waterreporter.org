@@ -7,6 +7,11 @@
 // @see (1) http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 //
 
+.site--wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
 .site--content--front {
   background-color: rgba($color-white-base, 0.75);
 }
@@ -21,18 +26,12 @@
 }
 
 .site--background {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  background: white no-repeat;
   background-size: cover;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -100;
 }
 
 .page--front--slider {
@@ -49,7 +48,9 @@
   }
 
   .page--front--slides {
+    height: 440px;
     left: 95px;
+    overflow: hidden;
     position: absolute;
     top: 135px;
     width: 248px;
