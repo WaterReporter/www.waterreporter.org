@@ -2,7 +2,11 @@
 
 <header class="site--header">
   <div class="container">
-    <a class="site--header--brand" href="/">
+    <a data-ng-if="!$root.user.id" class="site--header--brand" href="/">
+      <img src="/images/logo-WaterReporter-SideBySide.svg" alt="" title="" width="192" />
+    </a>
+
+    <a data-ng-if="$root.user.id" class="site--header--brand" href="/activity">
       <img src="/images/logo-WaterReporter-SideBySide.svg" alt="" title="" width="192" />
     </a>
 
