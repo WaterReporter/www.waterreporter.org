@@ -19,7 +19,7 @@
     <form class="form site--report--submit" role="form"
           id="form--reports--submit" name="form--reports--submit"
           data-ng-submit="page.save()"
-          data-ng-if="!page.status.saving.action">
+          data-ng-if="!page.status.saving.action" novalidate>
 
       <!-- Report Date -->
       <div class="form--row">
@@ -112,8 +112,7 @@
             </label>
             <textarea class="form--control"
                    id="report_description" name="report_description"
-                   data-ng-model="page.report.report_description"
-                   required="required">
+                   data-ng-model="page.report.report_description">
             </textarea>
             <p class="help--text">
               Example: Noticing a lot of trash in this area <strong>or</strong>
