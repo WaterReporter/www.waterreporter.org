@@ -102,8 +102,7 @@ angular.module('WaterReporter')
         profile_.organization = [
           {
             id: self.profile.properties.organization[0].properties.id,
-            name: self.profile.properties.organization[0].properties.name,
-            geometry: null
+            name: self.profile.properties.organization[0].properties.name
           }
         ];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
