@@ -5091,6 +5091,14 @@ angular.module('WaterReporter')
       //
       self.save = function() {
 
+        if (!self.report.report_description) {
+          $rootScope.notifications.warning('Un-oh!', 'You forgot to add a comment to your report');
+          return false;
+        } else if (!self.image) {
+          $rootScope.notifications.warning('Un-oh!', 'You forgot to add a photo to your report');
+          return false;
+        }
+
         self.status.saving.action = true;
         self.status.saving.message = 'Uploading your image...';
 
