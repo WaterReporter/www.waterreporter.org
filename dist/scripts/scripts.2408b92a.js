@@ -2086,7 +2086,6 @@ angular.module('WaterReporter')
 
           return params;
       },
-      page: 1,
       status: {
         loading: false
       },
@@ -4411,7 +4410,7 @@ angular.module('WaterReporter')
             });
           }
        },
-       delete: function(commentId) {
+       remove: function(commentId) {
         Comment.delete({
           id: commentId
         }).$promise.then(function() {
@@ -4483,7 +4482,7 @@ angular.module('WaterReporter')
        }
       };
 
-     self.delete = function(reportId) {
+     self.remove = function(reportId) {
        Report.delete({
          id: reportId
        }).$promise.then(function() {
