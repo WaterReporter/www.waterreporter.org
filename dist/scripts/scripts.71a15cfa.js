@@ -2329,69 +2329,6 @@ angular.module('WaterReporter')
 
 /**
  * @ngdoc overview
- * @name WaterReporter.about.config:about-routes
- * @description
- *     Routes for the states applying to the about page of the application.
- */
-
-angular.module('WaterReporter')
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/about', {
-        templateUrl: '/modules/components/about/about--view.html',
-        controller: 'AboutController',
-        controllerAs: 'about',
-        resolve: {
-          user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
-          }
-        }
-      });
-  });
-
-'use strict';
-
-/**
- * @ngdoc function
- * @name wr.about.controller:AboutController
- * @description
- * # AboutController
- * Controller of the waterReporterApp
- */
-angular.module('WaterReporter')
-  .controller('AboutController', function (Account, Notifications, $rootScope, user) {
-
-    var self = this;
-
-    /**
-     * This is the first page the authneticated user will see. We need to make
-     * sure that their user information is ready to use. Make sure the
-     * Account.userObject contains the appropriate information.
-     */
-    if (Account.userObject && !Account.userObject.id) {
-      if (user) {
-        user.$promise.then(function(userResponse) {
-          $rootScope.user = Account.userObject = userResponse;
-
-          if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
-            $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
-          }
-
-          self.permissions = {
-            isLoggedIn: Account.hasToken(),
-            isAdmin: Account.hasRole('admin'),
-            isProfile: false
-          };
-        });
-      }
-    }
-
-  });
-
-'use strict';
-
-/**
- * @ngdoc overview
  * @name WaterReporter.activity.config:activity-routes
  * @description
  *     Routes for the states applying to the activity feed page of the application.
@@ -4086,8 +4023,7 @@ angular.module('WaterReporter')
         profile_.organization = [
           {
             id: self.profile.properties.organization[0].properties.id,
-            name: self.profile.properties.organization[0].properties.name,
-            geometry: null
+            name: self.profile.properties.organization[0].properties.name
           }
         ];
       } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
