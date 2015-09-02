@@ -5,10 +5,10 @@
        data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
     <div data-ng-if="comment.properties.body">
       <a class="report--comment--avatar" href="/profiles/{{ comment.properties.owner.id }}">
-          <img data-ng-if="comment.properties.owner.properties.picture"
+          <img data-ng-if="comment.properties.owner.properties.picture" height="100%"
               data-ng-src="{{ comment.properties.owner.properties.picture }}"
               width="64" />
-          <img class="report--author--avatarMissing" width="64"
+          <img class="report--author--avatarMissing" width="64" height="100%"
                data-ng-src="/images/badget--MissingUser.png"
                data-ng-if="!comment.properties.owner.properties.picture" />
       </a>
