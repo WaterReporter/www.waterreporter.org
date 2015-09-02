@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, Image, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
+  .controller('ProfileEditController', function (Account, Image, $location, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
 
     var self = this;
 
@@ -130,14 +130,16 @@ angular.module('WaterReporter')
 
            profile_.picture = successResponse.thumbnail;
 
-           profile_.$update(function() {
-             $route.reload();
+           profile_.$update(function(userResponse) {
+             $rootScope.user = userResponse;
+             $location.path('/profiles/' + $rootScope.user.id);
            });
 
          });
       } else {
-         profile_.$update(function() {
-           $route.reload();
+         profile_.$update(function(userResponse) {
+           $rootScope.user = userResponse;
+           $location.path('/profiles/' + $rootScope.user.id);
          });
       }
    };

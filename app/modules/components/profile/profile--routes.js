@@ -18,7 +18,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -105,7 +105,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -182,7 +182,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -259,7 +259,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({

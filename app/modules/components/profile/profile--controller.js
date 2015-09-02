@@ -187,7 +187,7 @@ angular.module('WaterReporter')
     // sure that their user information is ready to use. Make sure the
     // Account.userObject contains the appropriate information.
     //
-    if (Account.userObject && user) {
+    if (user) {
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 

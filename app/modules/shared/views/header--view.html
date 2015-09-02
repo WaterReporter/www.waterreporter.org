@@ -17,7 +17,7 @@
             <span data-ng-if="$root.user.properties.first_name && $root.user.properties.last_name">
               {{ $root.user.properties.first_name }} {{ $root.user.properties.last_name }}
             </span>
-            <span data-ng-if="$root.user && !$root.user.properties.first_name || !$root.user.properties.last_name">
+            <span data-ng-if="!$root.user.properties.first_name || !$root.user.properties.last_name">
               My Profile
             </span>
           </a>
