@@ -4058,6 +4058,8 @@ angular.module('WaterReporter')
 
          });
       } else {
+         profile_.images = [];
+
          profile_.$update(function(userResponse) {
            $rootScope.user = userResponse;
            $location.path('/profiles/' + $rootScope.user.id);
