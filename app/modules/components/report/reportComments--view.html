@@ -31,7 +31,7 @@
           <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="comment.edit =! comment.edit; page.comment.edit =! page.comment.edit">
             edit
           </a>
-          <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="page.comment.delete(comment.id)">
+          <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="page.comment.remove(comment.id)">
             delete
           </a>
         </span>

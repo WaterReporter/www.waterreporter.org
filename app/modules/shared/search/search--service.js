@@ -64,7 +64,6 @@ angular.module('WaterReporter')
 
           return params;
       },
-      page: 1,
       status: {
         loading: false
       },
