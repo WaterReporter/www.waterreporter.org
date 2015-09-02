@@ -2800,7 +2800,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -2887,7 +2887,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -2964,7 +2964,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -3041,7 +3041,7 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         resolve: {
           user: function(Account) {
-            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+            return Account.getUser();
           },
           profile: function($route, User) {
             return User.get({
@@ -3221,18 +3221,18 @@ angular.module('WaterReporter')
      });
 
     this.changeFeature = function(feature, index) {
+      if (feature && feature.geometry === undefined) {
+        var center = {
+          lat: feature.geometry.geometries[0].coordinates[1],
+          lng: feature.geometry.geometries[0].coordinates[0]
+        };
 
-      var center = {
-        lat: feature.geometry.geometries[0].coordinates[1],
-        lng: feature.geometry.geometries[0].coordinates[0]
-      };
-
-      self.map.center = {
-        lat: center.lat,
-        lng: center.lng,
-        zoom: 16
-      };
-
+        self.map.center = {
+          lat: center.lat,
+          lng: center.lng,
+          zoom: 16
+        };
+      }
     };
 
     /**
@@ -3286,7 +3286,7 @@ angular.module('WaterReporter')
     // sure that their user information is ready to use. Make sure the
     // Account.userObject contains the appropriate information.
     //
-    if (Account.userObject && user) {
+    if (user) {
       user.$promise.then(function(userResponse) {
         $rootScope.user = Account.userObject = userResponse;
 
@@ -3927,7 +3927,7 @@ angular.module('WaterReporter')
  * @description
  */
 angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, Image, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
+  .controller('ProfileEditController', function (Account, Image, $location, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
 
     var self = this;
 
@@ -4051,14 +4051,16 @@ angular.module('WaterReporter')
 
            profile_.picture = successResponse.thumbnail;
 
-           profile_.$update(function() {
-             $route.reload();
+           profile_.$update(function(userResponse) {
+             $rootScope.user = userResponse;
+             $location.path('/profiles/' + $rootScope.user.id);
            });
 
          });
       } else {
-         profile_.$update(function() {
-           $route.reload();
+         profile_.$update(function(userResponse) {
+           $rootScope.user = userResponse;
+           $location.path('/profiles/' + $rootScope.user.id);
          });
       }
    };
