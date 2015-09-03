@@ -8,6 +8,49 @@
 //
 
 
+//
+//
+//
+.media--image {
+  margin: 0 -3em;
+  padding: 1em 0;
+  width: calc(100% + 6em);
+}
+
+.media--image.media--image--left {
+  float: left;
+  margin: 0 -3em;
+  padding: 1em 0;
+  width: calc(50% + 6em);
+}
+.media--image.media--image--right {
+  float: right;
+  margin: 0 -3em;
+  padding: 1em 0;
+  width: calc(50% + 6em);
+}
+
+.media--image img {
+  max-width: 100%;
+  width: 100%;
+}
+
+.media--image figcaption {
+  padding: 1em 0;
+  text-align: center;
+
+  a {
+    color: rgba($color-gray-dark, 0.8);
+    font-size: 0.75em;
+    font-style: italic;
+  }
+}
+
+
+
+//
+// Image Manipulation
+//
 .flip-vertical {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
