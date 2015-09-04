@@ -2,12 +2,12 @@
   "name": "waterreporter",
   "version": "0.0.0",
   "dependencies": {
-    "connect-modrewrite": "^0.8.1",
-    "karma-coverage": "^0.3.1",
-    "karma-nested-reporter": "^0.1.3"
   },
   "repository": {},
   "devDependencies": {
+    "connect-modrewrite": "^0.8.1",
+    "karma-coverage": "^0.3.1",
+    "karma-nested-reporter": "^0.1.3"
     "grunt": "^0.4.5",
     "grunt-autoprefixer": "^2.0.0",
     "grunt-concurrent": "^1.0.0",
