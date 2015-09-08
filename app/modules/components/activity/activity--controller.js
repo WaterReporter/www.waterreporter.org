@@ -162,22 +162,23 @@
       };
 
       this.changeFeature = function(feature, index) {
+        if (feature && feature.geometry !== undefined) {
+          self.features.visible = index;
 
-        self.features.visible = index;
+          var center = {
+            lat: feature.geometry.geometries[0].coordinates[1],
+            lng: feature.geometry.geometries[0].coordinates[0]
+          };
 
-        var center = {
-          lat: feature.geometry.geometries[0].coordinates[1],
-          lng: feature.geometry.geometries[0].coordinates[0]
-        };
+          self.map.center = {
+            lat: center.lat,
+            lng: center.lng,
+            zoom: 16
+          };
 
-        self.map.center = {
-          lat: center.lat,
-          lng: center.lng,
-          zoom: 16
-        };
-
-        if (self.vignette === false) {
-          self.showVignette();
+          if (self.vignette === false) {
+            self.showVignette();
+          }
         }
       };
 
