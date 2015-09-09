@@ -86,6 +86,8 @@ angular.module('WaterReporter')
      */
     this.map = Map;
 
+    this.map.markers = null;
+
     L.Icon.Default.imagePath = '/images';
 
     this.search.data.$promise.then(function(reports_) {
@@ -115,21 +117,20 @@ angular.module('WaterReporter')
 
      });
 
-    this.changeFeature = function(feature, index) {
+     this.changeFeature = function(feature, index) {
+       if (feature && feature.geometry !== undefined) {
+         var center = {
+           lat: feature.geometry.geometries[0].coordinates[1],
+           lng: feature.geometry.geometries[0].coordinates[0]
+         };
 
-      var center = {
-        lat: feature.geometry.geometries[0].coordinates[1],
-        lng: feature.geometry.geometries[0].coordinates[0]
-      };
-
-      self.map.center = {
-        lat: center.lat,
-        lng: center.lng,
-        zoom: 16
-      };
-
-    };
-
+         self.map.center = {
+           lat: center.lat,
+           lng: center.lng,
+           zoom: 16
+         };
+       }
+     };
     //
     // This is the first page the authneticated user will see. We need to make
     // sure that their user information is ready to use. Make sure the
@@ -152,6 +153,10 @@ angular.module('WaterReporter')
 
         if ($rootScope.user.id === parseInt($route.current.params.userId)) {
           self.permissions.isProfile = true;
+        }
+
+        if (self.permissions.isAdmin) {
+          self.loadDashboard();
         }
       });
     }
@@ -284,7 +289,7 @@ angular.module('WaterReporter')
       }
 
     };
-    
+
     $scope.$on('leafletDirectiveMarker.click', function(event, args) {
       $location.path(self.map.markers[args.modelName].permalink);
     });

@@ -86,6 +86,8 @@ angular.module('WaterReporter')
      */
     this.map = Map;
 
+    this.map.markers = null;
+
     L.Icon.Default.imagePath = '/images';
 
     this.search.data.$promise.then(function(reports_) {
@@ -107,7 +109,7 @@ angular.module('WaterReporter')
         //
         self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-        leafletData.getMap().then(function() {
+        leafletData.getMap().then(function(map) {
           $scope.$on('leafletDirectiveMarker.click', function(event, args) {
             $location.path(self.map.markers[args.modelName].permalink);
           });
@@ -116,7 +118,7 @@ angular.module('WaterReporter')
      });
 
     this.changeFeature = function(feature, index) {
-      if (feature && feature.geometry === undefined) {
+      if (feature && feature.geometry !== undefined) {
         var center = {
           lat: feature.geometry.geometries[0].coordinates[1],
           lng: feature.geometry.geometries[0].coordinates[0]
