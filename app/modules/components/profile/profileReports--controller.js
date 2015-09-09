@@ -156,7 +156,7 @@ angular.module('WaterReporter')
         //
         self.search.data = Report.query(search_params);
       } else {
-        self.reports = null;
+        self.search.data = null;
       }
 
       // self.addReportsToMap();
