@@ -75,12 +75,6 @@ angular.module('WaterReporter')
 
     this.permissions = {};
 
-    this.visible = {
-      submissions: true,
-      reports: false,
-      closures: false
-    };
-
     /**
      * Setup the Mapbox map for this page with the results we got from the API
      *
@@ -175,10 +169,17 @@ angular.module('WaterReporter')
         // self.search.params[fieldName] = classification.name;
       });
 
-      //
-      // Execute our query so that we can get the Reports back
-      //
-      self.reports = Report.query(search_params);
+      self.search.params = search_params;
+
+      if (search_params.q.filters.length) {
+        //
+        // Execute our query so that we can get the Reports back
+        //
+        self.reports = Report.query(search_params);
+      } else {
+        self.reports = null;
+      }
+
     };
 
 

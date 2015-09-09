@@ -233,18 +233,58 @@ angular.module('WaterReporter')
       });
     });
 
-    // $scope.$on('leafletDirectiveMap.blur', function() {
-    //   self.map.toggleControls('hide');
-    //   self.map.expanded = false;
-    //
-    //   var map_ = document.getElementById('map--wrapper');
-    //   map_.className = 'map--wrapper';
-    //
-    //   leafletData.getMap().then(function(map) {
-    //     map.invalidateSize();
-    //   });
-    // });
+    /**
+     * Load the dashboard with the appropriate User-specific reports
+     */
+    self.loadDashboard = function () {
 
+      //
+      // Prepare any pre-filters to append to any of our user-defined
+      // filters in the browser address bar
+      //
+      var search_params = {
+        q: {
+          filters: [],
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            }
+          ]
+        }
+      };
+
+      angular.forEach(Account.userObject.properties.classifications, function(value) {
+        var classification = value.properties,
+            fieldName = 'territory__huc_' + classification.digits + '_name',
+            filter = {
+              name: fieldName,
+              op: 'has',
+              val: classification.name
+            };
+
+        search_params.q.filters.push(filter);
+
+        // We need to dyamically define the model for this since the fieldName
+        // is variable
+
+        // We need to manually add the param to the classifications
+        // self.search.params[fieldName] = classification.name;
+      });
+
+      self.search.params = search_params;
+
+      if (search_params.q.filters.length) {
+        //
+        // Execute our query so that we can get the Reports back
+        //
+        self.reports = Report.query(search_params);
+      } else {
+        self.reports = null;
+      }
+
+    };
+    
     $scope.$on('leafletDirectiveMarker.click', function(event, args) {
       $location.path(self.map.markers[args.modelName].permalink);
     });

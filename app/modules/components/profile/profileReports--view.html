@@ -41,16 +41,20 @@
     <div class="user--activity">
       <ul>
         <li data-ng-if="$root.user.id && page.permissions.isCurrentUser && page.permissions.isAdmin">
-          <span>
-            {{ page.search.data.properties.num_results | number:0 }} Reports
+          <span data-ng-if="page.reports.properties.num_results">
+            {{ page.reports.properties.num_results | number:0 }}
           </span>
+          <span data-ng-if="!page.reports.properties.num_results">
+            0
+          </span>
+          Reports
         </li>
-        <li>
+        <li data-ng-if="page.submissions.features.length || page.submissions.features.length === 0">
           <a href="/profiles/{{ page.data.id }}">
             {{ page.submissions.properties.num_results | number:0 }} Submissions
           </a>
         </li>
-        <li>
+        <li data-ng-if="page.closures.properties.num_results && page.closures.properties.num_results !== 0">
           <a href="/profiles/{{ page.data.id }}/actions">
             {{ page.closures.properties.num_results | number:0 }} Actions
           </a>
