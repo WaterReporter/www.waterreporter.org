@@ -47,6 +47,22 @@
 
       this.search.data = reports;
 
+      this.search.params = {
+        q: {
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            },
+            {
+              field: 'id',
+              direction: 'desc'
+            }
+          ]
+        },
+        page: 1
+      };
+
       //
       // This is the first page the authneticated user will see. We need to make
       // sure that their user information is ready to use. Make sure the

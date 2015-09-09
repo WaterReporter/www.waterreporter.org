@@ -12,7 +12,7 @@
     <div data-ng-include="'/modules/components/activity/activityRecent--view.html'"></div>
 
     <div>
-      <a data-ng-click="page.search.more()" class="circle--button"
+      <a data-ng-click="page.search.more(true)" class="circle--button"
          data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
           Load More
       </a>

@@ -91,8 +91,6 @@ angular.module('WaterReporter')
             search_params.page = 2;
           }
 
-          console.log('Static search_params', search_params)
-
           //
           // Prepare any pre-filters to append to any of our user-defined
           // filters in the browser address bar
@@ -101,14 +99,6 @@ angular.module('WaterReporter')
 
           search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
           search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
-
-          //
-          // Ensure that returned Report features are sorted newest first
-          //
-          search_params.q.order_by.push({
-            field: 'report_date',
-            direction: 'desc'
-          });
 
           //
           // Execute our query so that we can get the Reports back

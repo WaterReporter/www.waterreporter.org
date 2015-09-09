@@ -16,6 +16,26 @@ angular.module('WaterReporter')
         controllerAs: 'page',
         reloadOnSearch: false,
         resolve: {
+          reports: function($location, Report) {
+            //
+            // Execute our query so that we can get the Reports back
+            //
+            return Report.query({
+              q: {
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              },
+              page: 1
+            });
+          },
           features: function(Report) {
             //
             // Execute our query so that we can get the Reports back
@@ -35,27 +55,8 @@ angular.module('WaterReporter')
                     direction: 'desc'
                   }
                 ]
-              }
-            });
-          },
-          reports: function($location, Report) {
-            //
-            // Execute our query so that we can get the Reports back
-            //
-            return Report.query({
-              q: {
-                order_by: [
-                  {
-                    field: 'report_date',
-                    direction: 'desc'
-                  },
-                  {
-                    field: 'id',
-                    direction: 'desc'
-                  }
-                ]
               },
-              page: $location.search().page ? $location.search().page : 1
+              page: 1
             });
           },
           user: function(Account) {
