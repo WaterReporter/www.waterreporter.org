@@ -14,9 +14,6 @@ angular.module('WaterReporter')
 
     self.image = null;
 
-    $rootScope.notifications = [];
-
-
     /**
      * Setup search capabilities for the Report Activity Feed
      *
