@@ -41,10 +41,10 @@
     <div class="user--activity">
       <ul>
         <li data-ng-if="$root.user.id && page.permissions.isCurrentUser && page.permissions.isAdmin">
-          <span data-ng-if="page.reports.properties.num_results">
-            {{ page.reports.properties.num_results | number:0 }}
+          <span data-ng-if="page.search.data.properties.num_results">
+            {{ page.search.data.properties.num_results | number:0 }}
           </span>
-          <span data-ng-if="!page.reports.properties.num_results">
+          <span data-ng-if="!page.search.data.properties.num_results">
             0
           </span>
           Reports
