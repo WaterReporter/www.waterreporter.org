@@ -100,6 +100,12 @@ angular.module('WaterReporter')
           search_params.q.filters = (search_params.q.filters) ? search_params.q.filters : [];
           search_params.q.order_by = (search_params.q.order_by) ? search_params.q.order_by : [];
 
+          console.info('Use pre-defined, static search parameters',
+                          isStatic);
+
+          console.info('Search Parameters being used for this query',
+                          search_params);
+
           //
           // Execute our query so that we can get the Reports back
           //

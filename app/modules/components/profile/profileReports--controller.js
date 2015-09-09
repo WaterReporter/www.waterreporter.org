@@ -150,9 +150,6 @@ angular.module('WaterReporter')
       //
       // Execute our query so that we can get the Reports back
       //
-
-      self.search.params = search_params;
-
       if (search_params.q.filters.length) {
         //
         // Execute our query so that we can get the Reports back
