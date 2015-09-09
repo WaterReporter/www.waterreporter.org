@@ -40,6 +40,8 @@ angular.module('WaterReporter')
 
     this.search.resource = Report;
 
+    this.search.data = null;
+
     //
     // Load other data
     //
