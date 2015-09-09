@@ -141,6 +141,14 @@ angular.module('WaterReporter')
           // of response.response.errors
           //
           if (response.response && response.response.errors) {
+            if (response.response.errors.email) {
+              $rootScope.notifications.error('Uh-oh', response.response.errors.email);
+            }
+
+            if (response.response.errors.password) {
+              $rootScope.notifications.error('Uh-oh', response.response.errors.password);
+            }
+
             self.login.errors = response.response.errors;
             self.register.processing = false;
             self.login.processing = false;
