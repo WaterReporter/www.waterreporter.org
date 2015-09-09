@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Exporter, $location, Notifications, Report, reports, $rootScope, Search, user) {
+  .controller('SearchController', function (Account, Exporter, $location, Notifications, Report, reports, $rootScope, $route, Search, user) {
 
     var self = this;
 
@@ -59,18 +59,10 @@ angular.module('WaterReporter')
     this.search.options = [];
 
     //
-    // Make sure we're displaying the search term to the user
+    // Make sure we're displaying thessh  search term to the user
     //
     if (this.search.params.report_description) {
       this.search.term = this.search.params.report_description;
-    }
-
-    //
-    // Make sure we're loading hashtags
-    //
-    if ($location.search().tag) {
-      this.search.params.report_description = $location.search().tag;
-      this.search.execute();
     }
 
     self.download = {

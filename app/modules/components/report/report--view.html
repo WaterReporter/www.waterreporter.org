@@ -72,7 +72,7 @@
                   data-ng-if="page.report.properties.tags.length">
               <p>
                 <span class="label label--brand" data-ng-repeat="tag in page.report.properties.tags">
-                  <a href="/search?tag=%23{{ tag.properties.tag }}" data-ng-click="page.search.hashtag(tag.properties.tag, 'report_description')">
+                  <a href="/search/tag/%23{{ tag.properties.tag }}">
                     #{{ tag.properties.tag }}
                   </a>
                 </span>

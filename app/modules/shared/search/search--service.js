@@ -121,41 +121,7 @@ angular.module('WaterReporter')
         }
 
       },
-      autoload: function() {
-
-        var service = this;
-
-        if (service.busy) {
-          return;
-        }
-
-        service.busy = true;
-        service.page++;
-
-        if (service.data && service.page >= service.data.properties.total_pages) {
-          return;
-        }
-
-        //
-        // Load our filters
-        //
-        this.filters(service.page, 25);
-
-        service.resource.query($location.search()).$promise.then(function(successResponse) {
-          service.busy = false;
-
-          var reports = successResponse,
-              existing = service.data.features;
-
-          service.data.features = existing.concat(reports.features);
-        });
-
-       },
-       hashtag: function(tag, field) {
-          this.params[field] = tag;
-          this.execute();
-       },
-       keys: function() {
+      keys: function() {
 
          var keys = [];
 
@@ -197,8 +163,6 @@ angular.module('WaterReporter')
          var keys = service.keys();
 
          angular.forEach(params, function(field_value, field_name) {
-
-           console.log('field_value', field_value, 'field_name', field_name, 'keys', keys, 'Is in model?', keys.indexOf(field_name));
 
            if (keys.indexOf(field_name) !== -1) {
 
@@ -264,6 +228,8 @@ angular.module('WaterReporter')
           // Finally, use the resource to load the new Features based on the
           // user-defined query input.
           //
+          console.info('Search Parameters used in Query', $location.search());
+
           service.resource.query($location.search()).$promise.then(function(response) {
             service.data = (append) ? service.data.features+=response.features : response;
           });
