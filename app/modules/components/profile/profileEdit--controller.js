@@ -41,6 +41,13 @@ angular.module('WaterReporter')
 
     self.search.resource = Report;
 
+    self.status = {
+      saving: {
+        action: false,
+        message: null
+      }
+    };
+
     //
     // Load main Profile data
     //
@@ -78,6 +85,8 @@ angular.module('WaterReporter')
     self.save = function() {
 
       self.profile.properties.images = self.profile.properties.images.properties;
+
+      self.status.saving.action = true;
 
       var profile_ = new User({
         id: self.profile.id,
