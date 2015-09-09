@@ -217,6 +217,8 @@
       //
       leafletData.getMap().then(function(map) {
 
+        self.map.toggleControls('show');
+
         //
         // Update the pin and segment information when the user clicks on the map
         // or drags the pin to a new location
