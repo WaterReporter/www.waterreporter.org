@@ -151,6 +151,8 @@ angular.module('WaterReporter')
 
       search_params.q.disjunction = true;
 
+      self.search.params = search_params;
+
       //
       // Execute our query so that we can get the Reports back
       //
