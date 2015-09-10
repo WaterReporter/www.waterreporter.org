@@ -1,10 +1,15 @@
 # Water Reporter
 
 ## Developers
-##### Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+#### Install Node Dependencies
 
-##### Testing
+`npm install`
 
-Running `grunt test` will run the unit tests with karma.
+#### Install Bower Dependencies
+
+`bower install`
+
+#### Run it locally
+
+`grunt serve`
