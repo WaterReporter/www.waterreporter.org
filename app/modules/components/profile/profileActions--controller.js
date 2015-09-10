@@ -277,6 +277,8 @@ angular.module('WaterReporter')
         // self.search.params[fieldName] = classification.name;
       });
 
+      search_params.q.disjunction = true;
+
       if (search_params.q.filters.length) {
         //
         // Execute our query so that we can get the Reports back
