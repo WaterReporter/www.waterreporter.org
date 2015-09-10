@@ -149,6 +149,8 @@ angular.module('WaterReporter')
         search_params.q.filters.push(filter);
       });
 
+      search_params.q.disjunction = false;
+
       //
       // Execute our query so that we can get the Reports back
       //
