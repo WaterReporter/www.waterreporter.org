@@ -58,6 +58,8 @@ angular.module('WaterReporter')
 
     this.search.options = [];
 
+    this.myWatersheds = {};
+
     //
     // Make sure we're displaying thessh  search term to the user
     //
@@ -109,10 +111,13 @@ angular.module('WaterReporter')
     };
 
     self.changeSearchType = function() {
+
+      console.log('CHANGING TO', self.search.params.territory, self.myWatersheds[self.search.params.territory]);
+
       if (!self.search.params.territory) {
         delete self.search.params.territory;
       } else {
-        self.search.model.territory.val = self.search.params.territory;
+        self.search.model.territory = self.myWatersheds[self.search.params.territory].model;
       }
     };
 
@@ -131,26 +136,34 @@ angular.module('WaterReporter')
 
         if (userResponse.properties.classifications.length) {
 
-          var hucType = user.properties.classifications[0].properties.digits,
-              fieldName = 'huc_' + hucType + '_name',
-              territory = userResponse.properties.classifications[0].properties.name;
+            angular.forEach(userResponse.properties.classifications, function(territory) {
 
-          //
-          // Add an additional search filter option
-          //
+              var hucType = territory.properties.digits,
+                  fieldName = 'huc_' + hucType + '_name',
+                  _model;
 
-          if (self.search.model.territory === undefined) {
-            self.search.model.territory = {
-              name: 'territory__' + fieldName,
-              op: 'has',
-              val: (self.search.params.territory) ? self.search.params.territory : null
-            };
-          }
+              //
+              // Add an additional search filter option
+              //
+              _model = {
+                name: 'territory__' + fieldName,
+                op: 'has',
+                // val: (self.search.params.territory) ? self.search.params.territory : null
+                val: territory.properties.name
+              };
 
-          self.search.options.push({
-            name: 'My Watershed',
-            val: territory
-          });
+                // self.search.model.territory = _model;
+
+              var watershed = {
+                name: territory.properties.name,
+                val: territory.properties.name,
+                model: _model,
+                category: 'My Watersheds'
+              };
+
+              self.search.options.push(watershed);
+              self.myWatersheds[territory.properties.name] = watershed;
+            });
 
         }
 

@@ -37,7 +37,7 @@
             <select id="territory" name="territory" class="form--control"
                     data-ng-model="page.search.params.territory"
                     data-ng-change="page.changeSearchType()"
-                    data-ng-options="option.val as option.name for option in page.search.options">
+                    data-ng-options="option.val as option.name group by option.category for option in page.search.options">
               <option value="">All Reports</option>
             </select>
           </div>
