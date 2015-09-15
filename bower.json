@@ -19,5 +19,8 @@
     "angular-mocks": "^1.3.0"
   },
   "appPath": "app",
-  "moduleName": "WaterReporter"
+  "moduleName": "WaterReporter",
+  "resolutions": {
+    "angular": "1.4.5"
+  }
 }

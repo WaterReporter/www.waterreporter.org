@@ -192,28 +192,30 @@
             zoom: 16
           };
 
+          $scope.apply();
+
           if (self.vignette === false) {
             self.showVignette();
           }
         }
       };
 
-      self.key = function($event) {
-
-        var index;
-
-        if ($event.keyCode === 39) {
-          if (self.features.visible < self.map.geojson.reports.data.features.length) {
-            index = self.features.visible+1;
-            self.changeFeature(self.map.geojson.reports.data.features[index], index);
-          }
-        } else if ($event.keyCode === 37) {
-          if (self.features.visible <= self.map.geojson.reports.data.features.length) {
-            index = self.features.visible-1;
-            self.changeFeature(self.map.geojson.reports.data.features[index], index);
-          }
-        }
-      };
+      // self.key = function($event) {
+      //
+      //   var index;
+      //
+      //   if ($event.keyCode === 39) {
+      //     if (self.features.visible < self.map.geojson.reports.data.features.length) {
+      //       index = self.features.visible+1;
+      //       self.changeFeature(self.map.geojson.reports.data.features[index], index);
+      //     }
+      //   } else if ($event.keyCode === 37) {
+      //     if (self.features.visible <= self.map.geojson.reports.data.features.length) {
+      //       index = self.features.visible-1;
+      //       self.changeFeature(self.map.geojson.reports.data.features[index], index);
+      //     }
+      //   }
+      // };
 
       self.unique = function(report, list) {
 
