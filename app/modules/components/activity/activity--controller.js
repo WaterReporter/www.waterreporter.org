@@ -96,6 +96,8 @@
        */
       this.map = Map;
 
+      this.map.center = null;
+
       L.Icon.Default.imagePath = '/images';
 
       self.features.$promise.then(function(reports_) {
@@ -191,8 +193,6 @@
             lng: center.lng,
             zoom: 16
           };
-
-          $scope.$apply();
 
           if (self.vignette === false) {
             self.showVignette();
