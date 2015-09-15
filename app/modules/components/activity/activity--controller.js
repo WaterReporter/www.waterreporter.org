@@ -192,7 +192,7 @@
             zoom: 16
           };
 
-          $scope.apply();
+          $scope.$apply();
 
           if (self.vignette === false) {
             self.showVignette();
