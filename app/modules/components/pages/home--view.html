@@ -1,7 +1,11 @@
-<video class="site--background" autoplay loop poster="/images/WR_Shot1.mp4">
-    <source src="/images/WR_Shot1.mp4" type="video/mp4">
-    <source src="/images/WR_Shot1.webm" type="video/webm">
-</video>
+<script>
+if(window.outterWidth > 640){
+// <video class="site--background" autoplay loop poster="/images/WR_Shot1.mp4">
+//     <source src="/images/WR_Shot1.mp4" type="video/mp4">
+//     <source src="/images/WR_Shot1.webm" type="video/webm">
+// </video>
+}
+</script>
 
 <main class="site--content site--content--front">
   <div class="page--content page--content--generic page--content--transparent">
@@ -12,10 +16,11 @@
         </div>
 
         <div class="page--front--slider">
-          <img src="/images/example--Phones.png" alt="" title="" width="" class="pull-left" />
-
-          <div class="page--front--slides">
-            <img data-ng-class="{'page--front--slidesVisible': page.slides.visible === $index}" data-ng-src="{{ slide.url }}" alt="{{ slide.title }}" data-ng-repeat="slide in page.slides.data track by $index"/>
+          <div class="page-front-slider-container">
+            <img src="/images/example--Phones.png" alt="" title="" width="" class="pull-left" />
+            <div class="page--front--slides">
+              <img data-ng-class="{'page--front--slidesVisible': page.slides.visible === $index}" data-ng-src="{{ slide.url }}" alt="{{ slide.title }}" data-ng-repeat="slide in page.slides.data track by $index"/>
+            </div>
           </div>
         </div>
 
