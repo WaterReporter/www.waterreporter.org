@@ -12,11 +12,13 @@
         </div>
 
         <div class="page--front--slider">
+          <div class="page-front-slider-container">
           <img src="/images/example--Phones.png" alt="" title="" width="" class="pull-left" />
 
           <div class="page--front--slides">
             <img data-ng-class="{'page--front--slidesVisible': page.slides.visible === $index}" data-ng-src="{{ slide.url }}" alt="{{ slide.title }}" data-ng-repeat="slide in page.slides.data track by $index"/>
           </div>
+        </div>
         </div>
 
         <div class="page--front--content">
