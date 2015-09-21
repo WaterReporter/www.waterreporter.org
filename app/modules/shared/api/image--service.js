@@ -23,7 +23,7 @@ angular.module('WaterReporter')
       update: {
         method: 'PATCH'
       },
-      delete: {
+      remove: {
         method: 'DELETE',
         url: '//api.waterreporter.org/v1/data/image/:imageId'
       }
