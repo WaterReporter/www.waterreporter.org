@@ -1,7 +1,7 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
 <div id="map--wrapper" class="map--wrapper">
-  <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds" controls="page.map.controls"></leaflet>
+  <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds" ></leaflet>
 </div>
 
 <main class="site--content">
@@ -79,11 +79,15 @@
               </p>
             </div>
             <div class="report--metadata--section">
-              <!-- <a href="https://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/facebook.png" border="0" alt="Facebook"/></a>
+              <!-- <a href="https://api.addthis.com/oexchange/0.8/forward/facebook/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/facebook.png" border="0" alt="Facebook"/></a> -->
+              <!-- <a href="https://api.addthis.com/oexchange/0.8/forward/twitter/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/twitter.png" border="0" alt="Twitter"/></a> -->
+
+              <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/facebook.png" border="0" alt="Facebook"/></a>
+              <a href="https://twitter.com/home?status=Check%20out%20this%20report%20on%20WaterReporter%20http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/twitter.png" border="0" alt="Twitter"/></a>
               <a href="https://api.addthis.com/oexchange/0.8/forward/twitter/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/twitter.png" border="0" alt="Twitter"/></a>
               <a href="https://api.addthis.com/oexchange/0.8/forward/pinterest/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/pinterest.png" border="0" alt="Pinterest"/></a>
               <a href="https://api.addthis.com/oexchange/0.8/forward/linkedin/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/linkedin.png" border="0" alt="LinkedIn"/></a>
-              <a href="https://api.addthis.com/oexchange/0.8/forward/email/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/email.png" border="0" alt="Email"/></a> -->
+              <a href="https://api.addthis.com/oexchange/0.8/forward/email/offer?url=http%3A%2F%2Fwww.waterreporter.org%2Freports%2F{{ page.report.id }}&pubid=ra-55b7d3663dc9a0fe&ct=1&title=Check%20out%20this%20report%20on%20WaterReporter&pco=tbxnj-1.0" target="_blank"><img src="https://cache.addthiscdn.com/icons/v2/thumbs/32x32/email.png" border="0" alt="Email"/></a>
             </div>
             <div class="report--metadata--section"
                  data-ng-if="page.other.reports.length">

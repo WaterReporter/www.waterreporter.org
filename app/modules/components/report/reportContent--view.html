@@ -25,11 +25,9 @@
                 data-ng-click="page.edit(page.report.id)">
           Edit
         </button>
-        <button data-ng-if="(page.permissions.isAdmin || page.permissions.isOwner)"
-                class="button button--link">
-          <span data-ng-click="page.confirm =! page.confirm">
-            Delete
-          </span>
+        <button data-ng-if="page.permissions.isAdmin || page.permissions.isOwner"
+                class="button button--link" data-ng-click="page.confirm =! page.confirm">
+          Delete
         </button>
       </p>
       <p data-ng-if="page.confirm">
