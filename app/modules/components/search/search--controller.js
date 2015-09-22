@@ -63,8 +63,11 @@ angular.module('WaterReporter')
     //
     // Make sure we're displaying thessh  search term to the user
     //
+
     if (this.search.params.report_description) {
       this.search.term = this.search.params.report_description;
+    }else{
+      this.search.term;
     }
 
     self.download = {
