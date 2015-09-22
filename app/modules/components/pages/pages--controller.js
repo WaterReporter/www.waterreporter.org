@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('PageController', function (Account, $location, Notifications, $rootScope, $interval, user, $window) {
+  .controller('PageController', function (Account, $location, Notifications, $rootScope, $interval, user, $window, $route) {
 
     var self = this;
 
@@ -74,34 +74,36 @@ angular.module('WaterReporter')
     }
 
 
-    // ONLY RENDER VIDEO ON SCREENS LARGER THAN 640
-    if($window.outerWidth > 640){
+    if($route.current.originalPath == "/"){
+        // ONLY RENDER VIDEO ON SCREENS LARGER THAN 640
+        if($window.outerWidth > 640){
 
-    // CREATE VIDEO TAG
-    var video = document.createElement("video");
-    video.setAttribute("class","site--background");
-    video.setAttribute("autoplay","");
-    video.setAttribute("loop","");
-    video.setAttribute("poster","/images/WR_Shot1.mp4");
+        // CREATE VIDEO TAG
+        var video = document.createElement("video");
+        video.setAttribute("class","site--background");
+        video.setAttribute("autoplay","");
+        video.setAttribute("loop","");
+        video.setAttribute("poster","/images/WR_Shot1.mp4");
 
-    // CREATE SOURCE TAG
-    var sourceMP4 = document.createElement("source");
-    sourceMP4.setAttribute("src","/images/WR_Shot1.mp4");
-    sourceMP4.setAttribute("type","video/mp4");
+        // CREATE SOURCE TAG
+        var sourceMP4 = document.createElement("source");
+        sourceMP4.setAttribute("src","/images/WR_Shot1.mp4");
+        sourceMP4.setAttribute("type","video/mp4");
 
-    // CREATE SOURCE TAG
-    var sourceWebM = document.createElement("source");
-    sourceWebM.setAttribute("src","/images/WR_Shot1.webm");
-    sourceWebM.setAttribute("type","video/mp4");
+        // CREATE SOURCE TAG
+        var sourceWebM = document.createElement("source");
+        sourceWebM.setAttribute("src","/images/WR_Shot1.webm");
+        sourceWebM.setAttribute("type","video/mp4");
 
-    // ADD TO VIDEO TAG
-    video.appendChild(sourceMP4);
-    video.appendChild(sourceWebM);
+        // ADD TO VIDEO TAG
+        video.appendChild(sourceMP4);
+        video.appendChild(sourceWebM);
 
-    var siteWrapper = document.getElementsByClassName("site--wrapper")[0];
-    var siteContent = document.getElementsByClassName("site--content")[0];
+        var siteWrapper = document.getElementsByClassName("site--wrapper")[0];
+        var siteContent = document.getElementsByClassName("site--content")[0];
 
-    siteWrapper.insertBefore(video,siteContent);
+        siteWrapper.insertBefore(video,siteContent);
+        }
     }
 
   });
