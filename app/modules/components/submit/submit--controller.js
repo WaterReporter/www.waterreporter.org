@@ -190,7 +190,7 @@
           $rootScope.notifications.warning('Un-oh!', 'You forgot to add a comment to your report');
 
           $timeout(function() {
-            $rootScope.notifications.objects = null;
+            $rootScope.notifications.objects = [];
           }, 3500);
 
           return false;
@@ -198,7 +198,7 @@
           $rootScope.notifications.warning('Un-oh!', 'You forgot to add a photo to your report');
 
           $timeout(function() {
-            $rootScope.notifications.objects = null;
+            $rootScope.notifications.objects = [];
           }, 3500);
 
           return false;
@@ -310,9 +310,7 @@
       // in the address geocoding process. This allows us to pass the results along
       // to the Form Submit function we have in place below.
       //
-      self.geocode = {
-        state: 'Maryland'
-      };
+      self.geocode = {};
 
       //
       // When the user has selected a response, we need to perform a few extra

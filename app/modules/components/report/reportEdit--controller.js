@@ -266,6 +266,44 @@
       }
 
 
+      //
+      // Empty Geocode object
+      //
+      // We need to have an empty geocode object so that we can fill it in later
+      // in the address geocoding process. This allows us to pass the results along
+      // to the Form Submit function we have in place below.
+      //
+      self.geocode = {};
+
+      //
+      // When the user has selected a response, we need to perform a few extra
+      // tasks so that our scope is updated properly.
+      //
+      $scope.$watch(angular.bind(this, function() {
+        return this.geocode.response;
+      }), function (response) {
+
+        //
+        // Only execute the following block of code if the user has geocoded an
+        // address. This block of code expects this to be a single feature from a
+        // Carmen GeoJSON object.
+        //
+        // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+        //
+        if (response) {
+          self.map.processPin({
+            lat: response.geometry.coordinates[1],
+            lng: response.geometry.coordinates[0]
+          }, 16);
+
+          self.geocode = {
+            query: null,
+            response: null
+          };
+        }
+
+      });
+      
     });
 
 }());
