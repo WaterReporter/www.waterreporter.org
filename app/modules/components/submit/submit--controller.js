@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, $timeout, user) {
 
       var self = this;
 
@@ -188,9 +188,19 @@
 
         if (!self.report.report_description) {
           $rootScope.notifications.warning('Un-oh!', 'You forgot to add a comment to your report');
+
+          $timeout(function() {
+            $rootScope.notifications.objects = null;
+          }, 3500);
+
           return false;
         } else if (!self.image) {
           $rootScope.notifications.warning('Un-oh!', 'You forgot to add a photo to your report');
+
+          $timeout(function() {
+            $rootScope.notifications.objects = null;
+          }, 3500);
+
           return false;
         }
 
