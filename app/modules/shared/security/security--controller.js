@@ -107,7 +107,7 @@ angular.module('WaterReporter')
                   $location.path('/profiles/' + $rootScope.user.id + '/edit');
                 }
                 else {
-                  $location.path('/activity/list');
+                  $location.path('/activity');
                 }
               });
             });

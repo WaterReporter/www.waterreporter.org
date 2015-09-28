@@ -47,11 +47,12 @@ angular.module('WaterReporter')
         return response || $q.when(response);
       },
       responseError: function (response) {
+        
         // console.debug('AuthorizationInterceptor::ResponseError', response || $q.when(response));
 
-        if (response.status === 403) {
-            window.location.href = '/user/logout';
-        }
+        // if (response.status === 403) {
+        //     window.location.href = '/user/logout';
+        // }
 
         return $q.reject(response);
       }
