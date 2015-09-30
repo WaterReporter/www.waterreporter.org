@@ -45,6 +45,9 @@ angular.module('WaterReporter')
       saving: {
         action: false,
         message: null
+      },
+      image: {
+        remove: false
       }
     };
 
@@ -80,6 +83,8 @@ angular.module('WaterReporter')
         };
 
       });
+    } else {
+      $location.path('/profiles/' + $route.current.params.userId);
     }
 
     self.save = function() {
@@ -143,7 +148,19 @@ angular.module('WaterReporter')
 
          });
       } else {
-         profile_.images = [];
+
+         console.log(profile_);
+
+         //
+         // If the image is being removed ... then remove it ... if not ... leave it alone.
+         //
+         if (self.status.image.remove) {
+           profile_.images = [];
+         } else {
+           delete profile_.images;
+         }
+
+         debugger;
 
          profile_.$update(function(userResponse) {
            $rootScope.user = userResponse;
@@ -152,8 +169,9 @@ angular.module('WaterReporter')
       }
    };
 
-   self.removeImage = function(imageId) {
-    self.profile.properties.images= [];
+   self.removeImage = function() {
+     self.profile.properties.images = [];
+     self.status.image.remove = true;
    };
 
   });
