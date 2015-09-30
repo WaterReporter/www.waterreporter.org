@@ -9,7 +9,7 @@
  */
 angular.module('WaterReporter')
   .service('Report', function ($resource) {
-    return $resource('http://api.waterreporter.org/v1/data/report/:id', {
+    return $resource('//api.waterreporter.org/v1/data/report/:id', {
       id: '@id'
     }, {
       query: {
@@ -23,7 +23,7 @@ angular.module('WaterReporter')
       },
       comments: {
         method: 'GET',
-        url: 'http://api.waterreporter.org/v1/data/report/:id/comments',
+        url: '//api.waterreporter.org/v1/data/report/:id/comments',
         params: {
           q: {
             order_by: [
