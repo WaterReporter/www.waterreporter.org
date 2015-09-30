@@ -1,9 +1,9 @@
   <h2>Comments</h2>
 
   <div id="report--comment--{{ $index }}" class="report--comments--comment"
-       data-ng-if="page.report.properties.comments.length && (comment.properties.report_state || comment.properties.body)"
+       data-ng-if="page.report.properties.comments.length && (comment.properties.report_state || comment.properties.images.length || comment.properties.body)"
        data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
-    <div data-ng-if="comment.properties.body">
+    <div data-ng-if="!comment.properties.report_state">
       <a class="report--comment--avatar" href="/profiles/{{ comment.properties.owner.id }}">
           <img data-ng-if="comment.properties.owner.properties.picture" height="100%"
               data-ng-src="{{ comment.properties.owner.properties.picture }}"
