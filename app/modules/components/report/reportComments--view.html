@@ -3,7 +3,7 @@
   <div id="report--comment--{{ $index }}" class="report--comments--comment"
        data-ng-if="page.report.properties.comments.length && (comment.properties.report_state || comment.properties.images.length || comment.properties.body)"
        data-ng-repeat="comment in page.comments.features | orderBy:'id':false track by $index">
-    <div data-ng-if="!comment.properties.report_state">
+    <div data-ng-if="(comment.properties.images.length || comment.properties.body)">
       <a class="report--comment--avatar" href="/profiles/{{ comment.properties.owner.id }}">
           <img data-ng-if="comment.properties.owner.properties.picture" height="100%"
               data-ng-src="{{ comment.properties.owner.properties.picture }}"
