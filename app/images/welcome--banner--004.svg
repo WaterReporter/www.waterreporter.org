@@ -215,9 +215,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="561.04657"
-     inkscape:cy="605.33594"
+     inkscape:zoom="0.24748738"
+     inkscape:cx="488.7914"
+     inkscape:cy="928.58475"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -236,7 +236,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -249,7 +249,7 @@
        sodipodi:type="inkscape:offset"
        inkscape:radius="26.263964"
        inkscape:original="M 1307.8027 132.36133 C 1297.6071 132.36237 1289.3408 140.79003 1289.3398 151.18555 L 1289.3398 686.61133 C 1289.3405 694.94741 1294.7178 702.28947 1302.5566 704.6582 L 1524.0957 771.58594 C 1525.727 772.07864 1527.4178 772.34053 1529.1191 772.36133 C 1530.9689 772.38405 1532.8102 772.12168 1534.584 771.58594 L 1756.123 704.6582 C 1763.9617 702.28947 1769.3391 694.94741 1769.3398 686.61133 L 1769.3398 151.18555 C 1769.3388 140.79003 1761.0745 132.36233 1750.8789 132.36133 L 1307.8027 132.36133 z "
-       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#f06abb;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;baseline-shift:baseline;text-anchor:start;white-space:normal;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#0ad570;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:40;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="path14255"
        d="m 1307.8008,106.09766 c -24.6673,0.003 -44.7223,20.76874 -44.7246,45.08593 a 26.26659,26.26659 0 0 0 0,0.002 l 0,535.42578 a 26.26659,26.26659 0 0 0 0,0.002 c 0,19.6294 12.8425,37.43196 31.8828,43.18555 a 26.26659,26.26659 0 0 0 0,0.002 L 1516.5,796.72852 a 26.26659,26.26659 0 0 0 0,0 c 3.9738,1.2002 8.1135,1.84338 12.2968,1.89453 4.5461,0.0556 9.062,-0.59068 13.3789,-1.89453 a 26.26659,26.26659 0 0 0 0,0 l 221.5391,-66.92774 a 26.26659,26.26659 0 0 0 0,-0.002 c 19.0402,-5.75364 31.8812,-23.55594 31.8828,-43.18555 a 26.26659,26.26659 0 0 0 0,-0.002 l 0,-535.42578 a 26.26659,26.26659 0 0 0 0,-0.002 c -0,-24.31382 -20.0552,-45.08351 -44.7226,-45.08593 a 26.26659,26.26659 0 0 0 -0,0 l -443.0762,0 a 26.26659,26.26659 0 0 0 -0,0 z"
        transform="matrix(0.90136224,0,0,0.90104569,-778.48919,44.763321)" />
