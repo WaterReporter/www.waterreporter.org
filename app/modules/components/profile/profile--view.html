@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="user--activity">
+    <div class="user--activity" data-ng-if="page.search.data.features.length > 0">
       <ul>
         <li data-ng-if="$root.user.id && page.permissions.isCurrentUser && page.permissions.isAdmin">
           <a href="/profiles/{{ page.data.id }}/reports">
@@ -75,6 +75,129 @@
         </a>
         <span data-ng-if="page.search.status.loading" class="throbber"></span>
       </div>
+    </div>
+
+    <div class="user--welcome" data-ng-if="$root.user.id && page.permissions.isCurrentUser && page.search.data.features.length === 0">
+
+      <div class="text-center welcome--banner">
+        <img src="/images/welcome--banner--004.svg" alt="" title="" width="192" height="192" />
+      </div>
+
+      <section>
+
+        <h1 class="text-center">
+          Welcome to Water Reporter!
+        </h1>
+
+        <br />
+
+        <p>
+          Thanks for joining our ever-growing community. Please take a few minutes to review some information that will help you get up and running. 
+        </p>
+
+      </section>
+
+      <section>
+
+        <div class="app--images">
+
+          <img src="/images/iphone--5S.svg" alt="" title="" width="255" height="500" style="position: relative; display: inline-block; margin: 0;" />
+
+          <img src="/images/nexus--5.svg" alt="" title="" width="256" height="500" style="position: relative; display: inline-block; margin: 0 0 0 -100px;" />
+
+        </div>
+
+        <div class="app--download">
+
+          <h2 class="text-center">
+            Download the mobile app
+          </h2>
+
+          <br />
+
+          <p class="text-center">
+            Install Water Reporter on your iPhone or Android device and bring it outdoors! Log in with your email and password so you can share reports on your favorite lake, river, or ocean.
+          </p>
+
+          <p class="text-center app--links">
+            <a href="https://itunes.apple.com/us/app/the-water-reporter/id668005311?mt=8" target="_blank">
+              <img src="/images/logo--ItunesStore.png" alt="Download on the Apple iTunes App Store" width="166" />
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=com.viableindustries.waterreporter" target="_blank">
+              <img src="/images/logo--GooglePlay.png" alt="Download on the Google Play Store" width="140" />
+            </a>
+          </p>
+
+        </div>
+
+      </section>
+
+      <section>
+
+        <h2 class="text-center">
+          Submit your first report!
+        </h2>
+
+        <br />
+
+        <p>
+           Ready? Fire up the app or use our new online submission <a href="/submit">form</a> to document your latest river adventure or call out pollution in a local stream. Add a photo and description with hashtags (e.g. <a href="/search/tag/%23Acadia." target="_blank">#Acadia</a>, <a href="/search/tag/%23WMNF" target="_blank">#WMNF</a>) that you can use later to easily find and share reports.
+        </p>
+
+        <br />
+
+        <p class="text-center">
+          <a class="button button--info button--feature" href="/submit">
+            Submit a Report
+          </a>
+        </p>
+
+      </section>
+
+      <section>
+
+        <h2 class="text-center">
+          Spark a conversation
+        </h2>
+
+        <br />
+
+        <p>
+           Many of our members use Water Reporter to track pollution threats and connect with professionals who can tackle those problems. Raise awareness about issues that concern you by continuing the discussion in the comment thread on any report. Our network of conservation experts will get on the case and let you know when they find a solution.
+        </p>
+
+        <br />
+
+        <p class="text-center">
+          <a class="button button--info button--feature" href="/reports/2154" target="_blank">
+            See it in action
+          </a>
+        </p>
+
+      </section>
+
+      <section>
+
+        <h2 class="text-center">
+          Still have questions?
+        </h2>
+
+        <br />
+
+        <p>
+          Wondering how to use your Water Reporter account for maximum impact? <a href="http://help.waterreporter.org/getting-started/" target="_blank">Check out our help section.</a> If the answer you seek is missing, email us at <a href="mailto:support@waterreporter.org">support@waterreporter.org</a>.
+        </p>
+
+        <br />
+
+        <p class="text-center">
+          <a class="button button--info button--feature" href="http://help.waterreporter.org/getting-started/" target="_blank">
+            Read the docs
+          </a>
+        </p>
+
+      </section>
+
     </div>
 
   </div>

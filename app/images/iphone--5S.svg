@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="255"
+   height="500"
+   viewBox="0 0 255 500.00001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="iphone--5S.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="191.09297"
+     inkscape:cy="221.42857"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="955"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36216)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect13234"
+       width="205"
+       height="410"
+       x="25"
+       y="597.36218" />
+    <path
+       style="fill:#c1ccd0;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1"
+       inkscape:connector-curvature="0"
+       d="m 20,734.36213 -3,0 0,-17 3,0 0,-21 -3,0 0,-17 3,0 0,-22 -3,0 0,-21 3,0 0,-31.99412 c 0,-17.67253 14.322861,-32.00588 31.991006,-32.00588 l 114.008994,0 0,-2 36,0 0,2 4.00899,0 c 17.66636,0 31.99101,14.32952 31.99101,32.00588 l 0,397.98829 c 0,17.6725 -14.32286,32.0059 -31.99101,32.0059 l -154.017984,0 C 34.324645,1034.3622 20,1020.0326 20,1002.3563 l 0,-267.99417 z m 91.00885,-124 c -0.55717,0 -1.00885,0.44335 -1.00885,1.00937 l 0,1.98126 c 0,0.55746 0.45085,1.00937 0.99962,1.00937 l 22.40529,0 12.58717,0 c 0.55666,0 1.00792,-0.44335 1.00792,-1.00937 l 0,-1.98126 c 0,-0.55746 -0.4413,-1.00937 -1.00885,-1.00937 l -34.9823,0 z m 17.49115,-11 c 2.48528,0 4.5,-2.01472 4.5,-4.5 0,-2.48528 -2.01472,-4.5 -4.5,-4.5 -2.48528,0 -4.5,2.01472 -4.5,4.5 0,2.48528 2.01472,4.5 4.5,4.5 z m -93.505535,37 C 33.892952,636.36213 33,637.2646 33,638.37178 l 0,330.9807 c 0,1.1099 0.898753,2.00965 1.994465,2.00965 l 188.011065,0 c 1.10152,0 1.99447,-0.90247 1.99447,-2.00965 l 0,-330.9807 c 0,-1.1099 -0.89875,-2.00965 -1.99447,-2.00965 l -188.011065,0 z M 129,1020.3622 c 10.49341,0 19,-8.5066 19,-19.0001 0,-10.49338 -8.50659,-18.99997 -19,-18.99997 -10.49341,0 -19,8.50659 -19,18.99997 0,10.4935 8.50659,19.0001 19,19.0001 z M 98,615.36213 c 1.65685,0 3,-1.34315 3,-3 0,-1.65685 -1.34315,-3 -3,-3 -1.656854,0 -3,1.34315 -3,3 0,1.65685 1.343146,3 3,3 z m 31,402.99997 c 9.38884,0 17,-7.6111 17,-17 0,-9.38881 -7.61116,-16.99997 -17,-16.99997 -9.38884,0 -17,7.61116 -17,16.99997 0,9.3889 7.61116,17 17,17 z"
+       id="Apple-iPhone-5S"
+       sketch:type="MSShapeGroup" />
+  </g>
+</svg>

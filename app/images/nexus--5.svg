@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="500"
+   viewBox="0 0 256 500.00001"
+   id="svg8168"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="nexus--5.svg">
+  <defs
+     id="defs8170" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.959798"
+     inkscape:cx="74.857142"
+     inkscape:cy="463.70461"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="955"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata8173">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-552.36216)">
+    <circle
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path13313"
+       cx="48"
+       cy="590.36218"
+       r="10" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect12799"
+       width="220"
+       height="415"
+       x="18"
+       y="594.86218" />
+    <g
+       style="fill:#b0b4b8;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1"
+       sketch:type="MSShapeGroup"
+       id="g12713"
+       transform="matrix(0.37441498,0,0,0.37440823,7.9999989,565.36175)">
+      <g
+         id="google-nexus-5-(front)"
+         style="fill:#b0b4b8;fill-opacity:1">
+        <path
+           id="Shape"
+           d="m 635,1203 0,-965 4.99315,0 C 640.54922,238 641,237.54447 641,237.00508 l 0,-79.01016 C 641,157.44544 640.55005,157 639.99315,157 L 635,157 l 0,-94 -0.0107,0 c 0.0195,-0.320026 0.0197,-0.645906 -5.4e-4,-0.976482 0,0 0.48792,-15.010692 -8.44667,-25.280051 -8.93459,-10.269359 -16.89356,-12.080855 -16.89356,-12.080855 -4.04339,-1.776511 -10.89908,-3.808494 -15.2018,-4.782709 0,0 -12.62891,-3.385507 -48.63952,-8.229053 C 524.38364,8.7693057 490.69465,5.7220088 471.04222,4.684615 449.01788,3.5220147 419.85592,1.3234093 391.73249,0.53037184 359.8924,-0.36746961 330.29898,0.10698349 321,0.29834542 311.70102,0.10698349 282.1076,-0.36746961 250.26751,0.53037184 222.14408,1.3234093 192.98212,3.5220147 170.95778,4.684615 151.30535,5.7220088 117.61637,8.7693057 96.192772,11.65085 60.182161,16.494396 47.553254,19.879903 47.553254,19.879903 43.25053,20.854118 36.394842,22.886101 32.35145,24.662612 c 0,0 -7.958969,1.811496 -16.893561,12.080855 C 6.5232988,47.012826 7.0112179,62.023518 7.0112179,62.023518 6.9909966,62.354095 6.9911765,62.679974 7,63 l 0,178 -5.9931545,0 C 0.45078007,241 0,241.43823 0,241.99992 L 0,439.00008 C 0,439.55232 0.44994876,440 1.0068455,440 L 7,440 7,1203 c -0.00882,0.32 -0.009,0.6459 0.011218,0.9765 0,0 -0.4879191,15.0107 8.446671,25.28 8.934592,10.2694 16.893561,12.0809 16.893561,12.0809 4.043392,1.7765 10.89908,3.8085 15.201804,4.7827 0,0 12.628907,3.3855 48.639518,8.2291 21.423598,2.8815 55.112578,5.9288 74.765008,6.9662 22.02434,1.1626 51.1863,3.3612 79.30973,4.1542 31.84009,0.8979 61.43351,0.4234 70.73249,0.2321 9.29898,0.1913 38.8924,0.6658 70.73249,-0.2321 28.12343,-0.793 57.28539,-2.9916 79.30973,-4.1542 19.65243,-1.0374 53.34142,-4.0847 74.76501,-6.9662 36.01061,-4.8436 48.63952,-8.2291 48.63952,-8.2291 4.30272,-0.9742 11.15841,-3.0062 15.2018,-4.7827 0,0 7.95897,-1.8115 16.89356,-12.0809 8.93459,-10.2693 8.44667,-25.28 8.44667,-25.28 0.0202,-0.3306 0.02,-0.6565 5.4e-4,-0.9765 l 0.0107,0 0,0 z M 321,73 c 7.73199,0 14,-6.268013 14,-14 0,-7.731987 -6.26801,-14 -14,-14 -7.73199,0 -14,6.268013 -14,14 0,7.731987 6.26801,14 14,14 l 0,0 z m -287,37 0,1016 574,0 0,-1016 -574,0 0,0 z m 72.5,-37 c 3.03757,0 5.5,-2.462434 5.5,-5.5 0,-3.037566 -2.46243,-5.5 -5.5,-5.5 -3.03757,0 -5.5,2.462434 -5.5,5.5 0,3.037566 2.46243,5.5 5.5,5.5 l 0,0 z"
+           inkscape:connector-curvature="0"
+           style="fill:#b0b4b8;fill-opacity:1" />
+      </g>
+      <g
+         transform="matrix(-1,0,0,1,1328,0)"
+         id="google-nexus-5-(back)"
+         style="fill:#b0b4b8;fill-opacity:1" />
+    </g>
+    <g
+       id="tint_3_"
+       transform="matrix(0.67114094,0,0,0.67116481,85.986577,629.93992)">
+      <g
+         id="g4367">
+        <g
+           id="g4369">
+          <g
+             id="g4371">
+            <path
+               style="fill:#00b3dc"
+               inkscape:connector-curvature="0"
+               class="st0"
+               d="m 3,290.1 c 0,33.7 29.4,53.3 59.6,54.8 28.3,-1.6 59.6,-21.5 59.6,-55.2 0,-46 -45.1,-72.4 -59.6,-120.8 C 47.5,217.3 3,244 3,290.1 Z"
+               id="path4373" />
+          </g>
+        </g>
+        <g
+           id="g4375">
+          <path
+             style="fill:#0b9fc4"
+             inkscape:connector-curvature="0"
+             class="st1"
+             d="m 3.1,289.4 c 0,34.6 29.3,53.7 59.5,55.3 28.3,-1.6 61,-22.7 59.5,-56.5 -34.2,61.2 -88,61.1 -119,1.2 z"
+             id="path4377" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <style
+     type="text/css"
+     id="style4364">
+	.st0{fill:#00B3DC;}
+	.st1{fill:#0B9FC4;}
+	.st2{enable-background:new    ;}
+</style>
+</svg>

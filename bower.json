@@ -21,6 +21,6 @@
   "appPath": "app",
   "moduleName": "WaterReporter",
   "resolutions": {
-    "angular": "1.4.5"
+    "angular": "1.4.7"
   }
 }
