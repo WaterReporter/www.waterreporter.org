@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('Organization', function ($resource) {
-      return $resource('//api.waterreporter.org/v1/data/organization/:organizationId', {
+      return $resource('//api.waterreporter.org/v1/data/organization/:id', {
         id: '@id'
       }, {
         query: {

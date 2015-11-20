@@ -39,7 +39,7 @@ angular.module('WaterReporter')
       })
       .when('/organizations/:organizationId', {
         templateUrl: '/modules/components/organization/views/organizationProfile--view.html',
-        controller: 'ReportController',
+        controller: 'OrganizationProfileController',
         controllerAs: 'page',
         resolve: {
           organization: function($route, Organization) {

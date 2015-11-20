@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, organization, Organization, $rootScope, user) {
+    .controller('OrganizationProfileController', function (Account, organization, $rootScope, user) {
 
       var self = this;
 
@@ -35,6 +35,14 @@
 
         });
       }
+
+
+      /**
+       *
+       *
+       *
+       */
+      self.organization = organization;
 
     });
 
