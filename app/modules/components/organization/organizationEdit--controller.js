@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationEditController', function (Organization) {
+    .controller('OrganizationEditController', function () {
 
     });
 

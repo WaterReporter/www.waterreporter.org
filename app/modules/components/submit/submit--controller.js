@@ -178,7 +178,7 @@
           action: false,
           message: null
         }
-      }
+      };
 
 
       //
@@ -273,7 +273,7 @@
           self.map.processPin(args.leafletEvent.target._latlng, map._zoom);
         });
 
-        $scope.$on('leafletDirectiveMarker.dblclick', function(event, args) {
+        $scope.$on('leafletDirectiveMarker.dblclick', function() {
           var zoom = map._zoom+1;
           map.setZoom(zoom);
         });

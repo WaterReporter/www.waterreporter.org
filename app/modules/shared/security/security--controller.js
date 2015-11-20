@@ -162,7 +162,7 @@ angular.module('WaterReporter')
             self.login.password = self.register.password;
             self.login.submit(true);
           }
-        }, function(error){
+        }, function(){
           self.login.processing = false;
 
           $timeout(function() {

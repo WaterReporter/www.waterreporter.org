@@ -10,7 +10,7 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .factory('SecurityInterceptor', function ($q, ipCookie, $location) {
+  .factory('SecurityInterceptor', function ($q, ipCookie) {
 
     return {
       request: function(config) {

@@ -68,7 +68,6 @@
          * field updates change the report.report_date scoped object so that it
          * builds a proper Date object for our Report $resource
          */
-        console.log('self.report.properties.report_date', self.report.properties.report_date)
         var temporaryDate = new Date(self.report.properties.report_date);
         self.today = moment.utc(temporaryDate);
 
@@ -235,7 +234,7 @@
           self.map.processPin(args.leafletEvent.target._latlng, map._zoom);
         });
 
-        $scope.$on('leafletDirectiveMarker.dblclick', function(event, args) {
+        $scope.$on('leafletDirectiveMarker.dblclick', function() {
           var zoom = map._zoom+1;
           map.setZoom(zoom);
         });
@@ -303,7 +302,7 @@
         }
 
       });
-      
+
     });
 
 }());

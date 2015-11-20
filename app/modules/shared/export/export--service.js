@@ -10,7 +10,7 @@
   angular.module('WaterReporter')
     .service('Exporter', function() {
 
-      var _private = {};
+      // var _private = {};
 
       var _public = {
         /**

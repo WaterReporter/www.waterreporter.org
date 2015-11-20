@@ -81,7 +81,7 @@ angular.module('WaterReporter')
           features: []
         }
       }
-    }
+    };
 
     this.map.expanded = false;
 
@@ -171,7 +171,6 @@ angular.module('WaterReporter')
       };
 
       Report.query(params).$promise.then(function(reportResponse) {
-        console.log('reportResponse.features', reportResponse.features)
         self.other = {
           reports: reportResponse.features
         };

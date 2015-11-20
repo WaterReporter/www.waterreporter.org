@@ -100,7 +100,7 @@ angular.module('WaterReporter')
 
     };
 
-    this.changeFeature = function(feature, index) {
+    this.changeFeature = function(feature) {
       if (feature && feature.geometry !== undefined) {
         var center = {
           lat: feature.geometry.geometries[0].coordinates[1],

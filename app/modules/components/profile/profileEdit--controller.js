@@ -149,8 +149,6 @@ angular.module('WaterReporter')
          });
       } else {
 
-         console.log(profile_);
-
          //
          // If the image is being removed ... then remove it ... if not ... leave it alone.
          //
@@ -159,8 +157,6 @@ angular.module('WaterReporter')
          } else {
            delete profile_.images;
          }
-
-         debugger;
 
          profile_.$update(function(userResponse) {
            $rootScope.user = userResponse;
