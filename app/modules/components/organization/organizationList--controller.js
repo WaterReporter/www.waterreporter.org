@@ -4,10 +4,8 @@
 
   /**
    * @ngdoc function
-   * @name WaterReporter.submit.controller:SubmitController
+   * @name WaterReporter.submit.controller:OrganizationListController
    * @description
-   * # SubmitReportController
-   * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
     .controller('OrganizationListController', function (Organization) {
