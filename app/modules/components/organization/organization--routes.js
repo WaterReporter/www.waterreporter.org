@@ -36,5 +36,20 @@ angular.module('WaterReporter')
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }
         }
+      })
+      .when('/organizations/:organizationId', {
+        templateUrl: '/modules/components/organization/views/organizationProfile--view.html',
+        controller: 'ReportController',
+        controllerAs: 'page',
+        resolve: {
+          organization: function($route, Organization) {
+            return Organization.get({
+              id: $route.current.params.organizationId
+            });
+          },
+          user: function(Account) {
+            return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
+          }
+        }
       });
   });
