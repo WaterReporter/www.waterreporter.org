@@ -1,0 +1,28 @@
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+
+<div id="map--wrapper" class="map--wrapper">
+  <leaflet data-ng-if="page.report" class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds" ></leaflet>
+</div>
+
+<main class="site--content">
+  <div class="throbber" data-ng-if="!page.search.data.features.length"></div>
+
+  <div class="container" data-ng-if="page.search.data.features.length">
+    <h2 class="text-center">Organizations</h2>
+
+    <div data-ng-repeat="organization in page.search.data.features track by $index"
+         data-ng-include="'/modules/components/organization/views/organizationSingle--view.html'"></div>
+
+    <div>
+      <a data-ng-click="page.search.more(true)" class="circle--button"
+         data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+           Load More
+      </a>
+      <span data-ng-if="page.search.status.loading" class="throbber"></span>
+    </div>
+
+  </div>
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>
