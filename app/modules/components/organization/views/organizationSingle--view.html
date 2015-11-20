@@ -9,7 +9,10 @@
   </div>
   <div class="organization--profile--bio">
     <h1>
-      {{ organization.properties.name }}
+      <a href="/organizations/{{ organization.id }}"
+         title="">
+        {{ organization.properties.name }}
+      </a>
     </h1>
     <p>
       {{ organization.properties.description }}
