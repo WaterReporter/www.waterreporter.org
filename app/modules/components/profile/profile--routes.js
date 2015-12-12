@@ -265,14 +265,6 @@ angular.module('WaterReporter')
             return User.get({
               id: $route.current.params.userId
             });
-          },
-          reports: function(Report) {
-            //
-            // Execute our query so that we can get the Reports back
-            //
-            return Report.query({
-              q: {}
-            });
           }
         }
       });

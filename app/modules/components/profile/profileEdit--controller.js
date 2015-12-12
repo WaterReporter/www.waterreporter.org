@@ -1,173 +1,148 @@
-'use strict';
+(function() {
 
-/**
- * @ngdoc function
- * @name
- * @description
- */
-angular.module('WaterReporter')
-  .controller('ProfileEditController', function (Account, Image, $location, profile, Report, reports, $rootScope, $route, Search, $scope, user, User) {
+  'use strict';
 
-    var self = this;
+  /**
+   * @ngdoc function
+   * @name
+   * @description
+   */
+  angular.module('WaterReporter')
+    .controller('ProfileEditController', function (Account, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
 
-    this.reports = reports;
+      var self = this;
 
-    self.image = null;
+      self.image = null;
 
-    /**
-     * Setup search capabilities for the Report Activity Feed
-     *
-     * @data this.search
-     *    loads the Search Service into our page scope
-     * @data this.search.params
-     *    loads the default url parameters into the page fields
-     * @data this.search.model
-     *    tells the Search Service what the data model for this particular search looks like
-     * @data this.search.resource
-     *    tells the Search Service what resource to perform the search with
-     * @data this.search.data
-     *    retains and updates based on the features returned from the user-defined query
-     *
-     */
-    self.search = Search;
+      self.status = {
+        saving: {
+          action: false,
+          message: null
+        },
+        image: {
+          remove: false
+        }
+      };
 
-    self.search.model = {
-      report_description: {
-        name: 'report_description',
-        op: 'ilike',
-        val: ''
-      }
-    };
+      //
+      // Load main Profile data
+      //
+      profile.$promise.then(function(profileResponse) {
 
-    self.search.resource = Report;
+        self.profile = profileResponse;
 
-    self.status = {
-      saving: {
-        action: false,
-        message: null
-      },
-      image: {
-        remove: false
-      }
-    };
-
-    //
-    // Load main Profile data
-    //
-    profile.$promise.then(function(profileResponse) {
-
-      self.profile = profileResponse;
-
-      if (self.profile.properties.telephone.length === 0) {
-        self.profile.properties.telephone = [{}];
-      }
-      if (self.profile.properties.organization.length === 0) {
-        self.profile.properties.organization = [{}];
-      }
-    });
-
-    //
-    // This is the first page the authneticated user will see. We need to make
-    // sure that their user information is ready to use. Make sure the
-    // Account.userObject contains the appropriate information.
-    //
-    if (Account.userObject && user) {
-      user.$promise.then(function(userResponse) {
-        $rootScope.user = Account.userObject = userResponse;
-
-        self.permissions = {
-          isLoggedIn: Account.hasToken(),
-          isAdmin: Account.hasRole('admin'),
-          isProfile: false,
-          isCurrentUser: false
-        };
-
-      });
-    } else {
-      $location.path('/profiles/' + $route.current.params.userId);
-    }
-
-    self.save = function() {
-
-      self.profile.properties.images = self.profile.properties.images.properties;
-
-      self.status.saving.action = true;
-
-      var profile_ = new User({
-        id: self.profile.id,
-        first_name: self.profile.properties.first_name,
-        last_name: self.profile.properties.last_name,
-        email: self.profile.properties.email,
-        description: self.profile.properties.description,
-        title: self.profile.properties.title,
-        organization_name: self.profile.properties.organization_name,
-        telephone: [{
-          number: (self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
-        }],
-        images: self.profile.properties.images
+        if (self.profile.properties.telephone.length === 0) {
+          self.profile.properties.telephone = [{}];
+        }
+        if (self.profile.properties.organization.length === 0) {
+          self.profile.properties.organization = [{}];
+        }
       });
 
-      if (!self.profile.properties.organization.length || self.profile.properties.organization[0].properties === undefined) {
-        profile_.organization = [];
-      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
-        profile_.organization = [
-          {
-            id: self.profile.properties.organization[0].properties.id,
-            name: self.profile.properties.organization[0].properties.name
-          }
-        ];
-      } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
-        profile_.organization = [
-          {
-            name: self.profile.properties.organization[0].properties.name
-          }
-        ];
+      //
+      // This is the first page the authneticated user will see. We need to make
+      // sure that their user information is ready to use. Make sure the
+      // Account.userObject contains the appropriate information.
+      //
+      if (Account.userObject && user) {
+        user.$promise.then(function(userResponse) {
+          $rootScope.user = Account.userObject = userResponse;
+
+          self.permissions = {
+            isLoggedIn: Account.hasToken(),
+            isAdmin: Account.hasRole('admin'),
+            isProfile: false,
+            isCurrentUser: false
+          };
+
+        });
+      } else {
+        $location.path('/profiles/' + $route.current.params.userId);
       }
 
-      if (self.image) {
-         var fileData = new FormData();
+      self.save = function() {
 
-         fileData.append('image', self.image);
+        self.profile.properties.images = self.profile.properties.images.properties;
 
-         Image.upload({}, fileData).$promise.then(function(successResponse) {
+        self.status.saving.action = true;
 
-           console.log('successResponse', successResponse);
+        var profile_ = new User({
+          id: self.profile.id,
+          first_name: self.profile.properties.first_name,
+          last_name: self.profile.properties.last_name,
+          email: self.profile.properties.email,
+          description: self.profile.properties.description,
+          title: self.profile.properties.title,
+          organization_name: self.profile.properties.organization_name,
+          telephone: [{
+            number: (self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
+          }],
+          images: self.profile.properties.images
+        });
 
-           profile_.images = [
-             {
-               id: successResponse.id
-             }
-           ];
+        if (!self.profile.properties.organization.length || self.profile.properties.organization[0].properties === undefined) {
+          profile_.organization = [];
+        } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
+          profile_.organization = [
+            {
+              id: self.profile.properties.organization[0].properties.id,
+              name: self.profile.properties.organization[0].properties.name
+            }
+          ];
+        } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
+          profile_.organization = [
+            {
+              name: self.profile.properties.organization[0].properties.name
+            }
+          ];
+        }
 
-           profile_.picture = successResponse.thumbnail;
+        if (self.image) {
+           var fileData = new FormData();
+
+           fileData.append('image', self.image);
+
+           Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+             console.log('successResponse', successResponse);
+
+             profile_.images = [
+               {
+                 id: successResponse.id
+               }
+             ];
+
+             profile_.picture = successResponse.thumbnail;
+
+             profile_.$update(function(userResponse) {
+               $rootScope.user = userResponse;
+               $location.path('/profiles/' + $rootScope.user.id);
+             });
+
+           });
+        } else {
+
+           //
+           // If the image is being removed ... then remove it ... if not ... leave it alone.
+           //
+           if (self.status.image.remove) {
+             profile_.images = [];
+           } else {
+             delete profile_.images;
+           }
 
            profile_.$update(function(userResponse) {
              $rootScope.user = userResponse;
              $location.path('/profiles/' + $rootScope.user.id);
            });
+        }
+     };
 
-         });
-      } else {
+     self.removeImage = function() {
+       self.profile.properties.images = [];
+       self.status.image.remove = true;
+     };
 
-         //
-         // If the image is being removed ... then remove it ... if not ... leave it alone.
-         //
-         if (self.status.image.remove) {
-           profile_.images = [];
-         } else {
-           delete profile_.images;
-         }
+    });
 
-         profile_.$update(function(userResponse) {
-           $rootScope.user = userResponse;
-           $location.path('/profiles/' + $rootScope.user.id);
-         });
-      }
-   };
-
-   self.removeImage = function() {
-     self.profile.properties.images = [];
-     self.status.image.remove = true;
-   };
-
-  });
+}());
