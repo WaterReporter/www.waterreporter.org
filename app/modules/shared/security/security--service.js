@@ -10,12 +10,12 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Security', function(ipCookie, $http, $resource) {
+  .service('Security', function(environment, ipCookie, $http, $resource) {
 
-    var Security = $resource('//api.waterreporter.org/login', {}, {
+    var Security = $resource(environment.apiUrl.concat('/login'), {}, {
       save: {
         method: 'POST',
-        url: '//api.waterreporter.org/v1/auth/remote',
+        url: environment.apiUrl.concat('/v1/auth/remote'),
         params: {
           response_type: 'token',
           client_id: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku',
@@ -26,11 +26,11 @@ angular.module('WaterReporter')
       },
       register: {
         method: 'POST',
-        url: '//api.waterreporter.org/v1/user/register'
+        url: environment.apiUrl.concat('/v1/user/register')
       },
       reset: {
         method: 'POST',
-        url: '//api.waterreporter.org/reset'
+        url: environment.apiUrl.concat('/reset')
       }
     });
 

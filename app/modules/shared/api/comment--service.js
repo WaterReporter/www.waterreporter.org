@@ -9,7 +9,7 @@
  */
 angular.module('WaterReporter')
   .service('Comment', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/comment/:id', {
+    return $resource(environment.apiUrl.concat('/v1/data/comment/:id'), {
       id: '@id'
     }, {
       query: {

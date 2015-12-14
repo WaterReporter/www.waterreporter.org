@@ -32,6 +32,39 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
+    //
+    // Environment Specific Variables
+    //
+    ngconstant: {
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {%= __ngModule %}',
+        name: 'config'
+      },
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'development',
+            apiUrl: 'http://127.0.0.1:5000'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.dist %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'production',
+            apiUrl: 'https://api.waterreporter.org'
+          }
+        }
+      }
+    },
+
     // Project settings
     yeoman: appConfig,
 
@@ -392,6 +425,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -416,6 +450,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',

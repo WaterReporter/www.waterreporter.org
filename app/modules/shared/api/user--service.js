@@ -8,8 +8,8 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('User', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/user/:id', {
+  .service('User', ['$resource', function (environment, $resource) {
+    return $resource(environment.apiUrl.concat('/v1/data/user/:id'), {
       id: '@id'
     }, {
       query: {
@@ -21,16 +21,16 @@ angular.module('WaterReporter')
       getOrganizations: {
         method: 'GET',
         isArray: false,
-        url: '//api.waterreporter.org/v1/data/user/:id/organization'
+        url: environment.apiUrl.concat('/v1/data/user/:id/organization')
       },
       me: {
         method: 'GET',
-        url: '//api.waterreporter.org/v1/data/me'
+        url: environment.apiUrl.concat('/v1/data/me')
       },
       classifications: {
         method: 'GET',
         isArray: false,
-        url: '//api.waterreporter.org/v1/data/user/:id/classifications'
+        url: environment.apiUrl.concat('/v1/data/user/:id/classifications')
       }
     });
   }]);

@@ -8,8 +8,8 @@
    * @description
    */
   angular.module('Groups')
-    .service('GroupOrganization', function ($resource) {
-      return $resource('//api.waterreporter.org/v1/data/organization/:id', {
+    .service('GroupOrganization', function (environment, $resource) {
+      return $resource(environment.apiUrl.concat('/v1/data/organization/:id'), {
         id: '@id'
       }, {
         query: {

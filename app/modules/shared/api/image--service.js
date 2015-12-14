@@ -8,8 +8,8 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Image', ['$resource', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/media/image/:imageId', {}, {
+  .service('Image', ['$resource', function (environment, $resource) {
+    return $resource(environment.apiUrl.concat('/v1/media/image/:imageId'), {}, {
       query: {
         isArray: false
       },
@@ -25,7 +25,7 @@ angular.module('WaterReporter')
       },
       remove: {
         method: 'DELETE',
-        url: '//api.waterreporter.org/v1/data/image/:imageId'
+        url: environment.apiUrl.concat('/v1/data/image/:imageId')
       }
     });
   }]);

@@ -8,8 +8,8 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .service('Report', function ($resource) {
-    return $resource('//api.waterreporter.org/v1/data/report/:id', {
+  .service('Report', function (environment, $resource) {
+    return $resource(environment.apiUrl.concat('/v1/data/report/:id'), {
       id: '@id'
     }, {
       query: {
@@ -23,7 +23,7 @@ angular.module('WaterReporter')
       },
       comments: {
         method: 'GET',
-        url: '//api.waterreporter.org/v1/data/report/:id/comments',
+        url: environment.apiUrl.concat('/v1/data/report/:id/comments'),
         params: {
           q: {
             order_by: [

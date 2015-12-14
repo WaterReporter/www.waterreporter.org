@@ -10,8 +10,8 @@
    * Service in the WaterReporter.
    */
   angular.module('WaterReporter')
-    .service('Organization', function ($resource) {
-      return $resource('//api.waterreporter.org/v1/data/organization/:id', {
+    .service('Organization', function (environment, $resource) {
+      return $resource(environment.apiUrl.concat('/v1/data/organization/:id'), {
         id: '@id'
       }, {
         query: {
