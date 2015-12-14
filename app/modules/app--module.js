@@ -20,5 +20,6 @@ angular
     'angularMoment',
     'igTruncate',
     'Mapbox',
-    'Groups'
+    'Groups',
+    'config'
   ]);

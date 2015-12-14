@@ -71,17 +71,12 @@
         var temporaryDate = new Date(self.report.properties.report_date);
         self.today = moment.utc(temporaryDate);
 
-
-
-        console.log('self.today', self.today.month(), self.today.date(), self.today.day(), self.today.year());
-
         self.date = {
           month: self.months[self.today.month()],
           date: self.today.date(),
           day: self.days[self.today.day()],
           year: self.today.year()
         };
-
 
         self.coordinates = {
           lng: self.report.geometry.geometries[0].coordinates[0],

@@ -141,14 +141,21 @@
         <div class="form--field">
           <div class="form--element form--element--half">
             <label for="email" class="control--label">Email Address</label>
-            <input type="text" class="form--control" id="email"
-                   name="email" data-ng-model="page.profile.properties.email" />
+            <input type="text" class="form--control" id="public_email"
+                   name="public_email"
+                   data-ng-model="page.profile.properties.public_email" />
+            <p class="help--text">
+              This email address is made public
+            </p>
          </div>
          <div class="form--element form--element--half">
             <label for="telephone" class="control--label">Telephone Number</label>
             <input type="text" class="form--control" id="telephone" name="telephone"
                    data-ng-model="phone.properties.number" placeholder="555-555-5555"
                    data-ng-repeat="phone in page.profile.properties.telephone track by $index" />
+             <p class="help--text">
+               &nbsp;
+             </p>
            </div>
         </div>
       </div>

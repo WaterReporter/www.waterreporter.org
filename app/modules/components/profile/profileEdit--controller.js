@@ -31,11 +31,11 @@
 
         self.profile = profileResponse;
 
-        if (self.profile.properties.telephone.length === 0) {
+        if (self.profile.properties.telephone && self.profile.properties.telephone.length === 0) {
           self.profile.properties.telephone = [{}];
         }
-        if (self.profile.properties.organization.length === 0) {
-          self.profile.properties.organization = [{}];
+        if (self.profile.properties.groups && self.profile.properties.groups.length === 0) {
+          self.profile.properties.groups = [{}];
         }
       });
 
@@ -62,7 +62,9 @@
 
       self.save = function() {
 
-        self.profile.properties.images = self.profile.properties.images.properties;
+        if (self.profile.properties.images) {
+          self.profile.properties.images = self.profile.properties.images.properties;
+        }
 
         self.status.saving.action = true;
 
@@ -70,26 +72,26 @@
           id: self.profile.id,
           first_name: self.profile.properties.first_name,
           last_name: self.profile.properties.last_name,
-          email: self.profile.properties.email,
+          public_email: self.profile.properties.public_email,
           description: self.profile.properties.description,
           title: self.profile.properties.title,
           organization_name: self.profile.properties.organization_name,
           telephone: [{
-            number: (self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
+            number: (self.profile.properties.telephone && self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
           }],
           images: self.profile.properties.images
         });
 
-        if (!self.profile.properties.organization.length || self.profile.properties.organization[0].properties === undefined) {
+        if (self.profile.properties.organization && !self.profile.properties.organization.length) {
           profile_.organization = [];
-        } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
+        } else if (self.profile.properties.organization && self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
           profile_.organization = [
             {
               id: self.profile.properties.organization[0].properties.id,
               name: self.profile.properties.organization[0].properties.name
             }
           ];
-        } else if (self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
+        } else if (self.profile.properties.organization && self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
           profile_.organization = [
             {
               name: self.profile.properties.organization[0].properties.name
@@ -142,6 +144,41 @@
        self.profile.properties.images = [];
        self.status.image.remove = true;
      };
+
+
+     //
+     // Empty Groups object
+     //
+     // We need to have an empty geocode object so that we can fill it in later
+     // in the address geocoding process. This allows us to pass the results along
+     // to the Form Submit function we have in place below.
+     //
+     self.groups = {};
+
+     //
+     // When the user has selected a response, we need to perform a few extra
+     // tasks so that our scope is updated properly.
+     //
+     $scope.$watch(angular.bind(this, function() {
+       return this.groups.response;
+     }), function (response) {
+
+       //
+       // Only execute the following block of code if the user has geocoded an
+       // address. This block of code expects this to be a single feature from a
+       // Carmen GeoJSON object.
+       //
+       // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+       //
+       if (response) {
+         self.groups = {
+           query: null,
+           response: null
+         };
+       }
+
+     });
+
 
     });
 

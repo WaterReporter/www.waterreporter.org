@@ -48,7 +48,8 @@ module.exports = function (grunt) {
         constants: {
           environment: {
             name: 'development',
-            apiUrl: 'http://127.0.0.1:5000'
+            apiUrl: 'http://127.0.0.1:5000',
+            clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
           }
         }
       },
@@ -59,7 +60,8 @@ module.exports = function (grunt) {
         constants: {
           environment: {
             name: 'production',
-            apiUrl: 'https://api.waterreporter.org'
+            apiUrl: 'https://api.waterreporter.org',
+            clientId: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku'
           }
         }
       }

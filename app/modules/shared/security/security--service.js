@@ -20,7 +20,7 @@
           url: environment.apiUrl.concat('/v1/auth/remote'),
           params: {
             response_type: 'token',
-            client_id: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku',
+            client_id: environment.clientId,
             redirect_uri: 'http://127.0.0.1:9000/authorize',
             scope: 'user',
             state: 'json'
