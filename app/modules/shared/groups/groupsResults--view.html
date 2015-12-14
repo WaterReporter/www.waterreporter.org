@@ -1,0 +1,8 @@
+<ul class="groups--results"
+    data-ng-if="groupsResults && groupsResults.features.length">
+  <li class="groups--results--result"
+      data-ng-repeat="result in groupsResults.features"
+      data-ng-click="group.select(result)">
+    {{ result.name }}
+  </li>
+</ul>
