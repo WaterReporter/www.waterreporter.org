@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ProfileEditController', function (Account, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
+    .controller('ProfileEditController', function (Account, groups, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
 
       var self = this;
 
@@ -37,6 +37,8 @@
         if (self.profile.properties.organization && self.profile.properties.organization.length === 0) {
           self.profile.properties.organization = [{}];
         }
+
+        self.profile.properties.groups = groups;
       });
 
       //
