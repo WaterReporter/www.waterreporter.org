@@ -127,9 +127,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr data-ng-repeat="group in page.profile.properties.groups track by $index">
+                <tr data-ng-repeat="group in page.profile.properties.groups.features track by $index">
                   <td>
-                    {{ group.properties.organization_id }}
+                    <a href="/organization/{{ group.organization_id }}" title="Visit the {{ group.properties.organization.properties.name }} organization profile">
+                      {{ group.properties.organization.properties.name }}
+                    </a>
                   </td>
                   <td>
                     <span data-ng-if="group.properties.is_admin">Admin</span>
