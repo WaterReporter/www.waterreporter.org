@@ -1,8 +1,8 @@
-<ul class="groups--results"
+<ul class="dropdown--results"
     data-ng-if="groupsResults && groupsResults.features.length">
-  <li class="groups--results--result"
+  <li class="dropdown--results--result"
       data-ng-repeat="result in groupsResults.features"
       data-ng-click="group.select(result)">
-    {{ result.name }}
+    {{ result.properties.name }}
   </li>
 </ul>
