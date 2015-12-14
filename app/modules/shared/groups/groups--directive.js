@@ -60,8 +60,11 @@
                 // need to.
                 //
                 if (query && !scope.groupsResponse) {
-                  group.organization(query).success(function(results) {
-                    scope.groupsResults = results;
+                  group.organization(query).$promise.then(function(successResponse) {
+                    console.log('successResponse', successResponse);
+                    return successResponse;
+                  }, function(errorResponse) {
+                    console.error('Organization Query could not return any results base your input', errorResponse);
                   });
                 }
 

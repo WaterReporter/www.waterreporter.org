@@ -39,27 +39,25 @@
           // and other necessary characters to, in order to appropriately
           // perform the lookup.
           //
-          var queryParameter = '';
+          var q = {
+                'q': {
+                  'filters': [
+                    {
+                      'name': 'name',
+                      'op': 'ilike',
+                      'val': ''.concat('%', requestedOrganization, '%')
+                    }
+                  ]
+                }
+              };
+
+          console.log('q', q);
 
           //
           // Send a GET request to the Mapbox Geocoding API containing valid user
           // input
           //
-          var promise = GroupOrganization.query({
-            'q': {
-              'filters': [
-                {
-                  'name': 'name',
-                  'op': 'ILIKE',
-                  'val': queryParameter.concat('%', requestedOrganization, '%')
-                }
-              ]
-            }
-          }).$promise.then(function(successResponse) {
-            return successResponse;
-          }, function(errorResponse) {
-            console.error('Organization Query could not return any results base your input', errorResponse);
-          });
+          var promise = GroupOrganization.query(q);
 
           //
           // Always return Requests in angular.services as a `promise`
