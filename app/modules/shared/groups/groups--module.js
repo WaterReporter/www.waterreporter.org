@@ -7,6 +7,9 @@
    * @name Groups
    * @description
    */
-  angular.module('Groups');
+  angular
+    .module('Groups', [
+      
+    ]);
 
 }());
