@@ -62,6 +62,35 @@
         $location.path('/profiles/' + $route.current.params.userId);
       }
 
+      self.processGroups = function(list) {
+
+        var _return = [];
+
+        angular.forEach(list, function(item) {
+          console.log('item', item);
+          var group;
+          if (item && item.properties) {
+            group = {
+              organization_id: item.properties.organization_id,
+              joined_on: item.properties.joined_on
+            };
+          } else if (item && item.organization_id) {
+            group = {
+              organization_id: item.organization_id,
+              joined_on: item.joined_on
+            };
+          }
+
+          _return.push(group);
+        });
+
+        console.log('_return', _return);
+
+        debugger;
+
+        return _return;
+      };
+
       self.save = function() {
 
         if (self.profile.properties.images) {
@@ -78,7 +107,7 @@
           description: self.profile.properties.description,
           title: self.profile.properties.title,
           organization_name: self.profile.properties.organization_name,
-          groups: self.profile.properties.groups,
+          groups: self.processGroups(self.profile.properties.groups.features),
           telephone: [{
             number: (self.profile.properties.telephone && self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
           }],
@@ -184,8 +213,9 @@
          //
          console.log('Add this selection to the groups', response);
 
-         self.profile.properties.groups.push({
-           organization_id: response.id
+         self.profile.properties.groups.features.push({
+           organization_id: response.id,
+           joined_on: new Date()
          });
 
          console.log('Please review the updated profile', self.profile);

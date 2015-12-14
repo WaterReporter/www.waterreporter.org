@@ -124,12 +124,15 @@
                   <th>
                     Membership
                   </th>
+                  <th>
+                    Member Since
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 <tr data-ng-repeat="group in page.profile.properties.groups.features track by $index">
                   <td>
-                    <a href="/organization/{{ group.organization_id }}" title="Visit the {{ group.properties.organization.properties.name }} organization profile">
+                    <a href="/organizations/{{ group.properties.organization_id }}" title="Visit the {{ group.properties.organization.properties.name }} organization profile">
                       {{ group.properties.organization.properties.name }}
                     </a>
                   </td>
@@ -138,6 +141,11 @@
                     <span data-ng-if="group.properties.is_member">Member</span>
                     <span data-ng-if="!group.properties.is_member && !group.properties.is_admin">
                       <em>Pending</em>
+                    </span>
+                  </td>
+                  <td>
+                    <span data-ng-if="group.properties.is_member || group.properties.is_admin">
+                      {{ group.properties.joined_on | date }}
                     </span>
                   </td>
                 </tr>
