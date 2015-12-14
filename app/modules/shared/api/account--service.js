@@ -1,72 +1,76 @@
-'use strict';
+(function() {
 
-/**
- * @ngdoc service
- * @name WaterReporter
- * @description
- * Provides access to the User endpoint of the WaterReporter API
- * Service in the WaterReporter.
- */
-angular.module('WaterReporter')
-  .service('Account', function (ipCookie, User) {
+  'use strict';
 
-    var Account = {
-      userObject: {}
-    };
+  /**
+   * @ngdoc service
+   * @name WaterReporter
+   * @description
+   * Provides access to the User endpoint of the WaterReporter API
+   * Service in the WaterReporter.
+   */
+  angular.module('WaterReporter')
+    .service('Account', function (ipCookie, User) {
 
-    Account.getUser = function() {
+      var Account = {
+        userObject: {}
+      };
 
-      var userId = ipCookie('WATERREPORTER_CURRENTUSER');
+      Account.getUser = function() {
 
-      if (!userId) {
-        return false;
-      }
+        var userId = ipCookie('WATERREPORTER_CURRENTUSER');
 
-      var $promise = User.get({
-        id: userId
-      });
+        if (!userId) {
+          return false;
+        }
 
-      return $promise;
-    };
-
-    Account.setUserId = function() {
-      var $promise = User.me(function(accountResponse) {
-
-        ipCookie('WATERREPORTER_CURRENTUSER', accountResponse.id, {
-          path: '/',
-          expires: 2
+        var $promise = User.get({
+          id: userId
         });
 
-        return accountResponse.id;
-      });
+        return $promise;
+      };
 
-      return $promise;
-    };
+      Account.setUserId = function() {
+        var $promise = User.me(function(accountResponse) {
 
-    Account.hasToken = function() {
-      if (ipCookie('WATERREPORTER_CURRENTUSER') && ipCookie('WATERREPORTER_SESSION')) {
-        return true;
-      }
+          ipCookie('WATERREPORTER_CURRENTUSER', accountResponse.id, {
+            path: '/',
+            expires: 2
+          });
 
-      return false;
-    };
+          return accountResponse.id;
+        });
 
-    Account.hasRole = function(roleNeeded) {
+        return $promise;
+      };
 
-      var roles = this.userObject.properties.roles;
-
-      if (!roles) {
-        return false;
-      }
-
-      for (var index = 0; index < roles.length; index++) {
-        if (roleNeeded === roles[index].properties.name) {
+      Account.hasToken = function() {
+        if (ipCookie('WATERREPORTER_CURRENTUSER') && ipCookie('WATERREPORTER_SESSION')) {
           return true;
         }
-      }
 
-      return false;
-    };
+        return false;
+      };
 
-    return Account;
-  });
+      Account.hasRole = function(roleNeeded) {
+
+        var roles = this.userObject.properties.roles;
+
+        if (!roles) {
+          return false;
+        }
+
+        for (var index = 0; index < roles.length; index++) {
+          if (roleNeeded === roles[index].properties.name) {
+            return true;
+          }
+        }
+
+        return false;
+      };
+
+      return Account;
+    });
+
+}());
