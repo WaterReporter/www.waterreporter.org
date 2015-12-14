@@ -20,6 +20,11 @@
         update: {
           method: 'PATCH'
         },
+        groups: {
+          method: 'GET',
+          isArray: false,
+          url: environment.apiUrl.concat('/v1/data/user/:id/groups')
+        },
         getOrganizations: {
           method: 'GET',
           isArray: false,

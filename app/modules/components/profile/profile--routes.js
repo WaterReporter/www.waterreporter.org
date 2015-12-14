@@ -261,6 +261,11 @@ angular.module('WaterReporter')
           user: function(Account) {
             return Account.getUser();
           },
+          groups: function($route, User) {
+            return User.groups({
+              id: $route.current.params.userId
+            });
+          },
           profile: function($route, User) {
             return User.get({
               id: $route.current.params.userId
