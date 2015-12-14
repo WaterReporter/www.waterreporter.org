@@ -34,8 +34,8 @@
         if (self.profile.properties.telephone && self.profile.properties.telephone.length === 0) {
           self.profile.properties.telephone = [{}];
         }
-        if (self.profile.properties.groups && self.profile.properties.groups.length === 0) {
-          self.profile.properties.groups = [{}];
+        if (self.profile.properties.organization && self.profile.properties.organization.length === 0) {
+          self.profile.properties.organization = [{}];
         }
       });
 
@@ -76,6 +76,7 @@
           description: self.profile.properties.description,
           title: self.profile.properties.title,
           organization_name: self.profile.properties.organization_name,
+          groups: self.profile.properties.groups,
           telephone: [{
             number: (self.profile.properties.telephone && self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
           }],
@@ -171,6 +172,22 @@
        // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
        //
        if (response) {
+
+         //
+         // When the user clicks on a selection from the drop down, we should
+         // add that selection to the list of groups.
+         //
+         // The user must save the profile page in order for the group
+         // relationships to take affect.
+         //
+         console.log('Add this selection to the groups', response);
+
+         self.profile.properties.groups.push({
+           organization_id: response.id
+         });
+
+         console.log('Please review the updated profile', self.profile);
+
          self.groups = {
            query: null,
            response: null

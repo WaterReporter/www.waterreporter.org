@@ -107,6 +107,44 @@
         </div>
       </div>
 
+      <div class="form--row" data-ng-if="page.profile.id">
+        <div class="form--label">
+          <p>
+            Memberships
+          </p>
+        </div>
+        <div class="form--field">
+          <div class="form--element">
+            <table class="table table--small">
+              <thead>
+                <tr>
+                  <th>
+                    Organization
+                  </th>
+                  <th>
+                    Membership
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="group in page.profile.properties.groups track by $index">
+                  <td>
+                    {{ group.properties.organization_id }}
+                  </td>
+                  <td>
+                    <span data-ng-if="group.properties.is_admin">Admin</span>
+                    <span data-ng-if="group.properties.is_member">Member</span>
+                    <span data-ng-if="!group.properties.is_member && !group.properties.is_admin">
+                      <em>Pending</em>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <!-- User Profile Image -->
       <div class="form--row" data-ng-if="page.profile.id">
         <div class="form--label">

@@ -56,6 +56,14 @@ th {
   vertical-align: top;
   border-bottom: 1px solid $color-white-dark;
 }
+.table.table--small > thead > tr > th,
+.table.table--small > tbody > tr > th,
+.table.table--small > tfoot > tr > th,
+.table.table--small > thead > tr > td,
+.table.table--small > tbody > tr > td,
+.table.table--small > tfoot > tr > td {
+  padding: 1em;
+}
 .table > thead > tr > th {
   vertical-align: bottom;
   border-bottom: 2px solid #ddd;
