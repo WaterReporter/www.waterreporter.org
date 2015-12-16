@@ -67,8 +67,9 @@
         var _return = [];
 
         angular.forEach(list, function(item) {
-          console.log('item', item);
+
           var group;
+
           if (item && item.properties) {
             group = {
               organization_id: item.properties.organization_id,
@@ -83,10 +84,6 @@
 
           _return.push(group);
         });
-
-        console.log('_return', _return);
-
-        debugger;
 
         return _return;
       };
