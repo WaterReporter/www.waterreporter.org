@@ -23,6 +23,11 @@
         update: {
           method: 'PATCH'
         },
+        groups: {
+          method: 'GET',
+          isArray: false,
+          url: environment.apiUrl.concat('/v1/data/report/:id/groups')
+        },
         comments: {
           method: 'GET',
           url: environment.apiUrl.concat('/v1/data/report/:id/comments'),
