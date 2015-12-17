@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, $timeout, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, $timeout, user, User) {
 
       var self = this;
 
@@ -289,6 +289,17 @@
         if (user) {
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
+
+            //
+            //
+            //
+            User.groups({
+              id: Account.userObject.id
+            }).$promise.then(function(successResponse) {
+              Account.userObject.properties.groups = successResponse.features;
+            }, function(errorResponse) {
+              console.log('errorResponse', errorResponse);
+            });
 
             if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
               $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
