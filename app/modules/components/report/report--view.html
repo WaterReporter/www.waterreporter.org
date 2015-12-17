@@ -69,6 +69,15 @@
               </p>
             </div>
             <div class="report--metadata--section"
+                 data-ng-if="page.report.properties.groups && page.report.properties.groups.length">
+              <p data-ng-repeat="group in page.report.properties.groups">
+                {{ group.properties.organization.properties.name }}<br />
+                <a href="https://www.google.com/maps/dir//{{ page.report.geometry.geometries[0].coordinates[1] }},{{ page.report.geometry.geometries[0].coordinates[0] }}" target="_blank">
+                  <small>Join this group</small>
+                </a>
+              </p>
+            </div>
+            <div class="report--metadata--section"
                   data-ng-if="page.report.properties.tags.length">
               <p>
                 <span class="label label--brand" data-ng-repeat="tag in page.report.properties.tags">
