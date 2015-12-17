@@ -56,7 +56,8 @@
       // default to work with
       //
       self.report = new Report({
-        report_date: self.today
+        report_date: self.today,
+        groups: []
       });
 
       //
@@ -280,6 +281,40 @@
 
       });
 
+      //
+      // Handling the groups array
+      //
+      self.groups = {
+        features: [],
+        isChecked: function(_id){
+
+          var match = false;
+
+          angular.forEach(self.report.groups, function(group) {
+            if (group.id === _id) {
+              match = true;
+            }
+          });
+
+          return match;
+        },
+        sync: function(bool, item){
+
+          if(bool){
+            self.report.groups.push({
+              id: item.id
+            });
+          } else {
+            // remove item
+            angular.forEach(self.report.groups, function(group, $index) {
+              if (group.id === item.id) {
+                self.report.groups.splice($index, 1);
+              }
+            });
+          }
+        }
+      };
+
       /**
        * This is the first page the authneticated user will see. We need to make
        * sure that their user information is ready to use. Make sure the
@@ -296,7 +331,7 @@
             User.groups({
               id: Account.userObject.id
             }).$promise.then(function(successResponse) {
-              Account.userObject.properties.groups = successResponse.features;
+              self.groups.features = Account.userObject.properties.groups = successResponse.features;
             }, function(errorResponse) {
               console.log('errorResponse', errorResponse);
             });
@@ -351,7 +386,6 @@
         }
 
       });
-
 
     });
 
