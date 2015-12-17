@@ -239,7 +239,7 @@
               <label class="control--label">
                 <input type="checkbox" data-ng-change="page.groups.sync(bool, group)"
                        data-ng-model="bool"
-                       data-ng-checked="page.groups.isChecked(group.id)" />
+                       data-ng-checked="page.groups.isChecked(group.properties.organization.id)" />
                {{ group.properties.organization.properties.name }}
              </label>
             </div>

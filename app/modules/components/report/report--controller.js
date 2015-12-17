@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
+  .controller('ReportController', function (Account, comments, Comment, groups, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
 
     var self = this;
 
@@ -88,6 +88,8 @@ angular.module('WaterReporter')
     report.$promise.then(function(reportResponse) {
 
       self.report = reportResponse;
+
+      self.report.properties.groups = groups;
 
       self.permissions.isOwner = (ipCookie('WATERREPORTER_CURRENTUSER') === self.report.properties.owner_id) ? true : false;
 

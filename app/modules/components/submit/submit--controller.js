@@ -302,12 +302,12 @@
 
           if(bool){
             self.report.groups.push({
-              id: item.id
+              id: item.properties.organization.id
             });
           } else {
             // remove item
             angular.forEach(self.report.groups, function(group, $index) {
-              if (group.id === item.id) {
+              if (group.id === item.properties.organization.id) {
                 self.report.groups.splice($index, 1);
               }
             });
