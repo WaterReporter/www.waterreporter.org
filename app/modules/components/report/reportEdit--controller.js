@@ -194,18 +194,15 @@
 
           if(item.properties._checked){
             self.report.properties.groups.push({
-              id: item.id
+              id: item.properties.organization.id
             });
           } else {
-            console.log('remove item', item)
             angular.forEach(self.report.properties.groups, function(group, $index) {
-              if (group.id === item.id) {
+              if (group.id === item.properties.organization.id) {
                 self.report.properties.groups.splice($index, 1);
               }
             });
           }
-
-          console.log('self.report.properties.groups', self.report.properties.groups)
         }
       };
 
@@ -295,7 +292,8 @@
 
               angular.forEach(self.report.properties.groups, function(outerGroup) {
                 angular.forEach(self.groups.features, function(innerGroup) {
-                  if (innerGroup.id === outerGroup.id) {
+                  console.log('innerGroup', innerGroup, 'outerGroup', outerGroup);
+                  if (innerGroup.properties.organization.id === outerGroup.id) {
                     innerGroup.properties._checked = true;
                   }
                 });
@@ -324,7 +322,8 @@
 
           angular.forEach(self.report.properties.groups, function(outerGroup) {
             angular.forEach(self.groups.features, function(innerGroup) {
-              if (innerGroup.id === outerGroup.id) {
+              console.log('innerGroup', innerGroup, 'outerGroup', outerGroup);
+              if (innerGroup.properties.organization.id === outerGroup.id) {
                 innerGroup.properties._checked = true;
               }
             });
