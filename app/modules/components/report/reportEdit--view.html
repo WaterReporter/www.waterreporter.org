@@ -180,6 +180,30 @@
         </div>
       </div>
 
+      <!-- Report Groups -->
+      <div class="form--row">
+        <div class="form--label">
+          <p>
+            Groups
+          </p>
+        </div>
+        <div class="form--field">
+          <section class="form--group--indent">
+            <label for="images" class="control--label">
+              Select the organization you would like to associate this report
+              with
+            </label>
+            <div class="form--group--checkboxes" data-ng-repeat="group in page.groups.features track by $index">
+              <label class="control--label">
+                <input type="checkbox" data-ng-change="page.groups.sync(group)"
+                       data-ng-model="group.properties._checked" />
+               {{ group.properties.organization.properties.name }}
+             </label>
+            </div>
+         </section>
+        </div>
+      </div>
+
       <div class="form--actions">
         <div class="form--actions--buttons"></div>
         <div class="form--actions--buttons">

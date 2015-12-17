@@ -325,9 +325,6 @@
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
 
-            //
-            //
-            //
             User.groups({
               id: Account.userObject.id
             }).$promise.then(function(successResponse) {
@@ -347,6 +344,14 @@
             };
           });
         }
+      } else {
+        User.groups({
+          id: Account.userObject.id
+        }).$promise.then(function(successResponse) {
+          self.groups.features = Account.userObject.properties.groups = successResponse.features;
+        }, function(errorResponse) {
+          console.log('errorResponse', errorResponse);
+        });
       }
 
       //

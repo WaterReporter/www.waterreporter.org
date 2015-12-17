@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user) {
+    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user, User) {
 
       var self = this;
 
@@ -61,7 +61,12 @@
       self.report = report;
 
       report.$promise.then(function(response) {
+
         self.report = response;
+
+        angular.forEach(self.report.properties.groups, function(group) {
+          group.properties._checked = true;
+        });
 
         /**
          * Take our three separate date fields (i.e., month, day, year) and on
@@ -178,6 +183,44 @@
         }
       };
 
+      self.bool = [];
+
+      //
+      // Handling the groups array
+      //
+      self.groups = {
+        features: [],
+        sync: function(item) {
+
+          if(item.properties._checked){
+            self.report.properties.groups.push({
+              id: item.id
+            });
+          } else {
+            console.log('remove item', item)
+            angular.forEach(self.report.properties.groups, function(group, $index) {
+              if (group.id === item.id) {
+                self.report.properties.groups.splice($index, 1);
+              }
+            });
+          }
+
+          console.log('self.report.properties.groups', self.report.properties.groups)
+        }
+      };
+
+      self.processGroups = function(list) {
+
+        var _return = [];
+
+        angular.forEach(list, function(item) {
+          _return.push({
+            id: item.id
+          });
+        });
+
+        return _return;
+      };
 
       //
       // Save the changes to the report
@@ -193,10 +236,9 @@
           report_date: self.report.properties.report_date,
           report_description: self.report.properties.report_description,
           geometry: self.report.geometry,
+          groups: self.processGroups(self.report.properties.groups),
           state: self.report.properties.state
         });
-
-        console.log('report', report);
 
         report.$update({
           id: report.id
@@ -246,6 +288,22 @@
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
 
+            User.groups({
+              id: Account.userObject.id
+            }).$promise.then(function(successResponse) {
+              self.groups.features = Account.userObject.properties.groups = successResponse.features;
+
+              angular.forEach(self.report.properties.groups, function(outerGroup) {
+                angular.forEach(self.groups.features, function(innerGroup) {
+                  if (innerGroup.id === outerGroup.id) {
+                    innerGroup.properties._checked = true;
+                  }
+                });
+              });
+            }, function(errorResponse) {
+              console.log('errorResponse', errorResponse);
+            });
+
             if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
               $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
             }
@@ -257,6 +315,24 @@
             };
           });
         }
+      } else {
+        User.groups({
+          id: Account.userObject.id
+        }).$promise.then(function(successResponse) {
+
+          self.groups.features = Account.userObject.properties.groups = successResponse.features;
+
+          angular.forEach(self.report.properties.groups, function(outerGroup) {
+            angular.forEach(self.groups.features, function(innerGroup) {
+              if (innerGroup.id === outerGroup.id) {
+                innerGroup.properties._checked = true;
+              }
+            });
+          });
+
+        }, function(errorResponse) {
+          console.log('errorResponse', errorResponse);
+        });
       }
 
 
