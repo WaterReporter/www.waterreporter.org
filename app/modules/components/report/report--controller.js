@@ -182,6 +182,7 @@ angular.module('WaterReporter')
      * Open Report functionality to the Cotnroller
      */
      self.comments = comments;
+     
      self.comment = {
        loading: false,
        data: {},
@@ -294,6 +295,12 @@ angular.module('WaterReporter')
        }
       };
 
+     /**
+      * Report Management Functionality
+      * 
+      * @func remove
+      * @func edit
+      */
      self.remove = function(reportId) {
        Report.delete({
          id: reportId
@@ -306,6 +313,9 @@ angular.module('WaterReporter')
        $location.path('/reports/' + reportId + '/edit');
      };
 
+     /**
+      * 
+      */
      self.changeFeature = function(feature) {
 
        var center = {
