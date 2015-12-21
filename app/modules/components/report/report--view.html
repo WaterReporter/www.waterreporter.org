@@ -72,7 +72,14 @@
                  data-ng-if="page.report.properties.groups.features && page.report.properties.groups.features.length">
               <p data-ng-repeat="group in page.report.properties.groups.features">
                 {{ group.properties.name }}<br />
-                <a href="https://www.google.com/maps/dir//{{ page.report.geometry.geometries[0].coordinates[1] }},{{ page.report.geometry.geometries[0].coordinates[0] }}" target="_blank">
+                <a href="javascript:void(0);" target="_blank"
+                   data-ng-if="$root.user.id"
+                   data-ng-click="">
+                  <small>Join this group</small>
+                </a>
+                <a href="javascript:void(0);" target="_blank"
+                   data-ng-if="!$root.user.id"
+                   data-ng-click="">
                   <small>Join this group</small>
                 </a>
               </p>
