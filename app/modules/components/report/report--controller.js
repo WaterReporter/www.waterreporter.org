@@ -10,11 +10,18 @@
 angular.module('WaterReporter')
   .controller('ReportController', function (Account, comments, Comment, groups, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
 
+    /**
+     * Setup variables that are global to this controller
+     * 
+     * @data this
+     * @data this.image
+     * @data this.permissions
+     */
     var self = this;
 
-    self.image = null;
+    this.image = null;
 
-    self.permissions = {};
+    this.permissions = {};
 
     /**
      * Setup the User object so that we can determine the type of authentication,
@@ -58,6 +65,20 @@ angular.module('WaterReporter')
 
     this.map.expanded = false;
 
+    /**
+     *  Setup the Report. In Angular it is necessary to return the report
+     *  $promise in order to use the report within the controller.
+     *  
+     *  @data this.report
+     *      loads the report object in to the controller scope
+     *  @data this.permissions
+     *      enahnces the user permission object to show/hide specific items
+     *      to the user
+     *  @data root.meta
+     *      load report specific data into the page meta tags
+     *  @data this.map.markers
+     *      add this report's information directly to the map
+     */
     report.$promise.then(function(reportResponse) {
 
       self.report = reportResponse;
@@ -113,8 +134,13 @@ angular.module('WaterReporter')
       self.changeFeature(reportResponse, 0);
     });
 
-    self.comments = comments;
-
+    /**
+     * Other Reports:
+     * 
+     * Other Reports are reports other than the main report that show up on
+     * the map once it is navigated.
+     * 
+     */
     self.otherReports = function(userId) {
 
       if (!userId) {
@@ -155,6 +181,7 @@ angular.module('WaterReporter')
     /**
      * Open Report functionality to the Cotnroller
      */
+     self.comments = comments;
      self.comment = {
        loading: false,
        data: {},
