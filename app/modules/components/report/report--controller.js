@@ -12,10 +12,11 @@ angular.module('WaterReporter')
 
     /**
      * Setup variables that are global to this controller
-     * 
-     * @data this
-     * @data this.image
-     * @data this.permissions
+     *
+     * @param (obj) this
+     * @param (obj) this.image
+     * @param (obj) this.permissions
+     *
      */
     var self = this;
 
@@ -27,7 +28,7 @@ angular.module('WaterReporter')
      * Setup the User object so that we can determine the type of authentication,
      * user permissions, and if the current page is the profile page.
      *
-     * @param (object) A User $promise
+     * @param (obj) A User $promise
      */
     if (user) {
       user.$promise.then(function(userResponse) {
@@ -47,9 +48,9 @@ angular.module('WaterReporter')
     /**
      * Setup the Mapbox map for this page with the results we got from the API
      *
-     * @data this.map
+     * @param this.map
      *    loads the Map Service into our page scope
-     * @data this.map.geojson.reports
+     * @param this.map.geojson.reports
      *    loads the request report information into the map
      *
      */
@@ -68,15 +69,15 @@ angular.module('WaterReporter')
     /**
      *  Setup the Report. In Angular it is necessary to return the report
      *  $promise in order to use the report within the controller.
-     *  
-     *  @data this.report
-     *      loads the report object in to the controller scope
-     *  @data this.permissions
+     *
+     *  @param report
+     *      loads the report object in to the controller scope from the resolve
+     *  @param this.permissions
      *      enahnces the user permission object to show/hide specific items
      *      to the user
-     *  @data root.meta
+     *  @param root.meta
      *      load report specific data into the page meta tags
-     *  @data this.map.markers
+     *  @param this.map.markers
      *      add this report's information directly to the map
      */
     report.$promise.then(function(reportResponse) {
@@ -136,10 +137,13 @@ angular.module('WaterReporter')
 
     /**
      * Other Reports:
-     * 
+     *
      * Other Reports are reports other than the main report that show up on
      * the map once it is navigated.
-     * 
+     *
+     * @param (int) userId
+     *    Load more recent reports owned by this userId
+     *
      */
     self.otherReports = function(userId) {
 
@@ -147,7 +151,7 @@ angular.module('WaterReporter')
         return;
       }
 
-      var params = {
+      Report.query({
         q: {
           filters: [
             {
@@ -169,9 +173,7 @@ angular.module('WaterReporter')
           ],
           limit: 2
         }
-      };
-
-      Report.query(params).$promise.then(function(reportResponse) {
+      }).$promise.then(function(reportResponse) {
         self.other = {
           reports: reportResponse.features
         };
@@ -179,10 +181,38 @@ angular.module('WaterReporter')
     };
 
     /**
-     * Open Report functionality to the Cotnroller
+     * Comments
+     *
+     * Assigning the comments from the HTTP Request resolve to the page scope
+     *
+     * @param (obj) comments
+     *    Object containing all comments for this report
      */
      self.comments = comments;
-     
+
+     /**
+      * Comment
+      *
+      * @todo Move this functionality to an external singleton/service
+      *
+      * @param (bool) loading
+      *    Show or hide on-screen "loading" indicators to the user
+      * @param (obj) data
+      *    Single comment data, used for the "new" comment field
+      * @param (function) update
+      *    Updated a comment based on user input
+      * @param (function) remove
+      *    Remove the given comment from the comments array
+      * @param (function) close
+      *    Close the report and mark it as "fixed"
+      * @param (function) open
+      *    Open a previously closed report
+      * @param (function)
+      *    Save the changes to the user defined comment object
+      *
+      * @return (obj) self
+      *    The object returns itself
+      */
      self.comment = {
        loading: false,
        data: {},
@@ -297,119 +327,165 @@ angular.module('WaterReporter')
 
      /**
       * Report Management Functionality
-      * 
+      *
       * @func remove
       * @func edit
       */
-     self.remove = function(reportId) {
-       Report.delete({
-         id: reportId
-       }).$promise.then(function() {
-         $location.path('/activity/list');
-       });
-     };
 
-     self.edit = function(reportId) {
-       $location.path('/reports/' + reportId + '/edit');
-     };
+       /**
+        * Remove
+        *
+        * Remove the report from the database
+        *
+        * @param (int) reportId
+        *    The unique ID of the report to be removed
+        *
+        * @return (null)
+        *
+        */
+       this.remove = function(reportId) {
+
+         Report.delete({
+           id: reportId
+         }).$promise.then(function() {
+           $location.path('/activity/list');
+         });
+
+         return;
+       };
+
+       /**
+        * Edit
+        *
+        * Forward the user to the edit page in question.
+        *
+        * @param (int) reportId
+        *    The unique ID of the report to be edited
+        *
+        * @return (null)
+        *
+        */
+       this.edit = function(reportId) {
+
+         $location.path('/reports/' + reportId + '/edit');
+
+         return;
+       };
 
      /**
-      * 
+      * Mapping Functionality
+      *
+      * Provides functionality to the end user that allows them to navigate
+      * the Reports map, load additional pins into the page, or visit other
+      * nearby reports.
+      *
+      * @func this.changeFeature
+      * @func this.unique
+      * @func this.set
+      * @listener leafletDirectiveMap.moveend
+      * @listener leafletDirectiveMap.focus
+      * @listener leafletDirectiveMarker.click
       */
-     self.changeFeature = function(feature) {
 
-       var center = {
-         lat: feature.geometry.geometries[0].coordinates[1],
-         lng: feature.geometry.geometries[0].coordinates[0]
+      /**
+       * ChangeFeature
+       *
+       * Set the feature the page should display by default. We use the
+       * coordinates loaded from the report resolve.
+       *
+       * @param (obj) feature
+       *    The current report being viewed
+       *
+       * @return (null)
+       *    The return is implied; Data is added directly to the scoped `map`
+       *    directive and applied to the map through the automatic $apply
+       */
+       this.changeFeature = function(feature) {
+
+         self.map.center = {
+           lat: feature.geometry.geometries[0].coordinates[1],
+           lng: feature.geometry.geometries[0].coordinates[0],
+           zoom: 16
+         };
+
        };
 
-       self.map.center = {
-         lat: center.lat,
-         lng: center.lng,
-         zoom: 16
+       this.unique = function(report, list) {
+
+         for (var index = 0; index < list.length; index++) {
+           if (report.id === list[index].id) {
+             return false;
+           }
+         }
+
+         return true;
        };
 
-     };
+       this.set = function(existingReports, newReports) {
 
-     self.unique = function(report, list) {
+         var reports = existingReports;
 
-       for (var index = 0; index < list.length; index++) {
-         if (report.id === list[index].id) {
-           return false;
-         }
-       }
-
-       return true;
-     };
-
-     self.set = function(existingReports, newReports) {
-
-       var reports = existingReports;
-
-       angular.forEach(newReports, function(report){
-         if (self.unique(report, existingReports)) {
-           reports.push(report);
-         }
-       });
-
-       return reports;
-     };
-
-     //
-     // If the vignette is disabled make sure we're listening for map movement
-     //
-     $scope.$on('leafletDirectiveMap.moveend', function() {
-       if (self.map.expanded === true) {
-         leafletData.getMap().then(function(map) {
-
-           var bounds = map.getBounds(),
-               top = bounds._northEast.lat,
-               bottom = bounds._southWest.lat,
-               left = bounds._southWest.lng,
-               right = bounds._northEast.lng,
-               polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
-
-           Report.query({
-             q: {
-               filters: [
-                 {
-                   name: 'geometry',
-                   op: 'intersects',
-                   val: 'SRID=4326;POLYGON((' + polygon + '))'
-                 }
-               ]
-             }
-           }).$promise.then(function(response) {
-
-             if (self.map.geojson.reports.data && self.map.geojson.reports.data.features) {
-               self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
-             } else {
-               self.map.geojson.reports.data.features = self.set([], response.features);
-             }
-
-             var featureGroup = new L.FeatureGroup();
-
-             self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
-           });
-
+         angular.forEach(newReports, function(report){
+           if (self.unique(report, existingReports)) {
+             reports.push(report);
+           }
          });
-       }
-     });
 
-     $scope.$on('leafletDirectiveMap.focus', function() {
-       self.map.toggleControls('show');
-       self.map.expanded = true;
+         return reports;
+       };
 
-       var map_ = document.getElementById('map--wrapper');
-       map_.className = 'map--wrapper map--wrapper--expanded';
+       $scope.$on('leafletDirectiveMap.moveend', function() {
+         if (self.map.expanded === true) {
+           leafletData.getMap().then(function(map) {
 
-       leafletData.getMap().then(function(map) {
-         map.invalidateSize();
+             var bounds = map.getBounds(),
+                 top = bounds._northEast.lat,
+                 bottom = bounds._southWest.lat,
+                 left = bounds._southWest.lng,
+                 right = bounds._northEast.lng,
+                 polygon = left + ' ' + top + ',' + right + ' ' + top + ',' + right + ' ' + bottom + ',' + left + ' ' + bottom + ',' + left + ' ' + top;
+
+             Report.query({
+               q: {
+                 filters: [
+                   {
+                     name: 'geometry',
+                     op: 'intersects',
+                     val: 'SRID=4326;POLYGON((' + polygon + '))'
+                   }
+                 ]
+               }
+             }).$promise.then(function(response) {
+
+               if (self.map.geojson.reports.data && self.map.geojson.reports.data.features) {
+                 self.map.geojson.reports.data.features = self.set(self.map.geojson.reports.data.features, response.features);
+               } else {
+                 self.map.geojson.reports.data.features = self.set([], response.features);
+               }
+
+               var featureGroup = new L.FeatureGroup();
+
+               self.map.markers = mapboxGeometry.drawMarkers(self.map.geojson.reports.data, featureGroup);
+             });
+
+           });
+         }
        });
-     });
 
-     $scope.$on('leafletDirectiveMarker.click', function(event, args) {
-       $location.path(self.map.markers[args.modelName].permalink);
-     });
+       $scope.$on('leafletDirectiveMap.focus', function() {
+         self.map.toggleControls('show');
+         self.map.expanded = true;
+
+         var map_ = document.getElementById('map--wrapper');
+         map_.className = 'map--wrapper map--wrapper--expanded';
+
+         leafletData.getMap().then(function(map) {
+           map.invalidateSize();
+         });
+       });
+
+       $scope.$on('leafletDirectiveMarker.click', function(event, args) {
+         $location.path(self.map.markers[args.modelName].permalink);
+       });
 
    });
