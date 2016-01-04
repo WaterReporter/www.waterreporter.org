@@ -375,6 +375,8 @@ angular.module('WaterReporter')
      /**
       * Group
       *
+      * Pass all of the `group` service functionality along to controller for
+      * use in the single report view.
       *
       */
       this.group = group;
