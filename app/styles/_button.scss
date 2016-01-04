@@ -159,8 +159,8 @@ a.button.button--link {
   }
 }
 
-.button + .button:first-of-type {
-  margin-right: 4px;
+.button:first-of-type + .button {
+  margin-left: 4px;
 }
 
 
