@@ -12,6 +12,59 @@
     .service('group', function(GroupOrganization) {
       return {
         /**
+         * Is Member
+         *
+         * Answer the question "Is the user a member of the group?"
+         *
+         * @param (obj) user
+         *     The user object to test against
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         * @return (bool) isMember
+         *     A boolean indicating whether or not the user is a member of the
+         *     provided group
+         */
+        isMember: function(user, groupId) {
+
+          var isMember = false,
+              groupList = user.properties.groups;
+
+          angular.forEach(groupList, function(group) {
+            if (group.properties.organization_id === groupId) {
+                isMember = true;
+            }
+          });
+
+          return isMember;
+        },
+        /**
+         * Member Since
+         *
+         * Extract member information from the user's groups.
+         *
+         * @param (obj) user
+         *     The user object to test against
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         * @return (str) memberSince
+         *
+         */
+        memberSince: function(user, groupId) {
+
+          var memberSince = '',
+              groupList = user.properties.groups;
+
+          angular.forEach(groupList, function(group) {
+            if (group.properties.organization_id === groupId) {
+                memberSince = group.properties.joined_on;
+            }
+          });
+
+          return memberSince;
+        },
+        /**
          * Retrieve a list of possible organizations that match the user's input.
          *
          * @param (string) requestedOrganization
@@ -50,8 +103,6 @@
                   ]
                 }
               };
-
-          console.log('q', q);
 
           //
           // Send a GET request to the Mapbox Geocoding API containing valid user

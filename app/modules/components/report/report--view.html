@@ -72,12 +72,15 @@
                  data-ng-if="page.report.properties.groups.features && page.report.properties.groups.features.length">
               <p data-ng-repeat="group in page.report.properties.groups.features">
                 {{ group.properties.name }}<br />
-                <a href="javascript:void(0);" target="_blank"
-                   data-ng-if="$root.user.id"
+                <a href="javascript:void(0);" target="_blank" class="button"
+                   data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
                    data-ng-click="">
                   <small>Join this group</small>
                 </a>
-                <a href="javascript:void(0);" target="_blank"
+                <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)">
+                  You joined on {{ page.group.memberSince($root.user, group.id) | date }}
+                </small>
+                <a href="javascript:void(0);" target="_blank" class="button"
                    data-ng-if="!$root.user.id"
                    data-ng-click="">
                   <small>Join this group</small>

@@ -8,7 +8,7 @@
  * Controller of the waterReporterApp
  */
 angular.module('WaterReporter')
-  .controller('ReportController', function (Account, comments, Comment, groups, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
+  .controller('ReportController', function (Account, comments, Comment, group, groups, Image, ipCookie, leafletData, Map, mapbox, mapboxGeometry, $location, Notifications, $rootScope, report, Report, $route, $scope, Search, user) {
 
     /**
      * Setup variables that are global to this controller
@@ -203,7 +203,7 @@ angular.module('WaterReporter')
       *    Updated a comment based on user input
       * @param (function) remove
       *    Remove the given comment from the comments array
-      * @param (function) close
+      * @param (function) closess
       *    Close the report and mark it as "fixed"
       * @param (function) open
       *    Open a previously closed report
@@ -371,6 +371,13 @@ angular.module('WaterReporter')
 
          return;
        };
+
+     /**
+      * Group
+      *
+      *
+      */
+      this.group = group;
 
      /**
       * Mapping Functionality
