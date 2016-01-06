@@ -19,6 +19,11 @@
         },
         update: {
           method: 'PATCH'
+        },
+        reports: {
+          url: environment.apiUrl.concat('/v1/data/organization/:id/reports'),
+          method: 'GET',
+          isArray: false
         }
       });
     });

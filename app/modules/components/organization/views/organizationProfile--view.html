@@ -34,7 +34,35 @@
         </p>
       </div>
     </div>
-  </div>
+
+    <div class="user--activity" data-ng-if="page.search.data.features.length > 0">
+      <ul>
+        <li data-ng-if="page.search.data.features.length || page.search.data.features.length === 0">
+          <span class="active">
+            {{ page.search.data.properties.num_results | number:0 }} Submissions
+          </span>
+        </li>
+        <li data-ng-if="page.closures.properties.num_results && page.closures.properties.num_results !== 0">
+          <a href="/profiles/{{ page.data.id }}/actions">
+            {{ page.closures.properties.num_results | number:0 }} Actions
+          </a>
+        </li>
+      </ul>
+      <div class="row" data-ng-if="page.search.data.features.length">
+           <div data-ng-repeat="report in page.search.data.features"
+                data-ng-include="'/modules/shared/views/report--view.html'"
+                >
+           </div>
+      </div>
+      <div>
+        <a data-ng-click="page.search.more(true)" class="circle--button"
+           data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+            Load More
+        </a>
+        <span data-ng-if="page.search.status.loading" class="throbber"></span>
+      </div>
+    </div>
+    </div>
 
 </main>
 

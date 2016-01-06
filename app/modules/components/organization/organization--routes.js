@@ -47,6 +47,11 @@ angular.module('WaterReporter')
               id: $route.current.params.organizationId
             });
           },
+          reports: function($route, Organization) {
+            return Organization.reports({
+              id: $route.current.params.organizationId
+            });
+          },
           user: function(Account) {
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }

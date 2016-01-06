@@ -8,9 +8,14 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, Map, mapbox, organization, $rootScope, user) {
+    .controller('OrganizationProfileController', function (Account, Map, mapbox, organization, Report, reports, $rootScope, $route, Search, user) {
 
       var self = this;
+
+      /**
+       * Organization Profile
+       */
+      self.organization = organization;
 
 
       /**
@@ -38,12 +43,56 @@
 
 
       /**
+       * Setup search capabilities for the Report Activity Feed
        *
-       *
+       * @data this.search
+       *    loads the Search Service into our page scope
+       * @data this.search.params
+       *    loads the default url parameters into the page fields
+       * @data this.search.model
+       *    tells the Search Service what the data model for this particular search looks like
+       * @data this.search.resource
+       *    tells the Search Service what resource to perform the search with
+       * @data this.search.data
+       *    retains and updates based on the features returned from the user-defined query
        *
        */
-      self.organization = organization;
+      this.search = Search;
 
+      this.search.model = {
+        report_description: {
+          name: 'report_description',
+          op: 'ilike',
+          val: ''
+        }
+      };
+
+      this.search.params = {
+        q: {
+          filters: [
+            {
+              name: 'owner_id',
+              op: 'eq',
+              val: $route.current.params.userId
+            }
+          ],
+          order_by: [
+            {
+              field: 'report_date',
+              direction: 'desc'
+            },
+            {
+              field: 'id',
+              direction: 'desc'
+            }
+          ]
+        },
+        page: 1
+      };
+
+      this.search.resource = Report;
+
+      this.search.data = reports;
 
 
       /**
