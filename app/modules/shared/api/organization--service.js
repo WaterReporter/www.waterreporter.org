@@ -24,6 +24,11 @@
           url: environment.apiUrl.concat('/v1/data/organization/:id/reports'),
           method: 'GET',
           isArray: false
+        },
+        members: {
+          url: environment.apiUrl.concat('/v1/data/organization/:id/users'),
+          method: 'GET',
+          isArray: false
         }
       });
     });
