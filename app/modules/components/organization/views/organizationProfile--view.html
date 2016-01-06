@@ -47,16 +47,19 @@
       </div>
       <div data-ng-if="page.members.features.length"
            class="profile--members">
-           {{ page.members }}
-        <a data-ng-repeat="profile in page.members.features"
-           href="/profiles/{{ profile.id }}" target="">
-           <img class="profile--image img-circle"
-                data-ng-src="{{ profile.properties.images[0].properties.thumbnail }}"
-                data-ng-if="profile.properties.images[0].properties.thumbnail" />
-           <img class="profile--image profile--empty img-circle"
-                data-ng-src="/images/badget--MissingUser.png"
-                data-ng-if="!profile.properties.images[0].properties.thumbnail" />
-        </a>
+        <h3>People ({{ page.members.properties.num_results }})</h3>
+        <ul class="profile--members--list">
+          <li data-ng-repeat="profile in page.members.features">
+            <a href="/profiles/{{ profile.id }}" target="">
+               <img class="profile--image img-circle"
+                    data-ng-src="{{ profile.properties.images[0].properties.thumbnail }}"
+                    data-ng-if="profile.properties.images[0].properties.thumbnail" />
+               <img class="profile--image profile--empty img-circle"
+                    data-ng-src="/images/badget--MissingUser.png"
+                    data-ng-if="!profile.properties.images[0].properties.thumbnail" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 

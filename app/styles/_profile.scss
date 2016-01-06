@@ -35,6 +35,25 @@
     text-align: center;
     width: 22.306035%;
   }
+    .profile--members--list {
+      // width: 100%;
+
+      li {
+        display: inline-block;
+        list-style-type: none;
+        margin-right: 0.25em;
+        max-width: 6em;
+
+        .profile--image {
+          border-width: 3px;
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
 
 .user--activity {
   border-top: 1px solid $color-white-darker;
