@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
+    .controller('OrganizationActionsController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
 
       var self = this;
 
@@ -91,9 +91,9 @@
 
       this.search.resource = Report;
 
-      this.search.data = reports;
+      this.search.data = closures;
 
-      this.closures = closures;
+      this.reports = reports;
 
       /**
        * Map

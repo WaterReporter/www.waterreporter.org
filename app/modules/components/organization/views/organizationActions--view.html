@@ -65,15 +65,15 @@
 
     <div class="user--activity" data-ng-if="page.search.data.features.length > 0">
       <ul>
-        <li data-ng-if="page.search.data.features.length || page.search.data.features.length === 0">
-          <span class="active">
-            {{ page.search.data.properties.num_results | number:0 }} Submissions
-          </span>
+        <li>
+          <a href="/organizations/{{ page.organization.id }}">
+            {{ page.reports.properties.num_results || 0 | number:0 }} Submissions
+          </a>
         </li>
         <li>
-          <a href="/organizations/{{ page.organization.id }}/actions">
-            {{ page.closures.properties.num_results || 0 | number:0 }} Actions
-          </a>
+          <span class="active">
+            {{ page.search.data.properties.num_results || 0 | number:0 }} Actions
+          </span>
         </li>
       </ul>
       <div class="row" data-ng-if="page.search.data.features.length">
