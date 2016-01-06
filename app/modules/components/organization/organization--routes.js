@@ -42,6 +42,11 @@ angular.module('WaterReporter')
         controller: 'OrganizationProfileController',
         controllerAs: 'page',
         resolve: {
+          closures: function($route, Organization) {
+            return Organization.reports({
+              id: $route.current.params.organizationId
+            });
+          },
           organization: function($route, Organization) {
             return Organization.get({
               id: $route.current.params.organizationId

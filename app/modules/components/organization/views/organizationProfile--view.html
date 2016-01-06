@@ -28,10 +28,25 @@
           {{ page.organization.properties.description }}
         </p>
         <p>
+          W:
+          <a href="{{ page.organization.properties.website }}"
+             target="_blank" rel="nofollow">
+             {{ page.organization.properties.website }}
+           </a>
+           E:
+           <a href="mailto:{{ page.organization.properties.email }}"
+              target="_blank" rel="nofollow">
+              {{ page.organization.properties.email }}
+            </a>
+        </p>
+        <p>
           <a data-ng-if="$root.user.id" href="/organizations/{{ page.organization.id }}/edit" class="button button--link">
             Edit Organization Profile
           </a>
         </p>
+      </div>
+      <div class="profile--members">
+        
       </div>
     </div>
 
