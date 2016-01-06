@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
+    .controller('OrganizationProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
 
       var self = this;
 
@@ -93,6 +93,9 @@
 
       this.search.data = reports;
 
+      this.closures = closures;
+
+      console.log('self.closures', self.closures);
 
       /**
        * Map
@@ -230,7 +233,7 @@
         $scope.$on('leafletDirectiveMarker.click', function(event, args) {
           $location.path(self.map.markers[args.modelName].permalink);
         });
-        
+
     });
 
 }());

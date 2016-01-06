@@ -70,9 +70,9 @@
             {{ page.search.data.properties.num_results | number:0 }} Submissions
           </span>
         </li>
-        <li data-ng-if="page.closures.properties.num_results && page.closures.properties.num_results !== 0">
-          <a href="/profiles/{{ page.data.id }}/actions">
-            {{ page.closures.properties.num_results | number:0 }} Actions
+        <li>
+          <a href="/organizations/{{ page.data.id }}/actions">
+            {{ page.closures.properties.num_results || 0 | number:0 }} Actions
           </a>
         </li>
       </ul>
@@ -90,7 +90,7 @@
         <span data-ng-if="page.search.status.loading" class="throbber"></span>
       </div>
     </div>
-    </div>
+  </div>
 
 </main>
 

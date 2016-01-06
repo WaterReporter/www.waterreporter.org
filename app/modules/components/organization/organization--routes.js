@@ -42,9 +42,32 @@ angular.module('WaterReporter')
         controller: 'OrganizationProfileController',
         controllerAs: 'page',
         resolve: {
-          closures: function($route, Organization) {
-            return Organization.reports({
-              id: $route.current.params.organizationId
+          closures: function($route, Report) {
+            return Report.query({
+              q: {
+                filters: [
+                  {
+                    name: 'groups__id',
+                    op: 'any',
+                    val: $route.current.params.organizationId
+                  },
+                  {
+                    name: 'state',
+                    op: 'eq',
+                    val: 'closed'
+                  }
+                ],
+                order_by: [
+                  {
+                    field: 'report_date',
+                    direction: 'desc'
+                  },
+                  {
+                    field: 'id',
+                    direction: 'desc'
+                  }
+                ]
+              }
             });
           },
           organization: function($route, Organization) {
