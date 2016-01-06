@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, organization, $rootScope, user) {
+    .controller('OrganizationProfileController', function (Account, Map, mapbox, organization, $rootScope, user) {
 
       var self = this;
 
@@ -43,6 +43,23 @@
        *
        */
       self.organization = organization;
+
+
+
+      /**
+       * Map
+       *
+       * @param (obj) map
+       *     Provides the controller access to the Map Service
+       *
+       * @return (obj) this
+       */
+       this.map = Map;
+
+       this.map.markers = null;
+
+       L.Icon.Default.imagePath = '/images';
+
 
     });
 

@@ -127,6 +127,9 @@
                   <th>
                     Member Since
                   </th>
+                  <th>
+                    &nbsp;
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -147,6 +150,13 @@
                     <span data-ng-if="group.properties.is_member || group.properties.is_admin">
                       {{ group.properties.joined_on | date }}
                     </span>
+                  </td>
+                  <td>
+                    <a data-ng-if="group.properties.is_admin"
+                       data-ng-click=""
+                       href="javascript:void(0);">
+                      leave group
+                    </a>
                   </td>
                 </tr>
               </tbody>

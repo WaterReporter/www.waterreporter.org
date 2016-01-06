@@ -1,31 +1,40 @@
 <div data-ng-include="'/modules/shared/views/header--view.html'"></div>
 
+<div id="map--wrapper" class="map--wrapper">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+  </div>
+</div>
+
 <main class="site--content">
 
-  <div class="organization--profile" id="organization--profile--{{ page.organization.id }}">
-    <div class="organization--profile--avatar">
-      <img class="organization--profile--image img-circle"
-           data-ng-src="{{ page.organization.properties.images[0].properties.thumbnail }}"
-           data-ng-if="page.organization.properties.images[0].properties.thumbnail" />
-      <img class="organization--profile--image organization--profile--empty img-circle"
-           data-ng-src="/images/badget--MissingUser.png"
-           data-ng-if="!page.organization.properties.images[0].properties.thumbnail" />
-    </div>
-    <div class="organization--profile--bio">
-      <h1>
-        {{ page.organization.properties.name }}
-      </h1>
-      <p>
-        {{ page.organization.properties.description }}
-      </p>
-      <p>
-        <a data-ng-if="$root.user.id && page.permissions.isCurrentUser" href="/profiles/{{ page.organization.id }}/edit" class="button button--link">
-          Edit Profile
-        </a>
-      </p>
+  <div class="page--content page--content--transparent page--content--overlay">
+    <div class="profile" id="profile--{{ page.organization.id }}">
+      <div class="profile--avatar">
+        <img class="profile--image img-circle"
+             data-ng-src="{{ page.organization.properties.images[0].properties.thumbnail }}"
+             data-ng-if="page.organization.properties.images[0].properties.thumbnail" />
+        <img class="profile--image profile--empty img-circle"
+             data-ng-src="/images/badget--MissingUser.png"
+             data-ng-if="!page.organization.properties.images[0].properties.thumbnail" />
+      </div>
+      <div class="profile--bio">
+        <h1>
+          <strong>
+            {{ page.organization.properties.name }}
+          </strong>
+        </h1>
+        <p>
+          {{ page.organization.properties.description }}
+        </p>
+        <p>
+          <a data-ng-if="$root.user.id" href="/organizations/{{ page.organization.id }}/edit" class="button button--link">
+            Edit Organization Profile
+          </a>
+        </p>
+      </div>
     </div>
   </div>
-
 
 </main>
 
