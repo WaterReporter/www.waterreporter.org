@@ -153,6 +153,11 @@ angular.module('WaterReporter')
               id: $route.current.params.organizationId
             });
           },
+          members: function($route, Organization) {
+            return Organization.members({
+              id: $route.current.params.organizationId
+            });
+          },
           user: function(Account) {
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }

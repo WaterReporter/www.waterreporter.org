@@ -1,1 +1,194 @@
-Edit an organization
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+<main class="site--content site--content--userProfileEdit">
+  <div class="page--content page--content--form">
+
+    <h1>Your Organization Profile</h1>
+
+    <p>
+      Below are your organization profile details. These control how your
+      profile appears on the website and enables you to control which users
+      are associated with your organization.
+    </p>
+
+    <div class="status" data-ng-if="!page.organization.id">
+      <div class="throbber"></div>
+    </div>
+
+    <div data-ng-if="page.status.saving.action"
+         style="text-align: center;">
+      <div class="throbber"></div>
+    </div>
+
+    <form class="form site--profile--edit" role="form"
+          id="site--profile--edit" name="site--profile--edit"
+          data-ng-submit="page.save()"
+          data-ng-if="!page.status.saving.action">
+
+
+      <div class="form--row" data-ng-if="page.organization.id">
+        <div class="form--label">
+          <p>
+            Organization Name
+          </p>
+        </div>
+        <div class="form--field">
+          <input type="text" class="form--control"
+                 id="name" name="name"
+                 data-ng-model="page.organization.properties.name"
+                 required="required" />
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.organization.id">
+        <div class="form--label">
+          <p>
+            Organization Bio
+          </p>
+        </div>
+        <div class="form--field">
+          <textarea class="form--control" id="description"
+                 name="description" placeholder="" rows="5"
+                 data-ng-model="page.organization.properties.description">
+            {{ page.organization.properties.description }}
+          </textarea>
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.organization.id">
+        <div class="form--label">
+          <p>
+            Members
+          </p>
+        </div>
+        <div class="form--field">
+          <div class="form--element">
+            <table class="table table--small">
+              <thead>
+                <tr>
+                  <th>
+                    Organization
+                  </th>
+                  <th>
+                    Membership
+                  </th>
+                  <th>
+                    Member Since
+                  </th>
+                  <th>
+                    &nbsp;
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-ng-repeat="member in page.members.features track by $index">
+                  <td>
+                    <a href="/profiles/{{ member.id }}" title="Visit the {{ member.properties.first_name }}'s organization profile">
+                      {{ member.properties.first_name }} {{ member.properties.last_name }}
+                    </a>
+                  </td>
+                  <td>
+                    <!-- <span data-ng-if="group.properties.is_admin">Admin</span>
+                    <span data-ng-if="group.properties.is_member">Member</span>
+                    <span data-ng-if="!group.properties.is_member && !group.properties.is_admin">
+                      <em>Pending</em>
+                    </span> -->
+                  </td>
+                  <td>
+                    <span data-ng-if="group.properties.is_member || group.properties.is_admin">
+                      {{ group.properties.joined_on | date }}
+                    </span>
+                  </td>
+                  <td>
+                    <a data-ng-if="group.properties.is_admin"
+                       data-ng-click=""
+                       href="javascript:void(0);">
+                      leave group
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Profile Image -->
+      <div class="form--row" data-ng-if="page.organization.id">
+        <div class="form--label">
+          <p>
+            Profile Picture
+          </p>
+        </div>
+        <div class="form--field" data-ng-if="!page.organization.properties.images.length">
+          <label for="images" class="control--label">
+            Include your organization's logo
+          </label>
+          <input type="file" id="user--image" name="user--image"
+                 class="form--control form--control--file"
+                 file-model="page.image" />
+        </div>
+        <div class="form--field" data-ng-if="page.organization.properties.images.length">
+
+          <p>
+            <img class="img-circle" data-ng-src="{{ page.organization.properties.images[0].properties.thumbnail }}" />
+          </p>
+          <button type="button" class="button button--link"
+                  data-ng-click="page.removeImage(page.organization.properties.images[0].id)">
+            Remove Image
+          </button>
+        </div>
+      </div>
+
+      <div class="form--row" data-ng-if="page.organization.id">
+        <div class="form--label">
+          <p>
+            Contact Information
+          </p>
+        </div>
+        <div class="form--field">
+          <div class="form--element form--element--half">
+            <label for="email" class="control--label">Email Address</label>
+            <input type="text" class="form--control" id="email"
+                   name="email" placeholder="info@example.com"
+                   data-ng-model="page.organization.properties.email" />
+            <p class="help--text">
+              This email address is made public
+            </p>
+         </div>
+         <div class="form--element form--element--half">
+            <label for="telephone" class="control--label">Website</label>
+            <input type="url" class="form--control" id="website"
+                   name="website" placeholder="http://www.example.com/"
+                   data-ng-model="page.organization.properties.website" />
+             <p class="help--text">
+               &nbsp;
+             </p>
+           </div>
+        </div>
+      </div>
+
+      <div class="form--actions" data-ng-if="page.organization.id">
+        <div class="form--actions--buttons"></div>
+        <div class="form--actions--buttons">
+          <button type="submit" id="report--submit" name="report--submit"
+                  class="button button--submit button--outline">
+            Save
+          </button>
+
+        </div>
+      </div>
+
+    </form>
+
+    <div class="status" data-ng-if="page.status.savingUser">
+      <div class="throbber"></div>
+      <p class="status--message">
+        Saving your user information
+      </p>
+    </div>
+
+  </div>
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>
