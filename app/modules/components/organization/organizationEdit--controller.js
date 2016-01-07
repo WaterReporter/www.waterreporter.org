@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationEditController', function (Account, members, organization, $rootScope, $route, $scope, user) {
+    .controller('OrganizationEditController', function (Account, Image, $location, members, organization, Organization, $rootScope, $route, $scope, user) {
 
       var self = this;
 
@@ -16,7 +16,17 @@
 
       self.members = members;
 
-      console.log('members', self.members);
+      self.image = null;
+
+      self.status = {
+        saving: {
+          action: false,
+          message: null
+        },
+        image: {
+          remove: false
+        }
+      };
 
       /**
        * Setup the User object so that we can determine the type of authentication,
@@ -40,6 +50,67 @@
 
         });
       }
+
+      /**
+       * Save
+       *
+       *
+       */
+      self.save = function() {
+
+        if (self.organization.properties.images) {
+          self.organization.properties.images = self.profile.properties.images.properties;
+        }
+
+        self.status.saving.action = true;
+
+        var organizationProfile = new Organization({
+          id: self.organization.id,
+          name: self.organization.properties.name,
+          email: self.organization.properties.email,
+          website: self.organization.properties.website,
+          description: self.organization.properties.description,
+          images: self.organization.properties.images
+        });
+
+        if (self.image) {
+           var fileData = new FormData();
+
+           fileData.append('image', self.image);
+
+           Image.upload({}, fileData).$promise.then(function(successResponse) {
+
+             organizationProfile.images = [
+               {
+                 id: successResponse.id
+               }
+             ];
+
+             organizationProfile.picture = successResponse.thumbnail;
+
+             organizationProfile.$update(function(userResponse) {
+               $rootScope.user = userResponse;
+               $location.path('/organizations/' + self.organization.id);
+             });
+
+           });
+        } else {
+
+           //
+           // If the image is being removed ... then remove it ... if not ... leave it alone.
+           //
+           if (self.status.image.remove) {
+             organizationProfile.images = [];
+           } else {
+             delete organizationProfile.images;
+           }
+
+           organizationProfile.$update(function(userResponse) {
+             $rootScope.user = userResponse;
+             $location.path('/organizations/' + self.organization.id);
+           });
+        }
+     };
 
     });
 
