@@ -93,8 +93,14 @@
         </div>
         <div class="form--field">
           <div class="form--element">
-            <label for="" class="control--label">Join a group</label>
-            <div class="dropdown">
+            <label for="" class="control--label">
+              Select an organization group you would like to join or
+              <a data-ng-click="showGroupSearch =! showGroupSearch">
+                 search for one note listed
+              </a>.
+            </label>
+            <div data-ng-if="showGroupSearch"
+                 class="dropdown">
               <input type="text" id="groups" name="groups"
                      data-ng-model="page.groups.query" class="form--control"
                      placeholder="Type in a group name..."
