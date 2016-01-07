@@ -70,22 +70,32 @@
             </div>
             <div class="report--metadata--section"
                  data-ng-if="page.report.properties.groups.features && page.report.properties.groups.features.length">
-              <p data-ng-repeat="group in page.report.properties.groups.features">
-                {{ group.properties.name }}<br />
-                <a href="javascript:void(0);" target="_blank" class="button"
-                   data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
-                   data-ng-click="">
-                  <small>Join this group</small>
-                </a>
-                <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)">
-                  You joined on {{ page.group.memberSince($root.user, group.id) | date }}
-                </small>
-                <a href="javascript:void(0);" target="_blank" class="button"
-                   data-ng-if="!$root.user.id"
-                   data-ng-click="">
-                  <small>Join this group</small>
-                </a>
+              <p>
+                <strong>This report is affiliated with</strong>
               </p>
+              <ul>
+                <li data-ng-repeat="group in page.report.properties.groups.features">
+                  <img data-ng-src="{{ group.properties.picture }}"
+                       title="{{ group.properties.name }}"
+                       alt="{{ group.properties.name }} Logo" />
+                  {{ group.properties.name }}<br />
+                  <a href="javascript:void(0);" target="_blank"
+                     class="button button--flex"
+                     data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
+                     data-ng-click="">
+                    <small>Join</small>
+                  </a>
+                  <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)">
+                    You joined on {{ page.group.memberSince($root.user, group.id) | date }}
+                  </small>
+                  <a href="javascript:void(0);" target="_blank"
+                     class="button button--flex"
+                     data-ng-if="!$root.user.id"
+                     data-ng-click="">
+                    <small>Join</small>
+                  </a>
+                </li>
+              </ul>
             </div>
             <div class="report--metadata--section"
                   data-ng-if="page.report.properties.tags.length">
