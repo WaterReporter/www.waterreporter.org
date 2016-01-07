@@ -36,6 +36,22 @@
           </a>
         </p>
       </div>
+      <div data-ng-if="page.organizations.features.length"
+           class="profile--members">
+        <h3>Organizations ({{ page.organizations.properties.num_results }})</h3>
+        <ul class="profile--members--list">
+          <li data-ng-repeat="profile in page.organizations.features">
+            <a href="/organizations/{{ profile.id }}" target="">
+               <img class="profile--image img-circle"
+                    data-ng-src="{{ profile.properties.picture }}"
+                    data-ng-if="profile.properties.picture" />
+               <img class="profile--image profile--empty img-circle"
+                    data-ng-src="/images/badget--MissingUser.png"
+                    data-ng-if="!profile.properties.picture" />
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div class="user--activity" data-ng-if="page.search.data.features.length > 0">
