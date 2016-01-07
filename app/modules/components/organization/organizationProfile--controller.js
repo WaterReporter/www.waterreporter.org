@@ -8,13 +8,15 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationProfileController', function (Account, closures, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
+    .controller('OrganizationProfileController', function (Account, closures, group, leafletData, $location, Map, mapbox, mapboxGeometry, members, organization, Report, reports, $rootScope, $route, $scope, Search, user) {
 
       var self = this;
 
       self.organization = organization;
 
       self.members = members;
+
+      self.group = group;
 
 
       /**
