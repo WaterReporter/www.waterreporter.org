@@ -67,6 +67,11 @@ a.button:active,
 }
 
 
+.button.button--flex,
+a.button.button--flex {
+  padding: 0.25em 1.25em;
+}
+
 .button.button--info,
 a.button.button--info {
   background-color: $color-blue-brighter;
