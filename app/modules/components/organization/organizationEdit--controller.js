@@ -27,7 +27,7 @@
           remove: false
         }
       };
-      
+
 
       /**
        * Setup the User object so that we can determine the type of authentication,
@@ -60,7 +60,7 @@
       self.save = function() {
 
         if (self.organization.properties.images) {
-          self.organization.properties.images = self.profile.properties.images.properties;
+          self.organization.properties.images = self.organization.properties.images.properties;
         }
 
         self.status.saving.action = true;
