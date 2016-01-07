@@ -111,7 +111,13 @@
              $location.path('/organizations/' + self.organization.id);
            });
         }
-     };
+      };
+
+
+      self.removeImage = function() {
+        self.organization.properties.images = [];
+        self.status.image.remove = true;
+      };
 
     });
 
