@@ -27,6 +27,7 @@
           remove: false
         }
       };
+      
 
       /**
        * Setup the User object so that we can determine the type of authentication,
