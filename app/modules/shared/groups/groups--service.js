@@ -78,9 +78,6 @@
          */
         joinGroup: function(user, groupId) {
 
-          console.log('initial request', user.properties.groups);
-          debugger;
-
           //
           // Add new group to the user's in-memory profile
           //
@@ -90,12 +87,6 @@
               joined_on: new Date()
             }
           });
-
-          console.log('after push', user.properties.groups);
-          debugger;
-
-          console.log('after processing', this.processGroups(user.properties.groups));
-          debugger;
 
           //
           // Create a request and commit profile changes to the database
