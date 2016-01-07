@@ -9,7 +9,7 @@
    * @description
    */
   angular.module('Groups')
-    .service('group', function(GroupOrganization) {
+    .service('group', function(GroupOrganization, User, $rootScope) {
       return {
         /**
          * Is Member
@@ -63,6 +63,87 @@
           });
 
           return memberSince;
+        },
+        /**
+         * joinGroup
+         *
+         * Add an organization group to a user's profile.
+         *
+         * @param (obj) user
+         *     The user object to test against
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         * @return (obj) $promise
+         */
+        joinGroup: function(user, groupId) {
+
+          console.log('initial request', user.properties.groups);
+          debugger;
+
+          //
+          // Add new group to the user's in-memory profile
+          //
+          user.properties.groups.push({
+            properties: {
+              organization_id: groupId,
+              joined_on: new Date()
+            }
+          });
+
+          console.log('after push', user.properties.groups);
+          debugger;
+
+          console.log('after processing', this.processGroups(user.properties.groups));
+          debugger;
+
+          //
+          // Create a request and commit profile changes to the database
+          //
+          var userProfile = new User({
+                id: user.id,
+                groups: this.processGroups(user.properties.groups),
+              });
+
+          var $promise = userProfile.$update();
+
+          return $promise;
+        },
+        /**
+         * processGroups
+         *
+         * Add an organization group to a user's profile.
+         *
+         * @param (array) list
+         *     A list of a user's groups
+         *
+         * @return (bool) _return
+         *     An cleaned up list of the user's groups ready to POST
+         */
+        processGroups: function(list) {
+
+          var _return = [];
+
+          angular.forEach(list, function(item) {
+
+            var group;
+
+            if (item && item.properties) {
+              group = {
+                organization_id: item.properties.organization_id,
+                joined_on: item.properties.joined_on
+              };
+            } else if (item && item.organization_id) {
+              group = {
+                organization_id: item.organization_id,
+                joined_on: item.joined_on
+              };
+            }
+
+            _return.push(group);
+          });
+
+          return _return;
         },
         /**
          * Retrieve a list of possible organizations that match the user's input.

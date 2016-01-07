@@ -86,7 +86,7 @@
                     <a href="javascript:void(0);" target="_blank"
                        class="button button--flex report--list--action"
                        data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
-                       data-ng-click="">
+                       data-ng-click="page.group.joinGroup($root.user, group.id)">
                       <small>Join Group</small>
                     </a>
                     <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)"
