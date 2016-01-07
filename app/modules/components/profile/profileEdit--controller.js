@@ -211,8 +211,11 @@
          console.log('Add this selection to the groups', response);
 
          self.profile.properties.groups.features.push({
-           organization_id: response.id,
-           joined_on: new Date()
+           properties: {
+             organization_id: response.id,
+             joined_on: new Date(),
+             organization: response
+           }
          });
 
          console.log('Please review the updated profile', self.profile);
