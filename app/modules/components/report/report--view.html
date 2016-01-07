@@ -73,27 +73,33 @@
               <p>
                 <strong>This report is affiliated with</strong>
               </p>
-              <ul>
+              <ul class="report--list">
                 <li data-ng-repeat="group in page.report.properties.groups.features">
                   <img data-ng-src="{{ group.properties.picture }}"
                        title="{{ group.properties.name }}"
-                       alt="{{ group.properties.name }} Logo" />
-                  {{ group.properties.name }}<br />
-                  <a href="javascript:void(0);" target="_blank"
-                     class="button button--flex"
-                     data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
-                     data-ng-click="">
-                    <small>Join Group</small>
-                  </a>
-                  <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)">
-                    You joined on {{ page.group.memberSince($root.user, group.id) | date }}
-                  </small>
-                  <a href="javascript:void(0);" target="_blank"
-                     class="button button--flex"
-                     data-ng-if="!$root.user.id"
-                     data-ng-click="">
-                    <small>Join Group</small>
-                  </a>
+                       alt="{{ group.properties.name }} Logo"
+                       class="report--list--image" />
+                  <span class="report--list--title">
+                    {{ group.properties.name }}
+                    <br />
+
+                    <a href="javascript:void(0);" target="_blank"
+                       class="button button--flex report--list--action"
+                       data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
+                       data-ng-click="">
+                      <small>Join Group</small>
+                    </a>
+                    <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)"
+                           class="report--list--subtitle">
+                      You joined on {{ page.group.memberSince($root.user, group.id) | date }}
+                    </small>
+                    <a href="javascript:void(0);" target="_blank"
+                       class="button button--flex report--list--action"
+                       data-ng-if="!$root.user.id"
+                       data-ng-click="">
+                      <small>Join Group</small>
+                    </a>
+                  </span>
                 </li>
               </ul>
             </div>
