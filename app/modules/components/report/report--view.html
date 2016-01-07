@@ -83,7 +83,7 @@
                      class="button button--flex"
                      data-ng-if="$root.user.id && !page.group.isMember($root.user, group.id)"
                      data-ng-click="">
-                    <small>Join</small>
+                    <small>Join Group</small>
                   </a>
                   <small data-ng-if="$root.user.id && page.group.isMember($root.user, group.id)">
                     You joined on {{ page.group.memberSince($root.user, group.id) | date }}
@@ -92,7 +92,7 @@
                      class="button button--flex"
                      data-ng-if="!$root.user.id"
                      data-ng-click="">
-                    <small>Join</small>
+                    <small>Join Group</small>
                   </a>
                 </li>
               </ul>
