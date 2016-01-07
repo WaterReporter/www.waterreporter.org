@@ -111,23 +111,6 @@
           images: self.profile.properties.images
         });
 
-        if (self.profile.properties.organization && !self.profile.properties.organization.length) {
-          profile_.organization = [];
-        } else if (self.profile.properties.organization && self.profile.properties.organization.length && self.profile.properties.organization[0].properties.id) {
-          profile_.organization = [
-            {
-              id: self.profile.properties.organization[0].properties.id,
-              name: self.profile.properties.organization[0].properties.name
-            }
-          ];
-        } else if (self.profile.properties.organization && self.profile.properties.organization.length && self.profile.properties.organization[0].properties.name) {
-          profile_.organization = [
-            {
-              name: self.profile.properties.organization[0].properties.name
-            }
-          ];
-        }
-
         if (self.image) {
            var fileData = new FormData();
 
@@ -208,8 +191,6 @@
          // The user must save the profile page in order for the group
          // relationships to take affect.
          //
-         console.log('Add this selection to the groups', response);
-
          self.profile.properties.groups.features.push({
            properties: {
              organization_id: response.id,
@@ -217,8 +198,6 @@
              organization: response
            }
          });
-
-         console.log('Please review the updated profile', self.profile);
 
          self.groups = {
            query: null,
