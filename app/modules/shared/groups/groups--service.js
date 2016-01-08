@@ -9,7 +9,7 @@
    * @description
    */
   angular.module('Groups')
-    .service('group', function(GroupOrganization, User, $rootScope) {
+    .service('group', function(GroupOrganization, User, UserGroup) {
       return {
         /**
          * Is Member
@@ -145,7 +145,18 @@
          *
          */
         removeGroupMember: function(user, groupId) {
-          console.log('remove')
+
+          var group = (user && user.properties) ? this.findGroup(user.properties.groups, groupId) : null;
+
+          if (group === null) {
+            return;
+          }
+
+          var $promise = UserGroup.remove({
+            id: group.id
+          });
+
+          return $promise;
         },
         /**
          * Approve Group Member
@@ -153,26 +164,19 @@
          *
          */
         approveGroupMember: function(user, groupId) {
-          console.log('approve', user);
 
-          angular.forEach(user.properties.groups, function(group) {
-            if (group.properties.organization_id === groupId) {
-              group.properties.is_member = true;
-            }
-          });
+          var group = (user && user.properties) ? this.findGroup(user.properties.groups, groupId) : null;
 
-          //
-          // Create a request and commit profile changes to the database
-          //
-          console.log('user.properties.groups', user.properties.groups);
-          debugger;
+          if (group === null) {
+            return;
+          }
 
-          var userProfile = new User({
-                id: user.id,
-                groups: this.processGroups(user.properties.groups),
+          var userGroupPermissions = new UserGroup({
+                id: group.id,
+                is_member: true
               });
 
-          var $promise = userProfile.$update();
+          var $promise = userGroupPermissions.$update();
 
           return $promise;
         },
@@ -183,6 +187,34 @@
          */
         leaveGroup: function(user, groupId) {
 
+        },
+        /**
+        * Find Group
+        *
+        * Find a single group in the user's list of groups
+        *
+        * @param (array) groupList
+        *     A list of the user's groups
+        * @param (int) groupId
+        *     The unique identifier of the group to which you want to extract
+        *
+        * @return (obj) _return
+        *     The group object extracted
+         */
+        findGroup: function(groupList, groupId) {
+
+          var _return;
+
+          //
+          // Identify the group we want to use
+          //
+          angular.forEach(groupList, function(group) {
+            if (group.properties.organization_id === groupId) {
+                _return = group;
+            }
+          });
+
+          return _return;
         },
         /**
          * processGroups
