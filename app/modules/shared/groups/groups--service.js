@@ -140,6 +140,51 @@
           return $promise;
         },
         /**
+         * Remove Group Member
+         *
+         *
+         */
+        removeGroupMember: function(user, groupId) {
+          console.log('remove')
+        },
+        /**
+         * Approve Group Member
+         *
+         *
+         */
+        approveGroupMember: function(user, groupId) {
+          console.log('approve', user);
+
+          angular.forEach(user.properties.groups, function(group) {
+            if (group.properties.organization_id === groupId) {
+              group.properties.is_member = true;
+            }
+          });
+
+          //
+          // Create a request and commit profile changes to the database
+          //
+          console.log('user.properties.groups', user.properties.groups);
+          debugger;
+
+          var userProfile = new User({
+                id: user.id,
+                groups: this.processGroups(user.properties.groups),
+              });
+
+          var $promise = userProfile.$update();
+
+          return $promise;
+        },
+        /**
+         * Leave Group
+         *
+         *
+         */
+        leaveGroup: function(user, groupId) {
+
+        },
+        /**
          * processGroups
          *
          * Add an organization group to a user's profile.
