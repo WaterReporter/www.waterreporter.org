@@ -198,6 +198,10 @@ angular.module('WaterReporter')
           $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
         }
 
+        if (!$rootScope.user.properties.groups.length) {
+          $rootScope.notifications.info('New Feature!', 'You can now join a group on WaterReporter. <a href="/profiles/' + $rootScope.user.id + '/edit">Visit your profile</a> to join.');
+        }
+
         self.permissions = {
           isLoggedIn: Account.hasToken(),
           isAdmin: Account.hasRole('admin')
