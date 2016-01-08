@@ -112,9 +112,6 @@
          */
         joinGroup: function(user, groupId) {
 
-          console.log('user', user);
-          debugger;
-
           //
           // Add new group to the user's in-memory profile
           //
