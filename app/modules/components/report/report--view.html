@@ -75,12 +75,15 @@
               </p>
               <ul class="report--list">
                 <li data-ng-repeat="group in page.report.properties.groups.features">
-                  <img data-ng-src="{{ group.properties.picture }}"
-                       title="{{ group.properties.name }}"
-                       alt="{{ group.properties.name }} Logo"
-                       class="report--list--image" />
+                  <a href="/organizations/{{ group.id }}/">
+                    <img data-ng-src="{{ group.properties.picture }}"
+                         title="{{ group.properties.name }}"
+                         alt="{{ group.properties.name }} Logo"
+                         class="report--list--image" />
+                  </a>
                   <span class="report--list--title">
-                    {{ group.properties.name }}
+                    <a href="/organizations/{{ group.id }}/">
+                      {{ group.properties.name }}</a>
                     <br />
 
                     <a href="javascript:void(0);" target="_blank"
