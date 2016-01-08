@@ -8,11 +8,13 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ProfileEditController', function (Account, groups, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
+    .controller('ProfileEditController', function (Account, group, groups, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
 
       var self = this;
 
       self.image = null;
+
+      self.group = group;
 
       self.status = {
         saving: {
@@ -80,6 +82,10 @@
               organization_id: item.organization_id,
               joined_on: item.joined_on
             };
+          }
+
+          if (item && item.properties) {
+            group.id = item.id;
           }
 
           _return.push(group);

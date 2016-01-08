@@ -158,8 +158,7 @@
                     </span>
                   </td>
                   <td>
-                    <a data-ng-if="group.properties.is_admin"
-                       data-ng-click=""
+                    <a data-ng-click="page.group.leaveGroup($root.user, group.properties.organization_id, page.profile.properties.groups.features)"
                        href="javascript:void(0);">
                       leave group
                     </a>

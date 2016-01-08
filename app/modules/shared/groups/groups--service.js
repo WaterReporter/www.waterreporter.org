@@ -137,6 +137,7 @@
 
           var $promise = userProfile.$update();
 
+
           return $promise;
         },
         /**
@@ -203,7 +204,29 @@
          *
          *
          */
-        leaveGroup: function(user, groupId) {
+        leaveGroup: function(user, groupId, groups) {
+
+          var group = (user && user.properties) ? this.findGroup(user.properties.groups, groupId) : null;
+
+          if (group === null) {
+            return;
+          }
+
+          //
+          // Remove the user from the UI
+          //
+          angular.forEach(groups, function(group, $index) {
+            console.log('group', group);
+            if (group.properties.organization_id === groupId) {
+              groups.splice($index, 1);
+            }
+          });
+
+          var $promise = UserGroup.remove({
+            id: group.id
+          });
+
+          return $promise;
 
         },
         /**
