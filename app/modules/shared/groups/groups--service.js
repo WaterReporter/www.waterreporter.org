@@ -144,13 +144,22 @@
          *
          *
          */
-        removeGroupMember: function(user, groupId) {
+        removeGroupMember: function(user, groupId, members) {
 
           var group = (user && user.properties) ? this.findGroup(user.properties.groups, groupId) : null;
 
           if (group === null) {
             return;
           }
+
+          //
+          // Remove the user from the UI
+          //
+          angular.forEach(members, function(member, $index) {
+            if (member.id === user.id) {
+              members.splice($index, 1);
+            }
+          });
 
           var $promise = UserGroup.remove({
             id: group.id
