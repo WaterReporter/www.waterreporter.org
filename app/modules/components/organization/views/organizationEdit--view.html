@@ -99,7 +99,7 @@
                     </span>
                   </td>
                   <td>
-                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin' && $root.user.id !== member.id"
+                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin' && $root.user.id !== member.id && page.group.memberRole(member, page.organization.id) === 'pending'"
                        data-ng-click="page.group.approveGroupMember(member, page.organization.id)"
                        href="javascript:void(0);">
                       approve

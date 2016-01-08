@@ -171,6 +171,15 @@
             return;
           }
 
+          //
+          // This changes the live view of the members list without refreshing
+          // the page
+          //
+          group.properties.is_member = true;
+
+          //
+          // This commits those changes to the database
+          //
           var userGroupPermissions = new UserGroup({
                 id: group.id,
                 is_member: true
