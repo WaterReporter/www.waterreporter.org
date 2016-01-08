@@ -78,6 +78,9 @@
                   <th>
                     &nbsp;
                   </th>
+                  <th>
+                    &nbsp;
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -88,26 +91,22 @@
                     </a>
                   </td>
                   <td>
-                    <!-- @todo needs the group.hasRole method -->
-                    <!-- <span data-ng-if="group.properties.is_admin">Admin</span>
-                    <span data-ng-if="group.properties.is_member">Member</span>
-                    <span data-ng-if="!group.properties.is_member && !group.properties.is_admin">
-                      <em>Pending</em>
-                    </span> -->
-                    {{ page.group.memberRole($root.user, page.organization.id) }}
+                    {{ page.group.memberRole(member, page.organization.id) }}
                   </td>
                   <td>
-                    <span data-ng-if="$root.user">
-                      {{ page.group.memberSince($root.user, page.organization.id) | date }}
+                    <span data-ng-if="member">
+                      {{ page.group.memberSince(member, page.organization.id) | date }}
                     </span>
                   </td>
                   <td>
-                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin'"
+                    <a data-ng-if="page.group.memberRole(member, page.organization.id) === 'admin' && $root.user.id !== member.id"
                        data-ng-click=""
                        href="javascript:void(0);">
                       approve
                     </a>
-                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin'"
+                  </td>
+                  <td>
+                    <a data-ng-if="page.group.memberRole(member, page.organization.id) === 'admin' && $root.user.id !== member.id"
                        data-ng-click=""
                        href="javascript:void(0);">
                       remove

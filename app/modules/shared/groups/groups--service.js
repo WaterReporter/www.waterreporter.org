@@ -112,9 +112,16 @@
          */
         joinGroup: function(user, groupId) {
 
+          console.log('user', user);
+          debugger;
+
           //
           // Add new group to the user's in-memory profile
           //
+          user.properties.organization.push({
+            id: groupId
+          });
+
           user.properties.groups.push({
             properties: {
               organization_id: groupId,
@@ -128,6 +135,7 @@
           var userProfile = new User({
                 id: user.id,
                 groups: this.processGroups(user.properties.groups),
+                organization: user.properties.organization
               });
 
           var $promise = userProfile.$update();
