@@ -39,6 +39,40 @@
           return isMember;
         },
         /**
+         * Member Role
+         *
+         * Returns the defined member's role
+         *
+         * @param (obj) user
+         *     The user object to test against
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         * @return (str) role
+         *     Returns a string representation of the provided user's role
+         */
+         memberRole: function(user, groupId) {
+
+           var role,
+               groupList = (user && user.properties) ? user.properties.groups : [];
+
+           angular.forEach(groupList, function(group) {
+             if (group.properties.organization_id === groupId) {
+               if (group.properties.is_admin) {
+                 role = 'admin';
+               }
+               else if (group.properties.is_member) {
+                 role = 'member';
+               }
+               else {
+                 role = 'pending';
+               }
+             }
+           });
+
+           return role;
+         },
+        /**
          * Member Since
          *
          * Extract member information from the user's groups.

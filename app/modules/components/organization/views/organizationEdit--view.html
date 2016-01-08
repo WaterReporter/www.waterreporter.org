@@ -88,22 +88,29 @@
                     </a>
                   </td>
                   <td>
+                    <!-- @todo needs the group.hasRole method -->
                     <!-- <span data-ng-if="group.properties.is_admin">Admin</span>
                     <span data-ng-if="group.properties.is_member">Member</span>
                     <span data-ng-if="!group.properties.is_member && !group.properties.is_admin">
                       <em>Pending</em>
                     </span> -->
+                    {{ page.group.memberRole($root.user, page.organization.id) }}
                   </td>
                   <td>
-                    <span data-ng-if="group.properties.is_member || group.properties.is_admin">
-                      {{ group.properties.joined_on | date }}
+                    <span data-ng-if="$root.user">
+                      {{ page.group.memberSince($root.user, page.organization.id) | date }}
                     </span>
                   </td>
                   <td>
-                    <a data-ng-if="group.properties.is_admin"
+                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin'"
                        data-ng-click=""
                        href="javascript:void(0);">
-                      leave group
+                      approve
+                    </a>
+                    <a data-ng-if="page.group.memberRole($root.user, page.organization.id) === 'admin'"
+                       data-ng-click=""
+                       href="javascript:void(0);">
+                      remove
                     </a>
                   </td>
                 </tr>

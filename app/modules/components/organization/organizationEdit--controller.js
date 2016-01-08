@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('OrganizationEditController', function (Account, Image, $location, members, organization, Organization, $rootScope, $route, $scope, user) {
+    .controller('OrganizationEditController', function (Account, group, Image, $location, members, organization, Organization, $rootScope, $route, $scope, user) {
 
       var self = this;
 
@@ -16,7 +16,11 @@
 
       self.members = members;
 
+      console.log('self.members', self.members);
+
       self.image = null;
+
+      self.group = group;
 
       self.status = {
         saving: {
