@@ -21,7 +21,7 @@
           params: {
             response_type: 'token',
             client_id: environment.clientId,
-            redirect_uri: 'http://127.0.0.1:9000/authorize',
+            redirect_uri: environment.apiUrl.concat('/authorize'),
             scope: 'user',
             state: 'json'
           }
