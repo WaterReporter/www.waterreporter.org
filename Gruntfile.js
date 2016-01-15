@@ -29,6 +29,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var environment = grunt.option('environment') || 'local';
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -443,8 +445,6 @@ module.exports = function (grunt) {
     }
   });
 
-  var environment = grunt.option('environment') || 'local';
-
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -452,7 +452,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'ngconstant:development',
+      'ngconstant:local',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
