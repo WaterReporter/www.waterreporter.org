@@ -28,6 +28,11 @@ angular.module('WaterReporter')
               id: $route.current.params.reportId
             });
           },
+          groups: function($route, Report) {
+            return Report.groups({
+              id: $route.current.params.reportId
+            });
+          },
           user: function(Account) {
             return (Account.userObject && !Account.userObject.id) ? Account.getUser() : Account.userObject;
           }

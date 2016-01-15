@@ -11,6 +11,14 @@
       </em>
     </h1>
 
+    <h1 class="search--title" data-ng-if="!page.search.data.properties.num_results && page.search.data.features">
+      0 reports<br />
+      <em class="search--title--term"
+          data-ng-if="page.search.term">
+        {{ ::page.search.term }}
+      </em>
+    </h1>
+
     <div class="search--toolbar">
       <form class="form search--form" role="form" id="search--form"
             name="search--form" data-ng-submit="page.search.execute()">

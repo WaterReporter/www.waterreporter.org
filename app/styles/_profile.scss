@@ -1,7 +1,7 @@
 .site--profile {
 }
 
-.user--profile--image {
+.profile--image {
   border: 5px solid rgb(255, 255, 255);
   border-radius: 50%;
   box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.25);
@@ -10,24 +10,50 @@
   width: 100%;
 }
 
-.user--profile--empty {
+.profile--empty {
   background-color: rgb(255, 255, 255);
   padding: 32px;
 }
 
-.user--profile {
+.profile {
   float: left;
   min-height: 1px;
   position: relative;
   width: 100%;
 }
-  .user--profile--avatar {
+  .profile--avatar {
     float: left;
     min-height: 1;
     position: relative;
     text-align: center;
     width: 22.306035%;
   }
+  .profile--members {
+    float: left;
+    min-height: 1;
+    position: relative;
+    text-align: center;
+    width: 22.306035%;
+  }
+    .profile--members--list {
+      // width: 100%;
+
+      li {
+        display: inline-block;
+        list-style-type: none;
+        margin-right: 0.25em;
+        max-width: 6em;
+
+        .profile--image {
+          border-width: 3px;
+          margin-top: 0;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
 
 .user--activity {
   border-top: 1px solid $color-white-darker;
@@ -54,7 +80,7 @@
         color: $color-gray-dark;
       }
 
-.user--profile--bio {
+.profile--bio {
   float: left;
   min-height: 1;
   position: relative;
@@ -63,7 +89,7 @@
   max-width: 622px;
   width: 54.76293%;
 }
-  .user--profile--bio h1 {
+  .profile--bio h1 {
     font-size: 2em;
     font-weight: 400;
     letter-spacing: 0;
@@ -75,7 +101,7 @@
     }
   }
 
-  .user--profile--bio > p {
+  .profile--bio > p {
     font-weight: 300;
   }
 
@@ -97,7 +123,7 @@
     }
 
     .app--download {
-      postion: relative;
+      position: relative;
       background: rgb(252,252,252);
       padding-top: 2em;
       border-top: 1px solid rgb(240,240,240);
@@ -135,8 +161,3 @@
     }
 
 }
-
-
-
-
-

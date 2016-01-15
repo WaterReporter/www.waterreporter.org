@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user) {
+    .controller('ReportEditController', function (Account, Image, leafletData, $location, Map, moment, Notifications, report, Report, $rootScope, $scope, user, User) {
 
       var self = this;
 
@@ -61,20 +61,20 @@
       self.report = report;
 
       report.$promise.then(function(response) {
+
         self.report = response;
+
+        angular.forEach(self.report.properties.groups, function(group) {
+          group.properties._checked = true;
+        });
 
         /**
          * Take our three separate date fields (i.e., month, day, year) and on
          * field updates change the report.report_date scoped object so that it
          * builds a proper Date object for our Report $resource
          */
-        console.log('self.report.properties.report_date', self.report.properties.report_date)
         var temporaryDate = new Date(self.report.properties.report_date);
         self.today = moment.utc(temporaryDate);
-
-
-
-        console.log('self.today', self.today.month(), self.today.date(), self.today.day(), self.today.year());
 
         self.date = {
           month: self.months[self.today.month()],
@@ -82,7 +82,6 @@
           day: self.days[self.today.day()],
           year: self.today.year()
         };
-
 
         self.coordinates = {
           lng: self.report.geometry.geometries[0].coordinates[0],
@@ -184,6 +183,41 @@
         }
       };
 
+      self.bool = [];
+
+      //
+      // Handling the groups array
+      //
+      self.groups = {
+        features: [],
+        sync: function(item) {
+
+          if(item.properties._checked){
+            self.report.properties.groups.push({
+              id: item.properties.organization.id
+            });
+          } else {
+            angular.forEach(self.report.properties.groups, function(group, $index) {
+              if (group.id === item.properties.organization.id) {
+                self.report.properties.groups.splice($index, 1);
+              }
+            });
+          }
+        }
+      };
+
+      self.processGroups = function(list) {
+
+        var _return = [];
+
+        angular.forEach(list, function(item) {
+          _return.push({
+            id: item.id
+          });
+        });
+
+        return _return;
+      };
 
       //
       // Save the changes to the report
@@ -199,10 +233,9 @@
           report_date: self.report.properties.report_date,
           report_description: self.report.properties.report_description,
           geometry: self.report.geometry,
+          groups: self.processGroups(self.report.properties.groups),
           state: self.report.properties.state
         });
-
-        console.log('report', report);
 
         report.$update({
           id: report.id
@@ -235,7 +268,7 @@
           self.map.processPin(args.leafletEvent.target._latlng, map._zoom);
         });
 
-        $scope.$on('leafletDirectiveMarker.dblclick', function(event, args) {
+        $scope.$on('leafletDirectiveMarker.dblclick', function() {
           var zoom = map._zoom+1;
           map.setZoom(zoom);
         });
@@ -252,6 +285,23 @@
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
 
+            User.groups({
+              id: Account.userObject.id
+            }).$promise.then(function(successResponse) {
+              self.groups.features = Account.userObject.properties.groups = successResponse.features;
+
+              angular.forEach(self.report.properties.groups, function(outerGroup) {
+                angular.forEach(self.groups.features, function(innerGroup) {
+                  console.log('innerGroup', innerGroup, 'outerGroup', outerGroup);
+                  if (innerGroup.properties.organization.id === outerGroup.id) {
+                    innerGroup.properties._checked = true;
+                  }
+                });
+              });
+            }, function(errorResponse) {
+              console.log('errorResponse', errorResponse);
+            });
+
             if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
               $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
             }
@@ -263,6 +313,25 @@
             };
           });
         }
+      } else {
+        User.groups({
+          id: Account.userObject.id
+        }).$promise.then(function(successResponse) {
+
+          self.groups.features = Account.userObject.properties.groups = successResponse.features;
+
+          angular.forEach(self.report.properties.groups, function(outerGroup) {
+            angular.forEach(self.groups.features, function(innerGroup) {
+              console.log('innerGroup', innerGroup, 'outerGroup', outerGroup);
+              if (innerGroup.properties.organization.id === outerGroup.id) {
+                innerGroup.properties._checked = true;
+              }
+            });
+          });
+
+        }, function(errorResponse) {
+          console.log('errorResponse', errorResponse);
+        });
       }
 
 
@@ -303,7 +372,7 @@
         }
 
       });
-      
+
     });
 
 }());

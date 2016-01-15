@@ -1,0 +1,115 @@
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+<div id="map--wrapper" class="map--wrapper">
+  <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
+    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
+  </div>
+</div>
+
+<main class="site--content">
+
+  <div class="page--content page--content--transparent page--content--overlay">
+    <div class="profile" id="profile--{{ page.organization.id }}">
+      <div class="profile--avatar">
+        <img class="profile--image img-circle"
+             data-ng-src="{{ page.organization.properties.images[0].properties.thumbnail }}"
+             data-ng-if="page.organization.properties.images[0].properties.thumbnail" />
+        <img class="profile--image profile--empty img-circle"
+             data-ng-src="/images/badget--MissingUser.png"
+             data-ng-if="!page.organization.properties.images[0].properties.thumbnail" />
+      </div>
+      <div class="profile--bio">
+        <h1>
+          <strong>
+            {{ page.organization.properties.name }}
+          </strong>
+
+          <a href="javascript:void(0);" target="_blank"
+             class="button button--flex report--list--action"
+             data-ng-if="$root.user.id && !page.group.isMember($root.user, page.organization.id)"
+             data-ng-click="page.group.joinGroup($root.user, page.organization.id)">
+            <small>Join Group</small>
+          </a>
+          <small data-ng-if="$root.user.id && page.group.isMember($root.user, page.organization.id)"
+                 class="report--list--subtitle">
+            You joined on {{ page.group.memberSince($root.user, page.organization.id) | date }}
+          </small>
+          <a href="javascript:void(0);" target="_blank"
+             class="button button--flex report--list--action"
+             data-ng-if="!$root.user.id"
+             data-ng-click="">
+            <small>Join Group</small>
+          </a>
+
+        </h1>
+        <p>
+          {{ page.organization.properties.description }}
+        </p>
+        <p>
+          W:
+          <a href="{{ page.organization.properties.website }}"
+             target="_blank" rel="nofollow">
+             {{ page.organization.properties.website }}
+           </a>
+           E:
+           <a href="mailto:{{ page.organization.properties.email }}"
+              target="_blank" rel="nofollow">
+              {{ page.organization.properties.email }}
+            </a>
+        </p>
+        <p>
+          <a data-ng-if="$root.user.id" href="/organizations/{{ page.organization.id }}/edit" class="button button--link">
+            Edit Organization Profile
+          </a>
+        </p>
+      </div>
+      <div data-ng-if="page.members.features.length"
+           class="profile--members">
+        <h3>People ({{ page.members.properties.num_results }})</h3>
+        <ul class="profile--members--list">
+          <li data-ng-repeat="profile in page.members.features">
+            <a href="/profiles/{{ profile.id }}" target="">
+               <img class="profile--image img-circle"
+                    data-ng-src="{{ profile.properties.images[0].properties.thumbnail }}"
+                    data-ng-if="profile.properties.images[0].properties.thumbnail" />
+               <img class="profile--image profile--empty img-circle"
+                    data-ng-src="/images/badget--MissingUser.png"
+                    data-ng-if="!profile.properties.images[0].properties.thumbnail" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="user--activity" data-ng-if="page.search.data.features.length > 0">
+      <ul>
+        <li data-ng-if="page.search.data.features.length || page.search.data.features.length === 0">
+          <span class="active">
+            {{ page.search.data.properties.num_results | number:0 }} Submissions
+          </span>
+        </li>
+        <li>
+          <a href="/organizations/{{ page.organization.id }}/actions">
+            {{ page.closures.properties.num_results || 0 | number:0 }} Actions
+          </a>
+        </li>
+      </ul>
+      <div class="row" data-ng-if="page.search.data.features.length">
+           <div data-ng-repeat="report in page.search.data.features"
+                data-ng-include="'/modules/shared/views/report--view.html'"
+                >
+           </div>
+      </div>
+      <div>
+        <a data-ng-click="page.search.more(true)" class="circle--button"
+           data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+            Load More
+        </a>
+        <span data-ng-if="page.search.status.loading" class="throbber"></span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>

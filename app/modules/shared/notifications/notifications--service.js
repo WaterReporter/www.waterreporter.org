@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .service('Notifications', function Notifications($rootScope, $timeout) {
+  .service('Notifications', function Notifications($rootScope) {
 
     $rootScope.notifications = {
       objects: [],

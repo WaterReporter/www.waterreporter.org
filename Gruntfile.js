@@ -29,8 +29,69 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  var environment = grunt.option('environment') || 'local';
+
   // Define the configuration for all the tasks
   grunt.initConfig({
+
+    //
+    // Environment Specific Variables
+    //
+    ngconstant: {
+      options: {
+        space: '  ',
+        wrap: '"use strict";\n\n {%= __ngModule %}',
+        name: 'config'
+      },
+      local: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'local',
+            apiUrl: 'http://127.0.0.1:5000',
+            clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
+          }
+        }
+      },
+      development: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'development',
+            apiUrl: 'http://dev.api.waterreporter.org',
+            clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
+          }
+        }
+      },
+      staging: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'staging',
+            apiUrl: 'http://stg.api.waterreporter.org',
+            clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
+          }
+        }
+      },
+      production: {
+        options: {
+          dest: '<%= yeoman.dist %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'production',
+            apiUrl: 'https://api.waterreporter.org',
+            clientId: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku'
+          }
+        }
+      }
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -45,7 +106,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/modules/**/*.js',
           '<%= yeoman.app %>/modules/components/**/*.js',
-          '<%= yeoman.app %>/modules/shared/**/*.js'
+          '<%= yeoman.app %>/modules/shared/**/*.js',
+          '<%= yeoman.app %>/modules/config/**/*.js'
         ],
         tasks: ['newer:jshint:all'],
         options: {
@@ -57,6 +119,7 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/modules/**/*.js',
         '<%= yeoman.app %>/modules/components/**/*.js',
         '<%= yeoman.app %>/modules/shared/**/*.js',
+        '<%= yeoman.app %>/modules/config/**/*.js',
         'test/spec/modules/**/*.js',
         'test/spec/modules/components/**/*.js',
         'test/spec/modules/shared/**/*.js'
@@ -255,6 +318,9 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= yeoman.dist %>/modules/**/*.js',
+          '<%= yeoman.dist %>/modules/components/**/*.js',
+          '<%= yeoman.dist %>/modules/shared/**/*.js',
+          '<%= yeoman.dist %>/modules/config/**/*.js',
           '<%= yeoman.dist %>/scripts/**/*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css'
         ]
@@ -384,7 +450,6 @@ module.exports = function (grunt) {
     }
   });
 
-
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -392,6 +457,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:local',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
@@ -414,8 +480,15 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('build', [
+  //
+  // BUILD TASKS
+  //
+  // These are Grunt tasks that are run when `grunt build` is executed at the
+  // command prompt
+  //
+  var buildTasks = [
     'clean:dist',
+    'ngconstant:' + environment,
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
@@ -427,7 +500,9 @@ module.exports = function (grunt) {
     'cssmin',
     'filerev',
     'usemin'
-  ]);
+  ];
+
+  grunt.registerTask('build', buildTasks);
 
   grunt.registerTask('default', [
     'newer:jshint',

@@ -182,6 +182,41 @@ a.report--action--owner:visited {
   position: relative;
   width: 32%;
 }
+  .report--metadata .report--list {
+    list-style: none;
+    margin: 0.75em 0 0;
+    padding: 0;
+
+    li {
+      margin: 0 0 0.5em;
+
+      .report--list--image {
+        border-radiu: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        float: left;
+        height: 32px;
+        width: 32px;
+      }
+
+      .report--list--title {
+        color: $color-black-bright;
+        display: inline-block;
+        line-height: 1;
+        margin-top: 0.25em;
+        margin-left: 0.5em;
+      }
+
+      .report-list--subtitle {
+        display: inline-block;
+      }
+
+      .report--list--action {
+        margin-top: 0.5em;
+      }
+
+    }
+  }
 
   .report--metadata .report--author {
     border: none;

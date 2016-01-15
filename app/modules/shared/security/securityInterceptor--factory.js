@@ -10,7 +10,7 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .factory('SecurityInterceptor', function ($q, ipCookie, $location) {
+  .factory('SecurityInterceptor', function ($q, ipCookie) {
 
     return {
       request: function(config) {
@@ -38,12 +38,12 @@ angular.module('WaterReporter')
         //
         config.params = (config.params === undefined) ? {} : config.params;
 
-        // console.debug('SecurityInterceptor::Request', config || $q.when(config));
+        console.debug('SecurityInterceptor::Request', config || $q.when(config));
 
         return config || $q.when(config);
       },
       response: function(response) {
-        // console.debug('AuthorizationInterceptor::Response', response || $q.when(response));
+        console.debug('AuthorizationInterceptor::Response', response || $q.when(response));
         return response || $q.when(response);
       },
       responseError: function (response) {

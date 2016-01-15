@@ -15,9 +15,9 @@ a.button,
 .button {
   background-color: $color-green-base;
   border: 0;
-  -webkit-border-radius: 4em;
-  -moz-border-radius: 4em;
-  border-radius: 4em;
+  -webkit-border-radius: 0.25em;
+  -moz-border-radius: 0.25em;
+  border-radius: 0.25em;
   box-shadow: 0 2px 3px rgba(0,0,0,0.2);
   color: rgb(255, 255, 255);
   cursor: pointer;
@@ -66,6 +66,11 @@ a.button:active,
   top: 1px;
 }
 
+
+.button.button--flex,
+a.button.button--flex {
+  padding: 0.5em 1.0em;
+}
 
 .button.button--info,
 a.button.button--info {
@@ -157,6 +162,10 @@ a.button.button--link {
     color: rgb(41,46,43);
     text-decoration: none;
   }
+}
+
+.button:first-of-type + .button {
+  margin-left: 4px;
 }
 
 

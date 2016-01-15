@@ -10,7 +10,7 @@
    * Controller of the waterReporterApp
    */
   angular.module('WaterReporter')
-    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, $timeout, user) {
+    .controller('SubmitController', function (Account, Image, leafletData, $location, Map, Notifications, Report, $rootScope, $scope, $timeout, user, User) {
 
       var self = this;
 
@@ -56,7 +56,8 @@
       // default to work with
       //
       self.report = new Report({
-        report_date: self.today
+        report_date: self.today,
+        groups: []
       });
 
       //
@@ -178,7 +179,7 @@
           action: false,
           message: null
         }
-      }
+      };
 
 
       //
@@ -273,12 +274,46 @@
           self.map.processPin(args.leafletEvent.target._latlng, map._zoom);
         });
 
-        $scope.$on('leafletDirectiveMarker.dblclick', function(event, args) {
+        $scope.$on('leafletDirectiveMarker.dblclick', function() {
           var zoom = map._zoom+1;
           map.setZoom(zoom);
         });
 
       });
+
+      //
+      // Handling the groups array
+      //
+      self.groups = {
+        features: [],
+        isChecked: function(_id){
+
+          var match = false;
+
+          angular.forEach(self.report.groups, function(group) {
+            if (group.id === _id) {
+              match = true;
+            }
+          });
+
+          return match;
+        },
+        sync: function(bool, item){
+
+          if(bool){
+            self.report.groups.push({
+              id: item.properties.organization.id
+            });
+          } else {
+            // remove item
+            angular.forEach(self.report.groups, function(group, $index) {
+              if (group.id === item.properties.organization.id) {
+                self.report.groups.splice($index, 1);
+              }
+            });
+          }
+        }
+      };
 
       /**
        * This is the first page the authneticated user will see. We need to make
@@ -289,6 +324,14 @@
         if (user) {
           user.$promise.then(function(userResponse) {
             $rootScope.user = Account.userObject = userResponse;
+
+            User.groups({
+              id: Account.userObject.id
+            }).$promise.then(function(successResponse) {
+              self.groups.features = Account.userObject.properties.groups = successResponse.features;
+            }, function(errorResponse) {
+              console.log('errorResponse', errorResponse);
+            });
 
             if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
               $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
@@ -301,6 +344,14 @@
             };
           });
         }
+      } else {
+        User.groups({
+          id: Account.userObject.id
+        }).$promise.then(function(successResponse) {
+          self.groups.features = Account.userObject.properties.groups = successResponse.features;
+        }, function(errorResponse) {
+          console.log('errorResponse', errorResponse);
+        });
       }
 
       //
@@ -340,7 +391,6 @@
         }
 
       });
-
 
     });
 

@@ -1,0 +1,71 @@
+<div data-ng-include="'/modules/shared/views/header--view.html'"></div>
+
+<main class="site--content site--content--activity">
+  <div class="page--content page--content--form page--content--transparent">
+
+    <h1 class="search--title" data-ng-if="page.search.data.properties.num_results">
+      {{ page.search.data.properties.num_results || 0 | number:0 }} organizations<br />
+      <em class="search--title--term"
+          data-ng-if="page.search.term">
+        {{ ::page.search.term }}
+      </em>
+    </h1>
+
+    <div class="search--toolbar">
+      <form class="form search--form" role="form" id="search--form"
+            name="search--form" data-ng-submit="page.search.execute()">
+        <div class="form--field">
+          <div class="form--element form--element--half">
+            <label for="report_description" class="control--label">
+              Organization Name
+            </label>
+            <input type="text" class="form--control" autofocus="autofocus"
+                   id="organization_name" name="organization_name"
+                   data-ng-model="page.search.params.name" />
+             <p class="search--download help--text">
+               <span data-ng-if="!page.download.processing && page.permissions.isAdmin">
+                 Download results as
+                 <a href="javascript:void(0);" data-ng-click="page.download.csv()">CSV</a> or
+                 <a href="javascript:void(0);" data-ng-click="page.download.geojson()">GeoJSON</a>
+               </span>
+               <span data-ng-if="page.download.processing && page.permissions.isAdmin">
+                 Creating your {{ page.download.format }} file...
+               </span>
+             </p>
+          </div>
+          <div class="form--element form--element--half">
+            <button type="submit" class="button button--info">
+              Search
+            </button>
+            <a class="search--button--clear" data-ng-click="page.search.clear()">
+              Clear Search
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row" data-ng-if="!page.search.data.features">
+      <div class="col-sm-12">
+        <span class="throbber"></span>
+      </div>
+    </div>
+
+  <div class="container" data-ng-if="page.search.data.features.length">
+    <h2 class="text-center">Organizations</h2>
+
+    <div data-ng-repeat="organization in page.search.data.features track by $index"
+         data-ng-include="'/modules/components/organization/views/organizationSingle--view.html'"></div>
+
+    <div>
+      <a data-ng-click="page.search.more(true)" class="circle--button"
+         data-ng-if="!page.search.status.loading && page.search.data.features.length < page.search.data.properties.num_results">
+           Load More
+      </a>
+      <span data-ng-if="page.search.status.loading" class="throbber"></span>
+    </div>
+
+  </div>
+</main>
+
+<div data-ng-include="'/modules/shared/views/footer--view.html'"></div>

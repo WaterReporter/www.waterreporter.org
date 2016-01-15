@@ -462,6 +462,21 @@ input.form--control.form--control--file {
     line-height: 1.25;
   }
 
+//
+// Generic Checkboxes
+//
+.form--group--checkboxes {
+    margin-top: 1em;
+
+    .control--label,
+    label.control--label {
+      color: $color-gray-dark;
+      line-height: 1;
+      margin-bottom: 1em;
+    }
+
+}
+
 
 //
 // Search fields

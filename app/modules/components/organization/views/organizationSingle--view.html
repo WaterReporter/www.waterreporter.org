@@ -1,0 +1,26 @@
+<div class="organization--profile" id="organization--profile--{{ organization.id }}">
+  <div class="organization--profile--avatar">
+    <img class="organization--profile--image img-circle"
+         data-ng-src="{{ organization.properties.images[0].properties.thumbnail }}"
+         data-ng-if="organization.properties.images[0].properties.thumbnail" />
+    <img class="organization--profile--image organization--profile--empty img-circle"
+         data-ng-src="/images/badget--MissingUser.png"
+         data-ng-if="!organization.properties.images[0].properties.thumbnail" />
+  </div>
+  <div class="organization--profile--bio">
+    <h1>
+      <a href="/organizations/{{ organization.id }}"
+         title="">
+        {{ organization.properties.name }}
+      </a>
+    </h1>
+    <p>
+      {{ organization.properties.description }}
+    </p>
+    <p>
+      <a data-ng-if="$root.user.id && page.permissions.isCurrentUser" href="/profiles/{{ organization.id }}/edit" class="button button--link">
+        Edit Profile
+      </a>
+    </p>
+  </div>
+</div>

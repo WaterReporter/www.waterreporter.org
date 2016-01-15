@@ -9,23 +9,23 @@
 <main class="site--content site--content--activity">
 
   <div class="page--content page--content--transparent page--content--overlay">
-    <div class="user--profile" id="user--profile--{{ page.data.id }}">
-      <div class="user--profile--avatar">
-        <img class="user--profile--image img-circle"
+    <div class="profile" id="profile--{{ page.data.id }}">
+      <div class="profile--avatar">
+        <img class="profile--image img-circle"
              data-ng-src="{{ page.data.properties.images[0].properties.thumbnail }}"
              data-ng-if="page.data.properties.images[0].properties.thumbnail" />
-        <img class="user--profile--image user--profile--empty img-circle"
+        <img class="profile--image profile--empty img-circle"
              data-ng-src="/images/badget--MissingUser.png"
              data-ng-if="!page.data.properties.images[0].properties.thumbnail" />
       </div>
-      <div class="user--profile--bio">
+      <div class="profile--bio">
         <h1>
           {{ page.data.properties.first_name }} <strong>{{ page.data.properties.last_name }}</strong>
         </h1>
         <p>
           {{ page.data.properties.title }} <span data-ng-if="page.data.properties.title && page.data.properties.organization[0].properties.name">at</span>
 
-          {{ page.data.properties.organization[0].properties.name }}
+          {{ page.data.properties.organization_name }}
         </p>
         <p>
           {{ page.data.properties.description }}
@@ -35,6 +35,22 @@
             Edit Profile
           </a>
         </p>
+      </div>
+      <div data-ng-if="page.organizations.features.length"
+           class="profile--members">
+        <h3>Organizations ({{ page.organizations.properties.num_results }})</h3>
+        <ul class="profile--members--list">
+          <li data-ng-repeat="profile in page.organizations.features">
+            <a href="/organizations/{{ profile.id }}" target="">
+               <img class="profile--image img-circle"
+                    data-ng-src="{{ profile.properties.picture }}"
+                    data-ng-if="profile.properties.picture" />
+               <img class="profile--image profile--empty img-circle"
+                    data-ng-src="/images/badget--MissingUser.png"
+                    data-ng-if="!profile.properties.picture" />
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -92,7 +108,7 @@
         <br />
 
         <p>
-          Thanks for joining our ever-growing community. Please take a few minutes to review some information that will help you get up and running. 
+          Thanks for joining our ever-growing community. Please take a few minutes to review some information that will help you get up and running.
         </p>
 
       </section>

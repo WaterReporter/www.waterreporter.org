@@ -109,7 +109,7 @@ angular.module('WaterReporter')
         //
         self.changeFeature(self.map.geojson.reports.data.features[0], 0);
 
-        leafletData.getMap().then(function(map) {
+        leafletData.getMap().then(function() {
           $scope.$on('leafletDirectiveMarker.click', function(event, args) {
             $location.path(self.map.markers[args.modelName].permalink);
           });
@@ -117,7 +117,7 @@ angular.module('WaterReporter')
 
      });
 
-    this.changeFeature = function(feature, index) {
+    this.changeFeature = function(feature) {
       if (feature && feature.geometry !== undefined) {
         var center = {
           lat: feature.geometry.geometries[0].coordinates[1],
@@ -196,6 +196,10 @@ angular.module('WaterReporter')
 
         if (!$rootScope.user.properties.first_name || !$rootScope.user.properties.last_name) {
           $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
+        }
+
+        if (!$rootScope.user.properties.groups.length) {
+          $rootScope.notifications.info('New Feature!', 'You can now join a group on WaterReporter. <a href="/profiles/' + $rootScope.user.id + '/edit">Visit your profile</a> to join.');
         }
 
         self.permissions = {

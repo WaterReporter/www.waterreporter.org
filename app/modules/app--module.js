@@ -19,5 +19,7 @@ angular
     'leaflet-directive',
     'angularMoment',
     'igTruncate',
-    'Mapbox'
+    'Mapbox',
+    'Groups',
+    'config'
   ]);

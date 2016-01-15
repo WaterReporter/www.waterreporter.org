@@ -261,17 +261,14 @@ angular.module('WaterReporter')
           user: function(Account) {
             return Account.getUser();
           },
-          profile: function($route, User) {
-            return User.get({
+          groups: function($route, User) {
+            return User.groups({
               id: $route.current.params.userId
             });
           },
-          reports: function(Report) {
-            //
-            // Execute our query so that we can get the Reports back
-            //
-            return Report.query({
-              q: {}
+          profile: function($route, User) {
+            return User.get({
+              id: $route.current.params.userId
             });
           }
         }

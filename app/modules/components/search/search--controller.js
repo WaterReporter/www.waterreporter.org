@@ -66,8 +66,8 @@ angular.module('WaterReporter')
 
     if (this.search.params.report_description) {
       this.search.term = this.search.params.report_description;
-    }else{
-      this.search.term;
+    } else {
+       this.search.term = null;
     }
 
     self.download = {
