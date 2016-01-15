@@ -443,6 +443,7 @@ module.exports = function (grunt) {
     }
   });
 
+  var environment = grunt.option('environment') || 'local';
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -476,7 +477,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'ngconstant:production',
+    'ngconstant:' + environment,
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
