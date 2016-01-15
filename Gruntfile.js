@@ -51,6 +51,7 @@ module.exports = function (grunt) {
           environment: {
             name: 'local',
             apiUrl: 'http://127.0.0.1:5000',
+            siteUrl: 'http://127.0.0.1:9000',
             clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
           }
         }
@@ -63,6 +64,7 @@ module.exports = function (grunt) {
           environment: {
             name: 'development',
             apiUrl: 'http://dev.api.waterreporter.org',
+            siteUrl: 'http://dev.waterreporter.org',
             clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
           }
         }
@@ -75,6 +77,7 @@ module.exports = function (grunt) {
           environment: {
             name: 'staging',
             apiUrl: 'http://stg.api.waterreporter.org',
+            siteUrl: 'http://stg.waterreporter.org',
             clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
           }
         }
@@ -87,6 +90,7 @@ module.exports = function (grunt) {
           environment: {
             name: 'production',
             apiUrl: 'https://api.waterreporter.org',
+            siteUrl: 'https://www.waterreporter.org',
             clientId: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku'
           }
         }
