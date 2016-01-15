@@ -61,7 +61,7 @@ module.exports = function (grunt) {
         },
         constants: {
           environment: {
-            name: 'local',
+            name: 'development',
             apiUrl: 'http://dev.api.waterreporter.org',
             clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
           }
@@ -73,7 +73,7 @@ module.exports = function (grunt) {
         },
         constants: {
           environment: {
-            name: 'local',
+            name: 'staging',
             apiUrl: 'http://stg.api.waterreporter.org',
             clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
           }
@@ -106,7 +106,8 @@ module.exports = function (grunt) {
         files: [
           '<%= yeoman.app %>/modules/**/*.js',
           '<%= yeoman.app %>/modules/components/**/*.js',
-          '<%= yeoman.app %>/modules/shared/**/*.js'
+          '<%= yeoman.app %>/modules/shared/**/*.js',
+          '<%= yeoman.app %>/modules/config/**/*.js'
         ],
         tasks: ['newer:jshint:all'],
         options: {
@@ -118,6 +119,7 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/modules/**/*.js',
         '<%= yeoman.app %>/modules/components/**/*.js',
         '<%= yeoman.app %>/modules/shared/**/*.js',
+        '<%= yeoman.app %>/modules/config/**/*.js',
         'test/spec/modules/**/*.js',
         'test/spec/modules/components/**/*.js',
         'test/spec/modules/shared/**/*.js'
@@ -316,6 +318,9 @@ module.exports = function (grunt) {
       dist: {
         src: [
           '<%= yeoman.dist %>/modules/**/*.js',
+          '<%= yeoman.dist %>/modules/components/**/*.js',
+          '<%= yeoman.dist %>/modules/shared/**/*.js',
+          '<%= yeoman.dist %>/modules/config/**/*.js',
           '<%= yeoman.dist %>/scripts/**/*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css'
         ]
@@ -475,7 +480,13 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('build', [
+  //
+  // BUILD TASKS
+  //
+  // These are Grunt tasks that are run when `grunt build` is executed at the
+  // command prompt
+  //
+  var buildTasks = [
     'clean:dist',
     'ngconstant:' + environment,
     'wiredep',
@@ -489,7 +500,9 @@ module.exports = function (grunt) {
     'cssmin',
     'filerev',
     'usemin'
-  ]);
+  ];
+
+  grunt.registerTask('build', buildTasks);
 
   grunt.registerTask('default', [
     'newer:jshint',
