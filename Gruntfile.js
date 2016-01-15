@@ -41,15 +41,39 @@ module.exports = function (grunt) {
         wrap: '"use strict";\n\n {%= __ngModule %}',
         name: 'config'
       },
+      local: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'local',
+            apiUrl: 'http://127.0.0.1:5000',
+            clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
+          }
+        }
+      },
       development: {
         options: {
           dest: '<%= yeoman.app %>/modules/config/environment.js'
         },
         constants: {
           environment: {
-            name: 'development',
-            apiUrl: 'http://127.0.0.1:5000',
-            clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
+            name: 'local',
+            apiUrl: 'http://dev.api.waterreporter.org',
+            clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
+          }
+        }
+      },
+      staging: {
+        options: {
+          dest: '<%= yeoman.app %>/modules/config/environment.js'
+        },
+        constants: {
+          environment: {
+            name: 'local',
+            apiUrl: 'http://stg.api.waterreporter.org',
+            clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
           }
         }
       },
