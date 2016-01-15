@@ -14,8 +14,7 @@
 
 `grunt serve`
 
-
-## Deploying waterreporter
+## Deploying Water Reporter
 
 1. Ensure the "Environment" is defined under the Gruntfile.js `ngconstant` initConfig
 2. Ensure the a separate "client_id" has been setup for OAuth in your API's `client` table
