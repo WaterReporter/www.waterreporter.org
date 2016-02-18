@@ -461,7 +461,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'ngconstant:local',
+      'ngconstant:' + environment,
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
