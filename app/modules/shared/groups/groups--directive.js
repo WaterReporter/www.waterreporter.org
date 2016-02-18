@@ -8,7 +8,7 @@
    * @description
    */
   angular.module('Groups')
-    .directive('groups', function ($compile, group, $http, $templateCache, TemplateLoader, $timeout) {
+    .directive('groups', function ($compile, group, $http, $templateCache, TemplateLoader, $timeout, $rootScope) {
 
       return {
           restrict: 'A',
@@ -74,6 +74,8 @@
             //
             // Geocoded Address Selection
             //
+            var groupService = group;
+
             scope.group = {
               select: function(selectedValue) {
 
@@ -92,6 +94,8 @@
                 // list. An empty result list will be hidden.
                 //
                 scope.groupsResults = null;
+
+                groupService.joinGroup($rootScope.user, scope.groupsResponse.id);
               }
             };
 
