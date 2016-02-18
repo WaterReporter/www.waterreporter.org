@@ -10,7 +10,7 @@
  * Service in the WaterReporter.
  */
 angular.module('WaterReporter')
-  .factory('SecurityInterceptor', function ($q, ipCookie) {
+  .factory('SecurityInterceptor', function (bugsnag, $q, ipCookie, $rootScope) {
 
     return {
       request: function(config) {
@@ -47,6 +47,8 @@ angular.module('WaterReporter')
         return response || $q.when(response);
       },
       responseError: function (response) {
+
+        bugsnag.notify(response.status + ' status code ' + JSON.stringify(response));
 
         if (response.status === 403 && response.config.method !== 'POST') {
             window.location.href = '/user/logout';
