@@ -21,6 +21,5 @@ angular
     'igTruncate',
     'Mapbox',
     'Groups',
-    'config',
-    'angular-bugsnag'
+    'config'
   ]);
