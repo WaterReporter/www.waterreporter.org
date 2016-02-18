@@ -132,7 +132,7 @@
           var userProfile = new User({
                 id: user.id,
                 groups: this.processGroups(user.properties.groups),
-                organization: user.properties.organization
+                organization: this.processOrganizations(user.properties.organization)
               });
 
           var $promise = userProfile.$update();
@@ -285,6 +285,35 @@
               group = {
                 organization_id: item.organization_id,
                 joined_on: item.joined_on
+              };
+            }
+
+            _return.push(group);
+          });
+
+          return _return;
+        },/**
+         * processOrganizations
+         *
+         * Add an organization to a user's profile.
+         *
+         * @param (array) list
+         *     A list of a user's organizations
+         *
+         * @return (bool) _return
+         *     An cleaned up list of the user's groups ready to POST
+         */
+        processOrganizations: function(list) {
+
+          var _return = [];
+
+          angular.forEach(list, function(item) {
+
+            var group;
+
+            if (item && item.id) {
+              group = {
+                id: item.id,
               };
             }
 
