@@ -89,9 +89,9 @@ module.exports = function (grunt) {
         constants: {
           environment: {
             name: 'production',
-            apiUrl: 'https://api.waterreporter.org',
+            apiUrl: 'https://api.waterreporter.org/v2',
             siteUrl: 'https://www.waterreporter.org',
-            clientId: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku'
+            clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
           }
         }
       }

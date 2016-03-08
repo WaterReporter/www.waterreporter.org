@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('Comment', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/comment/:id'), {
+      return $resource(environment.apiUrl.concat('/data/comment/:id'), {
         id: '@id'
       }, {
         query: {

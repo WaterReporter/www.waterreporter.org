@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('User', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/user/:id'), {
+      return $resource(environment.apiUrl.concat('/data/user/:id'), {
         id: '@id'
       }, {
         query: {
@@ -23,21 +23,21 @@
         groups: {
           method: 'GET',
           isArray: false,
-          url: environment.apiUrl.concat('/v1/data/user/:id/groups')
+          url: environment.apiUrl.concat('/data/user/:id/groups')
         },
         getOrganizations: {
           method: 'GET',
           isArray: false,
-          url: environment.apiUrl.concat('/v1/data/user/:id/organization')
+          url: environment.apiUrl.concat('/data/user/:id/organization')
         },
         me: {
           method: 'GET',
-          url: environment.apiUrl.concat('/v1/data/me')
+          url: environment.apiUrl.concat('/data/me')
         },
         classifications: {
           method: 'GET',
           isArray: false,
-          url: environment.apiUrl.concat('/v1/data/user/:id/classifications')
+          url: environment.apiUrl.concat('/data/user/:id/classifications')
         }
       });
     });

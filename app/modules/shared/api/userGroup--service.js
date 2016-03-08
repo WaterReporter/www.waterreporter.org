@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('UserGroup', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/group/:id'), {
+      return $resource(environment.apiUrl.concat('/data/group/:id'), {
         id: '@id'
       }, {
         update: {

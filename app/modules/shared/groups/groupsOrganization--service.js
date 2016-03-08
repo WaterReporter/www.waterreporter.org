@@ -9,7 +9,7 @@
    */
   angular.module('Groups')
     .service('GroupOrganization', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/organization/:id'), {
+      return $resource(environment.apiUrl.concat('/data/organization/:id'), {
         id: '@id'
       }, {
         query: {

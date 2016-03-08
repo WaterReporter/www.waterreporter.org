@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('Report', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/report/:id'), {
+      return $resource(environment.apiUrl.concat('/data/report/:id'), {
         id: '@id'
       }, {
         query: {
@@ -26,11 +26,11 @@
         groups: {
           method: 'GET',
           isArray: false,
-          url: environment.apiUrl.concat('/v1/data/report/:id/groups')
+          url: environment.apiUrl.concat('/data/report/:id/groups')
         },
         comments: {
           method: 'GET',
-          url: environment.apiUrl.concat('/v1/data/report/:id/comments'),
+          url: environment.apiUrl.concat('/data/report/:id/comments'),
           params: {
             q: {
               order_by: [

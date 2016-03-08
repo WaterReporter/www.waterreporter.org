@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('Organization', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/data/organization/:id'), {
+      return $resource(environment.apiUrl.concat('/data/organization/:id'), {
         id: '@id'
       }, {
         query: {
@@ -21,12 +21,12 @@
           method: 'PATCH'
         },
         reports: {
-          url: environment.apiUrl.concat('/v1/data/organization/:id/reports'),
+          url: environment.apiUrl.concat('/data/organization/:id/reports'),
           method: 'GET',
           isArray: false
         },
         members: {
-          url: environment.apiUrl.concat('/v1/data/organization/:id/users'),
+          url: environment.apiUrl.concat('/data/organization/:id/users'),
           method: 'GET',
           isArray: false
         }

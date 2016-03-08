@@ -11,7 +11,7 @@
    */
   angular.module('WaterReporter')
     .service('Image', function (environment, $resource) {
-      return $resource(environment.apiUrl.concat('/v1/media/image/:imageId'), {}, {
+      return $resource(environment.apiUrl.concat('/media/image/:imageId'), {}, {
         query: {
           isArray: false
         },
@@ -27,7 +27,7 @@
         },
         remove: {
           method: 'DELETE',
-          url: environment.apiUrl.concat('/v1/data/image/:imageId')
+          url: environment.apiUrl.concat('/data/image/:imageId')
         }
       });
     });

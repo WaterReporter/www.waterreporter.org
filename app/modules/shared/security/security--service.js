@@ -17,7 +17,7 @@
       var Security = $resource(environment.apiUrl.concat('/login'), {}, {
         save: {
           method: 'POST',
-          url: environment.apiUrl.concat('/v1/auth/remote'),
+          url: environment.apiUrl.concat('/auth/remote'),
           params: {
             response_type: 'token',
             client_id: environment.clientId,
@@ -28,7 +28,7 @@
         },
         register: {
           method: 'POST',
-          url: environment.apiUrl.concat('/v1/user/register')
+          url: environment.apiUrl.concat('/user/register')
         },
         reset: {
           method: 'POST',
