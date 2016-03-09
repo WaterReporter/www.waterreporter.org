@@ -137,6 +137,8 @@ angular.module('WaterReporter')
                     ipCookie.remove('WATERREPORTER_JOINGROUPNAME');
                     ipCookie.remove('WATERREPORTER_JOINGROUPNAME', { path: '/' });
 
+                    Account.userObject = $rootScope.user = updateUserSuccessResponse;
+
                     if ($rootScope.isAdmin) {
                       $location.path('/dashboard');
                     }
