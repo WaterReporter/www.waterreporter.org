@@ -9,7 +9,7 @@
    * @description
    */
   angular.module('Groups')
-    .service('group', function(GroupOrganization, User, UserGroup) {
+    .service('group', function(GroupOrganization, ipCookie, $location, Notifications, $rootScope, User, UserGroup) {
       return {
         /**
          * Is Member
@@ -139,6 +139,48 @@
 
 
           return $promise;
+        },
+        /**
+         * anonymousJoinGroup
+         *
+         * Add an organization group cache for use later once a user has
+         * successfully registered.
+         *
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         */
+        anonymousJoinGroup: function(group) {
+
+          //
+          // Save the groupId to a cookie, tht will be checked during the
+          // user registration process
+          //
+          var groupIdCookie = ipCookie('WATERREPORTER_JOINGROUPID');
+
+          // Remove any existing cookies as not to cause confusion in the system
+          if (groupIdCookie) {
+            ipCookie.remove('WATERREPORTER_JOINGROUPID');
+            ipCookie.remove('WATERREPORTER_JOINGROUPID', { path: '/' });
+
+            ipCookie.remove('WATERREPORTER_JOINGROUPNAME');
+            ipCookie.remove('WATERREPORTER_JOINGROUPNAME', { path: '/' });
+          }
+
+          ipCookie('WATERREPORTER_JOINGROUPID', group.id, {
+            path: '/',
+            expires: 1
+          });
+
+          ipCookie('WATERREPORTER_JOINGROUPNAME', group.properties.name, {
+            path: '/',
+            expires: 1
+          });
+
+          // Send the user to the registration page
+          $rootScope.notifications.info('You\'re almost finished!', 'To join ' + group.properties.name + ' group please log in or create a WaterReporter.org account');
+
+          $location.path('/user/register');
         },
         /**
          * Remove Group Member

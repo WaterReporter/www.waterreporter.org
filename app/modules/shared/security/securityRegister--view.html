@@ -21,14 +21,34 @@
     <form role="form" class="form form--centered" method="POST"
           data-ng-if="!page.register.processing" data-ng-submit="page.register.submit()">
       <div class="form--element">
+        <label for="email" class="control--label">First Name</label>
+        <input tabindex="1" type="text" class="form--control" type="text" id="first_name" name="first_name" data-ng-model="page.register.first_name" autofocus="autofocus" required="required" />
+      </div>
+      <div class="form--element">
+        <label for="email" class="control--label">Last Name</label>
+        <input tabindex="1" type="text" class="form--control" type="text" id="last_name" name="last_name" data-ng-model="page.register.last_name" autofocus="autofocus" required="required" />
+      </div>
+      <div class="form--element">
         <label for="email" class="control--label">Email Address</label>
-        <input tabindex="1" type="text" class="form--control" type="text" id="email" name="email" data-ng-model="page.register.email" autofocus />
+        <input tabindex="1" type="text" class="form--control" type="text" id="email" name="email" data-ng-model="page.register.email" autofocus="autofocus" required="required" />
       </div>
       <div class="form--element">
         <label for="password" class="control--label">Password</label>
-        <input tabindex="2" type="password" class="form--control" type="text" id="password" name="password" data-ng-model="page.register.password" />
+        <input tabindex="2" type="password" class="form--control" type="text" id="password" name="password" data-ng-model="page.register.password"  required="required" />
       </div>
-      <input tabindex="3" type="submit" class="button button--submit" id="submit" name="submit" value="Sign Up" />
+      <div class="form--element">
+        <label for="password" class="control--label">
+          Retype your password
+        </label>
+        <input type="password" class="form--control" type="text" id="confirm_password"
+               name="confirm_password" data-ng-model="page.register.confirm_password"
+               tabindex="3" required="required" />
+        <p class="help--text" data-ng-if="page.register.password !== page.register.confirm_password">
+            Passwords do not match
+        </p>
+      </div>
+      <input data-ng-if="page.register.password && page.register.confirm_password && page.register.password === page.register.confirm_password" tabindex="3" type="submit" class="button button--submit" id="submit" name="submit" value="Sign Up" />
+      <input data-ng-if="!page.register.password || !page.register.confirm_password || page.register.password !== page.register.confirm_password" tabindex="3" type="button" class="button button--disabled" disabled="disabled" value="Sign Up" />
       <div class="throbber throbber-small" data-ng-if="page.register.processing"></div>
     </form>
 

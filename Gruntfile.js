@@ -31,6 +31,9 @@ module.exports = function (grunt) {
 
   var environment = grunt.option('environment') || 'local';
 
+  console.log('environment', environment);
+  debugger;
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -222,6 +225,9 @@ module.exports = function (grunt) {
     // Empties folders to start fresh
     clean: {
       dist: {
+        options: {
+          force: true
+        },
         files: [{
           dot: true,
           src: [
@@ -459,15 +465,25 @@ module.exports = function (grunt) {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
 
-    grunt.task.run([
+    var serveTasks = [
       'clean:server',
       'ngconstant:' + environment,
+      // 'ngconstant:production',
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
       'watch'
-    ]);
+    ];
+
+    console.log('environment', environment);
+    debugger;
+
+    console.log('serveTasks', serveTasks);
+    debugger;
+
+
+    grunt.task.run(serveTasks);
   });
 
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {

@@ -10,7 +10,7 @@
  * Controller of the WaterReporter
  */
 angular.module('WaterReporter')
-  .controller('SecurityController', function (Account, $http, $location, Security, ipCookie, $route, $rootScope, $timeout, Report, Search) {
+  .controller('SecurityController', function (Account, group, $http, $location, Security, ipCookie, $route, $rootScope, $timeout, Report, Search, User) {
 
     var self = this;
 
@@ -100,6 +100,60 @@ angular.module('WaterReporter')
                 $rootScope.isLoggedIn = Account.hasToken();
                 $rootScope.isAdmin = Account.hasRole('admin');
 
+                //
+                // If the user is a first time user, then we need to save
+                // some additional information to their user profile for them.
+                //
+                var groupIdCookie = ipCookie('WATERREPORTER_JOINGROUPID');
+
+                if (firstTime) {
+                  self.newUser = new User({
+                    id: $rootScope.user.id,
+                    first_name: self.register.first_name,
+                    last_name: self.register.last_name,
+                    organization: [],
+                    groups: []
+                  });
+
+                  //
+                  // Add new group to the user's in-memory profile
+                  //
+                  if (groupIdCookie) {
+                    self.newUser.organization.push({
+                      id: groupIdCookie
+                    });
+
+                    self.newUser.groups.push({
+                      organization_id: groupIdCookie,
+                      joined_on: new Date()
+                    });
+                  }
+
+                  self.newUser.$update().then(function (updateUserSuccessResponse) {
+
+                    ipCookie.remove('WATERREPORTER_JOINGROUPID');
+                    ipCookie.remove('WATERREPORTER_JOINGROUPID', { path: '/' });
+
+                    ipCookie.remove('WATERREPORTER_JOINGROUPNAME');
+                    ipCookie.remove('WATERREPORTER_JOINGROUPNAME', { path: '/' });
+
+                    if ($rootScope.isAdmin) {
+                      $location.path('/dashboard');
+                    }
+                    else if (firstTime) {
+                      $location.path('/profiles/' + $rootScope.user.id + '/edit');
+                    }
+                    else {
+                      $location.path('/activity');
+                    }
+                  }, function(updateUserErrorResponse) {
+                    console.log('updateUserErrorResponse', updateUserErrorResponse);
+                  });
+
+                } else if (!firstTime && groupIdCookie && $rootScope.user) {
+                  group.joinGroup($rootScope.user, groupIdCookie);
+                }
+
                 if ($rootScope.isAdmin) {
                   $location.path('/dashboard');
                 }
@@ -160,6 +214,7 @@ angular.module('WaterReporter')
           } else {
             self.login.email = self.register.email;
             self.login.password = self.register.password;
+
             self.login.submit(true);
           }
         }, function(){
