@@ -476,13 +476,6 @@ module.exports = function (grunt) {
       'watch'
     ];
 
-    console.log('environment', environment);
-    debugger;
-
-    console.log('serveTasks', serveTasks);
-    debugger;
-
-
     grunt.task.run(serveTasks);
   });
 
@@ -508,7 +501,7 @@ module.exports = function (grunt) {
   //
   var buildTasks = [
     'clean:dist',
-    'ngconstant:' + environment,
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
