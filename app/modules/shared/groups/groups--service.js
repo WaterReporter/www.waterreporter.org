@@ -12,6 +12,33 @@
     .service('group', function(GroupOrganization, ipCookie, $location, Notifications, $rootScope, User, UserGroup) {
       return {
         /**
+         * Is Admin
+         *
+         * Answer the question "Is the user an admin of the group?"
+         *
+         * @param (obj) user
+         *     The user object to test against
+         * @param (int) groupId
+         *     The unique identifier of the group
+         *
+         * @return (bool) isAdmin
+         *     A boolean indicating whether or not the user is a member of the
+         *     provided group
+         */
+        isAdmin: function(user, groupId) {
+
+          var isAdmin = false,
+              groupList = user.properties.groups;
+
+          angular.forEach(groupList, function(group) {
+            if (group.properties.organization_id === parseInt(groupId)) {
+                isAdmin = group.properties.is_admin;
+            }
+          });
+
+          return isAdmin;
+        },
+        /**
          * Is Member
          *
          * Answer the question "Is the user a member of the group?"

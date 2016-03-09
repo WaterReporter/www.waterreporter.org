@@ -23,7 +23,9 @@
           <strong>
             {{ page.organization.properties.name }}
           </strong>
+        </h1>
 
+        <p>
           <a href="javascript:void(0);" target="_blank"
              class="button button--flex report--list--action"
              data-ng-if="$root.user.id && !page.group.isMember($root.user, page.organization.id)"
@@ -40,8 +42,8 @@
              data-ng-click="">
             <small>Join Group</small>
           </a>
+        </p>
 
-        </h1>
         <p>
           {{ page.organization.properties.description }}
         </p>
@@ -58,7 +60,7 @@
             </a>
         </p>
         <p>
-          <a data-ng-if="$root.user.id" href="/organizations/{{ page.organization.id }}/edit" class="button button--link">
+          <a data-ng-if="$root.user.id && page.group.isAdmin($root.user, page.organization.id)" href="/organizations/{{ page.organization.id }}/edit" class="button button--link">
             Edit Organization Profile
           </a>
         </p>
