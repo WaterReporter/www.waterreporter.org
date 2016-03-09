@@ -29,10 +29,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
-  var environment = grunt.option('environment') || 'local';
+  // var environment = grunt.option('environment') || 'local';
 
-  console.log('environment', environment);
-  debugger;
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -40,65 +38,65 @@ module.exports = function (grunt) {
     //
     // Environment Specific Variables
     //
-    ngconstant: {
-      options: {
-        space: '  ',
-        wrap: '"use strict";\n\n {%= __ngModule %}',
-        name: 'config'
-      },
-      local: {
-        options: {
-          dest: '<%= yeoman.app %>/modules/config/environment.js'
-        },
-        constants: {
-          environment: {
-            name: 'local',
-            apiUrl: 'http://127.0.0.1:5000',
-            siteUrl: 'http://127.0.0.1:9000',
-            clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
-          }
-        }
-      },
-      development: {
-        options: {
-          dest: '<%= yeoman.app %>/modules/config/environment.js'
-        },
-        constants: {
-          environment: {
-            name: 'development',
-            apiUrl: 'http://dev.api.waterreporter.org',
-            siteUrl: 'http://dev.waterreporter.org',
-            clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
-          }
-        }
-      },
-      staging: {
-        options: {
-          dest: '<%= yeoman.app %>/modules/config/environment.js'
-        },
-        constants: {
-          environment: {
-            name: 'staging',
-            apiUrl: 'http://stg.api.waterreporter.org',
-            siteUrl: 'http://stg.waterreporter.org',
-            clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
-          }
-        }
-      },
-      production: {
-        options: {
-          dest: '<%= yeoman.dist %>/modules/config/environment.js'
-        },
-        constants: {
-          environment: {
-            name: 'production',
-            apiUrl: 'https://api.waterreporter.org/v2',
-            siteUrl: 'https://www.waterreporter.org',
-            clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
-          }
-        }
-      }
-    },
+    // ngconstant: {
+    //   options: {
+    //     space: '  ',
+    //     wrap: '"use strict";\n\n {%= __ngModule %}',
+    //     name: 'config'
+    //   },
+    //   local: {
+    //     options: {
+    //       dest: '<%= yeoman.app %>/modules/config/environment.js'
+    //     },
+    //     constants: {
+    //       environment: {
+    //         name: 'local',
+    //         apiUrl: 'http://127.0.0.1:5000',
+    //         siteUrl: 'http://127.0.0.1:9000',
+    //         clientId: 'K7VMEFtt5LGfELn1nxtwGPoPNiPitKGQpisWOm25'
+    //       }
+    //     }
+    //   },
+    //   development: {
+    //     options: {
+    //       dest: '<%= yeoman.app %>/modules/config/environment.js'
+    //     },
+    //     constants: {
+    //       environment: {
+    //         name: 'development',
+    //         apiUrl: 'http://dev.api.waterreporter.org',
+    //         siteUrl: 'http://dev.waterreporter.org',
+    //         clientId: 'JUNuCjY3gnH35S8o7s8ifAq0OiO0X8fMgBd4wkv0'
+    //       }
+    //     }
+    //   },
+    //   staging: {
+    //     options: {
+    //       dest: '<%= yeoman.app %>/modules/config/environment.js'
+    //     },
+    //     constants: {
+    //       environment: {
+    //         name: 'staging',
+    //         apiUrl: 'http://stg.api.waterreporter.org',
+    //         siteUrl: 'http://stg.waterreporter.org',
+    //         clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
+    //       }
+    //     }
+    //   },
+    //   production: {
+    //     options: {
+    //       dest: '<%= yeoman.dist %>/modules/config/environment.js'
+    //     },
+    //     constants: {
+    //       environment: {
+    //         name: 'production',
+    //         apiUrl: 'https://api.waterreporter.org/v2',
+    //         siteUrl: 'https://www.waterreporter.org',
+    //         clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
+    //       }
+    //     }
+    //   }
+    // },
 
     // Project settings
     yeoman: appConfig,
@@ -467,7 +465,7 @@ module.exports = function (grunt) {
 
     var serveTasks = [
       'clean:server',
-      'ngconstant:' + environment,
+      // 'ngconstant:' + environment,
       // 'ngconstant:production',
       'wiredep',
       'concurrent:server',
@@ -501,7 +499,7 @@ module.exports = function (grunt) {
   //
   var buildTasks = [
     'clean:dist',
-    'ngconstant:production',
+    // 'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
