@@ -47,12 +47,9 @@ angular.module('WaterReporter')
     console.log('this.search.params', this.search.params);
 
     angular.forEach(defaults, function(_default, index) {
-      console.log('_default', _default)
       if (index.indexOf('territory__') === 0) {
-        console.log('territory__', _default)
         self.search.params.territory = _default;
       } else if (index.indexOf('groups') === 0) {
-        console.log('groups', _default)
         self.search.params.groups = _default;
       }
     });
@@ -226,6 +223,9 @@ angular.module('WaterReporter')
               self.search.options.groups.push(thisGroup);
               self.myGroups[group.properties.organization.properties.name] = thisGroup;
             });
+
+            self.changeTerritorySearchType();
+            self.changeGroupSearchType();
           });
         }
 
