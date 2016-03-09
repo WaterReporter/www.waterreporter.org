@@ -110,6 +110,15 @@
                      autofocus="autofocus" />
             </div>
           </div>
+          <div class="form--element" data-ng-if="page.promotedGroups.features.length">
+            <div class="form--group--checkboxes" data-ng-repeat="group in page.promotedGroups.features track by $index">
+              <label class="control--label">
+                <input type="checkbox" data-ng-change="page.promotedGroupsSelect(group)"
+                       data-ng-model="group.properties._checked" />
+                {{ group.properties.name }}
+              </label>
+            </div>
+          </div>
         </div>
       </div>
 

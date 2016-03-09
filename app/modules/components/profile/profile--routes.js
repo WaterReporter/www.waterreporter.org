@@ -266,9 +266,17 @@ angular.module('WaterReporter')
               id: $route.current.params.userId
             });
           },
-          profile: function($route, User) {
-            return User.get({
-              id: $route.current.params.userId
+          promotedGroups: function($route, Organization) {
+            return Organization.query({
+              q: {
+                filters: [
+                  {
+                    name: 'is_promoted',
+                    op: 'eq',
+                    val: true
+                  }
+                ]
+              }
             });
           }
         }

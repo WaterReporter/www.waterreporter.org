@@ -8,13 +8,14 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ProfileEditController', function (Account, group, groups, Image, $location, profile, $rootScope, $route, Search, $scope, user, User) {
+    .controller('ProfileEditController', function (Account, group, groups, Image, $location, promotedGroups, $rootScope, $route, Search, $scope, user, User) {
 
       var self = this;
 
       self.image = null;
 
       self.group = group;
+      self.promotedGroups = promotedGroups;
 
       self.status = {
         saving: {
@@ -27,11 +28,29 @@
       };
 
       //
-      // Load main Profile data
+      // This is the first page the authneticated user will see. We need to make
+      // sure that their user information is ready to use. Make sure the
+      // Account.userObject contains the appropriate information.
       //
-      profile.$promise.then(function(profileResponse) {
+      user.$promise.then(function(userResponse) {
 
-        self.profile = profileResponse;
+        $rootScope.user = userResponse;
+
+        // Before doing anything check to see if the user has access to this
+        // page
+        if ($rootScope.user.id !== parseInt($route.current.params.userId)) {
+          $location.path('/profiles/' + $route.current.params.userId);
+        }
+
+        Account.userObject = userResponse;
+        self.profile = userResponse;
+
+        self.permissions = {
+          isLoggedIn: Account.hasToken(),
+          isAdmin: Account.hasRole('admin'),
+          isProfile: false,
+          isCurrentUser: false
+        };
 
         if (self.profile.properties.telephone && self.profile.properties.telephone.length === 0) {
           self.profile.properties.telephone = [{}];
@@ -41,28 +60,8 @@
         }
 
         self.profile.properties.groups = groups;
+
       });
-
-      //
-      // This is the first page the authneticated user will see. We need to make
-      // sure that their user information is ready to use. Make sure the
-      // Account.userObject contains the appropriate information.
-      //
-      if (Account.userObject && user) {
-        user.$promise.then(function(userResponse) {
-          $rootScope.user = Account.userObject = userResponse;
-
-          self.permissions = {
-            isLoggedIn: Account.hasToken(),
-            isAdmin: Account.hasRole('admin'),
-            isProfile: false,
-            isCurrentUser: false
-          };
-
-        });
-      } else {
-        $location.path('/profiles/' + $route.current.params.userId);
-      }
 
       self.processGroups = function(list) {
 
@@ -172,6 +171,27 @@
      // to the Form Submit function we have in place below.
      //
      self.groups = {};
+
+     self.promotedGroupsSelect = function(item) {
+       console.log('add a new group to the profile properties')
+       if(item.properties._checked){
+         self.profile.properties.groups.features.push({
+           properties: {
+             organization_id: item.id,
+             joined_on: new Date(),
+             organization: item
+           }
+         });
+
+       } else {
+         angular.forEach(self.profile.properties.groups.features, function(group, $index) {
+           if (group.id === item.id) {
+             self.profile.properties.groups.features.splice($index, 1);
+           }
+         });
+       }
+
+     };
 
      //
      // When the user has selected a response, we need to perform a few extra
