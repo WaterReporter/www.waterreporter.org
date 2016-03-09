@@ -162,9 +162,17 @@ angular.module('WaterReporter')
          //
          var keys = service.keys();
 
+         console.log('keys', keys)
+         console.log('params', params)
+
          angular.forEach(params, function(field_value, field_name) {
 
+           console.log('field_name', field_name)
+           console.log('keys.indexOf(field_name)', keys.indexOf(field_name))
+
            if (keys.indexOf(field_name) !== -1) {
+
+             console.log('Adding to search ', field_name)
 
              //
              // Get the information for the model
@@ -182,6 +190,7 @@ angular.module('WaterReporter')
              // Pass off the completed filter to the `q` parameter for
              // processing
              //
+             console.log('pushing filter ...', filter)
              q.filters.push(filter);
            }
 
@@ -200,7 +209,7 @@ angular.module('WaterReporter')
        clear: function() {
 
          // Remove all URL bar parameters
-         $location.search('');
+         $location.path('/search').search('');
 
          // Clear out our parameter object
          this.params = {};
