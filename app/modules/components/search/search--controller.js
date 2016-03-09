@@ -6,7 +6,7 @@
  * @description
  */
 angular.module('WaterReporter')
-  .controller('SearchController', function (Account, Exporter, $location, Notifications, Report, reports, $rootScope, $route, Search, user) {
+  .controller('SearchController', function (Account, Exporter, $location, Notifications, Report, reports, $rootScope, $route, Search, user, User) {
 
     var self = this;
 
@@ -44,9 +44,16 @@ angular.module('WaterReporter')
 
     this.search.params = (defaults) ? defaults : {};
 
+    console.log('this.search.params', this.search.params);
+
     angular.forEach(defaults, function(_default, index) {
+      console.log('_default', _default)
       if (index.indexOf('territory__') === 0) {
+        console.log('territory__', _default)
         self.search.params.territory = _default;
+      } else if (index.indexOf('groups') === 0) {
+        console.log('groups', _default)
+        self.search.params.groups = _default;
       }
     });
 
@@ -56,9 +63,13 @@ angular.module('WaterReporter')
 
     this.search.data = reports;
 
-    this.search.options = [];
+    this.search.options = {
+      territory: [],
+      groups: []
+    };
 
     this.myWatersheds = {};
+    this.myGroups = {};
 
     //
     // Make sure we're displaying thessh  search term to the user
@@ -113,7 +124,7 @@ angular.module('WaterReporter')
       }
     };
 
-    self.changeSearchType = function() {
+    self.changeTerritorySearchType = function() {
 
       console.log('CHANGING TO', self.search.params.territory, self.myWatersheds[self.search.params.territory]);
 
@@ -121,6 +132,17 @@ angular.module('WaterReporter')
         delete self.search.params.territory;
       } else {
         self.search.model.territory = self.myWatersheds[self.search.params.territory].model;
+      }
+    };
+
+    self.changeGroupSearchType = function() {
+
+      console.log('CHANGING TO', self.search.params.groups, self.myGroups[self.search.params.groups]);
+
+      if (!self.search.params.groups) {
+        delete self.search.params.groups;
+      } else {
+        self.search.model.groups = self.myGroups[self.search.params.groups].model;
       }
     };
 
@@ -137,37 +159,74 @@ angular.module('WaterReporter')
           $rootScope.notifications.warning('Hey!', 'Please <a href="/profiles/' + $rootScope.user.id + '/edit">complete your profile</a> by sharing your name and a photo');
         }
 
+        console.log('userResponse', userResponse)
+
         if (userResponse.properties.classifications.length) {
 
-            angular.forEach(userResponse.properties.classifications, function(territory) {
+          angular.forEach(userResponse.properties.classifications, function(territory) {
 
-              var hucType = territory.properties.digits,
-                  fieldName = 'huc_' + hucType + '_name',
+            var hucType = territory.properties.digits,
+                fieldName = 'huc_' + hucType + '_name',
+                _model;
+
+            //
+            // Add an additional search filter option
+            //
+            _model = {
+              name: 'territory__' + fieldName,
+              op: 'has',
+              // val: (self.search.params.territory) ? self.search.params.territory : null
+              val: territory.properties.name
+            };
+
+              // self.search.model.territory = _model;
+
+            var territories = {
+              name: territory.properties.name,
+              val: territory.properties.name,
+              model: _model,
+              category: 'My Watersheds'
+            };
+
+            self.search.options.territory.push(territories);
+            self.myWatersheds[territory.properties.name] = territories;
+          });
+        }
+
+        if (userResponse.properties.groups.length) {
+          User.groups({
+            id: $rootScope.user.id
+          }).$promise.then(function(groupsResponse) {
+            angular.forEach(groupsResponse.features, function(group) {
+
+              console.log('group', group)
+
+              var fieldName = 'groups',
                   _model;
 
               //
               // Add an additional search filter option
               //
               _model = {
-                name: 'territory__' + fieldName,
-                op: 'has',
+                name: 'groups__name',
+                op: 'any',
                 // val: (self.search.params.territory) ? self.search.params.territory : null
-                val: territory.properties.name
+                val: group.properties.organization.properties.name
               };
 
                 // self.search.model.territory = _model;
 
-              var watershed = {
-                name: territory.properties.name,
-                val: territory.properties.name,
+              var thisGroup = {
+                name: group.properties.organization.properties.name,
+                val: group.properties.organization.properties.name,
                 model: _model,
-                category: 'My Watersheds'
+                category: 'My groups'
               };
 
-              self.search.options.push(watershed);
-              self.myWatersheds[territory.properties.name] = watershed;
+              self.search.options.groups.push(thisGroup);
+              self.myGroups[group.properties.organization.properties.name] = thisGroup;
             });
-
+          });
         }
 
         self.permissions = {

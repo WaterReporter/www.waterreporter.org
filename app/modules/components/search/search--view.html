@@ -23,7 +23,7 @@
       <form class="form search--form" role="form" id="search--form"
             name="search--form" data-ng-submit="page.search.execute()">
         <div class="form--field">
-          <div class="form--element form--element--thirds">
+          <div class="form--element form--element--quarters">
             <label for="report_description" class="control--label">
               Keyword
             </label>
@@ -41,15 +41,31 @@
                </span>
              </p>
           </div>
-          <div class="form--element form--element--thirds">
+          <div class="form--element form--element--quarters">
+            <label for="territory" class="control--label">
+              Watersheds
+            </label>
             <select id="territory" name="territory" class="form--control"
                     data-ng-model="page.search.params.territory"
-                    data-ng-change="page.changeSearchType()"
-                    data-ng-options="option.val as option.name group by option.category for option in page.search.options">
-              <option value="">All Reports</option>
+                    data-ng-change="page.changeTerritorySearchType()"
+                    data-ng-options="option.val as option.name group by option.category for option in page.search.options.territory">
+              <option value="">All watersheds</option>
             </select>
+            <p class="help--text">&nbsp;</p>
           </div>
-          <div class="form--element form--element--thirds">
+          <div class="form--element form--element--quarters">
+            <label for="groups" class="control--label">
+              Groups
+            </label>
+            <select id="groups" name="groups" class="form--control"
+                    data-ng-model="page.search.params.groups"
+                    data-ng-change="page.changeGroupSearchType()"
+                    data-ng-options="option.val as option.name group by option.category for option in page.search.options.groups">
+              <option value="">All groups</option>
+            </select>
+            <p class="help--text">&nbsp;</p>
+          </div>
+          <div class="form--element form--element--quarters">
             <button type="submit" class="button button--info">
               Search
             </button>
