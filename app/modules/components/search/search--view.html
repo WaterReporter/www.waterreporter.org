@@ -41,7 +41,7 @@
                </span>
              </p>
           </div>
-          <div class="form--element form--element--quarters">
+          <div data-ng-if="$root.user.id" class="form--element form--element--quarters">
             <label for="territory" class="control--label">
               Watersheds
             </label>
@@ -53,7 +53,7 @@
             </select>
             <p class="help--text">&nbsp;</p>
           </div>
-          <div class="form--element form--element--quarters">
+          <div data-ng-if="$root.user.id" class="form--element form--element--quarters">
             <label for="groups" class="control--label">
               Groups
             </label>

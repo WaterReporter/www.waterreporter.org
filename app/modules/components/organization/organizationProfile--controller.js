@@ -38,7 +38,6 @@
           self.permissions.isLoggedIn = Account.hasToken();
           self.permissions.isAdmin = Account.hasRole('admin');
           self.permissions.isProfile = false;
-          self.permission.isGroupAdmin = group.isAdmin($rootScope.user, $route.current.params.organizationId);
 
         });
       }
