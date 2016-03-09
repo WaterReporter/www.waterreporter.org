@@ -53,6 +53,9 @@
 }
 
 .throbber.throbber-small {
+
+  margin: 1em auto;
+
   &:after {
     width: 20px;
     height: 20px;

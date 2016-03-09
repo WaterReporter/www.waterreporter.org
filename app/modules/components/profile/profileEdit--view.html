@@ -114,7 +114,8 @@
             <div class="form--group--checkboxes" data-ng-repeat="group in page.promotedGroups.features track by $index">
               <label class="control--label">
                 <input type="checkbox" data-ng-change="page.promotedGroupsSelect(group)"
-                       data-ng-model="group.properties._checked" />
+                       data-ng-model="group.properties._checked"
+                       data-ng-disabled="group.properties._checked" />
                 {{ group.properties.name }}
               </label>
             </div>
@@ -148,7 +149,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr data-ng-repeat="group in page.profile.properties.groups.features track by $index">
+                <tr data-ng-if="page.status.groupsProcessing">
+                  <td colspan="4">
+                    <p class="text-center"><em>Updating groups...</em></p>
+                  </td>
+                </tr>
+                <tr data-ng-if="!page.status.groupsProcessing"
+                    data-ng-repeat="group in page.profile.properties.groups track by $index">
                   <td>
                     <a href="/organizations/{{ group.properties.organization_id }}" title="Visit the {{ group.properties.organization.properties.name }} organization profile">
                       {{ group.properties.organization.properties.name }}
@@ -167,7 +174,8 @@
                     </span>
                   </td>
                   <td>
-                    <a data-ng-click="page.group.leaveGroup($root.user, group.properties.organization_id, page.profile.properties.groups.features)"
+                    <a data-ng-if="group.id"
+                       data-ng-click="page.group.leaveGroup($root.user, group.properties.organization.id, page.profile.properties.groups)"
                        href="javascript:void(0);">
                       leave group
                     </a>

@@ -15,7 +15,9 @@
       self.image = null;
 
       self.group = group;
-      self.promotedGroups = promotedGroups;
+      promotedGroups.$promise.then(function(promotedGroupsResponse) {
+        self.promotedGroups = promotedGroupsResponse;
+      });
 
       self.status = {
         saving: {
@@ -56,10 +58,12 @@
           self.profile.properties.telephone = [{}];
         }
         if (self.profile.properties.organization && self.profile.properties.organization.length === 0) {
-          self.profile.properties.organization = [{}];
+          self.profile.properties.organization = [];
         }
 
-        self.profile.properties.groups = groups;
+        groups.$promise.then(function(groupsSuccessResponse) {
+          self.profile.properties.groups = groupsSuccessResponse.features;
+        });
 
       });
 
@@ -109,7 +113,7 @@
           description: self.profile.properties.description,
           title: self.profile.properties.title,
           organization_name: self.profile.properties.organization_name,
-          groups: self.processGroups(self.profile.properties.groups.features),
+          groups: self.processGroups(self.profile.properties.groups),
           telephone: [{
             number: (self.profile.properties.telephone && self.profile.properties.telephone.length && self.profile.properties.telephone[0].properties !== undefined && self.profile.properties.telephone[0].properties.number !== undefined) ? self.profile.properties.telephone[0].properties.number : null
           }],
@@ -172,22 +176,20 @@
      //
      self.groups = {};
 
-     self.promotedGroupsSelect = function(item) {
-       console.log('add a new group to the profile properties')
-       if(item.properties._checked){
-         self.profile.properties.groups.features.push({
-           properties: {
-             organization_id: item.id,
-             joined_on: new Date(),
-             organization: item
-           }
-         });
+     self.promotedGroupsSelect = function(item, $index) {
 
-       } else {
-         angular.forEach(self.profile.properties.groups.features, function(group, $index) {
-           if (group.id === item.id) {
-             self.profile.properties.groups.features.splice($index, 1);
-           }
+       self.status.groupsProcessing = true;
+
+       if(item.properties._checked){
+         group.joinGroup($rootScope.user, item.id).then(function(response) {
+           User.groups({
+             id: response.id
+           }).$promise.then(function(groupsResponse) {
+             self.profile.properties.groups = groupsResponse.features;
+             self.status.groupsProcessing = false;
+           }, function() {
+             self.status.groupsProcessing = false;
+           });
          });
        }
 
@@ -217,13 +219,7 @@
          // The user must save the profile page in order for the group
          // relationships to take affect.
          //
-         self.profile.properties.groups.features.push({
-           properties: {
-             organization_id: response.id,
-             joined_on: new Date(),
-             organization: response
-           }
-         });
+         group.joinGroup($rootScope.user, item.id);
 
          self.groups = {
            query: null,

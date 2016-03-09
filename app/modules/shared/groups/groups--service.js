@@ -137,7 +137,6 @@
 
           var $promise = userProfile.$update();
 
-
           return $promise;
         },
         /**
@@ -246,30 +245,34 @@
          *
          *
          */
-        leaveGroup: function(user, groupId, groups) {
+        leaveGroup: function(user, organizationId, groups) {
 
-          var group = (user && user.properties) ? this.findGroup(user.properties.groups, groupId) : null;
+          console.log('user', organizationId);
 
-          if (group === null) {
-            return;
-          }
+          var userGroupObject = (user && user.properties) ? this.findGroup(user.properties.groups, organizationId) : null,
+              deleteOrganizationGroupId;
 
           //
           // Remove the user from the UI
           //
           angular.forEach(groups, function(group, $index) {
-            console.log('group', group);
-            if (group.properties.organization_id === groupId) {
+            if (group.properties.organization_id === organizationId) {
+              deleteOrganizationGroupId = group.id;
               groups.splice($index, 1);
             }
           });
 
-          var $promise = UserGroup.remove({
-            id: group.id
-          });
+          console.log('should be removed', userGroupObject, deleteOrganizationGroupId);
 
-          return $promise;
+          if (userGroupObject && userGroupObject.id) {
+            var $promise = UserGroup.remove({
+              id: userGroupObject.id
+            });
 
+            return $promise;
+          }
+
+          return true;
         },
         /**
         * Find Group
@@ -328,6 +331,10 @@
                 organization_id: item.organization_id,
                 joined_on: item.joined_on
               };
+            }
+
+            if (item.id) {
+              group.id = item.id;
             }
 
             _return.push(group);
