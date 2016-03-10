@@ -112,7 +112,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/modules/**/*.js',
           '<%= yeoman.app %>/modules/components/**/*.js',
           '<%= yeoman.app %>/modules/shared/**/*.js',
-          '<%= yeoman.app %>/modules/config/**/*.js'
+          '<%= yeoman.app %>/modules/config/*.js'
         ],
         tasks: ['newer:jshint:all'],
         options: {
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
         '<%= yeoman.app %>/modules/**/*.js',
         '<%= yeoman.app %>/modules/components/**/*.js',
         '<%= yeoman.app %>/modules/shared/**/*.js',
-        '<%= yeoman.app %>/modules/config/**/*.js',
+        '<%= yeoman.app %>/modules/config/*.js',
         'test/spec/modules/**/*.js',
         'test/spec/modules/components/**/*.js',
         'test/spec/modules/shared/**/*.js'
@@ -328,7 +328,7 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/modules/**/*.js',
           '<%= yeoman.dist %>/modules/components/**/*.js',
           '<%= yeoman.dist %>/modules/shared/**/*.js',
-          '<%= yeoman.dist %>/modules/config/**/*.js',
+          '<%= yeoman.dist %>/modules/config/*.js',
           '<%= yeoman.dist %>/scripts/**/*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css'
         ]
@@ -419,6 +419,7 @@ module.exports = function (grunt) {
             '*.html',
             '**/*.html',
             'images/{,*/}*.*',
+            'modules/config/{,*/}*.*',
             '/fonts/{,*/}*.*'
           ]
         }, {
