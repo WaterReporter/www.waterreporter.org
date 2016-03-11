@@ -8,16 +8,13 @@
    * @description
    */
   angular.module('WaterReporter')
-    .controller('ProfileEditController', function (Account, group, groups, Image, $location, promotedGroups, $rootScope, $route, Search, $scope, user, User) {
+    .controller('ProfileEditController', function (Account, group, groups, Image, $location, promotedGroups, $rootScope, $route, Search, $scope, $timeout, user, User) {
 
       var self = this;
 
       self.image = null;
 
       self.group = group;
-      promotedGroups.$promise.then(function(promotedGroupsResponse) {
-        self.promotedGroups = promotedGroupsResponse;
-      });
 
       self.status = {
         saving: {
@@ -63,9 +60,46 @@
 
         groups.$promise.then(function(groupsSuccessResponse) {
           self.profile.properties.groups = groupsSuccessResponse.features;
+
+          promotedGroups.$promise.then(function(promotedGroupsResponse) {
+            self.promotedGroups = promotedGroupsResponse;
+            self.checkPromotedGroupsForMembership(self.profile.properties.groups, self.promotedGroups);
+          });
         });
 
       });
+
+      self.checkPromotedGroupsForMembership = function(userGroups, promotedGroups) {
+
+        angular.forEach(promotedGroups.features, function(pGroup) {
+          var showAsChecked = self.checkGroup(pGroup, userGroups);
+          if (showAsChecked) {
+            pGroup.properties._checked = true;
+          } else {
+            pGroup.properties._checked = false;
+          }
+        });
+
+        // self.promotedGroups = promotedGroups;
+      };
+
+      self.checkGroup = function(promotedGroup, userGroups) {
+        var _return = false;
+
+        angular.forEach(userGroups, function(uGroup) {
+          if (parseInt(uGroup.properties.organization_id) === parseInt(promotedGroup.id)) {
+            _return = true;
+          }
+        });
+
+        return _return;
+      };
+
+      self.leaveGroup = function(organization_id) {
+
+        self.group.leaveGroup($rootScope.user, organization_id, self.profile.properties.groups);
+        self.checkPromotedGroupsForMembership(self.profile.properties.groups, self.promotedGroups);
+      };
 
       self.processGroups = function(list) {
 
