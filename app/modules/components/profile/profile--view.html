@@ -2,8 +2,7 @@
 
 <div id="map--wrapper" class="map--wrapper">
   <div class="throbber" data-ng-if="!page.map.geojson.reports.data.features.length && !page.search.data.features.length"></div>
-    <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
-  </div>
+  <leaflet class="map" markers="page.map.markers" defaults="page.map.defaults" layers="page.map.layers" center="page.map.center" bounds="page.map.bounds"></leaflet>
 </div>
 
 <main class="site--content site--content--activity">
@@ -44,10 +43,14 @@
             <a href="/organizations/{{ profile.id }}" target="">
                <img class="profile--image img-circle"
                     data-ng-src="{{ profile.properties.picture }}"
-                    data-ng-if="profile.properties.picture" />
+                    data-ng-if="profile.properties.picture"
+                    alt="{{ profile.properties.name }}"
+                    title="{{ profile.properties.name  }}" />
                <img class="profile--image profile--empty img-circle"
                     data-ng-src="/images/badget--MissingUser.png"
-                    data-ng-if="!profile.properties.picture" />
+                    data-ng-if="!profile.properties.picture"
+                    alt="{{ profile.properties.name }}"
+                    title="{{ profile.properties.name  }}" />
             </a>
           </li>
         </ul>

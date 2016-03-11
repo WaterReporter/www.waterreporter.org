@@ -68,13 +68,13 @@
         }
       };
 
-      this.search.params = {
+      self.search.params = {
         q: {
           filters: [
             {
-              name: 'owner_id',
-              op: 'eq',
-              val: $route.current.params.userId
+              name: 'groups__id',
+              op: 'any',
+              val: $route.current.params.organizationId
             }
           ],
           order_by: [
