@@ -235,7 +235,7 @@
      //
      $scope.$watch(angular.bind(this, function() {
        return this.groups.response;
-     }), function (response) {
+     }), function (item) {
 
        //
        // Only execute the following block of code if the user has geocoded an
@@ -244,7 +244,7 @@
        //
        // @see https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
        //
-       if (response) {
+       if (item) {
 
          //
          // When the user clicks on a selection from the drop down, we should
@@ -253,7 +253,18 @@
          // The user must save the profile page in order for the group
          // relationships to take affect.
          //
-         group.joinGroup($rootScope.user, item.id);
+         self.status.groupsProcessing = true;
+
+         group.joinGroup($rootScope.user, item.id).then(function(response) {
+           User.groups({
+             id: response.id
+           }).$promise.then(function(groupsResponse) {
+             self.profile.properties.groups = groupsResponse.features;
+             self.status.groupsProcessing = false;
+           }, function() {
+             self.status.groupsProcessing = false;
+           });
+         });
 
          self.groups = {
            query: null,
