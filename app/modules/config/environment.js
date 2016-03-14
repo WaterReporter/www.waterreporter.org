@@ -7,7 +7,7 @@
       name: 'production',
       apiUrl: 'https://api.waterreporter.org/v2',
       siteUrl: 'https://www.waterreporter.org',
-      clientId: 'Ru8hamw7ixuCtsHs23Twf4UB12fyIijdQcLssqpd'
+      clientId: 'SG92Aa2ejWqiYW4kI08r6lhSyKwnK1gDN2xrryku'
     });
 
 }());
