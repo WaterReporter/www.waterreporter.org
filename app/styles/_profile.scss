@@ -17,20 +17,17 @@
 
 .profile {
   float: left;
-  min-height: 1px;
   position: relative;
   width: 100%;
 }
   .profile--avatar {
     float: left;
-    min-height: 1;
     position: relative;
     text-align: center;
     width: 22.306035%;
   }
   .profile--members {
     float: left;
-    min-height: 1;
     position: relative;
     text-align: center;
     width: 22.306035%;
@@ -87,7 +84,6 @@
 
 .profile--bio {
   float: left;
-  min-height: 1;
   position: relative;
   margin-left: 1.25%;
   margin-top: -1em;
@@ -102,7 +98,7 @@
     text-transform: uppercase;
 
     strong {
-      weight: 600;
+      font-weight: 600;
     }
   }
 

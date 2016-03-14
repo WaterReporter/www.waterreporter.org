@@ -32,7 +32,6 @@
   .report.report--single {
     background-color: $color-white-base;
     float: left;
-    min-height: 1;
     position: relative;
     margin-left: 22.306035%;
     max-width: 640px;
@@ -69,7 +68,7 @@
       }
 
     .report--author--avatar {
-      border-radiu: 50%;
+      border-radius: 50%;
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       float: left;
@@ -191,7 +190,7 @@ a.report--action--owner:visited {
       margin: 0 0 0.5em;
 
       .report--list--image {
-        border-radiu: 50%;
+        border-radius: 50%;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
         float: left;
