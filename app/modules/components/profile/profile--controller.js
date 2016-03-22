@@ -151,6 +151,9 @@ angular.module('WaterReporter')
             }
           ]
         }
+      },
+      or = {
+        or: []
       };
 
       angular.forEach(Account.userObject.properties.classifications, function(value) {
@@ -162,7 +165,7 @@ angular.module('WaterReporter')
               val: classification.name
             };
 
-        search_params.q.filters.push(filter);
+        or.or.push(filter);
 
         // We need to dyamically define the model for this since the fieldName
         // is variable
@@ -171,7 +174,7 @@ angular.module('WaterReporter')
         // self.search.params[fieldName] = classification.name;
       });
 
-      search_params.q.disjunction = true;
+      search_params.q.filters.push(or);
 
       if (search_params.q.filters.length) {
         //
