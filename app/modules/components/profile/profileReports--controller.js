@@ -136,7 +136,9 @@ angular.module('WaterReporter')
         },
         page: 1
       },
-      or: [];
+      or: {
+        or: []
+      };
 
       angular.forEach(Account.userObject.properties.classifications, function(value) {
         var classification = value.properties,
@@ -146,7 +148,7 @@ angular.module('WaterReporter')
               op: 'has',
               val: classification.name
             };
-        or.push(filter);
+        or.or.push(filter);
       });
 
       search_params.q.filters.push(or);
