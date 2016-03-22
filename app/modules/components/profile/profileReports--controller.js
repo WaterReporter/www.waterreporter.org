@@ -136,7 +136,7 @@ angular.module('WaterReporter')
         },
         page: 1
       },
-      or: {
+      or = {
         or: []
       };
 
