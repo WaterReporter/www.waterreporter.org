@@ -135,7 +135,8 @@ angular.module('WaterReporter')
           ]
         },
         page: 1
-      };
+      },
+      or: [];
 
       angular.forEach(Account.userObject.properties.classifications, function(value) {
         var classification = value.properties,
@@ -145,11 +146,10 @@ angular.module('WaterReporter')
               op: 'has',
               val: classification.name
             };
-
-        search_params.q.filters.push(filter);
+        or.push(filter);
       });
 
-      search_params.q.disjunction = true;
+      search_params.q.filters.push(or);
 
       self.search.params = search_params;
 
