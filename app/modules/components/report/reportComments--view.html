@@ -28,10 +28,10 @@
         </span>
 
         <span class="report--comment--action">
-          <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="comment.edit =! comment.edit; page.comment.edit =! page.comment.edit">
+          <a data-ng-if="comment.properties.owner.id === $root.user.id" data-ng-click="comment.edit =! comment.edit; page.comment.edit =! page.comment.edit">
             edit
           </a>
-          <a data-ng-if="$root.isAdmin || comment.properties.owner.id === $root.user.id" data-ng-click="page.comment.remove(comment.id)">
+          <a data-ng-if="page.permissions.isAdmin === true || comment.properties.owner.id === $root.user.id" data-ng-click="page.comment.remove(comment.id)">
             delete
           </a>
         </span>
